@@ -1,3 +1,4 @@
 # History
 
 - 2026-07-18: Repo created; plan 0001 (rebuild davevoyles.com as a Hugo static site on GitHub Pages, content recovered from Wayback Machine) grilled, approved via Lavish, and exported to issues #1-#9 on the Agent Work board. No implementation started yet.
+- 2026-07-18: Unflagged 33 of D6's 71 stale-flagged posts per Dave's call ("keep all of these unless the page doesn't render") — those 33 had no broken image references, only dead-tech keywords/age/dead text links, none of which affect rendering. Verified via a real Hugo build+serve (initializing the PaperMod theme submodule, previously skipped) and confirmed the remaining 38 flagged posts reference images on `davevoyles.azurewebsites.net`, a genuinely dead domain (real DNS NXDOMAIN) — left those flagged pending Dave's decision on how to handle the images. Also caught and fixed an accidental `public/`/`.hugo_build.lock` commit from the verification build, adding both to `.gitignore`.
