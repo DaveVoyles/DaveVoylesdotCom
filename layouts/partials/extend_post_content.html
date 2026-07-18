@@ -1,0 +1,22 @@
+{{- /*
+  Related Posts widget (plan 0002 / D4). Overrides PaperMod's
+  extend_post_content.html hook, which single.html calls right after the
+  post body and before the footer -- "bottom of each post" per D4's
+  acceptance criteria.
+
+  Relatedness comes from D3's [related] config (the curated `topics`
+  field, plan 0002 / D1-D2). `with` skips the whole block when the slice
+  is empty, so a post with no related matches renders nothing -- no
+  empty section, per D4's acceptance criteria.
+*/ -}}
+{{- $related := first 5 (.Site.RegularPages.Related .) }}
+{{- with $related }}
+<aside class="related-posts">
+  <h2 class="related-posts-title">Related Posts</h2>
+  <ul class="related-posts-list">
+    {{- range . }}
+    <li class="related-posts-entry"><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    {{- end }}
+  </ul>
+</aside>
+{{- end }}
