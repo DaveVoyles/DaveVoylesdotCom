@@ -1,0 +1,11 @@
+baseURL = 'https://davevoyles.github.io/DaveVoylesdotCom/'
+locale = 'en-us'
+title = 'Dave Voyles'
+theme = 'PaperMod'
+
+[outputs]
+home = ['HTML', 'RSS', 'JSON']
+
+[params]
+author = 'Dave Voyles'
+description = 'Blog by Dave Voyles'
