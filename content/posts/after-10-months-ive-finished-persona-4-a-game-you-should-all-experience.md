@@ -1,7 +1,8 @@
 +++
 title = "After 10 months, I've finished Persona 4 — A game you should all experience."
 date = "2013-08-26T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/08/p4-header.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/08/persona-4-golden-review-1.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/08/persona-4-gold-2.jpg?w=300 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/08/persona-4-gold-2.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
 author = "Dave Voyles"
 categories = ["Journalism"]
 tags = ["Atlus", "Persona 4", "Sony", "Vita"]

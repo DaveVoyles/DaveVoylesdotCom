@@ -1,7 +1,8 @@
 +++
 title = "Boost productivity: Convert YouTube videos to MP3"
 date = "2014-08-10T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Listen-1024x576.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Listen.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.listentoyoutube.com/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 +++

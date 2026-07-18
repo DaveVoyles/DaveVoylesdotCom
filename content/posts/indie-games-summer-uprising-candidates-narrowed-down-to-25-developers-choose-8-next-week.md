@@ -1,7 +1,8 @@
 +++
 title = "Indie Games Summer Uprising candidates narrowed down to 25 – developers choose 8 next week"
 date = "2011-07-08T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XBLIG); 15.0 years old; broken outbound reference(s): link http://www.facebook.com/pages/Indie-Game-Summer-Uprising/191422484238144 (HTTP 400)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["indie games summer uprising", "Resume", "Summer Uprising", "XBLIG"]

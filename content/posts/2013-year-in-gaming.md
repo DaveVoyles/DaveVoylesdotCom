@@ -1,7 +1,8 @@
 +++
 title = "2013 year in gaming"
 date = "2014-01-01T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (SmartGlass); 12.5 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/12/star-wars-rogue-squadron.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/12/wing-commander-4-box-art.jpg?w=788 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/12/wing-commander-4-box-art.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/dark-souls-cover.png?w=788 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/dark-souls-cover.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+8 more)"
 author = "Dave Voyles"
 categories = ["Journalism"]
 +++

@@ -1,7 +1,8 @@
 +++
 title = "Welcome, students of Philadelphia!"
 date = "2014-01-26T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XNA, UDK, UnrealScript); 12.5 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Win-Phone-164x300.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Win-Phone.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://hackathon.haverford.edu/details.html (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Unity-300x165.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Unity.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+9 more)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Philadelphia", "Programming", "Web Dev"]
 tags = ["Philadelphia", "Students"]

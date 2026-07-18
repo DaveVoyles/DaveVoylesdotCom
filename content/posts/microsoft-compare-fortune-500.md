@@ -1,7 +1,8 @@
 +++
 title = "How does Microsoft compare in the Fortune 500?"
 date = "2014-07-24T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (SmartGlass); 12.0 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Fortune-500.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Tech"]

@@ -1,7 +1,8 @@
 +++
 title = "Console wars of 2013: Who will win big?"
 date = "2013-06-11T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XBLIG, XBLA, SmartGlass); 13.1 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/ps4.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbonx-one.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbonx-e3.jpg?w=300 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbonx-e3.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/ps4-remote.jpg?w=300 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+5 more)"
 author = "Dave Voyles"
 categories = ["Journalism", "Uncategorized"]
 tags = ["Consoles", "PS4", "Xbone", "Xbox One"]

@@ -1,7 +1,8 @@
 +++
 title = "The final chapter of my book on UnrealScript Programming was completed today"
 date = "2012-12-21T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XNA, Unreal Development Kit, UDK, UnrealScript); 13.6 years old; broken outbound reference(s): link http://gameware.autodesk.com/scaleform (HTTP 404); link http://www.packtpub.com/ (HTTP 403)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Programming", "UDK", "UnrealScript"]
 tags = ["Postmortem", "Programming", "UnrealScript"]

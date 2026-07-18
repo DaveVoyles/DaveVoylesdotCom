@@ -1,7 +1,8 @@
 +++
 title = "Mega Man 2 Dev Diary: Vol 1"
 date = "2012-01-30T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XBLIG, UDK); 14.5 years old; broken outbound reference(s): link http://www.crazybump.com/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.twitter.com/ScottTykoski (HTTP 520); link http://www.twitter.com/FirebaseIND (HTTP 520)"
 author = "Dave Voyles"
 categories = ["MM2 Dev Diary", "UDK"]
 tags = ["Dev Diary", "Mega Man 2", "UDK"]

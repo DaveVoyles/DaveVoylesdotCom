@@ -1,7 +1,8 @@
 +++
 title = "Unity shmup template (JS and C#)"
 date = "2014-03-15T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Screenshot-15.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link https://github.com/DaveVoyles/Unity-csharp-shmup-template (HTTP 404)"
 author = "Dave Voyles"
 categories = ["C#", "Game Dev", "Javascript / HTML5", "Programming", "Students", "Unity"]
 tags = ["open source", "Shmup", "Unity"]

@@ -1,7 +1,8 @@
 +++
 title = "New UDK vehicle camera tests posted"
 date = "2011-12-28T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (UDK, Unreal Script); 14.6 years old"
 author = "Dave Voyles"
 categories = ["UDK"]
 tags = ["Cameras", "UDK", "Unreal Engine", "Unreal Script"]

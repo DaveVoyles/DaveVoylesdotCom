@@ -1,7 +1,8 @@
 +++
 title = "Former 2d shooter sample, now working as a C++ / DirectX 11 sample"
 date = "2013-11-12T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XNA, Windows 8); 12.7 years old; broken outbound reference(s): link https://twitter.com/NemoKrad (HTTP 404); link https://randomchaosdx11engine.codeplex.com/SourceControl/latest (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-1.gif?resize=700%2C234 (HTTP 400); image https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-1.gif (HTTP 400); image https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-2.gif?resize=618%2C378 (HTTP 400) (+13 more)"
 author = "Dave Voyles"
 categories = ["C++ / DirectX 11", "Game Dev", "Programming", "Windows 8"]
 tags = ["C#", "DirectX 11", "XNA"]

@@ -1,7 +1,8 @@
 +++
 title = "I’ve decided to finally release my game"
 date = "2012-07-13T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XBLIG, XNA); 14.0 years old"
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["Game Development", "XBLIG", "XNA"]

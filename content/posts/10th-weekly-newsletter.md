@@ -1,7 +1,8 @@
 +++
 title = "My 10th weekly newsletter is out!"
 date = "2014-10-17T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): image http://i0.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/07/paperboy_icon.png?resize=200%2C154 (HTTP 400); image http://i0.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/07/paperboy_icon.png (HTTP 400); link http://t.co/9ojao1yIq7 (HTTP 520); link http://t.co/TlSjjVuCDm (HTTP 520); link http://www.bothsidesofthetable.com/2014/10/07/what-is-the-definition-of-a-seed-round-or-an-a-round/ (HTTP 404) (+4 more)"
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Game Dev", "HTML5", "Startups", "Venture Capital"]

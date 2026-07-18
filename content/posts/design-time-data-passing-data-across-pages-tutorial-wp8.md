@@ -1,7 +1,8 @@
 +++
 title = "[Tutorial] Design Time Data + Passing Data Across Pages  (WP8)"
 date = "2013-02-08T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows Phone 8, WP8, Windows Phone, Windows 8, Win8); 13.4 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-2.png?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-2.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
 author = "Dave Voyles"
 categories = ["C#", "Game Dev", "Programming", "Windows 8", "Windows Phone 8"]
 tags = ["C#", "Programming", "Win8", "Windows 8", "Windows Phone 8", "XAML"]

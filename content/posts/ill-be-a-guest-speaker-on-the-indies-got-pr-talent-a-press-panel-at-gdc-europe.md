@@ -1,7 +1,8 @@
 +++
 title = "I'll be a guest speaker on the Indie's Got PR Talent – A Press Panel at GDC Europe"
 date = "2011-08-14T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): link http://schedule.gdceurope.com/session/5835/Indie%27s_Got_PR_Talent_-_A_Press_Panel (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://twitter.com/#%21/RaveofRavendale (HTTP 520); link http://twitter.com/#%21/ferricide (HTTP 520); link http://twitter.com/#%21/keefstuart (HTTP 520)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["GDC", "GDC Europe", "Journalism", "Resume"]

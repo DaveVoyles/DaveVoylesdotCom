@@ -1,7 +1,8 @@
 +++
 title = "Unite 2014 keynote recap"
 date = "2014-08-22T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unite-2014.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://blogs.msdn.com/b/jaimer/ (HTTP 404)"
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Game Dev", "Programming", "Unity"]

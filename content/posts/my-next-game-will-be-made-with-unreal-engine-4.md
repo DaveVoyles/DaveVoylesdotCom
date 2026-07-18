@@ -1,7 +1,8 @@
 +++
 title = "My next game will be made with Unreal Engine 4"
 date = "2013-11-15T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (UDK, UnrealScript); 12.7 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/ue4fullcoloronblackbackground.jpg?w=788 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/ue4fullcoloronblackbackground.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://forums.epicgames.com/threads/977334-I-got-UNREAL-ENGINE-4!!?p=31711326&viewfull=1#post31711326 (HTTP 530); link http://forums.epicgames.com/threads/910391-Unrealscript-will-be-removed-from-UE4 (HTTP 530)"
 author = "Dave Voyles"
 categories = ["C++ / DirectX 11", "Game Dev", "Programming"]
 +++

@@ -1,7 +1,8 @@
 +++
 title = "Some books at the top of my list"
 date = "2014-01-19T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/malcolm-x-book-cover.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/trump-the-way-to-the-top-book-cover.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/power-talk-book-cover.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/the_7_habits_of_highly_effective_people-book-cover.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
 author = "Dave Voyles"
 categories = ["Books"]
 +++

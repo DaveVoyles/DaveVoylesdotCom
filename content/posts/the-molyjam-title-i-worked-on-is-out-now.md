@@ -1,7 +1,8 @@
 +++
 title = "The Molyjam title I worked on is out now!"
 date = "2012-04-02T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): link http://www.whatwouldmolydeux.com/index.php (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.whatwouldmolydeux.com/display.php?GameID=115 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
 author = "Dave Voyles"
 categories = ["C#", "Game Dev"]
 tags = ["Game jam"]

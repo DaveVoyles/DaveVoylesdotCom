@@ -1,7 +1,8 @@
 +++
 title = "Philadelphia Unity Game Dev Meetup"
 date = "2014-07-19T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows Phone, Windows 8, BizSpark); 12.0 years old; broken outbound reference(s): image https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Unity.jpg?resize=500%2C275 (HTTP 400); image https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Unity.jpg (HTTP 400); link http://wootstudio.ca/startups/bizspark.aspx (connection error: <urlopen error timed out>)"
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Game Development", "Unity"]

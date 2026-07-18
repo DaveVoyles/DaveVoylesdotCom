@@ -1,7 +1,8 @@
 +++
 title = "New level layouts for UDK project"
 date = "2011-06-23T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (UDK); 15.1 years old"
 author = "Dave Voyles"
 categories = ["Game Dev", "UDK"]
 tags = ["UDK", "Unreal Engine"]

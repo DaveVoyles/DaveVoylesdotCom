@@ -177,3 +177,58 @@ Same pattern as the other two scripts: candidate HTML pages fill in over time
 as D3's `--html-only` recovery continues, and `content/posts/` in this repo
 may not yet reflect the full recovered set. Run `hugo build` after any
 re-run to confirm the full current content set still builds cleanly.
+
+## triage_stale_content.py
+
+Scans `content/posts/*.md` (D5's output) for likely-stale signals and marks
+flagged posts `draft = true` with a `stale_reason` recorded right in the
+front matter, so the reason travels with the post for
+[D8](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/8)'s manual
+review pass. Pure stdlib -- no venv required.
+
+### Usage
+
+```bash
+python3 scripts/triage_stale_content.py [--dry-run] [--limit N] \
+    [--skip-link-check] [--link-limit N]
+```
+
+- `--dry-run` — evaluate and report, but don't write changes to files.
+- `--limit N` — process only the first N posts (for testing).
+- `--skip-link-check` — skip live outbound-link checking (treat as no broken
+  links found). Useful for fast/offline runs.
+- `--link-limit N` — cap the number of unique external URLs checked.
+
+### What It Does
+
+1. **Dead-tech keywords** — matches a seeded list of EOL/deprecated
+   technology this blog covers (XBLIG, XNA, UDK, UnrealScript, Windows
+   Phone, Windows 8, SmartGlass, BizSpark, Silverlight, classic Azure
+   Portal, ...) against each post's title, categories, tags, and body text.
+2. **Age heuristic** — a post's date alone is a weak signal (game-dev/tech
+   posts age at different rates), so it's only used combined with a
+   keyword hit (posts older than `AGE_THRESHOLD_YEARS`), never as a
+   standalone cutoff.
+3. **Broken outbound links** — extracts every external (non-davevoyles.com)
+   URL referenced in a post's body, including image references D5 couldn't
+   resolve to a local `static/images/` path (hosted on legacy domains like
+   `davevoyles.azurewebsites.net`), deduplicates across the whole corpus,
+   and checks each once with the same retry/backoff shape as
+   `recover_wayback_content.py`'s `download_with_retry`, rate-limited to be
+   a good citizen of third-party servers. A post with any broken reference
+   is flagged regardless of age.
+4. **Flags** by rewriting `draft = false` -> `draft = true` and inserting a
+   `stale_reason = "..."` line in the front matter. Posts already
+   `draft = true` (a prior D6 run, or a manual D8 override) are left
+   untouched — re-running never fights a human decision.
+5. **Logs** a summary to stdout: evaluated/flagged/unflagged counts, each
+   flagged post with its reason, and how many external URLs were checked
+   and found broken.
+
+### Known gap (documented, not fixed here)
+
+D5's HTML->Markdown classifier only handles the blog's `expound` WordPress
+theme. Posts captured under an older theme (`enigma-premium`) were silently
+excluded from `content/posts/` entirely, so this triage pass — like D5 —
+only sees what already got converted and can't flag or count anything from
+that gap.

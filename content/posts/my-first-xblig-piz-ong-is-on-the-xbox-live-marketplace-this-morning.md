@@ -1,7 +1,8 @@
 +++
 title = "My first XBLIG, Piz-ong, is on the Xbox Live Marketplace this morning!"
 date = "2012-10-22T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XBLIG, XNA); 13.7 years old; broken outbound reference(s): link http://www.twitter.com/jameszilla (HTTP 520)"
 author = "Dave Voyles"
 categories = ["C#", "Game Dev", "XNA / XBLIG"]
 tags = ["C#", "XBLIG", "XNA"]

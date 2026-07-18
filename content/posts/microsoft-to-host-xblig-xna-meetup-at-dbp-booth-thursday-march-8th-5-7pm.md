@@ -1,7 +1,8 @@
 +++
 title = "Microsoft to host XBLIG / XNA meetup at DBP booth, Thursday March 8th, 5-7pm"
 date = "2012-02-13T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XBLIG, XNA); 14.4 years old; broken outbound reference(s): image http://www.thebuzzmedia.com/wp-content/uploads/2008/11/xbox-live-xna-community-games.jpg (HTTP 404)"
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["XBLIG", "XNA"]

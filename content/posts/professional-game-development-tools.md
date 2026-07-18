@@ -1,7 +1,8 @@
 +++
 title = "Professional Game Development Tools"
 date = "2014-03-21T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XBLIG, XNA, Unreal Development Kit, UDK, UnrealScript, Windows Phone 8, Windows Phone, Windows 8, Win8); 12.3 years old; broken outbound reference(s): link https://visualstudiogallery.msdn.microsoft.com/ (connection error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1082)>); link https://visualstudiogallery.msdn.microsoft.com/20b80b8c-659b-45ef-96c1-437828fe7cf2 (connection error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1082)>); link http://www.microsoftvirtualacademy.com/training-courses/what-s-new-in-visual-studio-2013-jump-start (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.microsoftvirtualacademy.com/training-courses/cross-platform-development-with-visual-studio (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link https://unity3d.com/unity/personal-edition (HTTP 404) (+47 more)"
 author = "Dave Voyles"
 categories = ["Game Dev", "MonoGame", "Programming", "Students", "UDK", "Unity", "Unreal Engine", "Visual Studio", "WebGL", "Windows 10", "Windows 8", "Windows Phone 8", "Xbox", "XNA / XBLIG"]
 tags = ["babylonJS", "Game Dev", "Game Development", "Programming", "Unreal Engine", "WebGL", "Windows 10"]

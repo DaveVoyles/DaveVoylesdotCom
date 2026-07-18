@@ -1,7 +1,8 @@
 +++
 title = "prime[31] Azure plugin for Win8 Unity games (Part 3)"
 date = "2014-08-26T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows Phone 8, WP8, Windows Phone, Windows 8, Win8, Azure Portal); 11.9 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://davevoyles.azurewebsites.net/prime31-azure-plugin-win8-wp8-unity-games-part-2/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-Tutorial-TEst.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-Tutorial-TEst-Debug-1024x287.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-Tutorial-TEst-Debug.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+2 more)"
 author = "Dave Voyles"
 categories = ["C#", "Game Dev", "Mobile", "Programming", "Unity", "Windows 8", "Windows Phone 8"]
 tags = ["C#", "Game Dev", "Programming", "Windows 8", "Windows Phone 8"]

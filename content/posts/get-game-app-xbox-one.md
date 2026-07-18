@@ -1,7 +1,8 @@
 +++
 title = "How do I get my game on Xbox One?"
 date = "2014-02-07T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XBLA, XNA, Windows Phone, Windows 8, Win8, SmartGlass, BizSpark); 12.4 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/02/XboxOne_Console_Sensor_Controller_F_GreenBG_RGB-1024x731.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/02/XboxOne_Console_Sensor_Controller_F_GreenBG_RGB.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.havok.com/news-and-press/releases/havok%E2%84%A2-announces-support-xbox-one-suite-award-winning-middleware (connection error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1082)>); link http://epicgames.com/news/epic-games-releases-unreal-engine-4-for-all/ (HTTP 403); link http://apps.microsoft.com/windows/en-gb/app/candies-vs-hypnodeer/3e44a4cb-51dc-4cad-94f3-ab9e70f8d3cd (HTTP 403) (+4 more)"
 author = "Dave Voyles"
 categories = ["C++ / DirectX 11", "Game Dev", "Javascript / HTML5", "Programming", "Unreal Engine", "Windows 8"]
 tags = ["Game Dev", "MonoGame", "Programming", "Unity", "Unreal Engine", "UWP", "Windows 10", "Windows 8", "Xbox One"]

@@ -1,7 +1,8 @@
 +++
 title = "Adding touch controls for Windows 8"
 date = "2013-05-09T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows 8, Win8); 13.2 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/win8-emulator-1.jpg?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/playing-super-rawr-type-on-touch.jpg?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/playing-super-rawr-type-on-touch.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.twitter.com/jessefreeman (HTTP 520); link http://jessefreeman.com/game-dev/the-6-minute-impact-starter-kit-for-windows-8-web/ (HTTP 404) (+6 more)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Windows 8"]
 +++
