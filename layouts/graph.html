@@ -35,13 +35,20 @@
         }
         const graphData = await response.json();
 
-        // Resolve CSS custom properties to actual color values
+        // Resolve CSS custom properties to actual color values. Reads
+        // getComputedStyle rather than assuming a media query or attribute
+        // selector, so it works regardless of which mechanism set the
+        // current theme (system preference or this site's own toggle).
         const root = document.documentElement;
-        const computedStyle = getComputedStyle(root);
-
-        const accentColor = computedStyle.getPropertyValue('--accent').trim();
-        const themeColor = computedStyle.getPropertyValue('--theme').trim();
-        const borderColor = computedStyle.getPropertyValue('--border').trim();
+        const readColors = () => {
+            const computedStyle = getComputedStyle(root);
+            return {
+                accent: computedStyle.getPropertyValue('--accent').trim(),
+                theme: computedStyle.getPropertyValue('--theme').trim(),
+                border: computedStyle.getPropertyValue('--border').trim(),
+            };
+        };
+        let colors = readColors();
 
         // Initialize the force-graph
         const Graph = ForceGraph()
@@ -55,9 +62,9 @@
             .onNodeClick(node => {
                 window.location.href = node.permalink;
             })
-            .nodeColor(() => accentColor)
-            .backgroundColor(themeColor)
-            .linkColor(() => borderColor)
+            .nodeColor(() => colors.accent)
+            .backgroundColor(colors.theme)
+            .linkColor(() => colors.border)
             .width(document.getElementById('graph-container').offsetWidth)
             .height(document.getElementById('graph-container').offsetHeight)
             .nodeRelSize(4.5);
@@ -71,6 +78,20 @@
                     .height(container.offsetHeight);
             }
         });
+
+        // This site's theme toggle (#theme-toggle) flips a `data-theme`
+        // attribute on <html> instantly, no reload -- but the canvas colors
+        // above were only resolved once at load, so without this the graph
+        // would visibly go stale (wrong-theme colors) the moment a reader
+        // toggles dark/light while on this page. Re-resolve and reapply on
+        // every attribute change.
+        new MutationObserver(() => {
+            colors = readColors();
+            Graph
+                .nodeColor(() => colors.accent)
+                .backgroundColor(colors.theme)
+                .linkColor(() => colors.border);
+        }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
     } catch (error) {
         console.error('Error initializing graph:', error);
     }
