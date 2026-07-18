@@ -253,9 +253,9 @@ python3 scripts/topics_mapping.py [--dry-run] [--limit N]
 ### What It Does
 
 1. **Looks up** each tag/category value (case-insensitive) against the
-   curated bucket list (`Gaming`, `Tech`, `AI / Agents`,
-   `Public Speaking / Presentations`, `Career / Students`,
-   `Journalism / Marketing / PR`) and assigns every matched topic, in
+   curated bucket list (`Gaming`, `Tech`, `AI and Agents`,
+   `Public Speaking and Presentations`, `Career and Students`,
+   `Journalism, Marketing and PR`) and assigns every matched topic, in
    canonical bucket order, deduplicated.
 2. **Never guesses**: a post where no tag/category value has an entry in
    the lookup table is left untouched and printed in a distinct
@@ -270,7 +270,7 @@ python3 scripts/topics_mapping.py [--dry-run] [--limit N]
 
 ### Known gap (documented, not fixed here)
 
-Two reserved buckets (`AI / Agents`, `Public Speaking / Presentations`)
+Two reserved buckets (`AI and Agents`, `Public Speaking and Presentations`)
 have no matching tag/category values in the current recovered corpus —
 this blog predates both as topics, so they're expected to stay empty
 until new posts naturally carry those tags, not a mapping gap.

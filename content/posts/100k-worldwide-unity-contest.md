@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Unity"]
 tags = ["Promotions", "Unity"]
-topics = ["Gaming", "Journalism / Marketing / PR"]
+topics = ["Gaming", "Journalism, Marketing and PR"]
 +++
 
 

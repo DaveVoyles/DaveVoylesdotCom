@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Journalism", "Uncategorized"]
 tags = ["Consoles", "PS4", "Xbone", "Xbox One"]
-topics = ["Gaming", "Journalism / Marketing / PR"]
+topics = ["Gaming", "Journalism, Marketing and PR"]
 +++
 
 

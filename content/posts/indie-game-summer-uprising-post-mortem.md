@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["igsu", "Indie Games", "Resume", "Summer Uprising", "XBLIG", "XNA"]
-topics = ["Gaming", "Career / Students"]
+topics = ["Gaming", "Career and Students"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2011/07/summeruprising_pressreleasebanner7_5x2.png "SummerUprising_PressReleaseBanner7_5x2")](http://davidvoyles.files.wordpress.com/2011/07/summeruprising_pressreleasebanner7_5x2.png)

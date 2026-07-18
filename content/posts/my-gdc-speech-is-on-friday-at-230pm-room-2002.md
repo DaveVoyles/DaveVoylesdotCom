@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["GDC", "igsu"]
-topics = ["Gaming", "Journalism / Marketing / PR"]
+topics = ["Gaming", "Journalism, Marketing and PR"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2012/02/gdc12_speaking_arrangement.jpg "GDC12_Speaking_Arrangement")](http://davidvoyles.wordpress.com/2012/02/03/my-gdc-speech-is-on-friday-at-230pm-room-2002/)

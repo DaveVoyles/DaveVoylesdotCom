@@ -31,17 +31,17 @@ CONTENT_DIR = Path("content/posts")
 # display/assignment order -- a post matching multiple buckets gets its
 # `topics` array written in this order, not tag-encounter order, so output
 # is deterministic regardless of how a post's tags/categories are ordered.
-# "AI / Agents" and "Public Speaking / Presentations" are reserved buckets
+# "AI and Agents" and "Public Speaking and Presentations" are reserved buckets
 # with no current tag/category signal in the recovered corpus (this blog
 # predates both as topics) -- expected to stay empty until new posts land,
 # not a mapping gap.
 TOPICS = [
     "Gaming",
     "Tech",
-    "AI / Agents",
-    "Public Speaking / Presentations",
-    "Career / Students",
-    "Journalism / Marketing / PR",
+    "AI and Agents",
+    "Public Speaking and Presentations",
+    "Career and Students",
+    "Journalism, Marketing and PR",
 ]
 
 # Reviewable lookup table: each existing tag/category *value* (case-
@@ -74,10 +74,10 @@ _TOPIC_VALUES = {
         "Cordova", "Microsoft", "open source", "Cameras", "Productivity",
         "Tutorial",
     ],
-    "Career / Students": [
+    "Career and Students": [
         "Students", "Resume", "BizSpark", "Startups", "Venture Capital",
     ],
-    "Journalism / Marketing / PR": [
+    "Journalism, Marketing and PR": [
         "Journalism", "Marketing", "PR", "Marketing / PR",
         "Armless Octopus", "Features", "Recommendations", "Year in Review",
         "podcast", "Promotions",

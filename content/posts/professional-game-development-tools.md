@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "MonoGame", "Programming", "Students", "UDK", "Unity", "Unreal Engine", "Visual Studio", "WebGL", "Windows 10", "Windows 8", "Windows Phone 8", "Xbox", "XNA / XBLIG"]
 tags = ["babylonJS", "Game Dev", "Game Development", "Programming", "Unreal Engine", "WebGL", "Windows 10"]
-topics = ["Gaming", "Tech", "Career / Students"]
+topics = ["Gaming", "Tech", "Career and Students"]
 +++
 
 This post is part of 3 week series giving current and aspiring game devs the tools, resources, and advice they need to get started building for Windows. We also have a great video course on [game production basics](http://Game Production Basics) at Microsoft Virtual Academy.

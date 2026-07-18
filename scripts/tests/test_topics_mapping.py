@@ -76,7 +76,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Journalism"]
 tags = ["XBLIG"]
-topics = ["Career / Students"]
+topics = ["Career and Students"]
 +++
 
 A post a human already hand-assigned to a topic that the lookup table
@@ -142,16 +142,16 @@ class MapPostTopicsTests(unittest.TestCase):
             tags=["Armless Octopus", "GDC", "XBLIG", "XNA"],
             categories=["Journalism"],
         )
-        # Armless Octopus -> Journalism / Marketing / PR, GDC/XBLIG/XNA -> Gaming
-        self.assertEqual(topics, ["Gaming", "Journalism / Marketing / PR"])
+        # Armless Octopus -> Journalism, Marketing and PR, GDC/XBLIG/XNA -> Gaming
+        self.assertEqual(topics, ["Gaming", "Journalism, Marketing and PR"])
 
     def test_multiple_topics_deduped_and_canonical_order(self):
         topics = t.map_post_topics(
             tags=["Azure", "BizSpark", "Programming", "Students", "Tutorial"],
             categories=["Azure", "BizSpark", "Programming", "Students", "Tutorial"],
         )
-        # Programming/Azure/Tutorial -> Tech, Students/BizSpark -> Career / Students
-        self.assertEqual(topics, ["Tech", "Career / Students"])
+        # Programming/Azure/Tutorial -> Tech, Students/BizSpark -> Career and Students
+        self.assertEqual(topics, ["Tech", "Career and Students"])
 
     def test_case_insensitive_matching(self):
         topics = t.map_post_topics(tags=["gaming"], categories=[])
@@ -174,8 +174,8 @@ class ApplyTopicsFieldTests(unittest.TestCase):
             path.write_text(FIXTURE_GAMING, encoding="utf-8")
             text, fm, fm_start, fm_end = t.load_front_matter(path)
 
-        new_text = t.apply_topics_field(text, fm, fm_start, fm_end, ["Gaming", "Journalism / Marketing / PR"])
-        self.assertIn('topics = ["Gaming", "Journalism / Marketing / PR"]', new_text)
+        new_text = t.apply_topics_field(text, fm, fm_start, fm_end, ["Gaming", "Journalism, Marketing and PR"])
+        self.assertIn('topics = ["Gaming", "Journalism, Marketing and PR"]', new_text)
         # Existing fields untouched.
         self.assertIn('tags = ["Armless Octopus", "GDC", "XBLIG", "XNA"]', new_text)
         self.assertIn('categories = ["Journalism"]', new_text)
@@ -224,7 +224,7 @@ class MainDrivenEndToEndTests(unittest.TestCase):
             sys.argv = sys_argv_backup
 
         gaming_text = (self.content_dir / "gaming.md").read_text(encoding="utf-8")
-        self.assertIn('topics = ["Gaming", "Journalism / Marketing / PR"]', gaming_text)
+        self.assertIn('topics = ["Gaming", "Journalism, Marketing and PR"]', gaming_text)
 
         unmapped_text = (self.content_dir / "unmapped.md").read_text(encoding="utf-8")
         self.assertNotIn("topics =", unmapped_text)
@@ -233,7 +233,7 @@ class MainDrivenEndToEndTests(unittest.TestCase):
         # field is left completely untouched, even though the lookup table
         # would have picked a different bucket for its tags.
         already_text = (self.content_dir / "already.md").read_text(encoding="utf-8")
-        self.assertIn('topics = ["Career / Students"]', already_text)
+        self.assertIn('topics = ["Career and Students"]', already_text)
         self.assertEqual(already_text.count("topics ="), 1)
 
     def test_rerun_is_idempotent(self):
