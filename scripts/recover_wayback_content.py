@@ -399,6 +399,8 @@ def main():
     # an unbounded ~3000-file run with no warning.
     limit = None
     dry_run = False
+    images_only = False
+    html_only = False
 
     args = sys.argv[1:]
     i = 0
@@ -406,6 +408,12 @@ def main():
         arg = args[i]
         if arg == "--dry-run":
             dry_run = True
+            i += 1
+        elif arg == "--images-only":
+            images_only = True
+            i += 1
+        elif arg == "--html-only":
+            html_only = True
             i += 1
         elif arg == "--limit":
             if i + 1 >= len(args):
@@ -429,20 +437,35 @@ def main():
             print(__doc__)
             sys.exit(1)
 
+    if images_only and html_only:
+        print("[!] --images-only and --html-only are mutually exclusive")
+        sys.exit(1)
+
     print(f"Wayback Machine Content Recovery Script")
     print(f"Target: {TARGET_DOMAIN}")
     if limit:
         print(f"Limit: {limit} items per category")
     if dry_run:
         print(f"Mode: DRY RUN")
+    if images_only:
+        print(f"Mode: IMAGES ONLY (skipping HTML downloads)")
+    if html_only:
+        print(f"Mode: HTML ONLY (skipping image downloads)")
     print()
 
-    # Query CDX
+    # Query CDX -- counts/baseline comparison always run on the full set regardless
+    # of --images-only/--html-only; only the download step is scoped down, so a
+    # consumer that only needs one category (e.g. D4 needing images, not D3's own
+    # HTML pages) isn't stuck waiting behind an unrelated ~5,500-page download queue.
     cdx_data = get_cdx_data()
     html_pages, images = parse_cdx_data(cdx_data)
 
     # Download
-    html_dl, html_skip, img_dl, img_skip = download_items(html_pages, images, limit=limit, dry_run=dry_run)
+    html_dl, html_skip, img_dl, img_skip = download_items(
+        {} if images_only else html_pages,
+        {} if html_only else images,
+        limit=limit, dry_run=dry_run,
+    )
 
     # Print summary; exit non-zero if recovered counts fall outside the expected
     # baseline range, so a regression is catchable via $? and not just scrollback.

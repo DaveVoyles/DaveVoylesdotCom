@@ -16,6 +16,11 @@ python3 scripts/recover_wayback_content.py [--limit N] [--dry-run]
 
 - `--limit N` — Cap downloads to N HTML pages and N images. Useful for testing/verification. Default: no limit (downloads all).
 - `--dry-run` — Query the CDX API and report counts, but skip actual file downloads.
+- `--images-only` / `--html-only` — Download only one category. CDX counts/baseline
+  comparison always run on the full set regardless; only the download step is
+  scoped down. Useful when a downstream consumer only needs one category (e.g.
+  D4's image pipeline doesn't need the ~5,500 HTML pages) and shouldn't be stuck
+  waiting behind an unrelated download queue.
 
 ### Examples
 
@@ -67,3 +72,48 @@ The script prints:
 ### Staging Directory
 
 Downloaded files are placed in `content-recovery/staging/` which is **not committed to git** (see `.gitignore`). These are intermediate artifacts for the next pipeline step (D4 image processing, D5 HTML→Markdown conversion).
+
+## process_images.py
+
+Resizes/compresses images from `content-recovery/staging/images/` (D3's output)
+and places them under `static/images/` — Hugo's static assets, committed
+directly to the repo per [ADR 0002](../docs/decisions/0002-images-committed-to-repo.md)
+(no LFS, no hotlinking).
+
+### Setup (one-time)
+
+Requires Pillow, which is intentionally NOT installed into the system/Homebrew
+Python (that's reserved stdlib-only per `recover_wayback_content.py`'s
+convention) — use a dedicated venv instead:
+
+```bash
+python3 -m venv scripts/.venv
+scripts/.venv/bin/pip install Pillow
+```
+
+### Usage
+
+```bash
+scripts/.venv/bin/python3 scripts/process_images.py [--limit N] [--dry-run]
+```
+
+### What It Does
+
+1. Resizes each image so its longest edge is at most 1600px (never upscales —
+   images already smaller than that are left alone)
+2. Compresses: JPEG at quality 82 (optimized, progressive), PNG with
+   optimization, animated GIFs frame-by-frame (preserving duration/loop)
+3. SVG and other non-rasterizable files D3's broad `image/*` CDX filter picked
+   up (icon-font SVGs, etc.) are copied through unchanged — Pillow can't
+   process vector formats, and they're typically tiny already
+4. Skips files already processed (idempotent/resumable, same as D3's script)
+5. Logs before/after total size and a reduction percentage
+
+### Note on completeness
+
+`content-recovery/staging/images/` fills in over time as D3's recovery script
+(run with `--images-only`) continues downloading — re-running
+`process_images.py` picks up newly-arrived images and skips ones already
+processed. `static/images/` in this repo may not yet contain the full
+recovered set; each run's summary output states exactly how many were found
+vs. processed vs. already done.
