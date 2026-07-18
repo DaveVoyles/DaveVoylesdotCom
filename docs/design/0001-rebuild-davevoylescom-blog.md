@@ -123,4 +123,16 @@ All deliverables are XS/S/M — build-ready, no further decomposition required.
 
 ## Execution Tracking
 
-_Filled in by the `plan-to-issues` hand-off._
+- Issues: https://github.com/DaveVoyles/DaveVoylesdotCom/issues?q=is%3Aissue+state%3Aopen+label%3Aplan%3A0001
+- Board: https://github.com/users/DaveVoyles/projects/2 (standing "Agent Work" board, filtered by `plan:0001`)
+
+All 9 deliverables (D1-D9) exported as issues #1-#9, native GitHub blocking
+relationships wired per the dependency column above, and seeded onto the
+board's Todo column. D1 (#1) and D3 (#2) are the frontier — open, unblocked,
+unassigned, ready to claim.
+
+**Note:** this repo is brand new — no GitHub App auto-approval infrastructure
+(the `davevoyles-mac-automation` App, branch protection, harness-lock
+settings) is installed here yet. The first PR against this repo will need
+that set up (or a manual review/merge) before the usual auto-approve floor
+applies.
