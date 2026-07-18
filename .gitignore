@@ -3,3 +3,4 @@
 content-recovery/staging/
 __pycache__/
 *.pyc
+scripts/.venv/
