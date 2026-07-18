@@ -1,0 +1,8 @@
+# Learnings
+
+## 2026-07-18 — Repo bootstrap + plan 0001 export
+
+- The old local "Wordpress Backup" folder on the NAS (`/Volumes/Misc/Wordpress Backup/Dave Voyles Wordpress`) contains **no actual blog content** — only Azure deployment plumbing (a `.PublishSettings` file with a live-looking FTP/MSDeploy credential, and an ARM template zip). Don't treat it as a content source; the Wayback Machine is the real recovery source (verified good coverage: 19,179 captures, ~300-450 recoverable posts, 2,727 images).
+- `davevoyles.com` is still owned (Namecheap, active, expires 2027-03-07) and has **live email forwarding configured** (MX + SPF TXT records) that any future DNS change (D2) must not break — confirmed via `dig`, not assumed. This surfaced only because DNS was actually checked rather than assumed parked/empty.
+- This repo was bootstrapped with two **direct commits to `main`** (initial docs + Execution Tracking update) rather than the normal worktree → PR → App-approval floor, because the repo had zero prior history/remote and no App-approval infrastructure exists here yet. That infrastructure (the `davevoyles-mac-automation` GitHub App, branch protection) is **not yet installed on this repo** — the first real implementation PR (against issue #1 or #2) will need it set up first, or a manual review/merge.
+- Plan 0001's deliverable table has two M-sized items (D3, D5), which forfeited the Lavish-preview waiver in `plan-to-issues` and required a full Lavish review — but issue export itself still qualified for `plan-to-issues`'s own waiver (issues mapped 1:1 to the already-approved deliverable table), so no second Lavish round was needed there.
