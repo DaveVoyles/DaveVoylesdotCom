@@ -48,5 +48,5 @@ None. All changes are additive (a new JSON output format, a new page/template, a
 
 ## Execution Tracking
 
-- Issues: (added by `plan-to-issues`)
-- Board: https://github.com/users/DaveVoyles/projects/2 (Agent Work)
+- Issues: https://github.com/DaveVoyles/DaveVoylesdotCom/issues?q=is%3Aissue+state%3Aopen+label%3Aplan%3A0003
+- Board: https://github.com/users/DaveVoyles/projects/2 (Agent Work — all 4 issues seeded to Todo)
