@@ -43,7 +43,13 @@
 .post-meta,
 .entry-footer,
 .terms-tags a,
-.breadcrumbs {
+.breadcrumbs,
+.page-header h1,
+.archive-year-header,
+.archive-month-header,
+.archive-entry-title,
+.archive-meta,
+.searchResults li {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
 }
 
@@ -75,12 +81,21 @@
 }
 
 /* Post-list cards get a left rule that lights up on hover, echoing a
-   directory-listing / prompt-line feel. */
-.post-entry {
+   directory-listing / prompt-line feel. Applied to post-list entries,
+   Archives rows, and Search results alike so all three list-style pages
+   feel consistent. */
+.post-entry,
+.archive-entry {
   border-left: 2px solid transparent;
 }
 
 .post-entry:hover,
-.post-entry:focus-within {
+.post-entry:focus-within,
+.archive-entry:hover {
   border-left-color: var(--accent);
+}
+
+.searchResults li:hover,
+.searchResults li:focus-within {
+  border-color: var(--accent);
 }
