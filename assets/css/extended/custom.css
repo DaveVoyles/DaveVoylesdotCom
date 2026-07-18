@@ -67,10 +67,6 @@
   text-decoration-color: var(--accent);
 }
 
-.post-meta a {
-  color: var(--secondary);
-}
-
 /* Tag pills: on the accent instead of a neutral grey block. */
 .terms-tags a {
   background: var(--tertiary);
