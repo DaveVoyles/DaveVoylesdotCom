@@ -48,3 +48,17 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Smoke test deployed site
+        run: |
+          for i in 1 2 3 4 5; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "${{ steps.deployment.outputs.page_url }}")
+            if [ "$code" = "200" ]; then
+              echo "Site responded 200 OK"
+              exit 0
+            fi
+            echo "Attempt $i: got HTTP $code, retrying in 10s..."
+            sleep 10
+          done
+          echo "Site did not return 200 after deploy" >&2
+          exit 1
