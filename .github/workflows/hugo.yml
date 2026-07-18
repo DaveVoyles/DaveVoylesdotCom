@@ -57,19 +57,20 @@ jobs:
           check_path() {
             local path="$1"
             local url="${base}${path}"
+            local tag="[${path}]"
             for i in 1 2 3 4 5; do
               # `|| echo 000` keeps a connection-level curl failure (DNS not
               # yet resolvable, connection refused) from tripping the job's
               # `set -e` and aborting this path's retry loop early.
               code=$(curl -s -o /dev/null -w '%{http_code}' "$url" || echo 000)
               if [ "$code" = "200" ]; then
-                echo "$url responded 200 OK"
+                echo "$tag $url responded 200 OK"
                 return 0
               fi
-              echo "$url attempt $i: got HTTP $code, retrying in 10s..."
+              echo "$tag $url attempt $i: got HTTP $code, retrying in 10s..."
               sleep 10
             done
-            echo "$url did not return 200 after deploy" >&2
+            echo "$tag $url did not return 200 after deploy" >&2
             return 1
           }
 
