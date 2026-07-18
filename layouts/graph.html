@@ -105,6 +105,23 @@
             return colors.secondary;
         };
 
+        // force-graph's public API reads `graphData.links` (never
+        // `.edges`) -- confirmed by grepping the actual pinned bundle, which
+        // contains zero references to `.edges` anywhere. D1's JSON output
+        // field is (deliberately) named `edges` for readability in that
+        // template; this is where it gets translated to what the rendering
+        // library actually expects.
+        //
+        // Once the simulation starts, force-graph mutates each link's
+        // `source`/`target` in place from a plain id string into a reference
+        // to the actual node object -- so re-filtering from the same shared
+        // `fullGraphData.edges` array after the first render must handle
+        // both forms, or every filter click after the first would silently
+        // drop all edges.
+        const edgeEndpointId = (endpoint) => (
+            typeof endpoint === 'object' && endpoint !== null ? endpoint.id : endpoint
+        );
+
         // Filter graph data based on active topics
         const getFilteredGraphData = () => {
             const activeSet = new Set(activeTopics);
@@ -120,8 +137,9 @@
 
             return {
                 nodes: fullGraphData.nodes.filter(node => visibleNodeIds.has(node.id)),
-                edges: fullGraphData.edges.filter(edge =>
-                    visibleNodeIds.has(edge.source) && visibleNodeIds.has(edge.target)
+                links: fullGraphData.edges.filter(edge =>
+                    visibleNodeIds.has(edgeEndpointId(edge.source)) &&
+                    visibleNodeIds.has(edgeEndpointId(edge.target))
                 ),
             };
         };
@@ -147,6 +165,7 @@
             .nodeRelSize(4.5);
 
         // Create filter toggle UI
+        const filterId = (topic) => `filter-${topic.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
         const filtersContainer = document.getElementById('graph-filters');
         allTopics.forEach(topic => {
             const topicColor = topicColors[topic];
@@ -154,7 +173,7 @@
             const hexColor = dark ? topicColor.dark : topicColor.light;
 
             const button = document.createElement('button');
-            button.id = `filter-${topic}`;
+            button.id = filterId(topic);
             button.className = 'graph-filter-toggle';
             button.setAttribute('data-topic', topic);
             button.setAttribute('aria-pressed', 'true');
@@ -231,7 +250,7 @@
 
             // Also update filter button swatch colors
             allTopics.forEach(topic => {
-                const button = document.getElementById(`filter-${topic}`);
+                const button = document.getElementById(filterId(topic));
                 if (button) {
                     const swatch = button.querySelector('span');
                     const topicColor = topicColors[topic];
