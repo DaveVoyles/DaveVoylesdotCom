@@ -4,7 +4,13 @@ title = 'Dave Voyles'
 theme = 'PaperMod'
 
 [outputs]
-home = ['HTML', 'RSS', 'JSON']
+home = ['HTML', 'RSS', 'JSON', 'GraphData']
+
+[outputFormats.GraphData]
+mediaType = "application/json"
+baseName = "graph-data"
+isPlainText = true
+notAlone = true
 
 # Declaring a custom taxonomy replaces Hugo's built-in defaults entirely, so
 # tag/category must be re-listed here too, or /tags/ and /categories/ stop
