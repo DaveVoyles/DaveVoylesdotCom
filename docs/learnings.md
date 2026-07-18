@@ -1,5 +1,10 @@
 # Learnings
 
+## 2026-07-18 — Plan 0002 (related-posts/topics) grilling + export
+
+- **The pre-persist `git fetch`/pull caught a real premise drift, not just a numbering collision.** Grilling plan 0002 ran against a local checkout that was already 7 commits behind `origin/main` — a concurrent same-day session had shipped tag cleanup + nav (#23), a Console theme (#26), and closed out plan 0001 entirely, none of which the grilling conversation knew about. Worse, that same session had already filed **issue #24** — an Obsidian-style graph view — which turned out to be the literal thing Dave asked about ("were we working on designing the graph?") at the start of this conversation. The routine pre-persist pull (done for doc-numbering reasons) is what surfaced this; without it, plan 0002 would have persisted against a stale "tags are messy WordPress chaos" premise and silently duplicated issue #24's intent instead of cross-referencing it. Generalize: a design session that runs for many rounds (this one ran 8 grilling rounds) has more real-world time for the target repo to drift than a quick single-shot plan — the pre-persist check matters more, not less, the longer the interview runs.
+- **A grilling session's own "were we working on X" prompt is itself a signal to check for existing tracked work**, not just prior-session memory/handoff files — `git log origin/main` for recently-filed issues matching the topic would have surfaced #24 immediately, faster than the memory/session-transcript search this conversation started with.
+
 ## 2026-07-18 — Repo bootstrap + plan 0001 export
 
 - The old local "Wordpress Backup" folder on the NAS (`/Volumes/Misc/Wordpress Backup/Dave Voyles Wordpress`) contains **no actual blog content** — only Azure deployment plumbing (a `.PublishSettings` file with a live-looking FTP/MSDeploy credential, and an ARM template zip). Don't treat it as a content source; the Wayback Machine is the real recovery source (verified good coverage: 19,179 captures, ~300-450 recoverable posts, 2,727 images).
