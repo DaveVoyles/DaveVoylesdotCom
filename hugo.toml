@@ -6,6 +6,17 @@ theme = 'PaperMod'
 [outputs]
 home = ['HTML', 'RSS', 'JSON']
 
+# Declaring a custom taxonomy replaces Hugo's built-in defaults entirely, so
+# tag/category must be re-listed here too, or /tags/ and /categories/ stop
+# being generated (plan 0002 / D5). `topic` (singular) -> `topics` (plural,
+# the front-matter field name D1/D2 write) auto-generates /topics/<bucket>/
+# archive pages -- deliberately not added to [[menu.main]] below (plan's
+# Out of Scope: footer-linked only, per D5's acceptance criteria).
+[taxonomies]
+tag = 'tags'
+category = 'categories'
+topic = 'topics'
+
 # Related Content (plan 0002 / D3): relatedness is computed from the curated
 # `topics` front-matter field (plan 0002 / D1-D2), not the fine-grained
 # legacy `tags`/`categories` -- those stay untouched as data but aren't a
