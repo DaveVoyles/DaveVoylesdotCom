@@ -78,10 +78,6 @@
   border: 1px solid var(--border);
 }
 
-[data-theme="dark"] .terms-tags a {
-  color: var(--accent);
-}
-
 /* Post-list cards get a left rule that lights up on hover, echoing a
    directory-listing / prompt-line feel. */
 .post-entry {
