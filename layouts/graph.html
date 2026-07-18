@@ -1,0 +1,80 @@
+{{- define "main" }}
+
+<header class="page-header">
+    <h1>{{- (printf "%s&nbsp;" .Title ) | htmlUnescape -}}
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="6"></circle>
+            <circle cx="12" cy="12" r="2"></circle>
+        </svg>
+    </h1>
+    {{- if .Description }}
+    <div class="post-description">
+        {{ .Description }}
+    </div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <div class="post-meta">
+        {{- partial "translation_list.html" . -}}
+    </div>
+    {{- end }}
+</header>
+
+<div id="graph-container" style="min-height: 70vh; border: 1px solid var(--border); border-radius: 4px; overflow: hidden;"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.51.4/dist/force-graph.min.js"></script>
+<script>
+(async function() {
+    try {
+        // Fetch the graph data
+        const response = await fetch('/graph-data.json');
+        if (!response.ok) {
+            console.error('Failed to fetch graph data');
+            return;
+        }
+        const graphData = await response.json();
+
+        // Resolve CSS custom properties to actual color values
+        const root = document.documentElement;
+        const computedStyle = getComputedStyle(root);
+
+        const accentColor = computedStyle.getPropertyValue('--accent').trim();
+        const themeColor = computedStyle.getPropertyValue('--theme').trim();
+        const borderColor = computedStyle.getPropertyValue('--border').trim();
+
+        // Initialize the force-graph
+        const Graph = ForceGraph()
+            (document.getElementById('graph-container'))
+            .graphData(graphData)
+            .nodeId('id')
+            .nodeLabel('title')
+            .linkSource('source')
+            .linkTarget('target')
+            .linkWidth(link => Math.sqrt(link.weight))
+            .onNodeClick(node => {
+                window.location.href = node.permalink;
+            })
+            .nodeColor(() => accentColor)
+            .backgroundColor(themeColor)
+            .linkColor(() => borderColor)
+            .width(document.getElementById('graph-container').offsetWidth)
+            .height(document.getElementById('graph-container').offsetHeight)
+            .nodeRelSize(4.5);
+
+        // Handle window resizing
+        window.addEventListener('resize', () => {
+            const container = document.getElementById('graph-container');
+            if (container) {
+                Graph
+                    .width(container.offsetWidth)
+                    .height(container.offsetHeight);
+            }
+        });
+    } catch (error) {
+        console.error('Error initializing graph:', error);
+    }
+})();
+</script>
+
+{{- end }}{{/* end main */}}

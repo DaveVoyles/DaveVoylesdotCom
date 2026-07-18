@@ -60,3 +60,9 @@ identifier = 'search'
 name = 'Search'
 url = '/search/'
 weight = 30
+
+[[menu.main]]
+identifier = 'graph'
+name = 'Graph'
+url = '/graph/'
+weight = 40
