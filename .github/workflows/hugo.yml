@@ -76,8 +76,13 @@ jobs:
 
           # Run all paths concurrently so total wall-clock stays ~1 path's
           # worth of retries (~50s worst case) instead of summing serially
-          # across all 4 (~200s worst case).
-          paths=("/" "/tags/" "/archives/" "/search/")
+          # across all 5 (~250s worst case).
+          # "/topics/gaming/" (plan 0002 / D6) stands in for the whole
+          # /topics/<bucket>/ family -- Gaming is guaranteed non-empty (the
+          # largest bucket by post count), so it's the one bucket page that
+          # can never legitimately 404 as the corpus's topic assignments
+          # evolve.
+          paths=("/" "/tags/" "/archives/" "/search/" "/topics/gaming/")
           pids=()
           for path in "${paths[@]}"; do
             check_path "$path" &
