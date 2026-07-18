@@ -8,4 +8,8 @@ See [`docs/design/0001-rebuild-davevoylescom-blog.md`](docs/design/0001-rebuild-
 for the full plan, and [`docs/decisions/`](docs/decisions/) for the
 architectural decisions behind it.
 
-Status: planning complete, implementation not yet started.
+Writing a new post? See [`docs/authoring-guide.md`](docs/authoring-guide.md).
+
+Status: site live at [davevoyles.github.io/DaveVoylesdotCom](https://davevoyles.github.io/DaveVoylesdotCom/)
+(Hugo bootstrap + deploy pipeline and the Wayback Machine content recovery
+script are done; historical content migration is still in progress).
