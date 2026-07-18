@@ -52,4 +52,5 @@ None. All changes are additive (`topics` field addition, new templates/config, e
 
 ## Execution Tracking
 
-_Filled in by `plan-to-issues`._
+- Issues: https://github.com/DaveVoyles/DaveVoylesdotCom/issues?q=is%3Aissue+state%3Aopen+label%3Aplan%3A0002
+- Board: https://github.com/users/DaveVoyles/projects/2 (Agent Work — all 6 issues seeded to Todo)
