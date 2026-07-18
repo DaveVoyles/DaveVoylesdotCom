@@ -6,6 +6,22 @@ theme = 'PaperMod'
 [outputs]
 home = ['HTML', 'RSS', 'JSON']
 
+# Related Content (plan 0002 / D3): relatedness is computed from the curated
+# `topics` front-matter field (plan 0002 / D1-D2), not the fine-grained
+# legacy `tags`/`categories` -- those stay untouched as data but aren't a
+# good cross-post relatedness signal on their own (see the plan's Problem
+# Statement). A single index keeps scoring simple: two posts either share a
+# topic bucket or they don't, so a low threshold is deliberate -- with only
+# 6 curated buckets, any shared bucket is already a meaningful signal and
+# doesn't need a high score to surface.
+[related]
+threshold = 10
+includeNewer = true
+toLower = true
+[[related.indices]]
+name = 'topics'
+weight = 100
+
 [params]
 author = 'Dave Voyles'
 description = 'Blog by Dave Voyles'
