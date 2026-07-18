@@ -1,8 +1,7 @@
 +++
 title = "Death Sentence website is live!"
 date = "2011-06-23T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (UDK); 15.1 years old"
+draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "UDK"]
 tags = ["Death Sentence", "Environment Art", "Game Development", "Programming", "Resume", "UDK", "Unreal Engine", "Web Development"]

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Microsoft on Dave Voyles</title>
+    <link>http://localhost:1315/categories/microsoft/</link>
+    <description>Recent content in Microsoft on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 17 Aug 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/categories/microsoft/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BizSpark: Free software and cloud services for your startup</title>
+      <link>http://localhost:1315/posts/bizspark-free-software-cloud-services-o/</link>
+      <pubDate>Sun, 17 Aug 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/bizspark-free-software-cloud-services-o/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/08/BizSpark.jpg&#34;&gt;&lt;img alt=&#34;BizSpark&#34; loading=&#34;lazy&#34; src=&#34;https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/08/BizSpark.jpg?resize=550%2C242&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Jennifer Marsman wrote a great post &lt;a href=&#34;http://blogs.msdn.com/b/jennifer/archive/2014/06/06/bizspark-get-free-software-and-cloud-services-for-your-startup.aspx&#34;&gt;on her MSDN blog&lt;/a&gt; about the benefits of BizSpark and how to get started with the program. &lt;a href=&#34;http://bretstateham.com/bizspark-enrollment-tutorial/&#34;&gt;This step-by-step tutorial&lt;/a&gt; can help get you enrolled as well.&lt;/p&gt;
+&lt;h2 id=&#34;perks-of-the-program&#34;&gt;Perks of the program:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://wootstudio.ca/startups/bizspark.aspx&#34;&gt;http://wootstudio.ca/startups/bizspark.aspx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Windows 10 developer accounts (Xbox, Windows)&lt;/li&gt;
+&lt;li&gt;Visual Studio Ultimate licenses&lt;/li&gt;
+&lt;li&gt;Windows licenses (multiple versions)&lt;/li&gt;
+&lt;li&gt;Office 365 developer account&lt;/li&gt;
+&lt;li&gt;$150 / month Azure credits &lt;strong&gt;(for each dev on your team, up to 5 total, $750 value)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Website hosting, virtual machines, databases, &amp;amp; mobile services&lt;/li&gt;
+&lt;li&gt;Visual Studio Online (Formerly TFS)&lt;/li&gt;
+&lt;li&gt;90 Days of &lt;a href=&#34;http://pluralsight.com/training&#34;&gt;pluralsight&lt;/a&gt; + &lt;a href=&#34;http://www.digitaltutors.com/11/index.php&#34;&gt;DigitalTutors&lt;/a&gt; training&lt;/li&gt;
+&lt;li&gt;Free marketing support with Microsoft&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;who-qualifies&#34;&gt;Who qualifies?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Actively &lt;strong&gt;engaged in development of a software-based app, product, or service&lt;/strong&gt; that will form a core piece of your current or intended business.  (NOTE: you must be building a product!  Startups providing consulting services are not eligible.)&lt;/li&gt;
+&lt;li&gt;Your company is privately held, and in business for &lt;strong&gt;less than 5 years.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Makes less than US $1 million&lt;/strong&gt; in annual revenue&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Whether you are a &lt;strong&gt;stude&lt;/strong&gt;nt, &lt;strong&gt;startup&lt;/strong&gt;, or an &lt;strong&gt;indie game developer&lt;/strong&gt;, Microsoft views you as a welcome addition to our startup program.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

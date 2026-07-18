@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Indie Game Summer Uprising Post-Mortem | Dave Voyles</title>
+<meta name="keywords" content="igsu, Indie Games, Resume, Summer Uprising, XBLIG, XNA">
+<meta name="description" content="
+This article reflects my thoughts, and not necessarily those of the other team members for the Indie Games Summer Uprising.
+EDIT: I’ve added the section “6. The Dashboard”, an intro, as well as numerous grammatical corrections throughout.
+Since its inception, the Xbox Live Indie Games have been considered the red-deaded stepchild of Microsoft’s internet based LIVE platform. Hidden beneath layers of menus and triple-A titles, sales and promotions have never been outstanding for developers, unless you manage to earn a spot on the highly coveted “Top Downloads” section.">
+<meta name="author" content="Dave Voyles">
+<link rel="canonical" href="http://localhost:1315/posts/indie-game-summer-uprising-post-mortem/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1315/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1315/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1315/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1315/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1315/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1315/posts/indie-game-summer-uprising-post-mortem/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1315/" accesskey="h" title="Dave Voyles (Alt + H)">Dave Voyles</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Indie Game Summer Uprising Post-Mortem
+    </h1>
+    <div class="post-meta">
+
+<span title='2011-09-13 00:00:00 +0000 UTC'>September 13, 2011</span>&nbsp;·&nbsp;<span>Dave Voyles</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><p><a href="http://davidvoyles.files.wordpress.com/2011/07/summeruprising_pressreleasebanner7_5x2.png"><img loading="lazy" src="http://davidvoyles.files.wordpress.com/2011/07/summeruprising_pressreleasebanner7_5x2.png" title="SummerUprising_PressReleaseBanner7_5x2"></a></p>
+<p>This article reflects my thoughts, and not necessarily those of the other team members for the Indie Games Summer Uprising.</p>
+<p><strong>EDIT:</strong> I’ve added the section <em>“6. The Dashboard”</em>, an intro, as well as numerous grammatical corrections throughout.</p>
+<p>Since its inception, the Xbox Live Indie Games have been considered the red-deaded stepchild of Microsoft’s internet based LIVE platform. Hidden beneath layers of menus and triple-A titles, sales and promotions have never been outstanding for developers, unless you manage to earn a spot on the highly coveted “Top Downloads” section.</p>
+<p>With that said, in the winter of 2010, a group of XBLIG developers banded together to create the community’s first grassroots marketing campaign. Sales were mixed, but along the way quite a bit was learned about the community, and awareness was increased for the platform as a whole. Recently, a new group of XBLIG developers have banded together for a similar campaign. This time our goals included promoting the platform, while showcasing the diversity, talent, and potential of the development teams. Collectively, we’ve learned a lot from the promotion, and most importantly, come to understand that with the right people in place and an important message which everyone can relate to, that any group of developers can see similar success.</p>
+<p>I’m grateful that the Xbox LIVE Indie Game community would grant fellow coordinator <a href="http://www.twitter.com/KrisWD40">Kris Steele</a> and I the opportunity to build a team who would ultimately promote their studios and titles. Since I first became active in the community, around March of 2010, I knew that there was a plethora of talent available, and it was only a matter of time before gamers were made aware. The Summer Uprising came about from the embers of the Winter Uprising, which was a similar campaign held in the winter of 2010 by a number of XBLIG developers.</p>
+<p>In March of this year, conversation had started on Microsoft’s <a href="http://forums.create.msdn.com/forums/71.aspx">App Hub</a> (XNA) forums to get this campaign going again, but it never seemed to go anywhere. Around May, Kris, a member of the previous Uprising, resurrected the thread and began to light the fire once more. Together, we naturally fell into the role of organizers for the campaign and started to lay the groundwork.  After 3 months of work we had 10 titles selected from a pool of over 70. The XBLIG developers would choose eight, while the gaming community, as a whole, would vote the remaining two titles on. These games would be released over a two-week stretch, at the tail end of the summer.</p>
+<p>We tried to make the selection process as democratic as possible. Working off the feedback from the App Hub, Kris and I managed to get Scott Nicols of GayGamer.net and Ryan Donnelly of VVGtV.com to serve as panel of judges who would narrow down the selection of 70+ titles to 25. This proved to be more of a manageable number for the IGSU developers to vote on who should be in the top 8. Independently, we rated each title on a 1-3 scale, essentially based on their marketing material. Gameplay videos, screenshots, and how far along they were in the development process were all taken into consideration. Any titles which we each gave a 1 were automatically granted a spot in the top 25. This quickly filled up 13 slots. Titles which received a 2 could go either way, while those we graded a 3 would require a judge to really make an argument for why it should be included. Needless to say, it was the least entertaining event of the IGSU.</p>
+<h2 id="what-went-right">What went right<a hidden class="anchor" aria-hidden="true" href="#what-went-right">#</a></h2>
+<h4 id="1-marketing-and-buzz">1.  Marketing and Buzz<a hidden class="anchor" aria-hidden="true" href="#1-marketing-and-buzz">#</a></h4>
+<p>One of our goals of this promotion was to generate as much support as we possibly could for the XBLIG community and XNA developers. I firmly believe we accomplished this goal, as we presented the community in a positive light by showcasing the quality and variety of games the XNA toolset was capable of, especially when used in the hands of capable developers. Some of the industry’s largest blogs picked up on the Uprising, even at its inception, including <a href="http://www.gameinformer.com/b/news/archive/2011/07/18/summer-uprising-indie-game-lineup-announced.aspx">Game Informer</a>, <a href="http://kotaku.com/5830579/indie-games-summer-uprising-schedules-its-releases">Kotaku,</a> <a href="http://www.joystiq.com/2011/08/22/psa-xbox-live-indie-games-summer-uprising-is-go/">Joystiq</a>, and <a href="http://xboxlive.ign.com/articles/118/1189687p1.html">IGN</a>.</p>
+<p>The word spread like wildfire, even when we didn’t intend for it to! The first pseudo press release I sent out was really more of a <a href="http://davidvoyles.files.wordpress.com/2011/06/summer-uprising-press-release-6-11-113.pdf">document to developers</a>, where we asked them to contact Kris and myself in order to gauge interest for the promotion. Within a few hours a number of news outlets picked up on it and helped us spread the word! I didn’t feel comfortable handing it to any sites, as I didn’t believe they would feel it was news worthy, but apparently they thought it was, as did developers – within 24 hours we had received over 70 titles for consideration for the IGSU.</p>
+<p>In addition to handing out press releases, Kris and I appeared on podcasts together. One of the larger ones was <a href="http://www.joystiq.com/2011/07/22/the-joystiq-show-004-the-toys-of-summer/">Episode 4</a> of Joystiq’s newly formatted “Joystiq Show,” which was quite an honor in itself, considering I’ve been a fan of the site for several years.</p>
+<p>As the campaign continued, Microsoft had the ability to promote the Uprising too, beginning with Major Nelson’s tweets about the release dates. Ultimately, I believe our biggest publicity boost came from <a href="http://kotaku.com/5822364/these-eight-xbox-indie-games-will-rise-this-summer/gallery/1">Felicia Day’s</a> tweet to her 1.8 million followers a Kotaku article titled “<a href="http://kotaku.com/5822364/these-eight-xbox-indie-games-will-rise-this-summer/gallery/1">These 8 Indie Games Will Rise This Summer.”</a> That article alone received over 149,000 hits. After all of the titles had been released, Microsoft revealed a dashboard promotion, which certainly help with sales but ultimately it showed a flaw in the system: How difficult it is to navigate toward the XBLIG Marketplace, which I’ll cover later in the article.</p>
+<p><a href="http://kotaku.com/5822364/these-eight-xbox-indie-games-will-rise-this-summer/gallery/1"><img loading="lazy" src="http://davidvoyles.files.wordpress.com/2011/09/fdaytweetpic.png" title="FDayTweetPic"></a></p>
+<p>In addition to this, I attended GDC Europe and GamesCom in Cologne, Germany, and immediately followed it up with PAX Prime in Seattle. Although I was there to cover things for <a href="http://www.armlessoctopus.com/">Armless Octopus</a> (where I work as Managing Editor), I tried to plug and promote the IGSU as much as I could through networking and handing out business cards.</p>
+<h4 id="2-appearance-and-public-image"><strong>2. Appearance and Public Image</strong><a hidden class="anchor" aria-hidden="true" href="#2-appearance-and-public-image">#</a></h4>
+<p>One area I feel we excelled in was presenting a well-organized and professional public image. Commonly, independent developers spend quite a bit of time creating their titles, but fall a bit short in the marketing department and tend to send out unpolished press material. In fact, <a href="http://davidvoyles.wordpress.com/2011/08/14/ill-be-a-guest-speaker-on-the-indies-got-pr-talent-a-press-panel-at-gdc-europe/">I was recently part of a panel</a> at GDC Europe where we discussed the often-lackluster attempts for press releases that small studios send out.</p>
+<p>One of the major factors contributing to keeping a clean image and synergy throughout the campaign was the excellent team supporting our efforts. You’d be amazed at how many people will volunteer to help a cause they believe in. Our first trailer was created by Christopher Bousseau of <a href="http://www.gameproductionstudios.com/">Game Production Studios,</a> whose title <a href="http://www.gameproductionstudios.com/dvs/index.html">Dragons Vs. Spaceships</a> was in the IGSU top 25. He did an excellent job of conveying the image we were looking for, as it instantly helped sell the campaign and was one of the first things that gamers saw in terms of gameplay for the first few weeks.  Afterwards, Ryan Donnelly (<a href="http://www.twitter.com/Masterblud">@Masterblud</a>) of <a href="http://www.vvgtv.com/">VVGTv.com</a> took charge with creating new trailers as necessary, and <a href="http://www.zackparrish.com/">Zack Parrish</a> (<a href="http://www.saturninegames.com/">Saturnine Games</a>) continued to create new tracks for each one.</p>
+<p>Almost immediately after the IGSU launched, Nathan Smith and Josh Addison (<a href="http://www.blazingforgegames.com/">Blazing Forge Games</a>, <a href="http://www.indiegames-uprising.com/Games2.aspx?GameID=67&amp;FinalistView=true">Redd: The Lost Temple</a>) began to outline the prototypes for our website along with Kris, who handled a lot of the back end .aspx work. From the moment I saw the prototype I knew we had something special. In addition to that, Nathan drew up those excellent caricatures for each title as the IGSU titles were announced and placed them on the home page.  Along the way, the three of them would continue to maintain the site and add additional content. With all of these items coming together at once, we effectively conveyed the image of an organized team, and maintained the same message throughout the duration of the campaign.</p>
+<h4 id="3-gained-support-for-xblig"><strong>3. Gained Support for XBLIG</strong><a hidden class="anchor" aria-hidden="true" href="#3-gained-support-for-xblig">#</a></h4>
+<p>Word of mouth is the best form of marketing you can have, as it relies heavily on only brand loyalty, but also the fact that your consumers will be selling the product or idea for you. In our case, we had overwhelming support from the fans and community.</p>
+<p>Early on, Kris has the excellent idea of utilizing a fan vote to not only involve the community, but help spread the word that the Uprising was making another pass. Again, Josh and Nathan to came to our aide and had their co-workers create a poll in which fans could vote for the title they would most like to see included in the Uprising, after the first 8 finalists were selected by only the developers. We took the two titles with the highest number of votes, and included them in the final 2 positions of the uprising. This helped us in a number of ways, as it drove traffic to not only <a href="http://www.facebook.com/XBLIG.IGSU">the Facebook page</a>, which allowed us to speak directly to our audience, but also to the IGSU site.</p>
+<p>If utilized correctly, Facebook can be an invaluable marketing too, but I find that far too frequently organizations don’t take a personal approach when interacting with their audience. The four of us would log on multiple times throughout the day to post updates, share links and news coverage on the IGSU, ask and answer questions, as well as offer giveaways. This back-and-forth dialogue between our fan base allowed us to quickly balloon to 1,200 likes and over 4,000 votes for the fan selected titles.  Even after the titles were release, I would tweet or post a message stating that the first person to post a screen shot of them playing a selected IGSU title would win the abundance of schwag I had acquired from my brief “press tour.” Within minutes we would have multiple posts, each time from new users.</p>
+<p>Even people not involved in the XBLIG or XNA communities were talking about, tweeting, and covering the Uprising for the simple fact that it was a grassroots campaign designed to showcase the best work from people who at wildly passionate about what they do.</p>
+<p>Finally, after the poll had closed and the results were tallied, we held a twitter chat using the #IGSU hash tag, where I would announce the winners. Looking back, I probably should have planned that a bit better, as I called for a 9PM EST meeting – the problem was that I would be in Germany at the time for GDC, thereby making it 3AM local time. Needless to say, it was well worth it and a tremendous number of people showed up to participate and ask questions. It’s these kinds of community activities which I think best exemplify the strengths of being indie – a triple A publisher would get swamped with the number of responses they would receive from something like this. Fortunately for us, it was kept to a manageable size and we were able to have a meaningful conversation with all of those involved.</p>
+<h4 id="4-learned-a-bit-about-marketing">4.  Learned A Bit About Marketing<a hidden class="anchor" aria-hidden="true" href="#4-learned-a-bit-about-marketing">#</a></h4>
+<p>Developers are a funny bunch. They can create massive overarching storylines, thought provoking characters, beautiful environments, and intuitive gameplay mechanics, but most of them couldn’t market their title if their life depended on it. That’s where publishers come into play, or in our case, the Indie Games Summer Uprising.  The Winter Uprising took a vastly different approach from ours, but ultimately it proved to be a critical success for those involved and the XBLIG platform as a whole.</p>
+<p>All too often, developers dismiss the importance of marketing and public relations. As much as we’d all like to, we can’t hope to be the runaway success that Notch has been with his hit title Minecraft. We started early, and kept the marketing push consistent throughout the campaign by constantly rolling out updates and keeping the public informed. From the first week of the promotionI had a clear picture in my mind of how often to have deadlines, and when we would deliver press releases.  Rather than swamp journalists with every new feature, screenshot, or update we had, we would instead slowly release those items, and include them in one press release every 2-3 weeks. This proved beneficial, as nearly every press release generated a unique story, from the initialization of the IGSU, the developer selections, fan vote dates, and finally the release schedule.</p>
+<p>Our intentions were to keep consumers hungry for information, while at the same time keep them on a steady diet of news, trailers, and participation.</p>
+<p>As the promotion began to take shape and appear on popular industry forums and blogs, I think the developers began to appreciate the value of it and do the same. One critical part of marketing, which I know most didn’t get right away, was accessibility, as I had to hunt down most of their contact information. If you are selling something, whether a product or idea, it is imperative that you offer numerous ways to get in touch with you, and make it clearly visible on everything you do, from a website to an e-mail signature.</p>
+<p>I’ve learned that above all else, communication is key, whether organizing teams of developers, or speaking with the community. Kris and I would send out dozens, if not hundreds of e-mails a day to the development teams, press, and fans, to make sure that we were all on the same page at all times.  I’ve also learned that despite how clearly you spell something out for someone, such as <em>“Please contact the respective developers for review codes,”</em> as the final line on every press release, we would still be asked for review codes.</p>
+<h2 id="what-went-wrong"><strong>What Went Wrong</strong><a hidden class="anchor" aria-hidden="true" href="#what-went-wrong">#</a></h2>
+<h4 id="1-scalability"><strong>1. Scalability</strong><a hidden class="anchor" aria-hidden="true" href="#1-scalability">#</a></h4>
+<p><a href="http://davidvoyles.files.wordpress.com/2011/09/salability.jpg"><img loading="lazy" src="http://davidvoyles.files.wordpress.com/2011/09/salability.jpg?w=122" title="Salability"></a>As I mentioned earlier, Kris and I quickly became overwhelmed with the responses to the IGSU. This came as both a blessing and a curse. A blessing in that we had a plethora of developers and titles to select for the campaign, but a curse in that it would prove to be too much for two individuals to handle. I suppose this is where my lack of faith in people comes into play as well. Trying to convey a unified message is difficult when you have numerous people responding to e-mails, but this is a chance we probably should have taken.</p>
+<p>I saw a GDC panel afterwards from the guys who organized the Humble Indie Bundle, where they described a similar situation. They chose to adopt an e-mail system that was comprised of “tickets” which allowed multiple members of the campaign to respond to open tickets at the same time, thereby seeing everyone else’s responses. It looked like Tweetdeck, except each tweet was a response to a question, of which they had dozens open at one time. Perhaps if we do this again we’ll adopt that system. I’m certain that I failed to respond to at least a handful of messages, simply because they got lost in the shuffle, and I felt horrible afterward.</p>
+<p>My only concern with using something like that revolved around the issue of someone stating incorrect information, then a member of the press beings running that and continuing to spread false information. An easy way to resolve that situation would be for us to be proactive instead of reactive. That is, if we had a clearer, more drawn out plan at the very beginning, then we wouldn’t have to worry about someone passing a bad idea. I doubt that all grounds could ever be covered, because as we moved along I noticed that people would ask questions and approach from angles I had never considered before.</p>
+<p>Scalability from the developer’s side of things was an issue as well. Kris, Josh, and Nathan were constantly adding content to, and updating the website on a daily basis as developers delivered new assets. Needless to say, this was time consuming and inefficient. Should we have had more time to organize, it would have been wise to allow for developers to add their own content, using the template we set up.  I commend the three of them for always managing to stay ahead of the curve and keep the content up to date. The only thing I had to manage was updating the press coverage, so I had it easy.</p>
+<h4 id="2-set-clear-rules-and-guidelines">2. Set Clear Rules and Guidelines<a hidden class="anchor" aria-hidden="true" href="#2-set-clear-rules-and-guidelines">#</a></h4>
+<p>As I mentioned earlier, regardless of how clear you think you are on a point, someone already has another angle figured out, or has failed to read what you wrote. Kris and I initially approached the IGSU as an organic process, in that we had a set of guidelines, but wanted the campaign to be as democratic as possible, therefore we were constantly asking for developer feedback. My fear was that the developers would begin to think, “<em>Who is this guy, thinking he can just step in and run us how he chooses.”</em></p>
+<p>The App Hub served as our base for delivering ideas and weighing them. It goes without saying, that despite a lot of the positive feedback we were receiving, there was also negative. You’ll never get a room of people to all agree on thing, and you can’t please everyone, so just do your best to please those who’s opinion you value most.  One solution to avoid this problem is to come approach the developers with a clear set of rules and guidelines. At some point you have got to say, <em>“This train is leaving the station. You can either hop on, or you’re being left behind.”</em></p>
+<p>I wouldn’t expect anyone to get it right the first time, but the lessons learned from this experience alone would benefit us exponentially, should we decide to do a marketing campaign of some sort again.  Our team was also built organically, because it came together as we moved along and people realized this was something worth their time. Relying on the kindness of strangers, in this case or team, worked out well for us this time, but I would suggest having members established before you start a campaign of this scale. We were always transparent about everything we were doing, and I firmly believe that is the best way to operate any business, but people began to recognize a conflict of interest as we moved ahead. I was writing for Armless Octopus, a blog which specifically covered XBLIG and XNA titles, so I stopped doing any work there while promoting the event. In addition, Kris was submitting <em><a href="http://www.indiegames-uprising.com/Games2.aspx?GameID=5">Volchaos</a></em> as a candidate, as were Nathan and Josh with their title <em>Redd: The Lost Temple</em>, which would later be the last title release in the Uprising.</p>
+<p>The Winter Uprising was in the same situation; the organizers were also the ones developing the titles.  I believe because ours was done in a more democratic fashion, and the fact that we allowed for both developer and fan voting in two separate stages, that certain people didn’t agree with it.</p>
+<p>Finally, I can’t stress the importance of having one concise mission statement sprawled across all that you do. This constantly reinforces what the campaign is about, not only to the developers on board, but also fans and the press. People would often ask, <em>“Why are you doing this?”</em> and I would always respond with the mission statement: <em>“To promote Xbox LIVE Indie Games in the best light possible by showcasing the diversity, talent, and potential of the platform as a whole.“</em></p>
+<h4 id="3-have-developers-on-board-then-do-a-promotion">3. Have Developers on Board, Then Do A Promotion<a hidden class="anchor" aria-hidden="true" href="#3-have-developers-on-board-then-do-a-promotion">#</a></h4>
+<p>As I mentioned earlier, the Winter Uprising took the opposite approach when coordinating their campaign. They initially gathered a group of developers, based on their titles, and then generated a campaign to market those titles.  This has a number of advantages, such as having everyone on board from day one. The first half of our marketing push was spent promoting the campaign itself, first celebrating the fact that we had 70+ entries, followed by us narrowing down the selection to 26 titles (whoops!), and finally the 10 IGSU finalists. Looking back, some may consider this a waste of valuable marketing time, but I believe it generated hype and buzz around the whole event. A few people disagreed with the 8 entries that the developers voted into the Uprising, so we gave them (fans of XBLIG) the opportunity to vote on any of the eligible initial 70+ entries to fill the final two spots.  Being a fan vote had both a positive and negative effect on the two titles. The positive effect was the idea that your title was selected because people genuinely wanted to play it! On the opposite side of the coin however, was that they lost out on 2 weeks of marketing, as the original 8 were already in.</p>
+<p>Another contrasting feature from the Winter Uprising was the experience (or lack thereof) on the part of our developers. The Summer Uprising only had a few developers who had released an XBLIG title or were previously involved in the industry, where nearly all of the Winter entries came from veterans.  That’s not to take anything from our developers, but a bit of experience can go a long way, especially when you factor in the quickly approaching deadlines and narrow margin for error that we could accommodate.</p>
+<h4 id="4-developers-need-to-do-some-marketing-of-their-own">4. Developers Need To Do Some Marketing Of Their Own<a hidden class="anchor" aria-hidden="true" href="#4-developers-need-to-do-some-marketing-of-their-own">#</a></h4>
+<p><img loading="lazy" src="http://davidvoyles.files.wordpress.com/2011/09/traileroverlay.png" title="TrailerOverlay"></p>
+<p>That’s not to say that any of them didn’t market their titles, because they all certainly did. Granted, the unforgiving time constraints I alluded to earlier weren’t any help either, as most of their precious time was spent on development. Hopefully this campaign at least reinforced the value of marketing your brand, as well as having media assets readily available for the press. This included at least one trailer, multiple screenshots containing critical gameplay elements, and perhaps a few concept images.</p>
+<p>When I was seeking developers to build our initial candidate list, I also noticed was the fact that many of them did not prominently display any way to get in touch with them. In particular, the Dream.Build.Play entries that I was trying to scout from had this issue. I had to parse through all of the entries, check their youtube links, and hope they had either a site or e-mail address listed there, although many did not. At that point I gave up and moved onto the next developer.</p>
+<p>Marketing on the developer’s end may have helped out a bit, but it’s difficult to gauge on the Xbox Indie Marketplace. I’ve noticed that a dashboard promotion drives a far greater number of sales than any marketing campaign could ever do. This is due to a number of reasons, but I believe the largest contributing factor is the number of steps required to find the titles, nonetheless purchase and rate them. Looking back, I should have put more of an effort into coordinating more of the development teams with podcasts, journalists, and fellow gaming hobbyists. In any grassroots campaign it’s critical to win the hearts and minds of consumers, especially within a community as niche as Xbox LIVE Indie Games.</p>
+<p>Small things go a long way, such as having a detailed e-mail signature. This should include your name, contact information, and which developer you work with. As the promotion went on I began to learn everyone’s name and which team they were working with, but at first many of their signatures did not include any of this information. That could have cost them some valuable networking and contacts early on when trying to contact industry professionals. You’d be surprised at how many click click throughs you receive to your site from your e-mail signature alone.</p>
+<h4 id="5-time-constraints">5. Time Constraints<a hidden class="anchor" aria-hidden="true" href="#5-time-constraints">#</a></h4>
+<p><img loading="lazy" src="http://davidvoyles.files.wordpress.com/2011/09/deadline.jpg?w=100" title="Deadline"></p>
+<p>Naturally, there are two sides to every coin, and that statement holds true in terms of the Summer Uprising.  When forced to work under tight time constraints, people often generate some of their best work, due to the pressure of the deadline. There are others who fold under that same pressure, however. Fortunately we didn’t have any of those individuals in the uprising.</p>
+<p>The Uprising was initially organized in early June, and the titles would be released at the tail end of August.  That only gave us 10 weeks to gather developers, create a website, art, trailers, and music, finish creating the titles, play test and peer review them, all while marketing the Uprising. Needles to say, efficiency is key, and it was a summer of crunch. A few beach days were missed (I live on an island), but in the end it was well worth it.</p>
+<p>There were a few reasons we chose to go with the final two weeks of August to release the titles, but Kris and I couldn’t reveal the details to the developers until after the uprising. You see, we were in touch with Microsoft from day one, who were in full support of the campaign the entire time. I’ll touch on the issues with Microsoft later, but their support was the driving force to why we did the promotion in August. We didn’t want to compete with Microsoft’s internal Summer of XBLA promotion, as they promote heavily for that and that would obviously steal a bit of our thunder.</p>
+<p>Microsoft’s Dream.Build.Play promotion was occurring at the same time as well, in which their XNA team selects the standout titles from a pool of entries, very similar to our promotion. Their rules are slightly different however, so many of their titles had already been released and were playable. The finalists were to be promoted during Seattle’s PAX Prime event, with the winners having an opportunity for an XBLA contract. Dream.Build.Play benefits the Uprising in that it already has a buzz surrounding the XBLIG marketplace and XNA tools, as well as promoting several IGSU entries. Some people saw the Uprising as a direct competitor to DBP, when in fact it couldn’t be further from the truth – both parties were well acquainted with one another and were there to promote the same platform!</p>
+<p>Because a dashboard promotion was never guaranteed, it was suggested that Kris and I not say anything to the developers until we knew it was certain, and we agreed. We were told that our best hope for a dashboard promo would be if we had the games released over a 2 week period, instead of 4 as initially planned, and for it to be the final two weeks of August.  Besides, it technically is still within the reach of summer. Good luck trying to explain to 70+ developers why they need to have their titles completed in 10 weeks when you can’t relay any of this information. They probably thought we were crazy. Kris and I wanted all 10 of the finalists to have their titles finished and in the peer review two weeks before the Uprising was set to begin, so that made our time constraints even more pressing on the developers.</p>
+<p>In the end, all but one of the titles hit their release date. <em>Take Arms</em> was pulled shortly after it was released though, as they found a latency issue when playing in a full room. It’s difficult to test for issues such as this in peer review because the developer would need to round up 7 other XNA developers each time they wanted to test a change in their network code. <em>Redd: The Lost Temple</em> just missed their release date due to a last minute bug.  It was corrected the next day, although XNA titles need to sit in peer review for at least 48 hours before they can be released, therefore it didn’t appear for another two days.  When you consider the unreasonable time table placed in front of the developers, I think it’s a fair assessment to say that they put their hearts into their work in order to hit that tight launch window.</p>
+<h4 id="6-the-dashboard">6. The Dashboard<a hidden class="anchor" aria-hidden="true" href="#6-the-dashboard">#</a></h4>
+<p><a href="http://davidvoyles.files.wordpress.com/2011/09/metro.jpg"><img loading="lazy" src="http://davidvoyles.files.wordpress.com/2011/09/metro.jpg" title="metro"></a><br>
+The dashboard itself seems to be the inherent issue with XBLIGs. Often times it is confusing and difficult to navigate, largely due to the constantly changing panels, which reflect the day’s promotions, games, and videos. There is still hope however, as a there is a <a href="http://http://www.joystiq.com/2011/09/09/xbox-live-fall-dashboard-preview-from-nonsense-to-metro/">dashboard update</a>  for this fall, titled <em>“Metro.”</em> Could this be the answer we’ve been looking for? Perhaps. But until then, here are the necessary steps to purchase an Xbox LIVE Indie title:</p>
+<ol>
+<li>Log into an Xbox Live profile capable of purchasing games.</li>
+<li>Scroll to the <strong>Game Marketplace</strong></li>
+<li>Click <strong>Explore New Games</strong></li>
+<li>Scroll up to <strong>Games &amp; Demos</strong></li>
+<li>Scroll right and select <strong>Indie Games</strong></li>
+<li>Scroll up to <strong>Titles A-Z</strong></li>
+<li>Scroll through T for <em>Train Frontier Express</em></li>
+<li>Click <strong>Buy</strong></li>
+</ol>
+<p>After even the fourth step I believe you’ve lost most gamers, as they crave instant gratification and are constantly bombarded with advertisements along the way. Let me make it clear that it is not the ads which are the issue, but the fact that so many steps are required to find a title.</p>
+<h4 id="other-notes">Other Notes<a hidden class="anchor" aria-hidden="true" href="#other-notes">#</a></h4>
+<p>In closing, I wanted to clear some things in the air on Microsoft’s behalf. Frequently, XBLIG developers feel as though Microsoft does not care for, or support their cause, but this simply isn’t the case. In working with numerous facets of the organization, I can tell you that they very much do care for the indies, but like most things in this industry, it is driven with business in mind first. As part of our XNA Creator’s membership, we each pay a $100 annual fee, and forfeit 30% of our profits on titles sold, which is the same Apple charges for use of the App Store. In total, the amount of revenue that XBLIG developers generate for Microsoft is miniscule in comparison to what other services such as XBLA can potentially deliver. In addition to this, it costs publishers tens of thousands of dollars, generally much more, to have an XBLA title released on the platform. For these reasons alone it is not fair for XBLIG to receive equal promotion and support from Microsoft when other publishers are forking over valuable funds for things like a dashboard panel.</p>
+<p>Perhaps at the risk of upsetting some of its large publishing partners, the Summer Uprising was still fortunate enough to receive not one, but two dashboard promotions from Microsoft, at zero cost to the developers. Picture the dash in terms of advertising revenue; there are 35 million active LIVE users (<em><strong>M. Nelson Podcast, Ep. 410, 9.11.11</strong></em>) , therefore a large percentage of said users view promotions on the dashboard. Naturally, the further you move from the initial launch screen, the lower the value of the dashboard position. As I mentioned earlier, Microsoft was on board with this promotion from the very beginning, whether it was through their PR company, Edelman, their XNA team in Redwood, and even Major Nelson. In the end, Microsoft cannot lend preference or support for only one XBLIG title, but they have the ability to support a campaign as a whole.</p>
+<p>Ultimately, I’m proud of all that we’ve accomplished. We’ve not only exposed a bit of weaknesses in the system, such as few problems with XBLIGs on the dashboard, but some strengths as well. In all honesty, I think you would be hard pressed to find another marketing campaign as successful as ours, and with out of pocket cost of basically zero dollars. Were we a financial success? Not by any means, but that was never the goal. We’ve managed raised awareness for the platform as a whole, continued to allow XBLIG to leave its mark on the map, and perhaps inspired others to make the changes that they would like to see as well. At the end of the day I can say this is was an outstanding experience for all of those involved.</p>
+<p>So what’s the lesson to be learned from all of this? Well, a bit of careful planning, some community support, and a strong network of developers can go a long way.</p>
+<p>** <a href="http://www.twitter.com/AlejandroDaJ">Alex Jordan</a> has also added a post-mortem of his own, for his IGSU title, Cute Things Dying Violently. <a href="http://www.apathyworks.com/blog/view.php?id=00249">You can view it here.</a></p>
+<p>***Take Arms has their <a href="http://discordgames.com/?page_id=1263">post-mortem posted here as well.</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1315/tags/igsu/">Igsu</a></li>
+      <li><a href="http://localhost:1315/tags/indie-games/">Indie Games</a></li>
+      <li><a href="http://localhost:1315/tags/resume/">Resume</a></li>
+      <li><a href="http://localhost:1315/tags/summer-uprising/">Summer Uprising</a></li>
+      <li><a href="http://localhost:1315/tags/xblig/">XBLIG</a></li>
+      <li><a href="http://localhost:1315/tags/xna/">XNA</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1315/">Dave Voyles</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>C# on Dave Voyles</title>
+    <link>http://localhost:1315/tags/c%23/</link>
+    <description>Recent content in C# on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 26 Aug 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/tags/c%23/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>prime[31] Azure plugin for Win8 Unity games (Part 3)</title>
+      <link>http://localhost:1315/posts/prime31-azure-plugin-win8-wp8-unity-games-part-3/</link>
+      <pubDate>Tue, 26 Aug 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/prime31-azure-plugin-win8-wp8-unity-games-part-3/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png&#34;&gt;&lt;img alt=&#34;Prime31&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RESOURCES:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DaveVoyles/prime31-azure&#34;&gt;You can find the source for this project on my GitHub.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.slideshare.net/DaveVoyles/using-prime31-to-connect-your-unity-game-to-azure-mobile-services&#34;&gt;Power point slides&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Video Walkthrough&lt;/li&gt;
+&lt;li&gt;Get this working on Windows Phone&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/prime31-azure-plugin-win8-wp8-unity-games-part-2/&#34;&gt;In part 2 of my tutorial&lt;/a&gt;,  I showed you how you how to set up the initial project with prime[31]. Now that we have it built, I’m going to walk you through the code, as well as how it all works.&lt;/p&gt;
+&lt;h2 id=&#34;insert&#34;&gt;Insert&lt;/h2&gt;
+&lt;p&gt;Let’s test this out by running the project from Visual Studi and inserting a new object into our leaderboard. Deploy the sample, connect to the Azure service, then insert a new username and score.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>prime[31] Azure plugin for Win8 Unity games (Part 2)</title>
+      <link>http://localhost:1315/posts/prime31-azure-plugin-win8-wp8-unity-games-part-2/</link>
+      <pubDate>Thu, 14 Aug 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/prime31-azure-plugin-win8-wp8-unity-games-part-2/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png&#34;&gt;&lt;img alt=&#34;Prime31&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RESOURCES:&lt;/strong&gt; &lt;a href=&#34;https://github.com/DaveVoyles/prime31-azure&#34;&gt;You can find the source for this project on my GitHub.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/prime31-azure-plugin-win8-wp8-unity-games/&#34;&gt;In part 1 of my tutorial,&lt;/a&gt; I showed you how you how to set up the initial project with prime[31]. Now that we have it built, I’m going to walk you through the code, as well as how it all works.&lt;/p&gt;
+&lt;p&gt;Now that we have the project built, let’s open it up the metro folder, and launch the &lt;em&gt;Prime31&lt;/em&gt; Visual Studio solution.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Former 2d shooter sample, now working as a C&#43;&#43; / DirectX 11 sample</title>
+      <link>http://localhost:1315/posts/former-2d-shooter-sample-now-working-as-a-c-directx-11-sample/</link>
+      <pubDate>Tue, 12 Nov 2013 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/former-2d-shooter-sample-now-working-as-a-c-directx-11-sample/</guid>
+      <description>&lt;p&gt;Charles Humprey (&lt;a href=&#34;https://twitter.com/NemoKrad&#34;&gt;@NemoKrad&lt;/a&gt;) was kind enough to help me get his 2D side scrolling shooter sample working in C++ / DX 11 this morning. &lt;a href=&#34;https://randomchaosdx11engine.codeplex.com/SourceControl/latest&#34;&gt;You can find the source code to the project here.&lt;/a&gt; He’s a fellow MVP who has been extremely active in the XNA community, and provided numerous samples in the past. You can find &lt;a href=&#34;http://randomchaosdx11adventures.blogspot.co.uk/&#34;&gt;more of his work here.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Requirements:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.microsoft.com/en-gb/download/details.aspx?id=6812&#34;&gt;DirectX SDK (June 2010)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.microsoft.com/visualstudio/eng/products/2013-editions&#34;&gt;Visual Studio 2013&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Windows 7 or 8 should work fine. I use Win 8.0 and he uses Windows 7, and the project works fine on both of our machines. I’m not sure if it is compatible with Visual Studio 2012, but I do not believe so. Regardless, the express version of 2013 is free.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>[Tutorial] Design Time Data &#43; Passing Data Across Pages  (WP8)</title>
+      <link>http://localhost:1315/posts/design-time-data-passing-data-across-pages-tutorial-wp8/</link>
+      <pubDate>Fri, 08 Feb 2013 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/design-time-data-passing-data-across-pages-tutorial-wp8/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png&#34;&gt;&lt;img alt=&#34;Screenshot (1)&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png?w=652&#34;&gt;&lt;/a&gt;The most difficult part of this project thus far has been understanding the idea behind MVVM, or Model-View-View Model. Wikipedia defines it as:&lt;/p&gt;
+&lt;p&gt;“MVVM facilitates a clear separation of the development of the &lt;a href=&#34;http://en.wikipedia.org/wiki/Graphical_user_interface&#34; title=&#34;Graphical user interface&#34;&gt;graphical user interface&lt;/a&gt; (either as &lt;a href=&#34;http://en.wikipedia.org/wiki/Markup_language&#34; title=&#34;Markup language&#34;&gt;markup language&lt;/a&gt; or GUI code) from the development of the &lt;a href=&#34;http://en.wikipedia.org/wiki/Business_logic&#34; title=&#34;Business logic&#34;&gt;business logic&lt;/a&gt; or &lt;a href=&#34;http://en.wikipedia.org/wiki/Back_end&#34; title=&#34;Back end&#34;&gt;back end&lt;/a&gt; logic known as the model (also known as the data model to distinguish it from the view model). The view model of MVVM is a value converter, meaning that the view model is responsible for exposing the data objects from the model in such a way that those objects are easily managed and consumed”&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>My first XBLIG, Piz-ong, is on the Xbox Live Marketplace this morning!</title>
+      <link>http://localhost:1315/posts/my-first-xblig-piz-ong-is-on-the-xbox-live-marketplace-this-morning/</link>
+      <pubDate>Mon, 22 Oct 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/my-first-xblig-piz-ong-is-on-the-xbox-live-marketplace-this-morning/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.wordpress.com/2012/10/22/my-first-xblig-piz-ong-is-on-the-xbox-live-marketplace-this-morning&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2012/10/pizong1.jpg&#34; title=&#34;Pizong1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;So it’s been a long time coming, but my first Xbox Live Indie Game, *Piz-ong,*finally appeared on Xbox Live this morning.&lt;/p&gt;
+&lt;p&gt;It took me a few attempts to get it through peer review, and it was always for something silly, like forgetting an “if”statement for the trial mode (which  I later found out from &lt;a href=&#34;http://www.twitter.com/jameszilla&#34;&gt;James Silva&lt;/a&gt; that you don’t even need, as the game automatically prompts for the trial to tend after 7 minutes).&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Dream.Build.Play dev diary 2</title>
+      <link>http://localhost:1315/posts/dream-build-play-dev-diary-2/</link>
+      <pubDate>Tue, 01 May 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/dream-build-play-dev-diary-2/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.wordpress.com/2012/05/01/dream-build-play-dev-diary-2/&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2012/05/pong-2012-05-01-06-24-14-40.jpg&#34; title=&#34;Pong 2012-05-01 06-24-14-40&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Just placeholder art for now&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; I’ve found the thread where in the App Hub where I got the original idea for the powerups. It is now linked.&lt;/p&gt;
+&lt;p&gt;This is part 2 of my Dream.Build.Play journal, where I outline what it’s like to learn the technical side of XNA and C#. You can find my &lt;a href=&#34;http://davidvoyles.wordpress.com/2012/04/19/dream-build-play-dev-diary-1/&#34;&gt;first part here.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;As I mentioned in my previous posting, a few members of the XNA community have been key in helping me learn the ins and outs along the way. I was looking for a framework to build my game on top of, and in doing so I came across a few which caught my attention, but Oneksoft’s &lt;a href=&#34;http://oneksoftlabs.com/kit/&#34;&gt;Basic Starter Kit&lt;/a&gt; really had a lot of features that I was looking for. He frequently updates it, which gives you an added incentive to check out the page often as well. Essentially it is a combination of items from developers within the community, all of which are designed to make the experience of a novice developer easier.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

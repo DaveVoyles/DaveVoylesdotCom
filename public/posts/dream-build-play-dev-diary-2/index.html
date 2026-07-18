@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Dream.Build.Play dev diary 2 | Dave Voyles</title>
+<meta name="keywords" content="C#, Dev Diary, Dream.Build.Play, Game Development, XBLIG, XNA">
+<meta name="description" content="
+Just placeholder art for now
+Update: I’ve found the thread where in the App Hub where I got the original idea for the powerups. It is now linked.
+This is part 2 of my Dream.Build.Play journal, where I outline what it’s like to learn the technical side of XNA and C#. You can find my first part here.
+As I mentioned in my previous posting, a few members of the XNA community have been key in helping me learn the ins and outs along the way. I was looking for a framework to build my game on top of, and in doing so I came across a few which caught my attention, but Oneksoft’s Basic Starter Kit really had a lot of features that I was looking for. He frequently updates it, which gives you an added incentive to check out the page often as well. Essentially it is a combination of items from developers within the community, all of which are designed to make the experience of a novice developer easier.">
+<meta name="author" content="Dave Voyles">
+<link rel="canonical" href="http://localhost:1315/posts/dream-build-play-dev-diary-2/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1315/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1315/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1315/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1315/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1315/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1315/posts/dream-build-play-dev-diary-2/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1315/" accesskey="h" title="Dave Voyles (Alt + H)">Dave Voyles</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Dream.Build.Play dev diary 2
+    </h1>
+    <div class="post-meta">
+
+<span title='2012-05-01 00:00:00 +0000 UTC'>May 1, 2012</span>&nbsp;·&nbsp;<span>Dave Voyles</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><p><a href="http://davidvoyles.wordpress.com/2012/05/01/dream-build-play-dev-diary-2/"><img loading="lazy" src="http://davidvoyles.files.wordpress.com/2012/05/pong-2012-05-01-06-24-14-40.jpg" title="Pong 2012-05-01 06-24-14-40"></a></p>
+<p>Just placeholder art for now</p>
+<p><strong>Update:</strong> I’ve found the thread where in the App Hub where I got the original idea for the powerups. It is now linked.</p>
+<p>This is part 2 of my Dream.Build.Play journal, where I outline what it’s like to learn the technical side of XNA and C#. You can find my <a href="http://davidvoyles.wordpress.com/2012/04/19/dream-build-play-dev-diary-1/">first part here.</a></p>
+<p>As I mentioned in my previous posting, a few members of the XNA community have been key in helping me learn the ins and outs along the way. I was looking for a framework to build my game on top of, and in doing so I came across a few which caught my attention, but Oneksoft’s <a href="http://oneksoftlabs.com/kit/">Basic Starter Kit</a> really had a lot of features that I was looking for. He frequently updates it, which gives you an added incentive to check out the page often as well. Essentially it is a combination of items from developers within the community, all of which are designed to make the experience of a novice developer easier.</p>
+<p>Things such as Game State Management, <a href="http://blog.nickgravelyn.com/2009/08/easystorage-released/">Nick Gravelyn’s Easy Storage</a>, <a href="http://www.xnadevelopment.com/tutorials.shtml">George Clingerman’s basic sprite animation</a>, and customizable HUD components are just a few of the included features. It’s really worth a glance if you are new to developing with XNA.</p>
+<p><a href="http://davidvoyles.files.wordpress.com/2012/05/pong-2012-05-01-06-24-32-561.jpg"><img loading="lazy" src="http://davidvoyles.files.wordpress.com/2012/05/pong-2012-05-01-06-24-32-561.jpg" title="Pong 2012-05-01 06-24-32-56"></a></p>
+<p>Unfortunately, when I first tried implemented my game within the system I was still too much of a novice to understand how it all works together. I struggled for a week or two before deciding to remove it and start from scratch again, but this time only add features as needed. I’m still in a bit of a deadline to get my game completed before Dream.Build.Play , so it will have minimal features, but I can always add the additional features I wanted to initially have after the fact. It’s amazing what only a few weeks or reading and working can do, because I now understand most of it very clearly.</p>
+<p>I have a working health bar implemented, courtesy of George Clingerman’s <em><a href="http://www.xnadevelopment.com/tutorials/notsohealthy/NotSoHealthy.shtml">Not So Healthy</a></em> tutorial. Originally my pong game was using a point system to keep score, and after one side scored 5 times the game was over, but I wanted to add some variety to that, as well as some other ideas which could both be implemented in a brief period and would really allow me to learn another aspect of C#. Therefore I switched to using a health bar, and even implemented a powerup system!</p>
+<h4 id="powerups--more-work-than-i-initially-bargained-for">Powerups – More work than I initially bargained for<a hidden class="anchor" aria-hidden="true" href="#powerups--more-work-than-i-initially-bargained-for">#</a></h4>
+<p>The powerup system is similar to that of Mario Kart’s, wherein players hit a button to receive a random powerup which can be stored for later use. I have the animations in place for this as well, but I will explain that in the next tutorial. I found a thread in the app hub for setting up powerups <del>(which I can’t find at the moment),</del> <a href="http://forums.create.msdn.com/forums/p/14756/77234.aspx">now found here,</a> but ultimately ran into some difficulties when doing it on my own. I understood what the developer in the forum was trying to do, in that he created one powerupclass which all other  powerups would extend from, but I wasn’t sure of how to roll them randomly, or actually implement it into my game.</p>
+<p><a href="http://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CDgQFjAA&amp;url=http%3A%2F%2Ftwitter.com%2F%23!%2Fmachxgames&amp;ei=CjafT7LcMaLD6AHe1oShAg&amp;usg=AFQjCNEO69xqmGBKEzvxFVM6hYomeXRGaQ&amp;sig2=A_MtCYQmoDZj9pQ8uIzzLQ">Jim Perry</a>, an XNA MVP, has been one of the most helpful and patient people involved in my learning process. Always quick to answer one of my forum posts, he has been a great help with implementing these powerups. He suggested setting them up as events, which was (and very much still is) a completely new concept to me. I’m learning quite a bit though, so even If I don’t get them working in that manner it was still worth it in the end. My issue at this point is that I have my powerups working, but it is selecting a bunch of them at random, rather than one at a time. I’d like to have that resolved by the next post or two. I use that the issue stems from failing to unsubscribe to the powerups after they have been rolled at random.</p>
+<p>For the most part, the ones I wanted working do work fine, granted at the same time. My bat grows 2x the original size, my opponent shrinks ½ size, I have a health powerup in place, as well as regenerative health, which recovers 2hp/ / tick, over a 10 tick period. I did that because I wanted to add excitement to the game as players were nearing the end, selected regen, and hoped that it would fully recover their hp before their opponent scored again.</p>
+<p>Additionally, I have a powerup to triple the speed of the ball, as well as one which causes the ball to split into 3 when hit. I’d like to adjust that one though, so that it cannot damage the player whose powerup caused that to happen. You’ll see in the screenshots that I still have a few debug features in place, such as the text on screen telling me when a powerup as been activated. I still can’t figure out how to get a log on the screen, such as the way I do in the Unreal Engine, so that it notifies me of each key press and what is happening each tick.</p>
+<h4 id="adding-some-turbo-to-add-some-excitement">Adding some turbo to add some excitement<a hidden class="anchor" aria-hidden="true" href="#adding-some-turbo-to-add-some-excitement">#</a></h4>
+<p>With the understanding that pong is a relatively boring game, I wanted to increase the speed of it somewhat, as well as include a bit of anxiety. Therefore I’ve included a turbo button that allows the player to make a last-moment save and quickly maneuver their paddle across the screen. The catch though is that it only lasts for 2 seconds, is extremely fast, and has a 5 second cooldown. I didn’t want to include a cooldown bar because I always want players to track in the back of their mind the last time they pressed the turbo key. The focus here was to have them constantly worrying if their cooldown was finished so that they wouldn’t always be able to rely on that save.</p>
+<p><a href="http://www.twitter.com/Dfrandsen">Daniel Frandsen</a> helped me get that into place one evening, so I’d like to thank him for that.</p>
+<p>In my next post I plan on covering how I implemented a HUD, learned how to animate the powerups as they randomly roll (Ex: Mario Kart style), and added controller support. Perhaps next week?</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1315/tags/c%23/">C#</a></li>
+      <li><a href="http://localhost:1315/tags/dev-diary/">Dev Diary</a></li>
+      <li><a href="http://localhost:1315/tags/dream.build.play/">Dream.Build.Play</a></li>
+      <li><a href="http://localhost:1315/tags/game-development/">Game Development</a></li>
+      <li><a href="http://localhost:1315/tags/xblig/">XBLIG</a></li>
+      <li><a href="http://localhost:1315/tags/xna/">XNA</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1315/">Dave Voyles</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

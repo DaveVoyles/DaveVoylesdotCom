@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>[Tutorial] Design Time Data &#43; Passing Data Across Pages  (WP8) | Dave Voyles</title>
+<meta name="keywords" content="C#, Programming, Win8, Windows 8, Windows Phone 8, XAML">
+<meta name="description" content="The most difficult part of this project thus far has been understanding the idea behind MVVM, or Model-View-View Model. Wikipedia defines it as:
+“MVVM facilitates a clear separation of the development of the graphical user interface (either as markup language or GUI code) from the development of the business logic or back end logic known as the model (also known as the data model to distinguish it from the view model). The view model of MVVM is a value converter, meaning that the view model is responsible for exposing the data objects from the model in such a way that those objects are easily managed and consumed”">
+<meta name="author" content="Dave Voyles">
+<link rel="canonical" href="http://localhost:1315/posts/design-time-data-passing-data-across-pages-tutorial-wp8/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1315/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1315/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1315/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1315/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1315/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1315/posts/design-time-data-passing-data-across-pages-tutorial-wp8/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1315/" accesskey="h" title="Dave Voyles (Alt + H)">Dave Voyles</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      [Tutorial] Design Time Data &#43; Passing Data Across Pages  (WP8)
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta">
+
+<span title='2013-02-08 00:00:00 +0000 UTC'>February 8, 2013</span>&nbsp;·&nbsp;<span>Dave Voyles</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png"><img alt="Screenshot (1)" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png?w=652"></a>The most difficult part of this project thus far has been understanding the idea behind MVVM, or Model-View-View Model. Wikipedia defines it as:</p>
+<p>“MVVM facilitates a clear separation of the development of the <a href="http://en.wikipedia.org/wiki/Graphical_user_interface" title="Graphical user interface">graphical user interface</a> (either as <a href="http://en.wikipedia.org/wiki/Markup_language" title="Markup language">markup language</a> or GUI code) from the development of the <a href="http://en.wikipedia.org/wiki/Business_logic" title="Business logic">business logic</a> or <a href="http://en.wikipedia.org/wiki/Back_end" title="Back end">back end</a> logic known as the model (also known as the data model to distinguish it from the view model). The view model of MVVM is a value converter, meaning that the view model is responsible for exposing the data objects from the model in such a way that those objects are easily managed and consumed”</p>
+<h4 id="design-time-data">–Design Time Data–<a hidden class="anchor" aria-hidden="true" href="#design-time-data">#</a></h4>
+<p>I’ve looked up a number of tutorials behind this, but it wasn’t until I ran into Iris Classon’s excellent tutorial on the subject when I finally grasped it.<br>
+I used her example and wrote one of my own. With a solid understanding of one of the many ways to bind a model to a view model I was now ready to progress to the next step.</p>
+<p>I wrote a version of my app using her outline, which worked great for design time data. I could now make changes to the page layout and see the results in real time. Some designers prefer to work within Blend, but I found that for the most part manipulating the code within Visual Studio just seemd to work easier for me. Still, I would keep both apps open an switch back and forth between the two. Expression Blend certainly offers quite a bit of power over Visual Studio in terms of adding colors and  detail to your page, which would otherwise prove difficult if relying only on code.</p>
+<p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-2.png"><img alt="Screenshot (2)" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-2.png?w=652"></a></p>
+<p>The design time data was written an ObeservableCollection of type AItems (alphabet items):</p>
+<pre tabindex="0"><code>ObservableCollection&lt;AItem&gt; LoadFakeItems()
+ {
+     return new ObservableCollection&lt;AItem&gt;
+     {
+        new AItem {Name = &#34;Apple&#34;, Image = &#34;/Assets/Apple.jpg&#34;, Description = &#34;This fruit is a delicious addition to your diet. Eating one each
+                   day keeps the doctor away!&#34;},
+        new AItem {Name = &#34;Banana&#34;, Image = &#34;/Assets/Banana.jpg&#34;, Description = &#34;Monkeys are known to eat this fruit, after they peel it, of
+                   course&#34;},
+        new AItem {Name = &#34;Carrot&#34;, Image = &#34;/Assets/Carrot.jpg&#34;, Description = &#34;This vegatable can help to improve your eye sight!&#34;},
+        new AItem {Name = &#34;Dog&#34;, Image = &#34;/Assets/Dog.jpg&#34;, Description = &#34;This four legged friend is also called &#39;Man&#39;s best friend&#39;&#34;}
+     };
+}
+</code></pre><p>This was loaded when the DesignTimeData page was initializsed, and stored as AItemsListView.</p>
+<pre tabindex="0"><code>public ObservableCollection&lt;AItem&gt; AItemsListView { get; set; }
+
+ public DesignTimeData()
+ {
+     AItemsListView = LoadFakeItems();
+ }
+</code></pre><h4 id="binding-through-xaml">–Binding through XAML–<a hidden class="anchor" aria-hidden="true" href="#binding-through-xaml">#</a></h4>
+<p>I’ve got my model done, but now I need a way to get the data on screen. At the top of my MainPage.Xaml page I added the following:</p>
+<pre tabindex="0"><code>xmlns:local=&#34;clr-namespace:PhoneApp2&#34; DataContext=&#34;{Binding RelativeSource={RelativeSource Self}}&#34;
+ d:DataContext=&#34;{Binding Source={d:DesignInstance Type=local:DesignTimeData, IsDesignTimeCreatable=True}}&#34;
+ mc:Ignorable=&#34;d&#34;
+</code></pre><p>This declares:</p>
+<ol>
+<li>The namespace (It is imperative that you use “clr-” as the prefix, otherwise you’ll get an error!)</li>
+<li>The DataContext (this can also be done through the C# class with the code-behind, so MainPage.Xaml.CS in this example)</li>
+<li>Setting the DataContext to “d”, and telling it to be a DesignInstance</li>
+<li>Ignoring the design data if we are compiling the app</li>
+</ol>
+<p>Since I already had a rough outline of what my pages would look like by implementing design time data, it was now time to figure out how to implement my new-found  understanding of data binding. I opened the DataBoundApp template and began to implement my own code. My modele only consists of three properties, all of which were strings:  <em>Name, ImageURI,</em> and <em>Description.</em></p>
+<p>The Name is the word used to define that letter of the alphabet, such as Apple for A, as mentioned above. Image URI is the relative path for where the image  corresponding to the Aitem would be stored, and finally the Description was brief synopsis on the object. I kept a friendly and childish tone when referring to the objects of course,  and would use lines like “One a day keeps the doctor away!” when describing the apple.</p>
+<h4 id="the-content-panel">–The Content Panel–<a hidden class="anchor" aria-hidden="true" href="#the-content-panel">#</a></h4>
+<p>A content panel is where you’d place all of the content applicable to this particular page. Often this is the only thing that gets changed from page to page on apps, as you’d generally want to keep the header consistent across the entire life of the application.</p>
+<pre tabindex="0"><code>&lt;!--ContentPanel - Grid defintions--&gt;
+  &lt;Grid x:Name=&#34;ContentPanel&#34; Grid.Row=&#34;1&#34; Margin=&#34;10,10,14,-10&#34;&gt;
+   &lt;Grid.ColumnDefinitions&gt;
+    &lt;ColumnDefinition Width=&#34;455&#34;/&gt;
+    &lt;ColumnDefinition Width=&#34;3&#34;/&gt;
+   &lt;ColumnDefinition Width=&#34;0*&#34;/&gt;
+  &lt;/Grid.ColumnDefinitions&gt;
+
+&lt;!--Data source, Images &amp; Text--&gt;
+ &lt;ListBox x:Name=&#34;AlphaItemBox&#34; ItemsSource=&#34;{Binding AItemsListView}&#34; Margin=&#34;0,0,38,0&#34; ScrollViewer.HorizontalScrollBarVisibility=&#34;Visible&#34; Padding=&#34;0&#34; VerticalContentAlignment=&#34;Top&#34; SelectionChanged=&#34;AlphaItemBox_SelectionChanged&#34;&gt;
+   &lt;ListBox.ItemTemplate&gt;
+    &lt;DataTemplate&gt;
+     &lt;StackPanel Grid.Column=&#34;1&#34; VerticalAlignment=&#34;Top&#34; Margin=&#34;10,0,0,0&#34;&gt;
+      &lt;TextBlock Text=&#34;{Binding Name}&#34; FontSize=&#34;36&#34;/&gt; &lt;Image Source=&#34;{Binding Image}&#34; Stretch=&#34;UniformToFill&#34; Width=&#34;408&#34; Tap=&#34;Image_Tap_1&#34;/&gt;
+     &lt;/StackPanel&gt;
+    &lt;/DataTemplate&gt;
+   &lt;/ListBox.ItemTemplate&gt;
+  &lt;/ListBox&gt;
+&lt;/Grid&gt;
+</code></pre><p>Above, you’ll notice that I’ve set my ItemsSource in my AlphaBetItemBox to be bound to AItemsListView, which we created in our previous step. What this does is take all of the data we’ve created in that list, and display it on this template.Rather than write the same code 26 times (once for each letter of the alphabet), I can write it once and all of  the objects on screen (The name of the object and imageURI) are each laid out in the same manner. That’s part of the beauty of databinding: I only have to write the code once!<br>
+The other attractive part of MVVM is that my data (model) is completely separate from my view (essentially, the UI) and I can easily swap these two things in and out, thereby making my code reusable and modular in most respects.</p>
+<p>That’s all for now, as I didn’t want this to get too far in depth on the first tutorial, but I’ll have the second part up tomorrow, where I’ll also include the source code.</p>
+<h4 id="additional-resources">–Additional Resources–<a hidden class="anchor" aria-hidden="true" href="#additional-resources">#</a></h4>
+<p><a href="http://www.chaitanyavenneti.com/topics/wp7-databound-app-intro/">http://www.chaitanyavenneti.com/topics/wp7-databound-app-intro/</a><br>
+<a href="http://www.irisclasson.com/2013/02/03/a-simple-design-time-data-example-with-windows-store-applications-for-beginners/">http://www.irisclasson.com/2013/02/03/a-simple-design-time-data-example-with-windows-store-applications-for-beginners/</a><br>
+<a href="http://www.codeproject.com/Articles/100175/Model-View-ViewModel-MVVM-Explained">http://www.codeproject.com/Articles/100175/Model-View-ViewModel-MVVM-Explained</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1315/tags/c%23/">C#</a></li>
+      <li><a href="http://localhost:1315/tags/programming/">Programming</a></li>
+      <li><a href="http://localhost:1315/tags/win8/">Win8</a></li>
+      <li><a href="http://localhost:1315/tags/windows-8/">Windows 8</a></li>
+      <li><a href="http://localhost:1315/tags/windows-phone-8/">Windows Phone 8</a></li>
+      <li><a href="http://localhost:1315/tags/xaml/">XAML</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1315/">Dave Voyles</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

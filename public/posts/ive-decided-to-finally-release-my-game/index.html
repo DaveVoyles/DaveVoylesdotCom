@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>I’ve decided to finally release my game | Dave Voyles</title>
+<meta name="keywords" content="Game Development, XBLIG, XNA">
+<meta name="description" content="
+I’ve decided to finally release my game.
+And by release, I mean submit it to playtesting, take some brief feedback, and then finally place it into peer review. Once it passes that it can be released on XBLIG.  I’m doing this for a few reasons:
+1)  Learning
+It’s nice to have feedback from other developers in terms of how the game plays and how to make corrections. It’s essentially a pong clone, so I wanted to start simple, as it serves as a way for me to learn both C# and XNA. In that regard it has done its job. I feel as though it’s run its course at the moment and that I can learn more from others developers and players than to continue on as I am.">
+<meta name="author" content="Dave Voyles">
+<link rel="canonical" href="http://localhost:1315/posts/ive-decided-to-finally-release-my-game/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1315/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1315/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1315/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1315/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1315/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1315/posts/ive-decided-to-finally-release-my-game/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1315/" accesskey="h" title="Dave Voyles (Alt + H)">Dave Voyles</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      I’ve decided to finally release my game
+    </h1>
+    <div class="post-meta">
+
+<span title='2012-07-13 00:00:00 +0000 UTC'>July 13, 2012</span>&nbsp;·&nbsp;<span>Dave Voyles</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><p><a href="http://davidvoyles.wordpress.com/2012/07/13/ive-decided-to-finally-release-my-game/"><img loading="lazy" src="http://davidvoyles.files.wordpress.com/2012/07/pong.png" title="Pong"></a></p>
+<p>I’ve decided to finally release my game.</p>
+<p>And by release, I mean submit it to playtesting, take some brief feedback, and then finally place it into peer review. Once it passes that it can be released on XBLIG.  I’m doing this for a few reasons:</p>
+<h4 id="1-learning">1)  Learning<a hidden class="anchor" aria-hidden="true" href="#1-learning">#</a></h4>
+<p>It’s nice to have feedback from other developers in terms of how the game plays and how to make corrections. It’s essentially a pong clone, so I wanted to start simple, as it serves as a way for me to learn both C# and XNA. In that regard it has done its job. I feel as though it’s run its course at the moment and that I can learn more from others developers and players than to continue on as I am.</p>
+<p><a href="http://davidvoyles.files.wordpress.com/2012/07/books.jpg"><img loading="lazy" src="http://davidvoyles.files.wordpress.com/2012/07/books.jpg" title="books"></a>I’m not concerned with mechanics and performance at the moment, as much as I am with just getting it operational. I can always add more to it in the next iteration, which I play to start working on immediately after.  The peer review system is where I can really learn, however.</p>
+<p>From peer review I can see whether or not all of the Xbox specific items are in place. Does it crash during a memory card pull? Does a Code 4 error appear at random? Can you log in using any gamepad from players 1-4? These are things which I can’t really test across all Xboxes as I only own the current model (my launch console and black premium one recently had a RROD).</p>
+<h4 id="2-a-bit-of-an-ego-bump">2) A bit of an ego bump<a hidden class="anchor" aria-hidden="true" href="#2-a-bit-of-an-ego-bump">#</a></h4>
+<p>Let’s not kid ourselves – it feels good to say that you have a game out.  Besides, it’s mentally rewarding to see a product for others to enjoy (pick apart?) after staring at code for so long. For as much as it is a bump, it is also a slight hit. I’m not nearly as concerned with which features are implemented well, as I am with ones that are bad, and in particular why they are that way.</p>
+<h4></h4>
+<h4 id="3cash-mahney">3) Cash mahney<a hidden class="anchor" aria-hidden="true" href="#3cash-mahney">#</a></h4>
+<p>I plan on mentally converting the dollars to MSP in my head, so that at the end of the quarter when it says I’ve made 4 sales at $1 a piece, it will really be like I have 4 x 80 MSP. That’s 320 MSP, I’ll be Scrooge McDuck rich and just swimming in MSP.</p>
+<h4 id="the-aftermath">The aftermath<a hidden class="anchor" aria-hidden="true" href="#the-aftermath">#</a></h4>
+<p>The real reason I want to do this is so that I can finally get it out the door, and begin on fixing it from there. I’ve taken a few weeks off from coding just to brush up on C# and XNA by reading, watching, and learning.  In doing so, I’ve discovered that there are a number of improvements that I can make to my own game, in terms of readability, reusability, and modularization.</p>
+<p>Rather than tear my game apart without anything to really show for it, I figured I would release it before continuing to iterate. I have a powerup system, a working particle engine, and a number of other features, but those won’t all be working consistently, and most of all, efficiently, for some time.</p>
+<p>I’d like to go back to Pong with Cats with a new frame of mine and level of understanding that I previously didn’t hold when I first started this project. With that in mind, I’d really like to focus on the reusability and modularization of my classes in order to allow for future additions to be a more streamlined process.</p>
+<p>If you have any tutorials, notes, or resources you’d like to throw my way, then please feel free to get in touch with me. I’d also love to hear about some of your experiences with your first game release, and what you took from it.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1315/tags/game-development/">Game Development</a></li>
+      <li><a href="http://localhost:1315/tags/xblig/">XBLIG</a></li>
+      <li><a href="http://localhost:1315/tags/xna/">XNA</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1315/">Dave Voyles</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

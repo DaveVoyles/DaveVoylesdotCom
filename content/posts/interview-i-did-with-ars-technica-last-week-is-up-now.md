@@ -1,8 +1,7 @@
 +++
 title = "Interview I did with Ars Technica last week is up now"
 date = "2011-07-11T00:00:00"
-draft = true
-stale_reason = "broken outbound reference(s): link http://twitter.com/a_webster (HTTP 520)"
+draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["igsu", "indie games summer uprising", "Journalism", "Resume", "Summer Uprising"]

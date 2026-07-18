@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>BizSpark on Dave Voyles</title>
+    <link>http://localhost:1315/categories/bizspark/</link>
+    <description>Recent content in BizSpark on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 14 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/categories/bizspark/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tutorials: Creating your first website with Azure</title>
+      <link>http://localhost:1315/posts/19841-2/</link>
+      <pubDate>Mon, 14 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/19841-2/</guid>
+      <description>&lt;p&gt;My Tech Evangelist colleagues, &lt;a href=&#34;http://joeraio.com/&#34;&gt;Joe Raio&lt;/a&gt; and &lt;a href=&#34;http://briansherwin.com/blog/&#34;&gt;Brian Sherwin&lt;/a&gt;, have create a great set of video tutorials on how to create your own website using Azure. This is part of Microsoft’s &lt;em&gt;&lt;a href=&#34;https://www.choosetocode.com/&#34;&gt;Choose to Code&lt;/a&gt;&lt;/em&gt; campaign, which guides your middle and high school students through a series of online tutorials walking them through the process of creating and publishing their own website.&lt;/p&gt;
+&lt;h2 id=&#34;if-you-are-using-azure-passes-watch-this-video&#34;&gt;If you are using Azure Passes, watch this video&lt;/h2&gt;
+&lt;h2 id=&#34;if-you-are-using-dreamspark-start-with-this-video&#34;&gt;If you are using DreamSpark, start with this video&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Course-Setup-and-Azure-Activation&#34;&gt;Course Setup and Azure Activation&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Building-your-very-first-web-page-with-HTML-using-Visual-Studio-Online&#34;&gt;Building your very first web page with HTML using Visual Studio Online!&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Lets-learn-how-to-add-some-style-to-your-page-with-CSS&#34;&gt;Let’s learn how to add some style to your page with CSS&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Make-your-website-mobile-friendly-using-Bootstrap&#34;&gt;Make your website mobile friendly using Bootstrap&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Making-your-website-interactive-using-JavaScript&#34;&gt;Making your website interactive using JavaScript&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Learn-how-to-use-jQuery-to-send-and-receive-data&#34;&gt;Learn how to use jQuery to send and receive data&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Still need Azure? &lt;a href=&#34;mailto:Dvoyles@microsoft.com&#34;&gt;Reach out to me&lt;/a&gt; to inquire about &lt;a href=&#34;http://www.davevoyles.com/bizspark-free-software-cloud-services-o/&#34;&gt;BizSpark&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Finishing the Web App template | Dave Voyles</title>
+<meta name="keywords" content="HTML5, Programming, Students">
+<meta name="description" content="You can download the app from the Windows 8 Store, for free.
+In my last post, I mentioned that I began using Microsoft’s new Web App Template, to quickly and easily create an app out of my website, while using very little code. Now that my app is finished, I wanted to walk you through the steps, so that you can do the same. In total, it only took me about 2 hours to have my app created from scratch, and in the store!">
+<meta name="author" content="Dave Voyles">
+<link rel="canonical" href="http://localhost:1315/posts/finishing-web-app-template/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1315/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1315/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1315/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1315/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1315/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1315/posts/finishing-web-app-template/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1315/" accesskey="h" title="Dave Voyles (Alt + H)">Dave Voyles</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Finishing the Web App template
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta">
+
+<span title='2014-05-16 00:00:00 +0000 UTC'>May 16, 2014</span>&nbsp;·&nbsp;<span>Dave Voyles</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/Screen-3.png"><img alt="Screen 3" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/Screen-3-1024x575.png"></a><strong><a href="http://apps.microsoft.com/windows/en-us/app/dave-voyles-web-app-template/f8afe265-c9e4-4d42-b6b9-8762869380c9">You can download the app from the Windows 8 Store, for free.</a></strong></p>
+<p><a href="http://davevoyles.azurewebsites.net/intro-web-app-template/">In my last post,</a> I mentioned that I began using Microsoft’s new Web App Template, to quickly and easily create an app out of my website, while using very little code. Now that my app is finished, I wanted to walk you through the steps, so that you can do the same. In total, it only took me about 2 hours to have my app created from scratch, and in the store!</p>
+<h2 id="making-the-app-yours">Making the App Yours<a hidden class="anchor" aria-hidden="true" href="#making-the-app-yours">#</a></h2>
+<p>I wanted to keep my app simple, since my website already had a ton of information and functionality to begin with. My goal here was to neatly organize content for students, in one easy-to-find solution. I started by adding links to the top of my app.<br>
+When the user right clicks, the header pops down from the top of the screen, and offers nested links for the user to click through. I wanted to share the work of my fellow evangelists, so the first set of nested links was all for them.</p>
+<h2 id="content-that-is-right-for-your-audience">Content That Is Right for Your Audience<a hidden class="anchor" aria-hidden="true" href="#content-that-is-right-for-your-audience">#</a></h2>
+<p>Since this app is geared towards the students I work with, I wanted to share resources that they would commonly ask about or use. Therefore, under the “Students” tab, I have links to DreamSpark, BizSpark, the Imagine Fund, and any posts of mine which I had categorized under “students”. The code for that is as follows:</p>
+<pre tabindex="0"><code> {
+ &#34;label&#34;: &#34;Students&#34;,
+ &#34;icon&#34;: &#34;library&#34;,
+ &#34;action&#34;: &#34;nested&#34;,
+ &#34;children&#34;: [
+ {
+ &#34;label&#34;: &#34;Dreamspark&#34;,
+ &#34;icon&#34;: &#34;library&#34;,
+ &#34;action&#34;: &#34;https://build.windowsstore.com/DreamSpark/#fbid=_rym5eCW63n&#34;
+ },
+ {
+ &#34;label&#34;: &#34;BizSpark&#34;,
+ &#34;icon&#34;: &#34;library&#34;,
+ &#34;action&#34;: &#34;http://wootstudio.ca/startups/bizspark.aspx&#34;
+ },
+ {
+ &#34;label&#34;: &#34;Imagine Fund&#34;,
+ &#34;icon&#34;: &#34;library&#34;,
+ &#34;action&#34;: &#34;http://www.microsoftimaginefund.com/&#34;
+ },
+ {
+ &#34;label&#34;: &#34;Posts for students&#34;,
+ &#34;icon&#34;: &#34;library&#34;,
+ &#34;action&#34;: &#34;http://davevoyles.azurewebsites.net/category/students/&#34;
+ }
+ ]
+ },
+</code></pre><p>I continued to add more content, which I felt would be relevant, including a pull down for Unity, HTML5, Win Phone, and drag-and-drop tools.</p>
+<p>You my notice that there is an “icon” label in the text above. You can add any icon to your link, by searching through <a href="http://msdn.microsoft.com/en-us/library/windows/apps/xaml/jj841127.aspx">this page</a>, which lays out all of the icons available to you.</p>
+<h2 id="privacy">Privacy<a hidden class="anchor" aria-hidden="true" href="#privacy">#</a></h2>
+<p>Every Windows 8 app needs to have a <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=3&amp;ved=0CD8QFjAC&amp;url=http%3A%2F%2Fjessefreeman.com%2Farticles%2Fwindows-store-privacy-statement%2F&amp;ei=LRF1U6L6KePQsQT86oCACg&amp;usg=AFQjCNGJDv2lAyWvPit-4BEZ_-iMup2G1w&amp;sig2=r8X4fjIaVeU98MfaJHxe0A&amp;bvm=bv.66917471,d.cWc&amp;cad=rja">privacy statement,</a> notifying the users about permissions you will be using (internet connection, location, etc.) and a way to get in touch with you. Usually, you can store the privacy statement within an application, but the WAT does not allow this. Therefore, I had to make a <a href="http://phlcollective.azurewebsites.net/privacy.html">simple privacy statement</a> page on another site, and just link to it.</p>
+<h2 id="passing-certification">Passing Certification<a hidden class="anchor" aria-hidden="true" href="#passing-certification">#</a></h2>
+<p>To pass the app certification tests, you’ll need to use images from your app for your splash screen, logo, and start menu. To simplify and speed up the process, I use the <a href="http://wat-docs.azurewebsites.net/Tools">Windows Store Image Generator</a>, and simply give it one image, and it quickly makes all of the images that I need to pass certification. For my logo and tile image, I just grabbed a screen shot of my website. I added all of the images except for the badge, because that seemed to have an error with the WAT.</p>
+<p>Here is what it looks like in the config.js file:</p>
+<pre tabindex="0"><code> &#34;settings&#34;: {
+ &#34;enabled&#34;: true,
+ &#34;privacyUrl&#34;: &#34;http://phlcollective.azurewebsites.net/privacy.html&#34;,
+ &#34;items&#34;: [
+ {
+ &#34;title&#34;: &#34;About Dave&#34;,
+ &#34;page&#34;: &#34;http://davevoyles.azurewebsites.net/bio/&#34;,
+ &#34;loadInApp&#34;: true
+ }
+ ]
+ },
+</code></pre><p>I’ve also added a page where users can find out more about me (it links directly to my “about me” page on my site).<br>
+When I finished creating my app, I ran it through the <a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh694081.aspx">Windows App Certification Kit</a>, which ran a series of tests to determine if my app would work in the store. This saves you the time of having to upload your app to the store for submission, and later discovering that it was denied for something trivial like forgetting a logo image.</p>
+<p>Best of all, you don’t even need to change the package.appxmanifest for this change either! Just drag-and-drop your new images into your “images” folder in Visual Studio, and you’re good to go!</p>
+<p>Other than that, out of the box your app should work perfectly fine. The team at Microsoft has done a fantastic job of making this tool as easy as possible to work with.<br>
+Resources</p>
+<p>As always, you can find the latest code updates to this project <a href="https://github.com/DaveVoyles/Windows-App-Template">on my GitHub.</a> I’ll add the entire project as a .zip file in here soon, too.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1315/tags/html5/">HTML5</a></li>
+      <li><a href="http://localhost:1315/tags/programming/">Programming</a></li>
+      <li><a href="http://localhost:1315/tags/students/">Students</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1315/">Dave Voyles</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

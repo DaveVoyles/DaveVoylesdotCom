@@ -1,8 +1,7 @@
 +++
 title = "Video update of my 2D shmup using the JavaScript framework Impact.js"
 date = "2013-04-02T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows Phone 8, Windows Phone, Windows 8); 13.3 years old"
+draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Windows 8", "Windows Phone 8"]
 tags = ["Game Dev", "JavaScript", "Programming"]

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Programming on Dave Voyles</title>
+    <link>http://localhost:1315/tags/programming/</link>
+    <description>Recent content in Programming on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 14 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tutorials: Creating your first website with Azure</title>
+      <link>http://localhost:1315/posts/19841-2/</link>
+      <pubDate>Mon, 14 Dec 2015 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/19841-2/</guid>
+      <description>&lt;p&gt;My Tech Evangelist colleagues, &lt;a href=&#34;http://joeraio.com/&#34;&gt;Joe Raio&lt;/a&gt; and &lt;a href=&#34;http://briansherwin.com/blog/&#34;&gt;Brian Sherwin&lt;/a&gt;, have create a great set of video tutorials on how to create your own website using Azure. This is part of Microsoft’s &lt;em&gt;&lt;a href=&#34;https://www.choosetocode.com/&#34;&gt;Choose to Code&lt;/a&gt;&lt;/em&gt; campaign, which guides your middle and high school students through a series of online tutorials walking them through the process of creating and publishing their own website.&lt;/p&gt;
+&lt;h2 id=&#34;if-you-are-using-azure-passes-watch-this-video&#34;&gt;If you are using Azure Passes, watch this video&lt;/h2&gt;
+&lt;h2 id=&#34;if-you-are-using-dreamspark-start-with-this-video&#34;&gt;If you are using DreamSpark, start with this video&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Course-Setup-and-Azure-Activation&#34;&gt;Course Setup and Azure Activation&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Building-your-very-first-web-page-with-HTML-using-Visual-Studio-Online&#34;&gt;Building your very first web page with HTML using Visual Studio Online!&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Lets-learn-how-to-add-some-style-to-your-page-with-CSS&#34;&gt;Let’s learn how to add some style to your page with CSS&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Make-your-website-mobile-friendly-using-Bootstrap&#34;&gt;Make your website mobile friendly using Bootstrap&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Making-your-website-interactive-using-JavaScript&#34;&gt;Making your website interactive using JavaScript&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;a href=&#34;https://channel9.msdn.com/Series/Choose-to-Code/Learn-how-to-use-jQuery-to-send-and-receive-data&#34;&gt;Learn how to use jQuery to send and receive data&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Still need Azure? &lt;a href=&#34;mailto:Dvoyles@microsoft.com&#34;&gt;Reach out to me&lt;/a&gt; to inquire about &lt;a href=&#34;http://www.davevoyles.com/bizspark-free-software-cloud-services-o/&#34;&gt;BizSpark&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>prime[31] Azure plugin for Win8 Unity games (Part 3)</title>
+      <link>http://localhost:1315/posts/prime31-azure-plugin-win8-wp8-unity-games-part-3/</link>
+      <pubDate>Tue, 26 Aug 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/prime31-azure-plugin-win8-wp8-unity-games-part-3/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png&#34;&gt;&lt;img alt=&#34;Prime31&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RESOURCES:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/DaveVoyles/prime31-azure&#34;&gt;You can find the source for this project on my GitHub.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.slideshare.net/DaveVoyles/using-prime31-to-connect-your-unity-game-to-azure-mobile-services&#34;&gt;Power point slides&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Video Walkthrough&lt;/li&gt;
+&lt;li&gt;Get this working on Windows Phone&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/prime31-azure-plugin-win8-wp8-unity-games-part-2/&#34;&gt;In part 2 of my tutorial&lt;/a&gt;,  I showed you how you how to set up the initial project with prime[31]. Now that we have it built, I’m going to walk you through the code, as well as how it all works.&lt;/p&gt;
+&lt;h2 id=&#34;insert&#34;&gt;Insert&lt;/h2&gt;
+&lt;p&gt;Let’s test this out by running the project from Visual Studi and inserting a new object into our leaderboard. Deploy the sample, connect to the Azure service, then insert a new username and score.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Unite 2014 keynote recap</title>
+      <link>http://localhost:1315/posts/unite-2014-keynote-recap/</link>
+      <pubDate>Fri, 22 Aug 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/unite-2014-keynote-recap/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unite-2014.jpg&#34;&gt;&lt;img alt=&#34;Unite 2014&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unite-2014.jpg&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I’m still at Unite 2014 this week, so I thought I’d deliver a quick recap of the Unite 2014 keynote, courtesy of &lt;a href=&#34;http://blogs.msdn.com/b/jaimer/&#34;&gt;Jaime Rodriguez&lt;/a&gt;, of Microsoft.&lt;/p&gt;
+&lt;p&gt;Here was my favorite talk of Unite as well:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[Unite 2014 – IL2CPP: The next generation of scripting in Unity](Unite%202014 - IL2CPP: The next generation of scripting in Unity)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=OY72_tI4t1I&#34;&gt;Unite 2014 – WebGL Deployment in Unity 5&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;opening-stats&#34;&gt;&lt;strong&gt;Opening stats:&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;[David Helgason, CEO]&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;600k active montly game developers .. [compared to 120k users, 3 years ago]&lt;/li&gt;
+&lt;li&gt;54% of games use middleware  [compared to 10% 4 years ago]&lt;/li&gt;
+&lt;li&gt;47% mobile developers use Unity [17% in 2009]&lt;/li&gt;
+&lt;li&gt;8.7B Unity mobile app installs [not all inclusive, that is people who opt-in to analytics]&lt;/li&gt;
+&lt;li&gt;PC has strength [mobile devs targeting PCs as they get better]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;industry&#34;&gt;&lt;strong&gt;Industry:&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;[David Helgason, CEO]&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>prime[31] Azure plugin for Win8 Unity games (Part 2)</title>
+      <link>http://localhost:1315/posts/prime31-azure-plugin-win8-wp8-unity-games-part-2/</link>
+      <pubDate>Thu, 14 Aug 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/prime31-azure-plugin-win8-wp8-unity-games-part-2/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png&#34;&gt;&lt;img alt=&#34;Prime31&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RESOURCES:&lt;/strong&gt; &lt;a href=&#34;https://github.com/DaveVoyles/prime31-azure&#34;&gt;You can find the source for this project on my GitHub.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/prime31-azure-plugin-win8-wp8-unity-games/&#34;&gt;In part 1 of my tutorial,&lt;/a&gt; I showed you how you how to set up the initial project with prime[31]. Now that we have it built, I’m going to walk you through the code, as well as how it all works.&lt;/p&gt;
+&lt;p&gt;Now that we have the project built, let’s open it up the metro folder, and launch the &lt;em&gt;Prime31&lt;/em&gt; Visual Studio solution.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Stacey Mulcahy writes: Internet of Things with Unity3d, Arduino and Spacebrew</title>
+      <link>http://localhost:1315/posts/stacey-mulcahy-writes-internet-things-unity3d-arduino-spacebrew/</link>
+      <pubDate>Wed, 30 Jul 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/stacey-mulcahy-writes-internet-things-unity3d-arduino-spacebrew/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;space brew&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/space-brew.jpg&#34;&gt;My co-worker, and web dev ninja, Stacey Mulcahy (&lt;a href=&#34;http://www.twitter.com/bitchwhocodes&#34;&gt;@bitchwhocodes&lt;/a&gt;) put together a great series of blog posts on how to use Spacebrew ( a web sockets solution built on Node that enables you to create interactive spaces with several clients ) with Unity3d and Arduino &amp;amp; Processing. This is the beginning / start of next week’s bit where she shows how to build your own DDR mat  and hook it into Unity3d,  Arduino, and Processing.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Examples of apps published with the Web App Template</title>
+      <link>http://localhost:1315/posts/examples-apps-published-web-app-template/</link>
+      <pubDate>Fri, 18 Jul 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/examples-apps-published-web-app-template/</guid>
+      <description>&lt;p&gt;A few months back, &lt;a href=&#34;http://davevoyles.azurewebsites.net/intro-web-app-template/&#34;&gt;I wrote a piece on a high level overview of Microsoft’s Web App Template.&lt;/a&gt; I’ve recently learned that it not only works on Windows 8, but is also applicable to Win Phone 8, with Universal support coming soon.&lt;/p&gt;
+&lt;p&gt;So why would anyone ever wrap their site and turn it into an app? Well for one thing, it can quickly and easily net you 300+ 4+ star reviews on the store, and takes no more than an hour to create.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Windows 8 app development for beginners</title>
+      <link>http://localhost:1315/posts/windows-8-app-development-beginners/</link>
+      <pubDate>Thu, 22 May 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/windows-8-app-development-beginners/</guid>
+      <description>&lt;p&gt;[iframe src=”http://www.slideshare.net/slideshow/embed_code/34969684″ width=”676″ height=”600″ frameborder=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no”]&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Finishing the Web App template</title>
+      <link>http://localhost:1315/posts/finishing-web-app-template/</link>
+      <pubDate>Fri, 16 May 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/finishing-web-app-template/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/Screen-3.png&#34;&gt;&lt;img alt=&#34;Screen 3&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/Screen-3-1024x575.png&#34;&gt;&lt;/a&gt;&lt;strong&gt;&lt;a href=&#34;http://apps.microsoft.com/windows/en-us/app/dave-voyles-web-app-template/f8afe265-c9e4-4d42-b6b9-8762869380c9&#34;&gt;You can download the app from the Windows 8 Store, for free.&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/intro-web-app-template/&#34;&gt;In my last post,&lt;/a&gt; I mentioned that I began using Microsoft’s new Web App Template, to quickly and easily create an app out of my website, while using very little code. Now that my app is finished, I wanted to walk you through the steps, so that you can do the same. In total, it only took me about 2 hours to have my app created from scratch, and in the store!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Professional Game Development Tools</title>
+      <link>http://localhost:1315/posts/professional-game-development-tools/</link>
+      <pubDate>Fri, 21 Mar 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/professional-game-development-tools/</guid>
+      <description>&lt;p&gt;This post is part of 3 week series giving current and aspiring game devs the tools, resources, and advice they need to get started building for Windows. We also have a great video course on [game production basics](http://Game Production Basics) at Microsoft Virtual Academy.&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;&lt;/th&gt;
+					&lt;th&gt;&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;a href=&#34;https://www.visualstudio.com/&#34;&gt;Visual Studio Community Edition&lt;/a&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;a href=&#34;http://localhost:1315/images/www.davevoyles.com_wp-content_uploads_2014_03_visual-studio-logo.jpg.jpg&#34;&gt;visual-studio-logo&lt;/a&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;You need an IDE, or Integrated Development Environment, to write code for your games. Visual Studio Community edition is FREE from Microsoft, and allows you to use a multitude of languages.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>How do I get my game on Xbox One?</title>
+      <link>http://localhost:1315/posts/get-game-app-xbox-one/</link>
+      <pubDate>Fri, 07 Feb 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/get-game-app-xbox-one/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/02/XboxOne_Console_Sensor_Controller_F_GreenBG_RGB.png&#34;&gt;&lt;img alt=&#34;XboxOne_Console_Sensor_Controller_F_GreenBG_RGB&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/02/XboxOne_Console_Sensor_Controller_F_GreenBG_RGB-1024x731.png&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update 3/29/16&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;With today’s announcements at //BUILD, some of this information will be out of date. I will make changes in the very near future.&lt;/em&gt;&lt;br&gt;
+Updated, &lt;strong&gt;9/24/15&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;TLDR&lt;/strong&gt;: &lt;em&gt;Middleware engines work great and support for Xbox one is continuing to grow within new tools each day. I have a more recent post with more information following Microsoft’s presence at GDC 2015. &lt;a href=&#34;http://www.davevoyles.com/gdc-xbox-live-and-xbox-one-will-be-open-to-many-more-developers-now/&#34;&gt;Here is the latest.&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;For developers to focus on building for the UWP. Building UWP apps today is the best way to make sure apps will work on the Xbox when UWP is available on the Xbox. Similarly how different device families have specific APIs (GPIO, Hardware buttons, etc), Xbox will have a set of APIs that developer can use to extend experience to match the Xbox One, and those APIs will be used on top of the core UWP functionality that developers are building today.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>How to write engaging second screen experiences, using SmartGlass or Win8</title>
+      <link>http://localhost:1315/posts/write-engaging-second-screen-experiences-using-smartglass-win8/</link>
+      <pubDate>Fri, 07 Feb 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/write-engaging-second-screen-experiences-using-smartglass-win8/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/02/SmartGlass-example.jpg&#34;&gt;&lt;img alt=&#34;SmartGlass example&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/02/SmartGlass-example.jpg&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This ties into my previous post, where I spoke about &lt;strong&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/get-game-app-xbox-one/&#34;&gt;how to get your game or app on Xbox One.&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Microsoft unveiled quiet a bit of information regarding SmartGlass during BUILD 2012, and much of it is available **&lt;a href=&#34;http://video.ch9.ms/sessions/build/2012/2-028.pptx&#34;&gt;via this Power Point presentation.&lt;/a&gt;**Ignore most of the C++ in there; I never had to touch any of that. All of my work was done via JavaScript and it worked fine.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Start making games, even if you don&#39;t know how to program</title>
+      <link>http://localhost:1315/posts/start-making-games-even-dont-know-program/</link>
+      <pubDate>Sat, 01 Feb 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/start-making-games-even-dont-know-program/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/02/Construct-2.jpg&#34;&gt;&lt;img alt=&#34;Construct 2&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/02/Construct-2-1024x622.jpg&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;“I want to get started with making games, but I don’t know how. Where should I start?”&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;It can be overwhelming when you are starting off, because there are so many options available to you. I mean just look at plethora of game making tools at  &lt;a href=&#34;http://www.pixelprospector.com/the-big-list-of-game-making-tools/&#34;&gt;Pixel Prospetor&lt;/a&gt;, and you’ll see what I’m talking about.  If you have zero programming experience, then I’d suggest starting with &lt;a href=&#34;http://www.pixelprospector.com/the-big-list-of-game-making-tools/#construct&#34;&gt;Construct2.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Construct 2 allows you to create HTML5 games without ever having to write code. Everything is handled in the IDE (Integrated Development Environment) which has a GUI (Graphical User Interface) that anyone could use. You simply drag-and-drop objects into your scene, and can make changes to the objects properties by right clicking.&lt;br&gt;
+Even better, it’s free! There are premium versions available, but if you’re just starting off, then the free version offers more than enough to get you going.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Super Rawr-Type Redux is released for the browser</title>
+      <link>http://localhost:1315/posts/super-rawr-type-redux-is-released-for-the-browser/</link>
+      <pubDate>Sun, 03 Nov 2013 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/super-rawr-type-redux-is-released-for-the-browser/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://super-rawr-type.azurewebsites.net&#34;&gt;&lt;img alt=&#34;Super-Rawr-Type-Redux-1&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/super-rawr-type-redux-1.gif?w=670&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;click-here-to-play-super-rawr-type-redux&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://super-rawr-type.azurewebsites.net&#34;&gt;Click here to play Super Rawr-Type Redux&lt;/a&gt;&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;&lt;strong&gt;Source Code:&lt;/strong&gt;  &lt;a href=&#34;https://github.com/DaveVoyles/Super-Rawr-Type-Redux&#34;&gt;https://github.com/DaveVoyles/Super-Rawr-Type-Redux&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I’ve spent the last 3 months working on the follow up to my previous game, &lt;em&gt;Super Rawr-Type&lt;/em&gt;. It was a simple side scrolling 2D shmup, which I wrote in JavaScript and also ported to Windows 8. One bug prevents me from getting it into the store, and I’m not able to replicate it, so who knows if it will ever be released there.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Hacking jQuery to work in Windows 8</title>
+      <link>http://localhost:1315/posts/hacking-jquery-to-work-in-windows-8/</link>
+      <pubDate>Mon, 23 Sep 2013 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/hacking-jquery-to-work-in-windows-8/</guid>
+      <description>&lt;p&gt;For some time now I’ve been building HTML5 apps for Windows 8. I had previously done work in C# and XAML (&lt;em&gt;Spell and Speak&lt;/em&gt;, &lt;em&gt;Pizong,&lt;/em&gt; and two Unity games), but prefer HTML5 and JavaScript for a number of reasons. First and foremost, it allows me to build apps for multiple platforms while only having to make marginal tweaks for each one.  Naturally, each platform comes with its own ups and downs, but I haven’t really had any issues with Windows 8 until I started integrating jQuery.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Creating the random enemy spawner, improving performance</title>
+      <link>http://localhost:1315/posts/creating-the-random-enemy-spawner-improving-performance/</link>
+      <pubDate>Fri, 12 Apr 2013 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/creating-the-random-enemy-spawner-improving-performance/</guid>
+      <description>&lt;p&gt;When building my Win8 port of &lt;em&gt;Super Rawr-Type&lt;/em&gt;, I ran into all sorts of performance issues, due to lack of optimization. This was to be expected, as I on gave myself 1 month to complete the base game, then I would take the second and final month to port it to different platforms and worry about optimization.&lt;/p&gt;
+&lt;p&gt;The design of my levels is where most of my issues came from. &lt;a href=&#34;http://davidvoyles.wordpress.com/2013/04/10/performance-improvements-and-porting-super-rawr-type-to-win8/&#34;&gt;I explain it pretty well in this post here.&lt;/a&gt; The gist of it is this: When the map loads, it is filled with ~150 enemies, which are constantly being updated. Obviously this comes with quite a bit of overhead. The browser version played well, but on a dedicated OS it chugs.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Object pooling optimizations – not so much [yet]</title>
+      <link>http://localhost:1315/posts/object-pooling-optimizations-not-so-much-yet/</link>
+      <pubDate>Thu, 11 Apr 2013 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/object-pooling-optimizations-not-so-much-yet/</guid>
+      <description>&lt;p&gt;[UPDATE] Clarified that I have two classes for my bullet. One which uses pooling, and &lt;a href=&#34;https://github.com/DaveVoyles/SuperRawrType/blob/master/lib/game/entities/bulletNoPooling.js&#34;&gt;another that does not use pooling&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;So my object pooling optimizations don’t seem to be working.&lt;/p&gt;
+&lt;p&gt;I thought I would have seen some improvements in terms of my performance, but I’m just not seeing it. I think one issue is due to the fact that with more objects lying around, the garbage collector takes longer to run. Essentially, the pooling reduces how often the collector runs, but makes those runs more noticeable.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Video update of my 2D shmup using the JavaScript framework Impact.js</title>
+      <link>http://localhost:1315/posts/video-update-of-my-2d-shmup-using-the-javascript-framework-impact-js/</link>
+      <pubDate>Tue, 02 Apr 2013 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/video-update-of-my-2d-shmup-using-the-javascript-framework-impact-js/</guid>
+      <description>&lt;p&gt;So I’m quickly progressing in my newest game, &lt;em&gt;Super Rawr-Type&lt;/em&gt;and am just about to put the finishing touches on it. I’ve given myself one month (30 days) to work on this bad boy. GDC and PAX took up quite a bit of time recently, so I’ve got a few days left to go. It’s far from perfect, but it’ll do.&lt;/p&gt;
+&lt;p&gt;Next month, I’ll focus on publishing to The Windows 8 and Windows Phone 8 Stores, as well as wrapping the code in the iOS wrapper.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>[Tutorial] Design Time Data &#43; Passing Data Across Pages  (WP8)</title>
+      <link>http://localhost:1315/posts/design-time-data-passing-data-across-pages-tutorial-wp8/</link>
+      <pubDate>Fri, 08 Feb 2013 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/design-time-data-passing-data-across-pages-tutorial-wp8/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png&#34;&gt;&lt;img alt=&#34;Screenshot (1)&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png?w=652&#34;&gt;&lt;/a&gt;The most difficult part of this project thus far has been understanding the idea behind MVVM, or Model-View-View Model. Wikipedia defines it as:&lt;/p&gt;
+&lt;p&gt;“MVVM facilitates a clear separation of the development of the &lt;a href=&#34;http://en.wikipedia.org/wiki/Graphical_user_interface&#34; title=&#34;Graphical user interface&#34;&gt;graphical user interface&lt;/a&gt; (either as &lt;a href=&#34;http://en.wikipedia.org/wiki/Markup_language&#34; title=&#34;Markup language&#34;&gt;markup language&lt;/a&gt; or GUI code) from the development of the &lt;a href=&#34;http://en.wikipedia.org/wiki/Business_logic&#34; title=&#34;Business logic&#34;&gt;business logic&lt;/a&gt; or &lt;a href=&#34;http://en.wikipedia.org/wiki/Back_end&#34; title=&#34;Back end&#34;&gt;back end&lt;/a&gt; logic known as the model (also known as the data model to distinguish it from the view model). The view model of MVVM is a value converter, meaning that the view model is responsible for exposing the data objects from the model in such a way that those objects are easily managed and consumed”&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The final chapter of my book on UnrealScript Programming was completed today</title>
+      <link>http://localhost:1315/posts/the-final-chapter-of-my-book-on-unrealscript-programming-was-completed-today/</link>
+      <pubDate>Fri, 21 Dec 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/the-final-chapter-of-my-book-on-unrealscript-programming-was-completed-today/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.files.wordpress.com/2012/12/556ot_07_08.png&#34;&gt;&lt;img alt=&#34;UnrealScript HUD&#34; loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2012/12/556ot_07_08.png&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Earlier today I completed the final chapter of my book &lt;em&gt;The Advancaed UnealScript Programming Cookbook&lt;/em&gt;. The book covers a number of topics ranging from creating custom weapons, advanced AI for navigating tight paths and following pawns, drawing a HUD without the use of &lt;a href=&#34;http://gameware.autodesk.com/scaleform&#34;&gt;ScaleForm&lt;/a&gt;, and adjusting crosshairs based on the actor your pawn’s eyes are tracing.&lt;/p&gt;
+&lt;p&gt;It was an interesting experience, to say the least. Initially I wasn’t completely confident that I could complete the book within the restrictions of such a tight deadline (less than 3 months), especially when I hadn’t used the language or Unreal Development kit in almost a year. I had previously been focusing my efforts on C#, XNA, and Unity.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Death Sentence website is live!</title>
+      <link>http://localhost:1315/posts/death-sentence-website-is-live/</link>
+      <pubDate>Thu, 23 Jun 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/death-sentence-website-is-live/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;www.deathsentenceudk.wordpress.com&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2010/03/death-sentence.gif&#34; title=&#34;Death Sentence&#34;&gt;&lt;/a&gt;See, I really do make games and not just write about them! &lt;a href=&#34;http://www.deathsentenceudk.wordpress.com&#34;&gt;Take a gander&lt;/a&gt; at the site I created for Death Sentence. It is still very It’s a great team so far, and I’ve been fortunate enough to hop on, although later in development to work as both an environment artist and web developer. It is a vahicular combat title in a similar vein to Twisted Metal. We’ve created it using the latest Unreal Engine, and it should have a release on the PC and perhaps iOS at some point after.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

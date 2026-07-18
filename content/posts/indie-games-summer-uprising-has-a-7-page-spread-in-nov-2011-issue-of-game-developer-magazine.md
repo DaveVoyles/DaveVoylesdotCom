@@ -1,8 +1,7 @@
 +++
 title = "Indie Games Summer Uprising has a 5 page spread in Nov. 2011 issue of Game Developer Magazine"
 date = "2011-11-14T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Xbox Live Indie Games, XBLIG, XNA); 14.7 years old; broken outbound reference(s): link http://www.gdmag.com/subscribe/ (HTTP 404)"
+draft = false
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["igsu", "indie games summer uprising", "post-mortem", "Resume", "XBLIG"]

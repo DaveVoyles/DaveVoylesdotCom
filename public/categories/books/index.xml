@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Books on Dave Voyles</title>
+    <link>http://localhost:1315/categories/books/</link>
+    <description>Recent content in Books on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 19 Jan 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/categories/books/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Some books at the top of my list</title>
+      <link>http://localhost:1315/posts/some-books-at-the-top-of-my-list/</link>
+      <pubDate>Sun, 19 Jan 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/some-books-at-the-top-of-my-list/</guid>
+      <description>&lt;p&gt;I’ve taken a bit of a break from playing games lately, and instead have been cranking through books.  A lot of this seems like “self help” or “empowerment” books, but I’ve chose to keep those silly things off of this list. Instead, I wanted to focus on books that actually offer some sort of practical and useful knowledge.  Here’s a few of them, and why I think they would be worth your time:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

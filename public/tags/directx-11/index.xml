@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>DirectX 11 on Dave Voyles</title>
+    <link>http://localhost:1315/tags/directx-11/</link>
+    <description>Recent content in DirectX 11 on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 12 Nov 2013 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/tags/directx-11/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Former 2d shooter sample, now working as a C&#43;&#43; / DirectX 11 sample</title>
+      <link>http://localhost:1315/posts/former-2d-shooter-sample-now-working-as-a-c-directx-11-sample/</link>
+      <pubDate>Tue, 12 Nov 2013 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/former-2d-shooter-sample-now-working-as-a-c-directx-11-sample/</guid>
+      <description>&lt;p&gt;Charles Humprey (&lt;a href=&#34;https://twitter.com/NemoKrad&#34;&gt;@NemoKrad&lt;/a&gt;) was kind enough to help me get his 2D side scrolling shooter sample working in C++ / DX 11 this morning. &lt;a href=&#34;https://randomchaosdx11engine.codeplex.com/SourceControl/latest&#34;&gt;You can find the source code to the project here.&lt;/a&gt; He’s a fellow MVP who has been extremely active in the XNA community, and provided numerous samples in the past. You can find &lt;a href=&#34;http://randomchaosdx11adventures.blogspot.co.uk/&#34;&gt;more of his work here.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Requirements:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.microsoft.com/en-gb/download/details.aspx?id=6812&#34;&gt;DirectX SDK (June 2010)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.microsoft.com/visualstudio/eng/products/2013-editions&#34;&gt;Visual Studio 2013&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Windows 7 or 8 should work fine. I use Win 8.0 and he uses Windows 7, and the project works fine on both of our machines. I’m not sure if it is compatible with Visual Studio 2012, but I do not believe so. Regardless, the express version of 2013 is free.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

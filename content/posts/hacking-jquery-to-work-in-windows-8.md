@@ -1,8 +1,7 @@
 +++
 title = "Hacking jQuery to work in Windows 8"
 date = "2013-09-23T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows Phone 8, Windows Phone, Windows 8, Win8); 12.8 years old; broken outbound reference(s): link https://dl.dropboxusercontent.com/u/3152642/jquery-2.0.2.js (HTTP 404)"
+draft = false
 author = "Dave Voyles"
 categories = ["Javascript / HTML5", "Programming", "Windows 8", "Windows Phone 8"]
 tags = ["jQuery", "Programming", "Windows 8"]

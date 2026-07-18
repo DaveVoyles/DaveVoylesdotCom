@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Super Rawr-Type on Dave Voyles</title>
+    <link>http://localhost:1315/tags/super-rawr-type/</link>
+    <description>Recent content in Super Rawr-Type on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 25 Feb 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/tags/super-rawr-type/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Super Rawr-Type is released for Windows 8</title>
+      <link>http://localhost:1315/posts/super-rawr-type-released-windows-8/</link>
+      <pubDate>Tue, 25 Feb 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/super-rawr-type-released-windows-8/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2013/04/super-rawr-type-object-pooling.jpg&#34;&gt;&lt;img alt=&#34;Super-Rawr-Type-Object-Pooling&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2013/04/super-rawr-type-object-pooling-1024x575.jpg&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;play&#34;&gt;&lt;a href=&#34;http://windows.microsoft.com/en-us/windows/search#q=super+rawr-type&#34;&gt;Play &lt;em&gt;Super Rawr-Type&lt;/em&gt; for &lt;strong&gt;FREE&lt;/strong&gt; in the Windows 8 Store&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Super Rawr-Type, my 2D sidescrolling JavaScript shooter, is finally available for Windows 8. I actually finished working on it in August, but needed to change a few lines of code to have it pass certification, and completely forgot to resubmit. On Friday I made the final necessary changes, submitted, and it’s up in the store today.&lt;/p&gt;
+&lt;p&gt;The project is open source, and &lt;a href=&#34;https://github.com/DaveVoyles/Super-Rawr-Type-Windows8&#34;&gt;you can find my GitHub here.&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

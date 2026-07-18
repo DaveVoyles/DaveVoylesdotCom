@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>PAX Prime on Dave Voyles</title>
+    <link>http://localhost:1315/tags/pax-prime/</link>
+    <description>Recent content in PAX Prime on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 23 Jun 2011 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/tags/pax-prime/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pax Prime 2011</title>
+      <link>http://localhost:1315/posts/pax-prime-2011/</link>
+      <pubDate>Thu, 23 Jun 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/pax-prime-2011/</guid>
+      <description>&lt;h2&gt;&lt;/h2&gt;
+&lt;p&gt;Who’s got two thumbs and is headed to PAX Prime 2011? This guy! If you’re going too, why not reach out to me before hand so that we can meet up while we’re there?&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

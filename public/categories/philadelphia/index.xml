@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Philadelphia on Dave Voyles</title>
+    <link>http://localhost:1315/categories/philadelphia/</link>
+    <description>Recent content in Philadelphia on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 26 Jan 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/categories/philadelphia/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Welcome, students of Philadelphia!</title>
+      <link>http://localhost:1315/posts/welcome-students-philadelphia/</link>
+      <pubDate>Sun, 26 Jan 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/welcome-students-philadelphia/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Win-Phone.png&#34;&gt;&lt;img alt=&#34;Win Phone HTML5&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Win-Phone-164x300.png&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;My goal right now is to build a network for students around Philadelphia to work on projects together, ask questions, and share their work.&lt;/p&gt;
+&lt;p&gt;Feel free to ask me questions. &lt;strong&gt;I’m here to help!&lt;/strong&gt; Want to know how to get started with an HTML5 project, mobile apps, or how to get started in the games industry? &lt;strong&gt;Ask me!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I met some of you this weekend at the &lt;strong&gt;&lt;a href=&#34;http://globalgamejam.org/&#34;&gt;Global Game Jam&lt;/a&gt;&lt;/strong&gt;, and others at the**&lt;a href=&#34;http://hackathon.haverford.edu/details.html&#34;&gt;Tri-Co Hackathon&lt;/a&gt;.** If you were interested to see what was happening at either event, click on the links above.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

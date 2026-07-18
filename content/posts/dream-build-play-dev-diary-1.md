@@ -1,8 +1,7 @@
 +++
 title = "Dream.Build.Play dev diary 1"
 date = "2012-04-19T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (XBLIG, XNA, Unreal Development Kit, UDK, UnrealScript); 14.2 years old; broken outbound reference(s): link https://www.dreambuildplay.com/Main/Default.aspx (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link https://twitter.com/#!/clingermangw (HTTP 403); link https://twitter.com/#!/vinull (HTTP 403); link http://www.twitter.com/magicaltimebean (HTTP 520); link http://ross-warren.co.uk/pong-clone-in-xna-4-0-for-windows/ (HTTP 404) (+1 more)"
+draft = false
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["Dev Diary", "Dream.Build.Play", "XBLIG", "XNA"]
