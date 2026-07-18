@@ -232,3 +232,45 @@ theme. Posts captured under an older theme (`enigma-premium`) were silently
 excluded from `content/posts/` entirely, so this triage pass — like D5 —
 only sees what already got converted and can't flag or count anything from
 that gap.
+
+## topics_mapping.py
+
+Maps each post's existing `tags`/`categories` values to a curated `topics`
+bucket list (plan 0002 / D1) via a reviewable lookup table
+(`TAG_TO_TOPIC` in the script), and writes a `topics = [...]` array into
+each post's front matter. Never modifies the existing `tags`/`categories`
+fields. Pure stdlib -- no venv required.
+
+### Usage
+
+```bash
+python3 scripts/topics_mapping.py [--dry-run] [--limit N]
+```
+
+- `--dry-run` — evaluate and report, but don't write changes to files.
+- `--limit N` — process only the first N posts (for testing).
+
+### What It Does
+
+1. **Looks up** each tag/category value (case-insensitive) against the
+   curated bucket list (`Gaming`, `Tech`, `AI / Agents`,
+   `Public Speaking / Presentations`, `Career / Students`,
+   `Journalism / Marketing / PR`) and assigns every matched topic, in
+   canonical bucket order, deduplicated.
+2. **Never guesses**: a post where no tag/category value has an entry in
+   the lookup table is left untouched and printed in a distinct
+   "UNMAPPED (needs manual review)" report section for hand assignment —
+   same precedent as `triage_stale_content.py`'s never-fight-a-human-decision
+   rule, applied to the absence of a signal instead of its presence.
+3. **Idempotent**: a post that already has a `topics` field (a prior real
+   run, or a manual assignment from the unmapped report) is left
+   completely untouched on re-run.
+4. **Logs** a summary to stdout: evaluated/assigned/already-tagged counts,
+   each assigned post with its topic list, and the unmapped report.
+
+### Known gap (documented, not fixed here)
+
+Two reserved buckets (`AI / Agents`, `Public Speaking / Presentations`)
+have no matching tag/category values in the current recovered corpus —
+this blog predates both as topics, so they're expected to stay empty
+until new posts naturally carry those tags, not a mapping gap.
