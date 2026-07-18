@@ -1,14 +1,13 @@
 +++
 title = "Apache Cordova integrated in Visual Studio for Multi-Device Hybrid App development"
 date = "2014-05-12T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows Phone 8, Windows Phone); 12.2 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/CordovaInVS_thumb.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://davevoyles.azurewebsites.net/speaking-engagements-power-points/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://go.microsoft.com/fwlink/?LinkID=398519 (HTTP 404); link http://go.microsoft.com/fwlink/?LinkId=397606 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
+draft = false
 author = "Dave Voyles"
 categories = ["Javascript / HTML5", "Mobile", "Web Dev", "Windows Phone 8"]
 tags = ["Cordova", "Game Development", "HTML5", "JavaScript", "Mobile"]
 +++
 
-[![CordovaInVS_thumb](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/CordovaInVS_thumb.png)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/CordovaInVS_thumb.png)
+
 
 I’ve been pushing HTML5 cross platform applications for some time now. [I frequently give talks](http://davevoyles.azurewebsites.net/speaking-engagements-power-points/) on how to use tools like Telerik’s App Builder, Adobe’s PhoneGap Cloud, and my personal favorite, Intel’s XDK. [You can find my open sourced Cordova app here.](https://github.com/DaveVoyles/Ska-Studios-Xplatform/tree/master/Ska-Studios)
 

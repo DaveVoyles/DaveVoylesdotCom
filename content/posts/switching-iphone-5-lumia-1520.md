@@ -1,14 +1,13 @@
 +++
 title = "Switching from the iPhone 5 to the Lumia 1520"
 date = "2014-07-11T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows Phone 8, WP8, Windows Phone); 12.0 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Lumia-1520-1024x811.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Lumia-1520.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.windowsphone.com/en-us/store/app/transfer-my-data/dc08943b-7b3d-4ee5-aa3c-30f1a826af02 (HTTP 404); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/photo-1024x768.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
+draft = false
 author = "Dave Voyles"
 categories = ["Windows Phone 8"]
 tags = ["Windows Phone"]
 +++
 
-[![Lumia 1520](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Lumia-1520-1024x811.jpg)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Lumia-1520.jpg)  
+  
 Today I made the switch from the iPhone 5 on Verizon, to a Lumia 1520 on AT&T. I’ve been in the Apple ecosystem for the last 3 years, so making the change was nerve-wracking, to say the least.
 
 ## Calculating the cost
@@ -41,7 +40,7 @@ Like any curious person, I had to weigh out the differences between the two devi
 
 The first obvious thing you’ll notice is the size of the devices. The Lumia 1520 is massive, by all accounts. I’m not so small myself, weighing in at 6’4 220, so it fits perfect in my hands. I seldon use my phone for making calls, and instead I use it as an e-mail device and keeping up with social networks. Therefore, a larger form factor was perfect for my needs.
 
-![Lumia 15](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/photo-1024x768.jpg)
+
 
 Out of the box, the storage size on my Lumia is 24GB; certain a bit less than what I had on the iPhone, but the Lumia also accepts Micro SD cards. I found an excellent 64GB card for $$32 on Amazon.
 

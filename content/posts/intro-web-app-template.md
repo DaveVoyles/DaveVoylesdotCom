@@ -1,8 +1,7 @@
 +++
 title = "Intro to the Web App Template"
 date = "2014-05-07T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows Phone 8, Windows Phone, Windows 8, Win8); 12.2 years old; broken outbound reference(s): link http://davevoyles.azurewebsites.net/finishing-web-app-template/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://davevoyles.azurewebsites.net/examples-apps-published-web-app-template/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://brokenmobile.tumblr.com/?utm_content=buffer010a0&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer (HTTP 404); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Stats2.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Stats1.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+12 more)"
+draft = false
 author = "Dave Voyles"
 categories = ["Javascript / HTML5", "Programming", "Students", "Web Dev", "Windows 8", "Windows Phone 8"]
 tags = ["HTML5", "Web App Template", "Windows 8"]
@@ -16,11 +15,11 @@ On Venture Capitalist Chris Dixon’s blog, he recently highlighted [the decline
 >
 > *Moreover, there are signs that it will only get worse. Ask any web company and they will tell you that they value app users more than web users. This is why you see so many popups and banners on mobile websites that try to get you to download apps. It is also why so many mobile websites are [broken](http://brokenmobile.tumblr.com/?utm_content=buffer010a0&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer). Resources are going to app development over web development. As the mobile web UX further deteriorates, the momentum toward apps will only increase.”*
 
-[![WAT Stats2](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Stats2.png)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Stats2.png)
+
 
 http://cdixon.org/
 
-[![WAT Stats1](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Stats1.jpg)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Stats1.jpg)
+
 
 http://cdixon.org/
 
@@ -38,13 +37,13 @@ The template docs include an excellent [getting started page](http://wat-docs.az
 
 Once I finished those instructions, I created a new projected called WAT-Sample. In the **config** folder I opened the **config.json** file, and immediately saw *“homeURL:”* at the top of the page. By switching that URL to my own, davevoyles.azurewebsites.net, I was able to have my website wrapped as a Windows 8 app. Press the debug button (F5, or the green triangle that says “Local Machine”) and you can see exactly what it looks like.
 
-[![WAT-Json](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Json-1024x243.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Json.gif)
+
 
 Editing the Config.JSON file, to change which site the app points at
 
 With that done, I had my app up and running, and the ability to share natively with the charms bar.
 
-[![WAT-App](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-App-1024x638.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-App.gif)
+
 
 I can easily share pages within my app, all with Win8’s charms bar
 
@@ -52,7 +51,7 @@ I can easily share pages within my app, all with Win8’s charms bar
 
 The app doesn’t do much now, but if I *right-click*, I’m able to see a pull down menu with the links that I want to the user to be able to navigate to.
 
-[![WAT-Header](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Header-1024x364.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Header.gif)
+
 
 The header links aren’t what I want them to be yet
 
@@ -62,7 +61,7 @@ Changing “label:” adjusts the text for what thee users sees. (ie – *home, 
 
 I plan on adjusting these so that they read: “Unity” “Talks” “HTML5” and “Resources” in the near future.
 
-[![WAT-Links](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Links-1024x450.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Links.gif)
+
 
 ### Practical Uses
 

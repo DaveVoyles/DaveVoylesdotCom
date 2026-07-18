@@ -1,14 +1,13 @@
 +++
 title = "My book, UnrealScript Game Programming Cookbook has been published!"
 date = "2013-02-21T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (UnrealScript); 13.4 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/5565ot_cover_prefinal.jpg?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.packtpub.com/unrealscript-game-programming-cookbook/book#overview (HTTP 403); link http://www.packtpub.com/sites/default/files/9781849695565_Chapter_03.pdf?utm_source=packtpub&utm_medium=free&utm_campaign=pdf (HTTP 403)"
+draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Journalism", "Programming", "UnrealScript"]
 tags = ["Journalism", "Unreal", "UnrealScript"]
 +++
 
-[![5565OT_Cover_PreFinal](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/5565ot_cover_prefinal.jpg?w=652)](http://www.packtpub.com/unrealscript-game-programming-cookbook/book#overview)
+
 
 My first book, *[UnrealScript Game Programming Cookbook](http://www.packtpub.com/unrealscript-game-programming-cookbook/book#overview)* has been published by Pakt Publishing today. It covers a variety of topics, from creating your own modular camera system, crafting AI, creating intelligent pathfinding for bots, and manipulating weapons.
 

@@ -1,8 +1,7 @@
 +++
 title = "Creating the random enemy spawner, improving performance"
 date = "2013-04-12T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows 8, Win8); 13.3 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/04/enemyspawner01.jpg?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/04/enemyspawner01.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
+draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Windows 8"]
 tags = ["Game Dev", "HTML5", "JavaScript", "Programming", "Win8"]
@@ -24,7 +23,7 @@ Then again, they are using C# and running on the Xbox, whereas I’m running Jav
 
 I found that my best approach was to create an entity, Random Enemy Spawner which sits just off the right side of the screen, and is always aligned on the Y-axis with the player. For debug purposes, I threw in placeholder art which is a copy of the player’s ship, and had it sit on the edge of the screen so that I could see not only where my enemies spawn, but also how frequently.
 
-[![EnemySpawner01](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/04/enemyspawner01.jpg?w=652)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/04/enemyspawner01.jpg)
+
 
 As you can see here, the enemies and spawner are all aligned on the X-axis. This may appear as though the enemies come in flat waves, but to counter that I have them all spawning on a timer. Three timers, actually.
 

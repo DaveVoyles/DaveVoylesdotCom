@@ -1,14 +1,13 @@
 +++
 title = "Console wars of 2013: Who will win big?"
 date = "2013-06-11T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (XBLIG, XBLA, SmartGlass); 13.1 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/ps4.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbonx-one.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbonx-e3.jpg?w=300 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbonx-e3.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/ps4-remote.jpg?w=300 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+5 more)"
+draft = false
 author = "Dave Voyles"
 categories = ["Journalism", "Uncategorized"]
 tags = ["Consoles", "PS4", "Xbone", "Xbox One"]
 +++
 
-[![PS4](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/ps4.jpg)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/ps4.jpg)
+
 
 Yesterday’s E3 conference was perhaps the most interesting one I’ve seen since 1995’s Sega debacle, where they thrusted the Saturn out of the gate, 6 months ahead of schedule and unbeknownst to developers.
 
@@ -24,7 +23,7 @@ $500 for the Xbone is exactly in line with what I suspected it would cost. That�
 
 Sony on the other hand, announced that their product would ship for $400. That’s $100 less, and certainly a huge win for consumers. I’m surprised that they could pull it off, especially when you consider that it uses the faster DDR5 ram, as opposed to Microsoft’s DDR3, which is considerably cheaper.
 
-[![Xbonx One](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbonx-one.jpg)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbonx-one.jpg)
+
 
 #### Online:
 
@@ -32,7 +31,7 @@ LIVE is still in place for Xbox. Sadly, your XBLA and retail games won’t carry
 
 Twitch.tv has partnered with MS to allow for live streaming and chatting of your games as you play, in addition to the ability to quickly edit and upload clips on the fly.  Let’s plays, and gathering an audience around gaming events are huge now, so I’m glad to see that they’ve adopted this model. Your live subscription will also continue to cost the same. I’ve never paid more than $35 a year, as Amazon constantly has them on sale.
 
-[![Xbonx E3](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbonx-e3.jpg?w=300)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbonx-e3.jpg)Playstation has partnered with UStream to deliver a similar service. I’m not sure of what the difference is between Twitch.tv and Ustream, but they seem similar enough and both allow for the same features across the consoles.
+Playstation has partnered with UStream to deliver a similar service. I’m not sure of what the difference is between Twitch.tv and Ustream, but they seem similar enough and both allow for the same features across the consoles.
 
 PS+ continues to carry a ton of value into the next gen, and your current subscription will carry over as well. I think it’s like $5 a month, so that’s an absolute steal, considering all of the free games and discounts it offers each month.
 
@@ -54,7 +53,7 @@ Sony has their Vita, which all PS4 developers must adopt. In other words, if you
 
 Region locking, or the ability for a device to reject software based on the region of the world it should be released in, is nothing new. Titles have been using it for years. In the days of the Sega Saturn, I would have to order the ST-Key (Saturn Translation Key) to get around such barriers and play my Japanese games, but other devices have become stricter in recent memory.
 
-![PS4 remote](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/ps4-remote.jpg?w=300)
+
 
 The Xbone will again impose region locking , where the PS4 will not. What does this mean for you? Well do you ever import games? If not, then you have nothing to worry about. If you’re an avid fan of sites like [PlayAsia](http://www.playasia.com/) or import a lot of games (Japanese shmups and JRPGs are my weapon of choice) then this is a nice perk to have.
 
@@ -70,7 +69,7 @@ I’m curious to see what the restrictions are, what it will cost (license agree
 
 #### Hardware:
 
-[![Xbox One Remote](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbox-one-remote.jpg?w=300)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/xbox-one-remote.jpg)For the most part, the hardware is strikingly similar. I don’t know enough about either platform to really make an educated decision here, and unless you know someone who is working on both platforms, I’d take everything with a grain of salt from the so-called “experts.” The Cell processor in the last gen was an absolute beast of a machine, but also a project to develop for.
+For the most part, the hardware is strikingly similar. I don’t know enough about either platform to really make an educated decision here, and unless you know someone who is working on both platforms, I’d take everything with a grain of salt from the so-called “experts.” The Cell processor in the last gen was an absolute beast of a machine, but also a project to develop for.
 
 This time around though, both systems are running VERY similar hardware, and are both using X86 (so, essentially PC) architecture, which makes development exponentially easier.
 
@@ -84,7 +83,7 @@ I’d be curious to see if Microsoft ever does drop their strict DRM scheme in f
 
 #### Long Term:
 
-Consoles are generally on a 10 year lifecycle at this point in gaming. The PS2 was strongly supported well after the 10 year mark, and our current crop[![PS3 E3](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/ps3-e3.jpg?w=300)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/06/ps3-e3.jpg) of systems are hitting the 8 year mark as we speak. Developers aren’t jumping ship anytime soon, considering the absurd cost of development, in addition to the large install base.
+Consoles are generally on a 10 year lifecycle at this point in gaming. The PS2 was strongly supported well after the 10 year mark, and our current crop of systems are hitting the 8 year mark as we speak. Developers aren’t jumping ship anytime soon, considering the absurd cost of development, in addition to the large install base.
 
 Price isn’t everything – we’ve seen consoles shift prices over time to adjust with consumer demands, so will the $100 price difference at launch really be what separates the two? Moreover, publishers will want to protect their business model, and what better what than a restrictive DRM scheme? We’ll see how this plays out over time, and whether or not publishers continue to make titles on a platform which offers no DRM services. Alternatively, if the PS4 sells as well as it should, will publishers really care?
 

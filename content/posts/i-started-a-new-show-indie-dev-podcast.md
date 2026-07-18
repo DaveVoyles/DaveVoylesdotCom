@@ -1,14 +1,13 @@
 +++
 title = "I started a new show – Indie Dev Podcast"
 date = "2013-11-14T00:00:00"
-draft = true
-stale_reason = "broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/indiedev.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://indiedevpodcast.podomatic.com/enclosure/2013-11-13T17_05_20-08_00.mp3 (HTTP 404); link http://benjaminbriggs.bandcamp.com/album/diddy-kong-racing-bootleg-circuit (HTTP 404)"
+draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Game Dev", "podcast"]
 +++
 
-[![IndieDev](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/indiedev.png)](http://indiedevpodcast.wordpress.com/)
+
 
 Twice each month, I interview independent developers in the gaming industry. I felt that there was a niche not being served, in that I wanted the inside scoop behind many of the developers I interact without over the years.
 

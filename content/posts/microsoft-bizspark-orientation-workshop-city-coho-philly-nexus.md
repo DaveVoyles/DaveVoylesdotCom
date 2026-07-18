@@ -1,14 +1,13 @@
 +++
 title = "Microsoft BizSpark Orientation WorkShop at City Coho Philly Nexus"
 date = "2014-08-08T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows Phone, Windows 8, BizSpark); 11.9 years old; broken outbound reference(s): image https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/08/City-Coho.jpeg?resize=458%2C305 (HTTP 400); image https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/08/City-Coho.jpeg (HTTP 400); link http://wootstudio.ca/startups/bizspark.aspx (connection error: <urlopen error timed out>)"
+draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["BizSpark"]
 +++
 
-**[![City Coho](https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/08/City-Coho.jpeg?resize=458%2C305)](https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/08/City-Coho.jpeg)Time:**                          Wednesday August 13 2014 | 4:00pm to 6:00pm
+**Time:**                          Wednesday August 13 2014 | 4:00pm to 6:00pm
 
 **Location:**                    City Coho Philly Nexus <http://www.citycoho.com/>
 

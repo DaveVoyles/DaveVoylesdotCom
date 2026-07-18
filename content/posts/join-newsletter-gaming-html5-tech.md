@@ -1,14 +1,13 @@
 +++
 title = "Join my newsletter for gaming, HTML5, and tech"
 date = "2014-07-25T00:00:00"
-draft = true
-stale_reason = "broken outbound reference(s): image https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/07/MailChimp.png?resize=380%2C469 (HTTP 400); link http://davevoyles.azurewebsites.net/join-newsletter-gaming-html5-tech/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.gamasutra.com/salarysurvey2014.pdf?elq=e7461587712d43ceadb6d18900eff962&elqCampaignId=6431 (HTTP 404); link https://software.intel.com/en-us/html5/training (HTTP 403); link http://davevoyles.azurewebsites.net/microsoft-compare-fortune-500/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+3 more)"
+draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Gaming"]
 +++
 
-[![MailChimp](https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/07/MailChimp.png?resize=380%2C469)](http://davevoyles.azurewebsites.net/join-newsletter-gaming-html5-tech/)
+
 
 it was only a matter of time before I created my own weekly newsletter. Rather than constantly spam folks on twitter with my links, I’d much prefer to just bunch them up into a weekly letter, and share them with you. Here’s a peek of what is in the first one:
 

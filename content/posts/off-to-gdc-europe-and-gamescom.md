@@ -1,14 +1,13 @@
 +++
 title = "Off to GDC Europe, and GamesCom"
 date = "2011-08-13T00:00:00"
-draft = true
-stale_reason = "broken outbound reference(s): image http://media.next-gen.biz/files/imagecache/article/gdc_europe11_logo_grad.jpg (HTTP 404); link http://www.facebook.com/event.php?eid=117339171698512 (HTTP 400); link http://www.twitter.com/DaveVoyles (HTTP 520)"
+draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["GamesCom", "GDC", "GDC Europe", "igsu", "indie games summer uprising"]
 +++
 
-![](http://media.next-gen.biz/files/imagecache/article/gdc_europe11_logo_grad.jpg)
+
 
 I’m off to my first GDC Europe and GamescCom event, . I’ll be there from Sunday 8/14 – Sunday 8/21 and staying on the north side of town. If you’re there and would like to say hello, get in touch with me! If you’re an Indie developer, come by [this event](http://www.facebook.com/event.php?eid=117339171698512) hosted by GDC at Club Diamonds in Koln on Tuesday evening. I’ll be there to support the Indie Games Summer Uprising.
 
