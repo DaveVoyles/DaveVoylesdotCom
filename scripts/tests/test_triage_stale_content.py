@@ -8,8 +8,11 @@ Pure stdlib (unittest) -- no venv/pytest required, matching the script's own
     python3 scripts/tests/test_triage_stale_content.py
 
 All parsing/heuristic logic is exercised against small fixture strings/files
-in a temp dir -- no live network calls happen in this suite (link-checking
-network calls are monkeypatched out).
+in a temp dir. No live network calls happen in this suite: check_url's own
+retry/backoff/method-fallback behavior is tested against a mocked
+urllib.request.urlopen (CheckUrlTests), and everywhere else the live-link
+path is simply not invoked (--skip-link-check, or an explicit link_cache
+passed to evaluate_post()).
 """
 
 import datetime
@@ -17,7 +20,9 @@ import shutil
 import sys
 import tempfile
 import unittest
+import urllib.error
 from pathlib import Path
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import triage_stale_content as t
@@ -119,6 +124,31 @@ tags = ["Tech"]
 Malformed/unexpected front matter missing the draft key entirely.
 """
 
+FIXTURE_OLD_NO_KEYWORDS = """+++
+title = "An old post about nothing dead-tech-related"
+date = "2011-01-01T00:00:00"
+draft = false
+author = "Dave Voyles"
+categories = ["Journalism"]
+tags = ["PAX"]
++++
+
+An old post (well past AGE_THRESHOLD_YEARS) that never mentions any of the
+dead-tech keywords at all -- age alone must never be enough to flag it.
+"""
+
+FIXTURE_NESTED_LINKED_IMAGE = """+++
+title = "Post with a linked image (this blog's common convention)"
+date = "2024-01-01T00:00:00"
+draft = false
+author = "Dave Voyles"
+categories = ["Tech"]
+tags = ["Tech"]
++++
+
+[![](http://legacy.example.com/thumb.jpg?w=300 "Thumb")](http://legacy.example.com/full.jpg)
+"""
+
 
 class FrontMatterParsingTests(unittest.TestCase):
     def test_load_front_matter_toml(self):
@@ -193,6 +223,30 @@ class ExternalUrlTests(unittest.TestCase):
         urls = t.extract_external_urls(body)
         self.assertEqual(urls, [])
 
+    def test_extracts_nested_linked_image_both_urls(self):
+        # This blog's common convention: [![alt](img_url "title")](link_url)
+        # -- a titled image wrapped in an outer link. Both the inner image
+        # URL (with its title attribute) and the outer link URL (untitled)
+        # must be extracted, not just whichever comes first.
+        loaded = t.load_front_matter_from_text(FIXTURE_NESTED_LINKED_IMAGE)
+        _, body, _ = loaded
+        urls = t.extract_external_urls(body)
+        self.assertIn("http://legacy.example.com/thumb.jpg?w=300", urls)
+        self.assertIn("http://legacy.example.com/full.jpg", urls)
+
+    def test_does_not_exclude_lookalike_domain(self):
+        # host == "davevoyles.com" or a real subdomain only -- a bare
+        # endswith() would wrongly treat "notdavevoyles.com" as
+        # self-referential and silently skip checking it.
+        body = "[a lookalike domain](http://notdavevoyles.com/page)"
+        self.assertEqual(
+            t.extract_external_urls(body), ["http://notdavevoyles.com/page"]
+        )
+
+    def test_excludes_real_subdomain(self):
+        body = "[my other post](https://blog.davevoyles.com/old-post/)"
+        self.assertEqual(t.extract_external_urls(body), [])
+
     def test_dedupes_repeated_urls(self):
         body = (
             "[a](http://example.com/x) and again [b](http://example.com/x)"
@@ -206,11 +260,23 @@ class ExternalUrlTests(unittest.TestCase):
 
 
 class TomlEscapingTests(unittest.TestCase):
-    def test_round_trip_safe_characters(self):
+    def test_escapes_each_special_character_to_its_literal_toml_escape(self):
+        # Asserts the actual escaped output, not just "no raw newline
+        # survived" -- a broken TOML_ESCAPES mapping (e.g. swapped \\n/\\t)
+        # would still pass a weaker check.
+        self.assertEqual(t.toml_string('a "quote"'), '"a \\"quote\\""')
+        self.assertEqual(t.toml_string("back\\slash"), '"back\\\\slash"')
+        self.assertEqual(t.toml_string("line\nbreak"), '"line\\nbreak"')
+        self.assertEqual(t.toml_string("carriage\rreturn"), '"carriage\\rreturn"')
+        self.assertEqual(t.toml_string("a\ttab"), '"a\\ttab"')
+
+    def test_round_trip_all_special_characters_together(self):
         raw = 'a "quoted" value with a backslash \\ and a newline\nhere'
         escaped = t.toml_string(raw)
-        self.assertNotIn('\n', escaped.replace("\\n", ""))
-        self.assertTrue(escaped.startswith('"') and escaped.endswith('"'))
+        self.assertEqual(
+            escaped,
+            '"a \\"quoted\\" value with a backslash \\\\ and a newline\\nhere"',
+        )
 
 
 class ApplyFlagTests(unittest.TestCase):
@@ -243,13 +309,25 @@ class EvaluatePostTests(unittest.TestCase):
         fm, body, _ = loaded
         reasons, detail = t.evaluate_post(fm, body, link_cache={})
         self.assertTrue(reasons)
-        self.assertIn("UDK", detail["keyword_hits"] + ["UDK"])  # UDK or XNA present
+        self.assertIn("UDK", detail["keyword_hits"])
+        self.assertIn("XNA", detail["keyword_hits"])
         self.assertGreater(detail["age_years"], t.AGE_THRESHOLD_YEARS)
 
     def test_modern_post_with_no_keywords_is_unflagged(self):
         loaded = t.load_front_matter_from_text(FIXTURE_MODERN)
         fm, body, _ = loaded
         reasons, detail = t.evaluate_post(fm, body, link_cache={})
+        self.assertEqual(reasons, [])
+
+    def test_old_post_with_no_keywords_is_unflagged(self):
+        # Age heuristic requirement, the other direction: a post well past
+        # AGE_THRESHOLD_YEARS but with NO dead-tech keyword hit must not be
+        # flagged by age alone -- age is only ever a co-signal.
+        loaded = t.load_front_matter_from_text(FIXTURE_OLD_NO_KEYWORDS)
+        fm, body, _ = loaded
+        reasons, detail = t.evaluate_post(fm, body, link_cache={})
+        self.assertEqual(detail["keyword_hits"], [])
+        self.assertGreater(detail["age_years"], t.AGE_THRESHOLD_YEARS)
         self.assertEqual(reasons, [])
 
     def test_recent_post_with_keyword_alone_is_unflagged(self):
@@ -282,6 +360,108 @@ class EvaluatePostTests(unittest.TestCase):
         }
         reasons, detail = t.evaluate_post(fm, body, link_cache=link_cache)
         self.assertEqual(detail["broken_links"], [])
+
+
+class _FakeResponse:
+    """Minimal context-manager stand-in for urllib's HTTPResponse -- only
+    the `.status` attribute and `with ... as resp:` protocol check_url()
+    actually uses."""
+
+    def __init__(self, status):
+        self.status = status
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc_info):
+        return False
+
+
+def _http_error(code):
+    return urllib.error.HTTPError("http://example.com/x", code, str(code), None, None)
+
+
+class CheckUrlTests(unittest.TestCase):
+    """check_url() against a mocked urllib.request.urlopen -- deterministic,
+    zero network calls, and time.sleep patched out so retry/backoff paths
+    don't actually slow the suite down."""
+
+    def setUp(self):
+        patcher = mock.patch("triage_stale_content.time.sleep")
+        self.addCleanup(patcher.stop)
+        self.mock_sleep = patcher.start()
+
+    def test_head_success_returns_ok(self):
+        with mock.patch(
+            "triage_stale_content.urllib.request.urlopen",
+            side_effect=[_FakeResponse(200)],
+        ) as mock_urlopen:
+            ok, detail = t.check_url("http://example.com/x")
+        self.assertTrue(ok)
+        self.assertEqual(detail, "200")
+        self.assertEqual(mock_urlopen.call_count, 1)
+        self.assertEqual(mock_urlopen.call_args.args[0].get_method(), "HEAD")
+
+    def test_permanent_http_error_fails_without_retry(self):
+        with mock.patch(
+            "triage_stale_content.urllib.request.urlopen",
+            side_effect=[_http_error(404)],
+        ) as mock_urlopen:
+            ok, detail = t.check_url("http://example.com/x")
+        self.assertFalse(ok)
+        self.assertEqual(detail, "HTTP 404")
+        # A non-retryable status (404 isn't in the 429/500/502/503/504 set)
+        # must fail immediately -- one call, no backoff sleep.
+        self.assertEqual(mock_urlopen.call_count, 1)
+        self.mock_sleep.assert_not_called()
+
+    def test_405_on_head_permanently_switches_to_get(self):
+        with mock.patch(
+            "triage_stale_content.urllib.request.urlopen",
+            side_effect=[_http_error(405), _FakeResponse(200)],
+        ) as mock_urlopen:
+            ok, detail = t.check_url("http://example.com/x")
+        self.assertTrue(ok)
+        methods = [c.args[0].get_method() for c in mock_urlopen.call_args_list]
+        self.assertEqual(methods, ["HEAD", "GET"])
+        # The 405-driven method switch doesn't consume a retry/backoff slot.
+        self.mock_sleep.assert_not_called()
+
+    def test_transient_error_retries_with_backoff_then_succeeds(self):
+        with mock.patch(
+            "triage_stale_content.urllib.request.urlopen",
+            side_effect=[_http_error(503), _FakeResponse(200)],
+        ) as mock_urlopen:
+            ok, detail = t.check_url("http://example.com/x")
+        self.assertTrue(ok)
+        self.assertEqual(mock_urlopen.call_count, 2)
+        self.mock_sleep.assert_called_once()
+
+    def test_405_then_transient_error_still_gets_backoff_retry(self):
+        # Regression test for the fix to check_url: a server that 405s on
+        # HEAD and then hits a transient error on the GET fallback must
+        # still get a backed-off retry, not an immediate hard failure.
+        with mock.patch(
+            "triage_stale_content.urllib.request.urlopen",
+            side_effect=[_http_error(405), _http_error(503), _FakeResponse(200)],
+        ) as mock_urlopen:
+            ok, detail = t.check_url("http://example.com/x")
+        self.assertTrue(ok)
+        methods = [c.args[0].get_method() for c in mock_urlopen.call_args_list]
+        self.assertEqual(methods, ["HEAD", "GET", "GET"])
+        self.mock_sleep.assert_called_once()
+
+    def test_exhausts_retries_on_persistent_connection_error(self):
+        with mock.patch(
+            "triage_stale_content.urllib.request.urlopen",
+            side_effect=urllib.error.URLError("boom"),
+        ) as mock_urlopen:
+            ok, detail = t.check_url("http://example.com/x", max_retries=2)
+        self.assertFalse(ok)
+        self.assertIn("connection error", detail)
+        # MAX_RETRIES=2 -> 3 total attempts (initial + 2 retries).
+        self.assertEqual(mock_urlopen.call_count, 3)
+        self.assertEqual(self.mock_sleep.call_count, 2)
 
 
 class EndToEndDryRunTests(unittest.TestCase):
@@ -343,6 +523,95 @@ class EndToEndDryRunTests(unittest.TestCase):
         t.main()
         self.assertEqual(self._read("hello-world.md"), FIXTURE_YAML)
         self.assertEqual(self._read("no-draft-field.md"), FIXTURE_NO_DRAFT_FIELD)
+
+    def test_limit_processes_only_first_n_files(self):
+        # iter_candidate_files() sorts before slicing, so with --limit 2
+        # only the two alphabetically-first files are candidates at all;
+        # main() must not touch stale-post.md (sorts last) in that case.
+        self.assertEqual(
+            [p.name for p in t.iter_candidate_files(limit=2)],
+            ["already-draft.md", "hello-world.md"],
+        )
+        sys.argv = ["triage_stale_content.py", "--skip-link-check", "--limit", "2"]
+        t.main()
+        self.assertIn("draft = false", self._read("stale-post.md"))
+        self.assertNotIn("stale_reason", self._read("stale-post.md"))
+
+    def test_live_link_check_wiring_flags_on_mocked_broken_link(self):
+        # Exercises main()'s live-link-check path end-to-end (all_urls
+        # collection -> build_link_cache -> link_cache passed into
+        # evaluate_post) without --skip-link-check, by mocking check_url
+        # itself so no real network call happens.
+        self._write("link-post.md", FIXTURE_BROKEN_LINK)
+        sys.argv = ["triage_stale_content.py"]
+        with mock.patch(
+            "triage_stale_content.check_url",
+            return_value=(False, "connection error: mocked"),
+        ) as mock_check_url:
+            t.main()
+        self.assertTrue(mock_check_url.called)
+        flagged = self._read("link-post.md")
+        self.assertIn("draft = true", flagged)
+        self.assertIn("broken outbound reference(s)", flagged)
+
+    def test_link_limit_caps_number_of_urls_checked(self):
+        self._write("link-post.md", FIXTURE_BROKEN_LINK)  # 2 external URLs
+        sys.argv = ["triage_stale_content.py", "--link-limit", "1"]
+        with mock.patch(
+            "triage_stale_content.check_url", return_value=(True, "200")
+        ) as mock_check_url:
+            t.main()
+        self.assertEqual(mock_check_url.call_count, 1)
+
+
+class MainArgParsingTests(unittest.TestCase):
+    """CLI argument handling in main() -- --limit/--link-limit value
+    parsing and the unrecognized-argument exit path. Uses a temp content
+    dir with zero posts so these tests stay focused on arg parsing, not
+    triage logic (covered elsewhere)."""
+
+    def setUp(self):
+        self.tmpdir = Path(tempfile.mkdtemp())
+        self.content_dir = self.tmpdir / "content" / "posts"
+        self.content_dir.mkdir(parents=True)
+        self._orig_content_dir = t.CONTENT_DIR
+        self._orig_argv = sys.argv
+        t.CONTENT_DIR = self.content_dir
+
+    def tearDown(self):
+        t.CONTENT_DIR = self._orig_content_dir
+        sys.argv = self._orig_argv
+        shutil.rmtree(self.tmpdir, ignore_errors=True)
+
+    def test_unrecognized_argument_exits_nonzero(self):
+        sys.argv = ["triage_stale_content.py", "--not-a-real-flag"]
+        with self.assertRaises(SystemExit) as ctx:
+            t.main()
+        self.assertNotEqual(ctx.exception.code, 0)
+
+    def test_limit_missing_value_exits_nonzero(self):
+        sys.argv = ["triage_stale_content.py", "--limit"]
+        with self.assertRaises(SystemExit) as ctx:
+            t.main()
+        self.assertNotEqual(ctx.exception.code, 0)
+
+    def test_link_limit_missing_value_exits_nonzero(self):
+        sys.argv = ["triage_stale_content.py", "--link-limit"]
+        with self.assertRaises(SystemExit) as ctx:
+            t.main()
+        self.assertNotEqual(ctx.exception.code, 0)
+
+    def test_valid_flags_on_empty_content_dir_run_cleanly(self):
+        sys.argv = [
+            "triage_stale_content.py",
+            "--dry-run",
+            "--skip-link-check",
+            "--limit",
+            "5",
+            "--link-limit",
+            "5",
+        ]
+        t.main()  # should not raise on an empty candidate list
 
 
 if __name__ == "__main__":

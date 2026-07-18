@@ -143,8 +143,11 @@ def extract_external_urls(body):
         url = m.group(1)
         host = urllib.parse.urlparse(url).netloc.lower()
         # Legacy self-referential permalinks are a URL-scheme problem (ADR
-        # 0003), not a broken-link problem -- out of scope here.
-        if host.endswith("davevoyles.com"):
+        # 0003), not a broken-link problem -- out of scope here. Exact host
+        # or subdomain only (`.davevoyles.com`), not a bare endswith(), so
+        # an unrelated domain that happens to end in the same characters
+        # (e.g. "notdavevoyles.com") isn't silently treated as self-referential.
+        if host == "davevoyles.com" or host.endswith(".davevoyles.com"):
             continue
         if url not in seen:
             seen.append(url)
@@ -157,33 +160,34 @@ def describe_url(url):
 
 
 def check_url(url, max_retries=MAX_RETRIES, timeout=REQUEST_TIMEOUT):
-    """Returns (ok, detail). Tries HEAD first, falls back to GET on 405/403."""
+    """Returns (ok, detail). Tries HEAD first; a 405 permanently switches to
+    GET for the rest of this call (doesn't consume a retry attempt -- a
+    server just refusing HEAD isn't a real failure worth backing off for).
+    Every other transient failure (429/500/502/503/504, or a connection
+    error), on either method, goes through the same retry/backoff loop --
+    including a GET that follows a 405, so a "405-then-503" server still
+    gets backed-off retries instead of an immediate hard failure."""
     delay = RETRY_DELAY
-    for attempt in range(max_retries + 1):
-        method = "GET" if attempt > 0 else "HEAD"
+    method = "HEAD"
+    attempt = 0
+    while attempt <= max_retries:
         try:
             req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT}, method=method)
             with urllib.request.urlopen(req, timeout=timeout) as resp:
                 return resp.status < 400, str(resp.status)
         except urllib.error.HTTPError as e:
             if e.code == 405 and method == "HEAD":
-                # Server doesn't support HEAD -- retry immediately as GET,
-                # not a real failure worth backing off for.
-                try:
-                    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT}, method="GET")
-                    with urllib.request.urlopen(req, timeout=timeout) as resp:
-                        return resp.status < 400, str(resp.status)
-                except urllib.error.HTTPError as e2:
-                    return False, f"HTTP {e2.code}"
-                except (urllib.error.URLError, OSError) as e2:
-                    return False, f"connection error: {e2}"
+                method = "GET"
+                continue
             if e.code in (429, 500, 502, 503, 504) and attempt < max_retries:
+                attempt += 1
                 time.sleep(delay)
                 delay *= 2
                 continue
             return False, f"HTTP {e.code}"
         except (urllib.error.URLError, OSError) as e:
             if attempt < max_retries:
+                attempt += 1
                 time.sleep(delay)
                 delay *= 2
                 continue
