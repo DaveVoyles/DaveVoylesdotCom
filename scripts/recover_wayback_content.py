@@ -33,7 +33,6 @@ IMAGE_DIR = STAGING_DIR / "images"
 
 # Baseline figures from the design doc and issue
 BASELINE_DATED_POSTS = 260
-BASELINE_NONDATED_POSTS_MIN = 300 - BASELINE_DATED_POSTS  # ~300-450 total unique posts
 BASELINE_IMAGES_TOTAL = 2727
 BASELINE_IMAGES_PNG = 1280
 BASELINE_IMAGES_JPEG = 1232
@@ -41,6 +40,18 @@ BASELINE_IMAGES_GIF = 207
 
 # User-Agent header to avoid rejection from archive.org
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+# The one concretely-known post URL shape from the design doc: /YYYY/MM/DD/slug/
+DATED_POST_RE = re.compile(r'^https?://(?:www\.)?davevoyles\.com/\d{4}/\d{2}/\d{2}/[^/]+/?$')
+
+
+def normalize_url_key(url):
+    """Scheme/www/trailing-slash-normalized key so http and https captures of the
+    same page collapse to one dedup entry instead of being counted twice."""
+    key = re.sub(r'^https?://', '', url, flags=re.IGNORECASE).lower()
+    if key.startswith('www.'):
+        key = key[4:]
+    return key.rstrip('/')
 
 # Retry configuration
 MAX_RETRIES = 3
@@ -78,8 +89,13 @@ def parse_cdx_data(cdx_data):
     """
     Parse CDX JSON and deduplicate by latest timestamp per URL.
 
+    Dedup key is scheme/www/trailing-slash-normalized (davevoyles.com serves the same
+    post at http:// and https:// and with/without "www.", and the Wayback Machine
+    archived both as distinct captures — without normalizing, every post gets counted
+    twice). The dict value keeps the real fetchable URL (with scheme) alongside it.
+
     Returns: (html_pages, images)
-        where each is a dict: {url: (timestamp, mimetype)}
+        where each is a dict: {normalized_key: (timestamp, mimetype, original_url)}
     """
     if not cdx_data or len(cdx_data) < 2:
         print("[!] No CDX data returned")
@@ -89,8 +105,8 @@ def parse_cdx_data(cdx_data):
     header = cdx_data[0]
     print(f"[*] CDX header: {header}")
 
-    html_pages = {}  # url -> (timestamp, mimetype)
-    images = {}      # url -> (timestamp, mimetype)
+    html_pages = {}  # normalized_key -> (timestamp, mimetype, original_url)
+    images = {}      # normalized_key -> (timestamp, mimetype, original_url)
     raw_count = 0
 
     for row in cdx_data[1:]:
@@ -101,21 +117,45 @@ def parse_cdx_data(cdx_data):
         if statuscode and statuscode != "200":
             continue
 
+        key = normalize_url_key(original)
+
         # Categorize by mimetype
         if mimetype == "text/html":
             # Keep latest timestamp for this URL
-            if original not in html_pages or timestamp > html_pages[original][0]:
-                html_pages[original] = (timestamp, mimetype)
+            if key not in html_pages or timestamp > html_pages[key][0]:
+                html_pages[key] = (timestamp, mimetype, original)
         elif mimetype and mimetype.startswith("image/"):
             # Keep latest timestamp for this URL
-            if original not in images or timestamp > images[original][0]:
-                images[original] = (timestamp, mimetype)
+            if key not in images or timestamp > images[key][0]:
+                images[key] = (timestamp, mimetype, original)
 
     print(f"[*] CDX rows processed: {raw_count}")
-    print(f"[*] Unique HTML pages (dedup by latest): {len(html_pages)}")
-    print(f"[*] Unique images (dedup by latest): {len(images)}")
+    print(f"[*] Unique HTML pages (dedup by latest, scheme/www-normalized): {len(html_pages)}")
+    print(f"[*] Unique images (dedup by latest, scheme/www-normalized): {len(images)}")
 
     return html_pages, images
+
+
+def classify_post_pages(html_pages):
+    """
+    Split html_pages into dated-permalink posts (matching the one concretely-known
+    post URL shape, /YYYY/MM/DD/slug/) vs everything else (feeds, embeds, category/tag
+    archives, admin pages, non-dated posts, etc). This is what makes the "post-page
+    count" comparable to the design doc's ~260 dated-post baseline — the un-split total
+    also includes large amounts of non-post noise and isn't directly comparable.
+
+    Non-dated posts remain mixed into "other" here on purpose: distinguishing them from
+    non-post noise needs content-based classification, which is D5/D6's job, not D3's.
+    """
+    dated_posts = {}
+    other_pages = {}
+    for key, value in html_pages.items():
+        _, _, original = value
+        if DATED_POST_RE.match(original):
+            dated_posts[key] = value
+        else:
+            other_pages[key] = value
+    return dated_posts, other_pages
 
 
 def categorize_images(images):
@@ -124,7 +164,7 @@ def categorize_images(images):
     jpeg_count = 0
     gif_count = 0
 
-    for url, (timestamp, mimetype) in images.items():
+    for key, (timestamp, mimetype, original) in images.items():
         if "png" in mimetype.lower():
             png_count += 1
         elif "jpeg" in mimetype.lower() or "jpg" in mimetype.lower():
@@ -197,9 +237,18 @@ def download_with_retry(url, max_retries=MAX_RETRIES):
             else:
                 print(f"  [!] HTTP {e.code} (not retrying)")
                 return None, False
-        except Exception as e:
-            print(f"  [!] Error: {e}")
-            return None, False
+        except (urllib.error.URLError, OSError) as e:
+            # Connection-level failures (refused, reset, DNS, timeout) — transient on a
+            # long unattended run against a third-party server, worth retrying just like
+            # HTTP 5xx rather than failing the item outright on one bad connection.
+            if attempt < max_retries:
+                print(f"  [!] Connection error ({e}), retrying in {delay}s...")
+                time.sleep(delay)
+                delay *= 2
+                continue
+            else:
+                print(f"  [!] Connection error (max retries exceeded): {e}")
+                return None, False
 
     print(f"  [!] Max retries exceeded")
     return None, False
@@ -225,8 +274,8 @@ def download_items(html_pages, images, limit=None, dry_run=False):
 
     # Download HTML pages
     print(f"\n[*] Downloading HTML pages...")
-    for url, (timestamp, mimetype) in list(html_pages.items())[:limit] if limit else list(html_pages.items()):
-        filename = url_to_filename(url) + ".html"
+    for key, (timestamp, mimetype, original) in list(html_pages.items())[:limit] if limit else list(html_pages.items()):
+        filename = url_to_filename(original) + ".html"
         filepath = HTML_DIR / filename
 
         if filepath.exists():
@@ -234,7 +283,7 @@ def download_items(html_pages, images, limit=None, dry_run=False):
             html_skipped += 1
             continue
 
-        wayback_url = f"{WAYBACK_BASE}/{timestamp}id_/{url}"
+        wayback_url = f"{WAYBACK_BASE}/{timestamp}id_/{original}"
         print(f"  [>] {filename}...", end="", flush=True)
 
         content, success = download_with_retry(wayback_url)
@@ -256,8 +305,8 @@ def download_items(html_pages, images, limit=None, dry_run=False):
 
     # Download images
     print(f"\n[*] Downloading images...")
-    for url, (timestamp, mimetype) in list(images.items())[:limit] if limit else list(images.items()):
-        filename = url_to_filename(url) + get_mimetype_extension(mimetype)
+    for key, (timestamp, mimetype, original) in list(images.items())[:limit] if limit else list(images.items()):
+        filename = url_to_filename(original) + get_mimetype_extension(mimetype)
         filepath = IMAGE_DIR / filename
 
         if filepath.exists():
@@ -265,7 +314,7 @@ def download_items(html_pages, images, limit=None, dry_run=False):
             images_skipped += 1
             continue
 
-        wayback_url = f"{WAYBACK_BASE}/{timestamp}id_/{url}"
+        wayback_url = f"{WAYBACK_BASE}/{timestamp}id_/{original}"
         print(f"  [>] {filename}...", end="", flush=True)
 
         content, success = download_with_retry(wayback_url)
@@ -291,6 +340,7 @@ def download_items(html_pages, images, limit=None, dry_run=False):
 def print_summary(html_pages, images, html_downloaded, html_skipped, images_downloaded, images_skipped):
     """Print a summary of recovery results"""
     png_count, jpeg_count, gif_count = categorize_images(images)
+    dated_posts, other_pages = classify_post_pages(html_pages)
 
     print("\n" + "="*70)
     print("WAYBACK MACHINE CONTENT RECOVERY SUMMARY")
@@ -298,6 +348,8 @@ def print_summary(html_pages, images, html_downloaded, html_skipped, images_down
 
     print(f"\nCDX Query Results (full domain):")
     print(f"  Total unique HTML pages:     {len(html_pages)}")
+    print(f"    └─ Dated posts (/YYYY/MM/DD/slug/): {len(dated_posts)}")
+    print(f"    └─ Other (feeds/embeds/archives/non-dated/etc): {len(other_pages)}")
     print(f"  Total unique images:         {len(images)}")
     print(f"    └─ PNG:                    {png_count}")
     print(f"    └─ JPEG:                   {jpeg_count}")
@@ -310,9 +362,15 @@ def print_summary(html_pages, images, html_downloaded, html_skipped, images_down
     print(f"  Images skipped (exist):      {images_skipped}")
 
     print(f"\nBaseline Comparison:")
-    print(f"  Found {len(html_pages)} unique HTML pages")
-    print(f"    Baseline: ~{BASELINE_DATED_POSTS} dated + ~{BASELINE_NONDATED_POSTS_MIN}-{BASELINE_NONDATED_POSTS_MIN + 150} non-dated = ~300-450 unique posts")
-    print(f"    Status: {'✓ Within expected range' if BASELINE_DATED_POSTS <= len(html_pages) <= 500 else '⚠ Outside expected range'}")
+    print(f"  Found {len(dated_posts)} dated-permalink posts (the one concretely-known post URL shape)")
+    print(f"    Baseline: ~{BASELINE_DATED_POSTS} dated posts")
+    print(f"    Status: {'✓ Within expected range (±20%)' if 0.8 * BASELINE_DATED_POSTS <= len(dated_posts) <= 1.2 * BASELINE_DATED_POSTS else '⚠ Outside expected range'}")
+    print(f"  Found {len(other_pages)} other HTML captures (not directly comparable to a baseline —")
+    print(f"    this bucket mixes real non-dated posts with feeds/embeds/archives/admin pages;")
+    print(f"    content-based post/non-post classification is D5/D6's job, not D3's)")
+    print(f"  Combined total ({len(html_pages)}) is NOT expected to match the ~300-450 unique-post")
+    print(f"    estimate directly — that estimate is unique POSTS, this total is unique CAPTURES")
+    print(f"    of every HTML page type on the domain (categories, tags, author pages, feeds, etc).")
 
     print(f"\n  Found {len(images)} unique images")
     print(f"    Breakdown: {png_count} PNG + {jpeg_count} JPEG + {gif_count} GIF")
