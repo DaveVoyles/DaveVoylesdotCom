@@ -1,8 +1,7 @@
 +++
 title = "My GDC Speech Is On Friday,  At 2:30pm, Room 2002"
 date = "2012-02-03T00:00:00"
-draft = true
-stale_reason = "broken outbound reference(s): link http://schedule.gdconf.com/session/6760/Marketing_for_Indies%3A_The_Indie_Games_Summer_Uprising (HTTP 404)"
+draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["GDC", "igsu"]

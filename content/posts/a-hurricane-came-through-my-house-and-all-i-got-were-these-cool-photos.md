@@ -1,8 +1,7 @@
 +++
 title = "A hurricane came through my house and all I got were these cool photos"
 date = "2011-08-30T00:00:00"
-draft = true
-stale_reason = "broken outbound reference(s): link http://www.armlessoctopus.com (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.twitter.com/taylorbliss (HTTP 520)"
+draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Hurricane", "Irene", "PAX"]

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>XBLIG on Dave Voyles</title>
+    <link>http://localhost:1315/tags/xblig/</link>
+    <description>Recent content in XBLIG on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 22 Oct 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/tags/xblig/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My first XBLIG, Piz-ong, is on the Xbox Live Marketplace this morning!</title>
+      <link>http://localhost:1315/posts/my-first-xblig-piz-ong-is-on-the-xbox-live-marketplace-this-morning/</link>
+      <pubDate>Mon, 22 Oct 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/my-first-xblig-piz-ong-is-on-the-xbox-live-marketplace-this-morning/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.wordpress.com/2012/10/22/my-first-xblig-piz-ong-is-on-the-xbox-live-marketplace-this-morning&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2012/10/pizong1.jpg&#34; title=&#34;Pizong1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;So it’s been a long time coming, but my first Xbox Live Indie Game, *Piz-ong,*finally appeared on Xbox Live this morning.&lt;/p&gt;
+&lt;p&gt;It took me a few attempts to get it through peer review, and it was always for something silly, like forgetting an “if”statement for the trial mode (which  I later found out from &lt;a href=&#34;http://www.twitter.com/jameszilla&#34;&gt;James Silva&lt;/a&gt; that you don’t even need, as the game automatically prompts for the trial to tend after 7 minutes).&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>I’ve decided to finally release my game</title>
+      <link>http://localhost:1315/posts/ive-decided-to-finally-release-my-game/</link>
+      <pubDate>Fri, 13 Jul 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/ive-decided-to-finally-release-my-game/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.wordpress.com/2012/07/13/ive-decided-to-finally-release-my-game/&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2012/07/pong.png&#34; title=&#34;Pong&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I’ve decided to finally release my game.&lt;/p&gt;
+&lt;p&gt;And by release, I mean submit it to playtesting, take some brief feedback, and then finally place it into peer review. Once it passes that it can be released on XBLIG.  I’m doing this for a few reasons:&lt;/p&gt;
+&lt;h4 id=&#34;1-learning&#34;&gt;1)  Learning&lt;/h4&gt;
+&lt;p&gt;It’s nice to have feedback from other developers in terms of how the game plays and how to make corrections. It’s essentially a pong clone, so I wanted to start simple, as it serves as a way for me to learn both C# and XNA. In that regard it has done its job. I feel as though it’s run its course at the moment and that I can learn more from others developers and players than to continue on as I am.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Dream.Build.Play dev diary 2</title>
+      <link>http://localhost:1315/posts/dream-build-play-dev-diary-2/</link>
+      <pubDate>Tue, 01 May 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/dream-build-play-dev-diary-2/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.wordpress.com/2012/05/01/dream-build-play-dev-diary-2/&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2012/05/pong-2012-05-01-06-24-14-40.jpg&#34; title=&#34;Pong 2012-05-01 06-24-14-40&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Just placeholder art for now&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; I’ve found the thread where in the App Hub where I got the original idea for the powerups. It is now linked.&lt;/p&gt;
+&lt;p&gt;This is part 2 of my Dream.Build.Play journal, where I outline what it’s like to learn the technical side of XNA and C#. You can find my &lt;a href=&#34;http://davidvoyles.wordpress.com/2012/04/19/dream-build-play-dev-diary-1/&#34;&gt;first part here.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;As I mentioned in my previous posting, a few members of the XNA community have been key in helping me learn the ins and outs along the way. I was looking for a framework to build my game on top of, and in doing so I came across a few which caught my attention, but Oneksoft’s &lt;a href=&#34;http://oneksoftlabs.com/kit/&#34;&gt;Basic Starter Kit&lt;/a&gt; really had a lot of features that I was looking for. He frequently updates it, which gives you an added incentive to check out the page often as well. Essentially it is a combination of items from developers within the community, all of which are designed to make the experience of a novice developer easier.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Dream.Build.Play dev diary 1</title>
+      <link>http://localhost:1315/posts/dream-build-play-dev-diary-1/</link>
+      <pubDate>Thu, 19 Apr 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/dream-build-play-dev-diary-1/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.files.wordpress.com/2012/04/dreambuildplay2012.png&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2012/04/dreambuildplay2012.png&#34; title=&#34;dreambuildplay2012&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I want to chronicle what it’s like to learn how to program. It has always been something that has interested me, and I’m impressed by people who can program. In the game development world programmers are the ones who hold the key to success. A game may be aesthetically pleasing or engross players in a beautiful soundtrack, but those who control how the game actually feels and how it all comes together are the programmers.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Microsoft to host XBLIG / XNA meetup at DBP booth, Thursday March 8th, 5-7pm</title>
+      <link>http://localhost:1315/posts/microsoft-to-host-xblig-xna-meetup-at-dbp-booth-thursday-march-8th-5-7pm/</link>
+      <pubDate>Mon, 13 Feb 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/microsoft-to-host-xblig-xna-meetup-at-dbp-booth-thursday-march-8th-5-7pm/</guid>
+      <description>&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://www.thebuzzmedia.com/wp-content/uploads/2008/11/xbox-live-xna-community-games.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;A Microsoft representative informed me today that they will be hosting a brief party for all XNA / XBLIG members and fans of the community, similar to last year’s outing. It will occur on Thursday, March 8, from 5-7 pm at the Microsoft Lobby Bar. It’s on the first floor of the North Hall, so you can’t miss it when you walk into GDC. Additionally, the Dream.Build.Play booth will be there too, so it looks like we’ll be able to get our hands on some of those titles and finally speak with the developers in person.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Indie Games Summer Uprising has a 5 page spread in Nov. 2011 issue of Game Developer Magazine</title>
+      <link>http://localhost:1315/posts/indie-games-summer-uprising-has-a-7-page-spread-in-nov-2011-issue-of-game-developer-magazine/</link>
+      <pubDate>Mon, 14 Nov 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/indie-games-summer-uprising-has-a-7-page-spread-in-nov-2011-issue-of-game-developer-magazine/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.files.wordpress.com/2011/11/igsu-game-dev-mag-1.gif&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2011/11/igsu-game-dev-mag-1.gif&#34; title=&#34;IGSU-Game-Dev-Mag-1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If you missed this summer Xbox Live Indie Games Summer Uprising, it’s not too late to catch up on everything that happened. It’s cool, I wrote a 5 page article which can be found in the November issue of Game Developer Magazine, so you can see everything you missed. I’m sure you’ve seen it because &lt;a href=&#34;http://www.gdmag.com/subscribe/&#34;&gt;you already subscribe&lt;/a&gt;, right? If you don’t that’s alright too, because you can buy individual issues as well.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Indie Game Summer Uprising Post-Mortem</title>
+      <link>http://localhost:1315/posts/indie-game-summer-uprising-post-mortem/</link>
+      <pubDate>Tue, 13 Sep 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/indie-game-summer-uprising-post-mortem/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.files.wordpress.com/2011/07/summeruprising_pressreleasebanner7_5x2.png&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2011/07/summeruprising_pressreleasebanner7_5x2.png&#34; title=&#34;SummerUprising_PressReleaseBanner7_5x2&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This article reflects my thoughts, and not necessarily those of the other team members for the Indie Games Summer Uprising.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;EDIT:&lt;/strong&gt; I’ve added the section &lt;em&gt;“6. The Dashboard”&lt;/em&gt;, an intro, as well as numerous grammatical corrections throughout.&lt;/p&gt;
+&lt;p&gt;Since its inception, the Xbox Live Indie Games have been considered the red-deaded stepchild of Microsoft’s internet based LIVE platform. Hidden beneath layers of menus and triple-A titles, sales and promotions have never been outstanding for developers, unless you manage to earn a spot on the highly coveted “Top Downloads” section.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Indie Games Summer Uprising candidates narrowed down to 25 – developers choose 8 next week</title>
+      <link>http://localhost:1315/posts/indie-games-summer-uprising-candidates-narrowed-down-to-25-developers-choose-8-next-week/</link>
+      <pubDate>Fri, 08 Jul 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/indie-games-summer-uprising-candidates-narrowed-down-to-25-developers-choose-8-next-week/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.files.wordpress.com/2011/07/summer-uprising-candidates-announced.png&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2011/07/summer-uprising-candidates-announced.png&#34; title=&#34;Summer Uprising Candidates Announced&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;EDIT:&lt;/strong&gt; To see a clearer list of the 26 (read below) entries, &lt;a href=&#34;http://www.indiegames-uprising.com/Top25.aspx&#34;&gt;click here.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Indie Games Summer Uprising list has been narrowed down from 70+ to just 25 this week. Starting &lt;strong&gt;Monday July 11th&lt;/strong&gt;, developers will have the opportunity to select 8 picks to represent the platform in the Uprising. Voting closes on &lt;strong&gt;Sunday July 17th&lt;/strong&gt;. Developers are to vote on a variety of factors including: Marketability, originality, appearance, entertainment, music, and gameplay. A 5 star rating system will be used, just as XBLIG tittles are rated on Live, and the 8 titles with the highest average score are selected in the promotion. A poll will be e-mailed to all XBLIG developers who have submitted candidates. Winners will be announced the following day, &lt;strong&gt;Monday July 18th&lt;/strong&gt; on the IGSU home page.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Indie Games Summer Uprising site is up!</title>
+      <link>http://localhost:1315/posts/the-indie-games-summer-uprising-site-is-up/</link>
+      <pubDate>Tue, 05 Jul 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/the-indie-games-summer-uprising-site-is-up/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.indiegames-uprising.com/Default.aspx&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2011/07/summeruprising_pressreleasebanner7_5x2.png&#34; title=&#34;SummerUprising_PressReleaseBanner7_5x2&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;We’ve finally launched the &lt;a href=&#34;http://www.indiegames-uprising.com/Default.aspx&#34;&gt;Indie Games Summer Uprising site!&lt;/a&gt; Josh Addison, Nathan Smith, and Chris Brousseau have all done an outstanding job with the web design, art work, and initial launch trailer. You can find more of their work at &lt;a href=&#34;http://www.blazingforgegames.com/&#34;&gt;Blazing Forge Games&lt;/a&gt; and &lt;a href=&#34;http://www.gameproductionstudios.com/&#34;&gt;Game Production Studios&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In addition to the site, we’ve released the &lt;a href=&#34;https://www.youtube.com/watch?v=4X3rlblR8vw&amp;amp;feature=player_embedded&#34;&gt;initial launch trailer&lt;/a&gt; and &lt;a href=&#34;http://davidvoyles.files.wordpress.com/2011/07/summer-uprising-press-release-7-5.pdf&#34;&gt;press release&lt;/a&gt; to a number of outlets.&lt;/p&gt;
+&lt;p&gt;Be sure to &lt;a href=&#34;http://www.facebook.com/pages/Indie-Game-Summer-Uprising/191422484238144?sk=wall&#34;&gt;“Like” us on Facebook as well&lt;/a&gt;, where you will have the opportunity to vote for two additional titles that you would like to see as part of the uprising. Click through for the press release.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>GDC 2011</title>
+      <link>http://localhost:1315/posts/gdc-2011/</link>
+      <pubDate>Thu, 23 Jun 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/gdc-2011/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.files.wordpress.com/2010/03/gdc_2011.jpg&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2010/03/gdc_2011.jpg?w=300&#34; title=&#34;GDC_2011&#34;&gt;&lt;/a&gt;&lt;br&gt;
+I’ll be attending my second GDC conference this year. I’ve recently received my press pass as a member of the Armless Octopus. I plan on staying the full week this time, most specifically for the UDK game track. I’m also scheduling an XNA meet up for XNA and Xbox indie developers, so if you’d like to join us, feel free to contact me.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>How to market your game, XBLIG Style – Part 1</title>
+      <link>http://localhost:1315/posts/how-to-market-your-game-xblig-style-part-1/</link>
+      <pubDate>Thu, 23 Jun 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/how-to-market-your-game-xblig-style-part-1/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.armlessoctopus.com/2011/04/16/how-to-market-your-game-xblig-style-part-1/&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2010/03/ace-ventura-pet-detective-original32.jpg&#34; title=&#34;ace-ventura-pet-detective-original32&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I just finished putting together a feature geared towards indie developers on how to market their titles. I frequently find that many of the smaller, or even 1 man studios tend to have a difficult time promoting and marketing their work, so I felt it was time for me to share some of the best practices I’ve come across so far. I should have part 2 up some time later in the week. It originally appeared on &lt;a href=&#34;www.armlessoctopus.com&#34;&gt;Armless Octopus&lt;/a&gt; on April 16th, and you can &lt;a href=&#34;http://www.armlessoctopus.com/2011/04/16/how-to-market-your-game-xblig-style-part-1/&#34;&gt;access it through this link.&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>PAX East 2011 with Armless Octopus</title>
+      <link>http://localhost:1315/posts/pax-east-2011-with-armless-octopus/</link>
+      <pubDate>Thu, 23 Jun 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/pax-east-2011-with-armless-octopus/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.files.wordpress.com/2010/03/paxeast_2011.jpg&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2010/03/paxeast_2011.jpg&#34; title=&#34;paxeast_2011&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I’ll be attending Pax East 2011 with the rest of the Armless Ocotopus staff (minus the Canadian). We’ll be there interviewing XBLIG and XBLA developers, previewing the latest and greatest titles, and are considering another live podcast like we did last year. A video review may be in in order well.&lt;/p&gt;
+&lt;p&gt;If you’re headed over as well, feel free to contact me so that we can meet up!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Summer Uprising Press Coverage</title>
+      <link>http://localhost:1315/posts/summer-uprising-press-coverage/</link>
+      <pubDate>Thu, 23 Jun 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/summer-uprising-press-coverage/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.files.wordpress.com/2010/03/igsu-logo1.png&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2010/03/igsu-logo1.png?w=300&#34; title=&#34;IGSU Logo1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Thus far, the enthusiasm behind the uprising has been great. We have over 45 submissions at this point, with additional ones coming in. The press has been kind to us as well and really helped with spreading the word. I didn’t sent out a press release to any of the outlets, as the one listed below was really just geared toward the developers, but looking back I probably should have. I’ll have an updated one in the next week or so as more news gets solidified. The website should be up within the week, so be sure to check back here for a link for that. Andrew Currie of &lt;a href=&#34;http://www.evilrobotlogic.com/&#34;&gt;Evil Robot Logic&lt;/a&gt; has been doing an outstanding job of handling that for us.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

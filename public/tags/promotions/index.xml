@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Promotions on Dave Voyles</title>
+    <link>http://localhost:1315/tags/promotions/</link>
+    <description>Recent content in Promotions on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 22 May 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/tags/promotions/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>$100k worldwide Unity contest</title>
+      <link>http://localhost:1315/posts/100k-worldwide-unity-contest/</link>
+      <pubDate>Thu, 22 May 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/100k-worldwide-unity-contest/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davevoyles.azurewebsites.net/4351/&#34;&gt;&lt;img alt=&#34;Unity Marketing&#34; loading=&#34;lazy&#34; src=&#34;http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/Unity-Marketing-1024x531.png&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Today, Unity and Microsoft announced a new &lt;em&gt;&lt;strong&gt;world-wide contest with $100K in prizes&lt;/strong&gt;&lt;/em&gt; to bring Unity games to Windows and Windows Phone. The rules are pretty straight forward, and he contest site is hosted at &lt;a href=&#34;http://unity3d.com/contest/windows&#34;&gt;http://unity3d.com/contest/windows&lt;/a&gt;, so feel free to head over and submit your games!&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

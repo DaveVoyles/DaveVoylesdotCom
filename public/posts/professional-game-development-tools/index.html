@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Professional Game Development Tools | Dave Voyles</title>
+<meta name="keywords" content="babylonJS, Game Dev, Game Development, Programming, Unreal Engine, WebGL, Windows 10">
+<meta name="description" content="This post is part of 3 week series giving current and aspiring game devs the tools, resources, and advice they need to get started building for Windows. We also have a great video course on [game production basics](http://Game Production Basics) at Microsoft Virtual Academy.
+
+	
+			
+					
+					
+			
+	
+	
+			
+					Visual Studio Community Edition
+					visual-studio-logo
+			
+	
+
+You need an IDE, or Integrated Development Environment, to write code for your games. Visual Studio Community edition is FREE from Microsoft, and allows you to use a multitude of languages.">
+<meta name="author" content="Dave Voyles">
+<link rel="canonical" href="http://localhost:1315/posts/professional-game-development-tools/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1315/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1315/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1315/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1315/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1315/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1315/posts/professional-game-development-tools/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1315/" accesskey="h" title="Dave Voyles (Alt + H)">Dave Voyles</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Professional Game Development Tools
+    </h1>
+    <div class="post-meta">
+
+<span title='2014-03-21 00:00:00 +0000 UTC'>March 21, 2014</span>&nbsp;·&nbsp;<span>Dave Voyles</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><p>This post is part of 3 week series giving current and aspiring game devs the tools, resources, and advice they need to get started building for Windows. We also have a great video course on [game production basics](http://Game Production Basics) at Microsoft Virtual Academy.</p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="https://www.visualstudio.com/">Visual Studio Community Edition</a></td>
+					<td><a href="/images/www.davevoyles.com_wp-content_uploads_2014_03_visual-studio-logo.jpg.jpg">visual-studio-logo</a></td>
+			</tr>
+	</tbody>
+</table>
+<p>You need an IDE, or Integrated Development Environment, to write code for your games. Visual Studio Community edition is FREE from Microsoft, and allows you to use a multitude of languages.</p>
+<ul>
+<li><strong>Full-featured</strong> Integrated Development Environment for building Web, Windows Desktop and cross-platform iOS, Android, and Windows apps</li>
+<li><strong>Ecosystem</strong> with thousands of extensions to choose from in the <a href="https://visualstudiogallery.msdn.microsoft.com/">Visual Studio Gallery</a>, or <a href="https://www.visualstudio.com/integrate">create your own</a></li>
+</ul>
+<p>There is even <a href="https://visualstudiogallery.msdn.microsoft.com/20b80b8c-659b-45ef-96c1-437828fe7cf2">a plugin that allows you to debug Unity applications</a> from within Visual Studio.</p>
+<p>MVA – <a href="http://www.microsoftvirtualacademy.com/training-courses/what-s-new-in-visual-studio-2013-jump-start">What’s new in Visual Studio jump start</a></p>
+<p>MVA – <a href="http://www.microsoftvirtualacademy.com/training-courses/cross-platform-development-with-visual-studio">Cross platform development with Visual Studio</a></p>
+<p><a href="/images/www.davevoyles.com_wp-content_uploads_2014_03_vscommunity-aspnetbreakpointdebug.png.png"><img alt="vscommunity-aspnetbreakpointdebug" loading="lazy" src="/images/www.davevoyles.com_wp-content_uploads_2014_03_vscommunity-aspnetbreakpointdebug-1024x576.png.png"></a></p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="http://unity3d.com/">Unity</a></td>
+					<td><a href="http://unity3d.com/">image</a></td>
+			</tr>
+	</tbody>
+</table>
+<p><a href="http://unity3d.com/">Unity</a>is a game development tool that has been designed to let you focus on creating amazing 3D games. Unity supports three <a href="http://unity3d.com/support/documentation/ScriptReference/index.html">languages</a><strong>:</strong> JavaScript (or at least their own version of it), C# (<a href="http://www.mono-project.com/Main_Page">Mono</a>), and a flavor of Python called Boo. The biggest selling point for Unity is the fact that it works across virtually all modern platforms. Best of all, they’ve recently <a href="https://unity3d.com/unity/personal-edition">switched to completely free model</a>, too. </p>
+<p>MVA – <a href="http://www.microsoftvirtualacademy.com/training-courses/developing-2d-3d-games-with-unity-for-windows-jump-start">Developing 2D &amp; 3D Games with Unity for Windows Jump Start</a></p>
+<p>MVA – <a href="http://www.microsoftvirtualacademy.com/training-courses/porting-unity-games-to-windows-store-and-windows-phone">Porting Unity Games to Windows Store and Windows Phone</a></p>
+<p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Unity.jpg"><img alt="Unity" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Unity.jpg"></a></p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="http://monogame.codeplex.com/">MonoGame</a></td>
+					<td><a href="http://blogs.msdn.com/cfs-file.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-00-46-99-metablogapi/0284.image_5F00_33E0D9A3.png">image</a></td>
+			</tr>
+	</tbody>
+</table>
+<p><a href="http://monogame.codeplex.com/">MonoGame</a> is an Open Source implementation of the Microsoft XNA 4 Framework. MonoGame allows XNA . It currently supports <a href="http://en.wikipedia.org/wiki/Mac_OS" title="Mac OS">Mac OS</a>, <a href="http://en.wikipedia.org/wiki/Linux" title="Linux">Linux</a>, <a href="http://en.wikipedia.org/wiki/IOS" title="IOS">iOS</a>, <a href="http://en.wikipedia.org/wiki/Android_(operating_system)" title="Android (operating system)">Android</a>, Playstation 4, and the <a href="http://en.wikipedia.org/wiki/OUYA" title="OUYA">OUYA</a> console. Two higher profile titles include*<a href="http://en.wikipedia.org/wiki/Bastion_(video_game)" title="Bastion (video game)">Bastion</a>, Skulls of the Shogun*, and <em><a href="http://en.wikipedia.org/wiki/Fez_(video_game)" title="Fez (video game)">Fez</a>.</em> At GDC 2015, Microsoft <a href="http://www.davevoyles.com/monogame-3-4-is-out-has-support-for-windows-10-and-that-will-include-xbox-one/">showed it off on Windows 10.</a></p>
+<p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/MonoGame.png"><img alt="MonoGame" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/MonoGame.png"></a></p>
+<p>Bob Familiar recently wrote a 3 part blog series on MonoGame that takes you step by step through the process from getting your development environment setup to getting your game Windows 8 Store Ready.</p>
+<ul>
+<li><a href="http://blogs.msdn.com/b/bobfamiliar/archive/2012/08/01/windows-8-xna-and-monogame-part-1-overview.aspx">Part 1 – Overview</a></li>
+<li><a href="http://blogs.msdn.com/b/bobfamiliar/archive/2012/08/02/windows-8-xna-and-monogame-part-2-getting-started.aspx">Part 2 – Getting Started</a></li>
+<li><a href="http://blogs.msdn.com/b/bobfamiliar/archive/2012/08/07/windows-8-xna-and-monogame-part-3-code-migration-and-windows-8-feature-support.aspx">Part 3 – Getting Windows 8 Store Ready</a></li>
+</ul>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="https://www.synapsegaming.com/products/sunburn/engine/editions.aspx">SunBurn Engine</a></td>
+					<td><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Synapse-Gaming-Logo.png">Synapse Gaming Logo</a></td>
+			</tr>
+	</tbody>
+</table>
+<p>Similar to MonoGame, SunBurn is an abstraction of XNA 4, which allows developers to easily target multiple platforms. A free version is available, but if you want to use the editor to do things like drag-and-drop 3D models onto a scene, then you’ll need to pay for the premium versions, which are priced well.</p>
+<p>At the moment SunBurn supports Windows, Win8, Win Phone 8, Xbox 360, OSX, and Android, although more platforms are in the works.</p>
+<p><a href="http://www.synapsegaming.com/products/sunburn/framework/"><img alt="SunBurn Engine" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/SunBurn-Engine.jpg"></a></p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="https://www.yoyogames.com/studio">GameMaker</a></td>
+					<td><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Game-Maker-Logo.jpeg">Game Maker Logo</a></td>
+			</tr>
+	</tbody>
+</table>
+<p>Who said drag-and-drop was dead? GameMaker proves that you can still make commercially viable games, without needing to use AAA engines and knowing how the ins-and-outs of memory management in the latest programming language. Often seen as a prototyping tool, GameMaker is responsible for some big hits in recent years, and more on the way, including: <em>Hot Line Miami</em>, <em>Nighogg,</em> and <em>Death Ray Manta</em>.</p>
+<p>A free version is available, but you’ll need to pony up a few bucks for additional platforms. Keep an eye out on Steam as well, as they frequently have flash sales for the framework. I managed to nap a professional license for $100 not too long ago!</p>
+<p><a href="http://www.microsoftvirtualacademy.com/training-courses/creating-your-first-2d-game-with-gamemaker">MVA course – Creating your first 2D Game with GameMaker</a></p>
+<p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/GameMaker.jpg"><img alt="GameMaker" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/GameMaker-1024x555.jpg"></a></p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="https://www.scirra.com/">Construct 2</a></td>
+					<td><a href="/images/www.davevoyles.com_wp-content_uploads_2014_03_construct-2-logo.jpg.jpg">construct-2-logo</a></td>
+			</tr>
+	</tbody>
+</table>
+<p><em>“I want to get started with making games, but I don’t know how. Where should I start?”</em></p>
+<p>It can be overwhelming when you are starting off, because there are so many options available to you. I mean just look at plethora of game making tools at  <a href="http://www.pixelprospector.com/the-big-list-of-game-making-tools/">Pixel Prospetor</a>, and you’ll see what I’m talking about.  If you have zero programming experience, then I’d suggest starting with <a href="http://www.pixelprospector.com/the-big-list-of-game-making-tools/#construct">Construct2.</a></p>
+<p>Construct 2 allows you to create HTML5 games without ever having to write code. Everything is handled in the IDE (Integrated Development Environment) which has a GUI (Graphical User Interface) that anyone could use. You simply drag-and-drop objects into your scene, and can make changes to the objects properties by right clicking.</p>
+<p>Even better, it’s free! There are premium versions available, but if you’re just starting off, then the free version offers more than enough to get you going.</p>
+<p>Moreover, there are tons of resources to take advantage of:</p>
+<ul>
+<li><a href="http://www.scirra.com/help/">Construct Tutorials</a></li>
+<li><a href="http://www.scirra.com/help/">Construct Wiki</a></li>
+<li><a href="http://www.scirra.com/construct/demos.php">Construct Demos</a></li>
+</ul>
+<p>I’d suggest starting here, though:</p>
+<ul>
+<li><a href="https://www.scirra.com/construct2/releases/r158.2">Install Construct2</a></li>
+<li><a href="https://www.scirra.com/tutorials/253/how-to-make-a-platform-game/page-1#tuttop">[TUTORIAL] How to make a platformer game</a></li>
+<li>MVA – <a href="http://www.microsoftvirtualacademy.com/training-courses/construct-2-advanced-game-development">Construct 2 Advanced Game Development</a></li>
+<li>MVA – <a href="http://www.microsoftvirtualacademy.com/training-courses/developing-games-with-construct-2">Developing Games with Construct 2</a></li>
+</ul>
+<p><a href="/images/www.davevoyles.com_wp-content_uploads_2014_02_Construct-2.jpg.jpg"><img alt="Construct 2" loading="lazy" src="/images/www.davevoyles.com_wp-content_uploads_2014_02_Construct-2-1024x622.jpg.jpg"></a></p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="https://www.unrealengine.com/blog/welcome-to-unreal-engine-4">Unreal Engine 4</a></td>
+					<td><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/unrealengine4logo.png">unrealengine4logo</a></td>
+			</tr>
+	</tbody>
+</table>
+<p>Fresh off of the Game Developers Conference, Epic revealed that their newest engine would be made available to everyone immediately, for free. This is a big change from the previous licensing agreement of UDK.</p>
+<p>A complete revamp of the UI has taken place, in addition to a new visual scripting system called “Blueprints”. Gone are the days of UnrealScript as well, as of the engine’s programming is now done in C++. Even better: the <a href="https://www.unrealengine.com/ue4-on-github">entire source code for the engine is available for free.</a> The editor works on Mac and PC and projects can be deployed for Windows, OSX, iOS, and Android, in addition to the PS4 and Xbox One.</p>
+<p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/UE4-editor.jpg"><img alt="UE4 editor" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/UE4-editor.jpg"></a></p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="http://www.unrealengine.com/udk/">Unreal Development Kit (UDK)</a></td>
+					<td><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/UDK_LOGO_banner.png">UDK_LOGO_banner</a></td>
+			</tr>
+	</tbody>
+</table>
+<p>UDK makes use of its own programming language, called <a href="http://en.wikipedia.org/wiki/UnrealScript">UnrealScript,</a> which may throw some new developers through a loop. The language was designed for simple, high-level programming langage. The UnrealScript interpreter was programmed by<a href="http://en.wikipedia.org/wiki/Tim_Sweeney_(game_developer)" title="Tim Sweeney (game developer)">Tim Sweeney</a>, who continues to develop the newest version of the engine, Unreal Engine 4.</p>
+<p>Similar to <a href="http://en.wikipedia.org/wiki/Java_(programming_language)" title="Java (programming language)">Java</a>, UnrealScript is <a href="http://en.wikipedia.org/wiki/Object-oriented" title="Object-oriented">object-oriented</a> without <a href="http://en.wikipedia.org/wiki/Multiple_inheritance" title="Multiple inheritance">multiple inheritance</a> (classes all inherit from a common Object class), and classes are defined in individual files named for the class they define. This author j<a href="http://www.packtpub.com/unrealscript-game-programming-cookbook/book#overview">ust happens to have written a book</a> about how to program for this engine. Many of last generation’s most popular titles used this engine, including Gears of War, Mass Effect, and Bioshock.</p>
+<p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/UDK.jpg"><img alt="UDK" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/UDK.jpg"></a></p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="http://www.babylonjs.com/">BabylonJS</a></td>
+					<td><a href="/images/www.davevoyles.com_wp-content_uploads_2014_03_BabylonJS-logo.png.png">BabylonJS-logo</a></td>
+			</tr>
+	</tbody>
+</table>
+<p>WebGL allows your web browser to talk to the GPU on your device, whether it is a desktop machine or a phone. Writing low level code to allow for this interaction can be a bit of a barrier to some, so several engineers from Microsoft have created the free and open source framework, BabylonJS.</p>
+<p>You can easily write JavaScript to create high-powered experiences inside of the browser, or wrap it with a third party tool like Cordova or the Windows 10 UWP to allow it to run as though it were a native application on your device and sell it in the app store of your choice. <a href="http://www.babylonjs-playground.com/">Take a look at the playground</a> to get a better feel for how it all works. It also supports Oculus Rift, the gamepad API, and you can easily export 3D assets from tools like Blender to have them work in your browser!</p>
+<p>MVA – <a href="http://www.microsoftvirtualacademy.com/training-courses/introduction-to-webgl-3d-with-html5-and-babylon-js">Introduction to WebGL 3D with HTML5 and Babylon.js</a></p>
+<p><a href="/images/www.davevoyles.com_wp-content_uploads_2014_03_BabylonJS-main-screen.jpg.jpg"><img alt="BabylonJS main screen" loading="lazy" src="/images/www.davevoyles.com_wp-content_uploads_2014_03_BabylonJS-main-screen-1024x670.jpg.jpg"></a></p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="http://www.crytek.com/news/crytek-announces-its-cryengine-as-a-service-program-for-990-usd-per-month">Cry Engine 3</a></td>
+					<td><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/CryEngineLogo.png">CryEngineLogo</a></td>
+			</tr>
+	</tbody>
+</table>
+<p>Not to be out done by Epic at GDC, Crytek announced that their latest engine is no available to everyone for a measly $10 / month. This engine has powered some of the most beautiful games on the market, including the <em>Crysis</em> series, and <em>Ryse: Son of Rome</em> on Xbox One.</p>
+<p>A bevvy of new features recently announced include Physically Based Shading, Geometry Cache and Image Based Lighting. All programmig is done in C++ and Lua for scripting. However, there is currently a tool in the works for C# developers, <a href="http://www.crydev.net/viewtopic.php?f=314&amp;t=85835">called CryMono.</a></p>
+<p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/CryEngine.jpg"><img alt="CryEngine" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/CryEngine-1024x626.jpg"></a></p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="http://www.autodesk.com/products/autodesk-maya/overview">Autodesk Maya</a> / <a href="http://www.gamasutra.com/view/news/199094/Maya_LT_is_Autodesks_new_indie_and_mobilefocused_modeling_tool.php">LT</a></td>
+					<td><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Maya-Logo.png">Maya Logo</a></td>
+			</tr>
+	</tbody>
+</table>
+<p>This application used to generate 3D assets for use in film, television, game development and architecture. There are a number of new licensing terms as of late, and a perpetual student license can be purchased for Maya. This license does not expire and the student version can be upgraded to the commercial version at a significant discount. Even better, after the student graduates, the only restriction being non commercial use</p>
+<p>One large benefit in Maya’s corner however, is the fact that it works on both PCs and Macs. Due to Autodesk’s acquisition of Maya in 2005, the differences between Maya and Max have begun to converge, so it’s largely a matter of personal preference at this point. While the differences are subtle, larger studios tend to stick with one tool or the other.</p>
+<p>At Unite 2013, Unity’s annual gaming conference, Maya announced that they are now releasing a lighter version of Maya for indies called <a href="http://www.gamasutra.com/view/news/199094/Maya_LT_is_Autodesks_new_indie_and_mobilefocused_modeling_tool.php">MayaLT</a>, which can be purchased using a variety of subscription models. Prices start at $50 / month, and is perfect for those looking for a short term licencing model.</p>
+<p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Maya-2014.jpg"><img alt="Maya 2014" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Maya-2014.jpg"></a></p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="http://www.autodesk.com/products/autodesk-3ds-max/overview">Autodesk 3DS Max</a></td>
+					<td><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/3ds-max-ogo.png">3ds max ogo</a></td>
+			</tr>
+	</tbody>
+</table>
+<p>3DS Max is perhaps slightly more popular in the gaming industry, but you shouldn’t have a problem finding a job if you know Maya either. The hotkeys are very different and the viewports may throw users off when coming from one tool to the other, but they largely perform the same tasks.</p>
+<p>Many game engines feature workflows for easy exporting from MAX to the particular engine, so look carefully before making your decision about what to purchase, and gauge the value of the tool from there.</p>
+<p>Alternatively, <a href="http://www.blender.org/">Blender</a> is an open source and free 3D modeling tool, but not nearly as featured as either of Autodesks offerings. Considering that most professionals use the two tools listed above, I’d suggest skipping over Blender completely.</p>
+<p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/3DS-Max-2014.jpg"><img alt="3DS Max 2014" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/3DS-Max-2014.jpg"></a></p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="http://en.wikipedia.org/wiki/Adobe_Audition">Audition</a></td>
+					<td><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Adobe-Audition.png">Adobe Audition</a></td>
+			</tr>
+	</tbody>
+</table>
+<p>In terms of audio tools, Adobe <em>Audition</em>, along with Avid <em>Pro</em> Tools, are the defacto standard. You can now purchase it as part of Adobe’s Creative Cloud suite, which include Photoshop, Illustrator, and other image editing tools.  Alternatively, <a href="http://audacity.sourceforge.net/"><em>Audacity</em></a> is a free audio editing tool which works for those of us on a cheaper budget.</p>
+<p>Even if you weren’t using this for soundtracks or sound effects for games, it makes for an excellent tool for creating and editing podcasts, which are invaluable when it comes to promoting your work.</p>
+<p><a href="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Adobe-Auditio-screen.png"><img alt="Adobe Auditio screen" loading="lazy" src="http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Adobe-Auditio-screen-1024x694.png"></a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1315/tags/babylonjs/">BabylonJS</a></li>
+      <li><a href="http://localhost:1315/tags/game-dev/">Game Dev</a></li>
+      <li><a href="http://localhost:1315/tags/game-development/">Game Development</a></li>
+      <li><a href="http://localhost:1315/tags/programming/">Programming</a></li>
+      <li><a href="http://localhost:1315/tags/unreal-engine/">Unreal Engine</a></li>
+      <li><a href="http://localhost:1315/tags/webgl/">WebGL</a></li>
+      <li><a href="http://localhost:1315/tags/windows-10/">Windows 10</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1315/">Dave Voyles</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

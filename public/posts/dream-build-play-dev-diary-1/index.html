@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Dream.Build.Play dev diary 1 | Dave Voyles</title>
+<meta name="keywords" content="Dev Diary, Dream.Build.Play, XBLIG, XNA">
+<meta name="description" content="
+I want to chronicle what it’s like to learn how to program. It has always been something that has interested me, and I’m impressed by people who can program. In the game development world programmers are the ones who hold the key to success. A game may be aesthetically pleasing or engross players in a beautiful soundtrack, but those who control how the game actually feels and how it all comes together are the programmers.">
+<meta name="author" content="Dave Voyles">
+<link rel="canonical" href="http://localhost:1315/posts/dream-build-play-dev-diary-1/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1315/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1315/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1315/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1315/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1315/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1315/posts/dream-build-play-dev-diary-1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1315/" accesskey="h" title="Dave Voyles (Alt + H)">Dave Voyles</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Dream.Build.Play dev diary 1
+    </h1>
+    <div class="post-meta">
+
+<span title='2012-04-19 00:00:00 +0000 UTC'>April 19, 2012</span>&nbsp;·&nbsp;<span>Dave Voyles</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><p><a href="http://davidvoyles.files.wordpress.com/2012/04/dreambuildplay2012.png"><img loading="lazy" src="http://davidvoyles.files.wordpress.com/2012/04/dreambuildplay2012.png" title="dreambuildplay2012"></a></p>
+<p>I want to chronicle what it’s like to learn how to program. It has always been something that has interested me, and I’m impressed by people who can program. In the game development world programmers are the ones who hold the key to success. A game may be aesthetically pleasing or engross players in a beautiful soundtrack, but those who control how the game actually feels and how it all comes together are the programmers.</p>
+<p>Furthermore, I found it intimidating to begin a journey down the path of programming. When I first went back to school for my masters I was doing my MBA, while simultaneously doing another masters in Computer Science. My undergraduate work was in Communications and Advertising, and the fact that I am completely inept in the field of math wasn’t helping out my cause for learning C-sci. I dropped the work in Computer Science after only one semester as I couldn’t handle the math.</p>
+<p>Flash forward a few years, and I’m dabbling in game dev as a hobbyist, and <a href="http://davidvoyles.wordpress.com/udk-title/">started with the Unreal Engine</a> as it was the first thing that caught my eye at my first GDC in 2010. Learning this engine also allowed me to learn a plethora of other tools, including 3DS Max and Maya for modeling, Photoshop for 2D art, and Visual Studio for Unreal’s own programming language, UnrealScript. To further my skills, I figured I would take something I know best from my childhood, and get a current day prototype running, so I started to <a href="http://davidvoyles.wordpress.com/udk-title/mega-man-2-remake/">remake Mega Man</a> 2 using the Unreal Development Kit.</p>
+<p>With most of my art assets done, and a solid understanding of the engine, I knew that my time to learn programming would soon be approaching. I already had some understanding of the language, having worked on two other projects with development teams earlier, but not enough to create a game on my own. Besides, Uscript was a combination of C++ and Java, while XNA uses C#. While they are similar in some ways, it would still take me time to adjust to this change.</p>
+<p>With the understanding that I would need to learn programming at some point in the near future I figured that <a href="https://www.dreambuildplay.com/Main/Default.aspx">Dream.Build.Play</a> would be the perfect catalyst to move me along. It was really a conversation between <a href="https://twitter.com/#!/clingermangw">George Clingerman</a> , <a href="https://twitter.com/#!/vinull">Michael Neel</a> , and myself which got me started. By George’s gentle nudge, I entered DBP and told myself that I would have something done in the next 10 weeks, despite how simple it was.  <a href="http://www.twitter.com/magicaltimebean">Ian Stocker</a> had suggested starting with pong to learn the basics, so I did just that.</p>
+<h4 id="my-first-steps">My first steps<a hidden class="anchor" aria-hidden="true" href="#my-first-steps">#</a></h4>
+<p>On a Saturday evening I scoured the internet in search for pong tutorials, and went through several so that I could understand the key differences between then, and see which worked best for my needs. I settled on this one from <a href="http://ross-warren.co.uk/pong-clone-in-xna-4-0-for-windows/">Ross Warren</a>, and it’s worked out great for me. For the most part he clearly identifies what he is doing throughout the entire process, and as someone completely new to XNA this kind of babying was certainly welcome.</p>
+<p>In addition, I found <a href="http://www.amazon.com/Building-XNA-2-0-Games-Professionals/dp/1430209798">James Silva’s XNA 2.0 Book</a> to be very useful, despite being somewhat outdated. He also has a pong tutorial, along with source code which came in handy, but his version of Pong was far different in that it generally relied on only one class, where Ross’ used many. Further adding to the complication was the fact that I was now using XNA 4.0, and much of the 2.0 code would need to be changed. Again, this forced me to delve deeper in to the code and allow me to understand some of the differences between the previous versions of XNA.</p>
+<p>Soon after I had my Pong game moving along I realized that I would need to improve my C# and XNA skills before I could really make the additions to the game that I was looking for. I decided to take a week or two off from programming and just read and arm myself with as much of an education myself as much as I could.</p>
+<p>I ran to Amazon and grabbed all of the books that I could. <a href="http://www.amazon.com/XNA-4-0-Game-Development-Example/dp/1849690669">XNA 4.0 Game Development</a> was very useful in that it had a number of templates for pre-built games, and despite it being for Visual Basic and not C# (an addition to 4.0) I still learned quite a bit.  <a href="http://www.amazon.com/Microsoft-XNA-Game-Studio-Unleashed/dp/0672330229/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1334715399&amp;sr=1-1">Microsoft XNA Game Studio 3.0 Unleashed</a> was informative as well, and they also included a few templates for use within games, such as loading bars and how to implement animations.</p>
+<p>What I found to be more useful by far however was Rob Miles’ <a href="http://www.csharpcourse.com/">C# Yellow Book.</a> Not only was it an easy read for a novice, but he provided all of the material as though it were spoken through a casual conversation. I can’t recommend it enough for anyone learning C#.</p>
+<p>Armed with my new found knowledge, I felt it was time to begin tweaking the game how I saw it to be fit. I played with the various properties of the ball and bats until they felt right, such as altering the speeds and sizes. Last week I decided to replace the score with a health bar, thereby creating more of a dynamic and interactive challenge as the health bar can be raised and lowered.</p>
+<h4 id="more-next-week">More next week<a hidden class="anchor" aria-hidden="true" href="#more-next-week">#</a></h4>
+<p>This is all I’ve really got time to write about at the moment. Next week I’ll detail more of my code and explain how I’m going about doing things. I’ll also highlight some of the people who have really helped me out along the way and deserve the recognition for doing so.</p>
+<p>You can follow along with my progress, as well as that of many other DBP entries at the <a href="http://www.xnalastdance.com">XNALastDance.com</a> page, as set up by Michael Neel.  It’s a great place to get some motivation whenever you get bogged down by lack of progress!</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1315/tags/dev-diary/">Dev Diary</a></li>
+      <li><a href="http://localhost:1315/tags/dream.build.play/">Dream.Build.Play</a></li>
+      <li><a href="http://localhost:1315/tags/xblig/">XBLIG</a></li>
+      <li><a href="http://localhost:1315/tags/xna/">XNA</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1315/">Dave Voyles</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

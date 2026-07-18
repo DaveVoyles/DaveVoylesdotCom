@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>UDK on Dave Voyles</title>
+    <link>http://localhost:1315/tags/udk/</link>
+    <description>Recent content in UDK on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Feb 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/tags/udk/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mega Man Prototype Video 2 Is Out</title>
+      <link>http://localhost:1315/posts/mega-man-prototype-video-2-is-out/</link>
+      <pubDate>Sun, 12 Feb 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/mega-man-prototype-video-2-is-out/</guid>
+      <description>&lt;p&gt;You can find &lt;a href=&#34;http://davidvoyles.wordpress.com/2012/02/06/first-bubble-man-prototype-video-is-up/&#34;&gt;the first video here.&lt;/a&gt;  How I put this together is illustrated in &lt;a href=&#34;http://davidvoyles.wordpress.com/2012/02/11/mega-man-dev-diary-vol-2/&#34;&gt;the second development diar&lt;/a&gt;y as well. The noticeable changes I’ve made in this version include:&lt;/p&gt;
+&lt;p&gt;A post processing volume with:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Depth of Field – I have it focused on the pawn, and it gradually decreases as the distance extends radially. It’s subtle, but I didn’t want it to be distracting. It offers the sense that everything is slightly dulled with the water in your eyes.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>First Bubble Man prototype video is up!</title>
+      <link>http://localhost:1315/posts/first-bubble-man-prototype-video-is-up/</link>
+      <pubDate>Mon, 06 Feb 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/first-bubble-man-prototype-video-is-up/</guid>
+      <description>&lt;p&gt;Wow, I’ve been writing like a mad man on here for the past two weeks! Anyway, here’s the first video I’ve posted for my Mega Man prototype. It’s half way through Bubble Man’s stage, and begins just after you drop into the water. The physics are way off, and I haven’t altered the values for gravity or friction just yet, so that certainly could use some work.&lt;/p&gt;
+&lt;p&gt;In Mega Man 2, Rock can jump 75% of the screen when beneath water, so I’ll add a physics volume just for that area. I also plan on updating the dev diary later this week too.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Mega Man 2 Dev Diary: Vol 1</title>
+      <link>http://localhost:1315/posts/mega-man-2-dev-diary-vol-1/</link>
+      <pubDate>Mon, 30 Jan 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/mega-man-2-dev-diary-vol-1/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://davidvoyles.files.wordpress.com/2012/01/sss_mm2_ea.jpg&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2012/01/sss_mm2_ea.jpg&#34; title=&#34;SSS_MM2_EA&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Some of the environment art for Bubble Man&amp;rsquo;s stage&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Inspired by Ben Kane’s excellent &lt;em&gt;&lt;a href=&#34;http://benkane.wordpress.com/&#34;&gt;The Great Porting Adventure&lt;/a&gt;&lt;/em&gt; series where he illustrates the life of a full time independent developer porting an XBLIG title to other platforms, I’ve decided to keep a development diary of my own. Oh what’s that, you haven’t taken a gander at his? Well if you’re looking for the inside scoops from someone who actually knows what he’s doing, and has released games before, then it’s probably the place to be. If you’d rather see the comically sad experience of a first time developer as he makes every mistake though, then this is probably the place to be.&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>New UDK vehicle camera tests posted</title>
+      <link>http://localhost:1315/posts/new-udk-vehicle-camera-tests-posted/</link>
+      <pubDate>Wed, 28 Dec 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/new-udk-vehicle-camera-tests-posted/</guid>
+      <description>&lt;p&gt;I haven’t updated my blog in a while, so I figured it was time I put some work up here.  I’m still working on the Mega Man 2 project, more specifically, creating the models for the enemies on the stage. It’s all blocked out at this point, and much of the environment art is in place.&lt;/p&gt;
+&lt;p&gt;Until I have more to post on that, enjoy the vehicle camera test I created when working on a project similar to Soviet Strike during the PSX era. I found out the hard way that vehicles and pawns adhere to two completely different camera systems in the engine. Vehicles it seems, require a camera per seat, whereas pawns use one camera, and one camera only. Enjoy, and let me know what you think!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Death Sentence website is live!</title>
+      <link>http://localhost:1315/posts/death-sentence-website-is-live/</link>
+      <pubDate>Thu, 23 Jun 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/death-sentence-website-is-live/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;www.deathsentenceudk.wordpress.com&#34;&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://davidvoyles.files.wordpress.com/2010/03/death-sentence.gif&#34; title=&#34;Death Sentence&#34;&gt;&lt;/a&gt;See, I really do make games and not just write about them! &lt;a href=&#34;http://www.deathsentenceudk.wordpress.com&#34;&gt;Take a gander&lt;/a&gt; at the site I created for Death Sentence. It is still very It’s a great team so far, and I’ve been fortunate enough to hop on, although later in development to work as both an environment artist and web developer. It is a vahicular combat title in a similar vein to Twisted Metal. We’ve created it using the latest Unreal Engine, and it should have a release on the PC and perhaps iOS at some point after.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>New level layouts for UDK project</title>
+      <link>http://localhost:1315/posts/new-level-layouts-for-udk-project/</link>
+      <pubDate>Thu, 23 Jun 2011 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/new-level-layouts-for-udk-project/</guid>
+      <description>&lt;p&gt;Here are some screens from the level layout I’ve been working on now that I’ve decided to go full speed with my project. I’ll add more as I finish more sets. I use SketchUp to layout the levels, in combination with Visio. It makes things much easier to have models for comparison before I actually build them in Unreal. You can find more of them on the Unreal Project page.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

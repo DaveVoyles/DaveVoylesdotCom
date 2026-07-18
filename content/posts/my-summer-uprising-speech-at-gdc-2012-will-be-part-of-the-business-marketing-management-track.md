@@ -1,8 +1,7 @@
 +++
 title = "My Summer Uprising speech at GDC 2012 will be part of the Business, Marketing, & Management track"
 date = "2012-01-12T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Xbox Live Indie Games, XBLIG, XNA); 14.5 years old; broken outbound reference(s): link http://schedule.gdconf.com/session/6760/Marketing_for_Indies%3A_The_Indie_Games_Summer_Uprising (HTTP 404)"
+draft = false
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["GDC", "Summer Uprising"]

@@ -1,8 +1,7 @@
 +++
 title = "PAX East 2011 with Armless Octopus"
 date = "2011-06-23T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (XBLIG, XBLA); 15.1 years old"
+draft = false
 author = "Dave Voyles"
 categories = ["Journalism", "Marketing / PR"]
 tags = ["Armless Octopus", "Journalism", "Mike Wall", "PAX", "PAX East", "Resume", "XBLA", "XBLIG"]

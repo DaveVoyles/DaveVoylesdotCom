@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Mega Man on Dave Voyles</title>
+    <link>http://localhost:1315/tags/mega-man/</link>
+    <description>Recent content in Mega Man on Dave Voyles</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 06 Feb 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1315/tags/mega-man/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>First Bubble Man prototype video is up!</title>
+      <link>http://localhost:1315/posts/first-bubble-man-prototype-video-is-up/</link>
+      <pubDate>Mon, 06 Feb 2012 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1315/posts/first-bubble-man-prototype-video-is-up/</guid>
+      <description>&lt;p&gt;Wow, I’ve been writing like a mad man on here for the past two weeks! Anyway, here’s the first video I’ve posted for my Mega Man prototype. It’s half way through Bubble Man’s stage, and begins just after you drop into the water. The physics are way off, and I haven’t altered the values for gravity or friction just yet, so that certainly could use some work.&lt;/p&gt;
+&lt;p&gt;In Mega Man 2, Rock can jump 75% of the screen when beneath water, so I’ll add a physics volume just for that area. I also plan on updating the dev diary later this week too.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
