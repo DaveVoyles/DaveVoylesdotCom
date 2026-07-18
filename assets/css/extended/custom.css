@@ -1,0 +1,94 @@
+/*
+ * "Console" theme override.
+ * Loads after PaperMod's own CSS (see docs/platform-guide.md's styling
+ * section) — everything here only touches variables/selectors already
+ * defined by the theme, never the theme's own files.
+ */
+
+:root {
+  /* light / "day console" */
+  --theme: rgb(250, 249, 244);
+  --entry: rgb(255, 255, 255);
+  --primary: rgb(24, 26, 22);
+  --secondary: rgb(90, 95, 83);
+  --tertiary: rgb(210, 224, 200);
+  --content: rgb(32, 35, 28);
+  --code-block-bg: rgb(24, 26, 22);
+  --code-bg: rgb(234, 238, 226);
+  --border: rgb(214, 220, 202);
+  --accent: rgb(34, 99, 60);
+}
+
+:root[data-theme="dark"] {
+  /* dark / "night console" */
+  --theme: rgb(13, 15, 13);
+  --entry: rgb(18, 22, 17);
+  --primary: rgb(239, 236, 224);
+  --secondary: rgb(138, 143, 125);
+  --tertiary: rgb(38, 48, 38);
+  --content: rgb(195, 192, 179);
+  --code-block-bg: rgb(18, 22, 17);
+  --code-bg: rgb(26, 32, 24);
+  --border: rgb(38, 48, 38);
+  --accent: rgb(95, 184, 122);
+}
+
+/* Monospace for structural/meta text; body copy stays the readable sans
+   the theme already ships, so long-form posts don't turn into a terminal
+   dump to read. */
+.logo a,
+.menu a,
+.post-title,
+.entry-header h2,
+.post-meta,
+.entry-footer,
+.terms-tags a,
+.breadcrumbs {
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+}
+
+.logo a::before {
+  content: "~/";
+  color: var(--accent);
+  opacity: 0.75;
+  font-weight: 400;
+}
+
+.menu .active {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* Links get a real accent color -- the theme default reuses --primary for
+   everything, so links were previously indistinguishable from plain text. */
+.post-content a,
+.entry-content a {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.post-meta a {
+  color: var(--secondary);
+}
+
+/* Tag pills: on the accent instead of a neutral grey block. */
+.terms-tags a {
+  background: var(--tertiary);
+  color: var(--accent);
+  border: 1px solid var(--border);
+}
+
+[data-theme="dark"] .terms-tags a {
+  color: var(--accent);
+}
+
+/* Post-list cards get a left rule that lights up on hover, echoing a
+   directory-listing / prompt-line feel. */
+.post-entry {
+  border-left: 2px solid transparent;
+}
+
+.post-entry:hover,
+.post-entry:focus-within {
+  border-left-color: var(--accent);
+}
