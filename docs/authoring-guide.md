@@ -1,5 +1,37 @@
 # Writing a new post
 
+## Option A: have an agent draft it (fastest)
+
+You don't need to touch `hugo new content` or write TOML by hand. In a
+Claude Code (or equivalent) session opened on this repo, just describe
+the post:
+
+> Draft a post about [topic]. Angle: [what makes it worth writing].
+> Rough tags: [a few words]. Keep it in my usual voice — [short/long,
+> casual/technical, whatever fits].
+
+The agent should:
+
+1. Pick a URL-safe slug and create `content/posts/<slug>.md` with
+   `draft = true` (never publishes until you say so).
+2. Check the *existing* tag vocabulary first —
+   `git grep -h '^tags' content/posts/*.md` — and reuse those exact
+   terms instead of inventing new compound ones (e.g. use `"JavaScript"`
+   and `"HTML5"` separately, not `"Javascript / HTML5"` as one string —
+   a compound tag silently fragments the `/tags/` pages instead of
+   merging into them; this bit us once already, see `history.md`).
+3. Write the body as Markdown below the front matter.
+4. Commit to a **new branch**, not `main` directly — so you review the
+   diff before anything goes live.
+
+Then you review (`git diff`, or `hugo server -D` to preview it
+rendered), ask for edits in plain language if anything's off, and once
+you're happy either tell the agent to flip `draft = false` and open a
+PR, or do that yourself per **Publish** below. Nothing reaches the live
+site without `draft = false` and a merge to `main`.
+
+## Option B: write it yourself
+
 ## One-time setup (fresh clone only)
 
 The site theme (PaperMod) is a git submodule and isn't checked out by a
