@@ -4,6 +4,7 @@ date = "2011-06-24T00:00:00"
 draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Programming", "UDK", "Uncategorized", "UnrealScript"]
+tags = ["Game Dev", "Programming", "UDK", "UnrealScript"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2011/06/drag-and-drop.png "Drag and drop")](http://davidvoyles.wordpress.com/udk-title/creating-weapon-ammo-vehicle-pickups/)

@@ -4,6 +4,7 @@ date = "2013-05-09T00:00:00"
 draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Windows 8"]
+tags = ["Game Dev", "Javascript / HTML5", "Programming", "Windows 8"]
 +++
 
 
