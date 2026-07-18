@@ -131,8 +131,11 @@ relationships wired per the dependency column above, and seeded onto the
 board's Todo column. D1 (#1) and D3 (#2) are the frontier — open, unblocked,
 unassigned, ready to claim.
 
-**Note:** this repo is brand new — no GitHub App auto-approval infrastructure
-(the `davevoyles-mac-automation` App, branch protection, harness-lock
-settings) is installed here yet. The first PR against this repo will need
-that set up (or a manual review/merge) before the usual auto-approve floor
-applies.
+**Note:** verified 2026-07-18 — the `davevoyles-mac-automation` App is
+installed with all-repositories access on the account, so it already covers
+this repo with no extra setup (confirmed via `/installation/repositories`
+and a live Gatekeeper token mint scoped to this repo). The harness lock in
+`~/.claude/settings.json` is machine-wide, and `land-pr.sh` /
+`review-lens-receipt.sh` derive their target repo from `git remote`, so
+they're repo-agnostic. The normal auto-approve landing floor is expected to
+work on the first PR with no additional setup.
