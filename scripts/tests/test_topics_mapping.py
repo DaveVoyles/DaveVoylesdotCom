@@ -8,6 +8,8 @@ other script tests. Run directly:
     python3 scripts/tests/test_topics_mapping.py
 """
 
+import contextlib
+import io
 import shutil
 import sys
 import tempfile
@@ -249,6 +251,27 @@ class MainDrivenEndToEndTests(unittest.TestCase):
 
         self.assertEqual(first_pass, second_pass)
         self.assertEqual(second_pass.count("topics ="), 1)
+
+    def test_unmapped_report_content_is_printed(self):
+        # D1's acceptance criteria requires unmapped posts be "written to a
+        # separate report for manual spot-check" -- assert the printed
+        # summary actually names the file and the reason, not just that no
+        # `topics` field was written to disk.
+        self._write("unmapped.md", FIXTURE_TRULY_UNMAPPED)
+
+        sys_argv_backup = sys.argv
+        sys.argv = ["topics_mapping.py"]
+        captured = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(captured):
+                t.main()
+        finally:
+            sys.argv = sys_argv_backup
+
+        output = captured.getvalue()
+        self.assertIn("UNMAPPED (needs manual review): 1", output)
+        self.assertIn("unmapped.md", output)
+        self.assertIn("tags=['Books']", output)
 
     def test_yaml_front_matter_post_reported_not_written(self):
         self._write("hello-world.md", FIXTURE_YAML)

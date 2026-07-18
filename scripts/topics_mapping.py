@@ -127,9 +127,12 @@ def map_post_topics(tags, categories):
     return [t for t in TOPICS if t in matched]
 
 
+TOML_ESCAPES = {"\\": "\\\\", '"': '\\"', "\n": "\\n", "\r": "\\r", "\t": "\\t"}
+TOML_ESCAPE_RE = re.compile(r'[\\"\n\r\t]')
+
+
 def toml_string(s):
-    escapes = {"\\": "\\\\", '"': '\\"', "\n": "\\n", "\r": "\\r", "\t": "\\t"}
-    return '"' + re.sub(r'[\\"\n\r\t]', lambda m: escapes[m.group()], s) + '"'
+    return '"' + TOML_ESCAPE_RE.sub(lambda m: TOML_ESCAPES[m.group()], s) + '"'
 
 
 def apply_topics_field(text, fm, fm_start, fm_end, topics):
@@ -171,7 +174,6 @@ def main():
     dry_run, limit = parse_args(sys.argv[1:])
 
     files = iter_candidate_files(limit)
-    no_front_matter = 0
     already_tagged = []
     assigned = []
     unmapped = []
@@ -179,7 +181,6 @@ def main():
     for path in files:
         loaded = load_front_matter(path)
         if loaded is None:
-            no_front_matter += 1
             print(f"  [!] {path.name}: no TOML front matter, skipping (see unmapped report)")
             unmapped.append((path, "no TOML front matter -- needs manual review"))
             continue
