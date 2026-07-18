@@ -1,4 +1,4 @@
-baseURL = 'https://davevoyles.github.io/DaveVoylesdotCom/'
+baseURL = 'https://davevoyles.com/'
 locale = 'en-us'
 title = 'Dave Voyles'
 theme = 'PaperMod'
