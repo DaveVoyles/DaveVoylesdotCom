@@ -54,6 +54,8 @@ MONTH_DATE_RE = re.compile(r'^[A-Za-z]+ \d{1,2}, \d{4}$')
 AUTHOR_NORMALIZATIONS = {
     "davevoyles": "Dave Voyles",
     "dave voyles": "Dave Voyles",
+    "davidvoyles": "Dave Voyles",
+    "david voyles": "Dave Voyles",
 }
 
 
@@ -166,25 +168,41 @@ def rewrite_images(content_soup):
     path onto it -- WordPress commonly wraps a resized thumbnail <img> in
     an <a> linking to the full-size original, a DIFFERENT file than the
     thumbnail, so the two need their own D4-resolved paths, not one shared
-    path forced onto both."""
-    unresolved = []
+    path forced onto both.
+
+    Returns (unresolved, external): "unresolved" is a davevoyles.com image
+    D3/D4 should eventually have but doesn't yet (recovery may still be
+    running -- this count will reach zero). "external" is a DIFFERENT kind
+    of gap that will NEVER resolve via D4: images hosted on legacy domains
+    (the blog's pre-davevoyles.com WordPress.com hosting, Jetpack's Photon
+    CDN proxy) are out of D3's recovery scope entirely and are left as
+    external hotlinks. Reporting only "unresolved" and implying 0 means
+    "all images working" would be misleading -- most images on this site's
+    older posts are external and this makes that visible instead of silent."""
+    unresolved, external = [], []
     for img in content_soup.find_all("img"):
         src = img.get("src")
-        if src and TARGET_DOMAIN in src:
-            new_path, exists = _resolve_image_path(src)
-            img["src"] = new_path
-            if not exists:
-                unresolved.append(src)
+        if src:
+            if TARGET_DOMAIN in src:
+                new_path, exists = _resolve_image_path(src)
+                img["src"] = new_path
+                if not exists:
+                    unresolved.append(src)
+            else:
+                external.append(src)
 
         parent_a = img.find_parent("a")
         href = parent_a.get("href") if parent_a else None
-        if href and TARGET_DOMAIN in href and Path(href.split("?")[0]).suffix:
-            new_href, exists = _resolve_image_path(href)
-            parent_a["href"] = new_href
-            if not exists:
-                unresolved.append(href)
+        if href and Path(href.split("?")[0]).suffix:
+            if TARGET_DOMAIN in href:
+                new_href, exists = _resolve_image_path(href)
+                parent_a["href"] = new_href
+                if not exists:
+                    unresolved.append(href)
+            elif href not in external:
+                external.append(href)
 
-    return unresolved
+    return unresolved, external
 
 
 # A social-follow signature block (Twitter/Twitch/YouTube links, often
@@ -198,8 +216,10 @@ TRUNCATE_AT_SELECTORS = ("a.twitter-follow-button",)
 
 # Defense-in-depth for posts that have the MailChimp widget without the
 # Twitter marker preceding it (so the truncate-from-marker pass above
-# wouldn't have caught it).
-NOISE_SELECTORS = ("#mc_embed_signup", "style", "link")
+# wouldn't have caught it). .sharedaddy is Jetpack's "Share this:" widget
+# (Email/Facebook/Reddit/Twitter share links) -- confirmed leaking into
+# committed post bodies as a fake bullet list before this fix.
+NOISE_SELECTORS = ("#mc_embed_signup", "style", "link", ".sharedaddy")
 
 
 def clean_body(content_soup):
@@ -291,7 +311,7 @@ def convert_one(path, dry_run=False):
 
     content_el = soup.select_one(".entry-content")
     clean_body(content_el)
-    unresolved_images = rewrite_images(content_el)
+    unresolved_images, external_images = rewrite_images(content_el)
     body_md = md(str(content_el), heading_style="ATX").strip()
 
     slug = slugify_title(slug) if not re.match(r'^[a-z0-9-]+$', slug) else slug
@@ -303,6 +323,7 @@ def convert_one(path, dry_run=False):
         "title": title,
         "date": date,
         "unresolved_images": unresolved_images,
+        "external_images": external_images,
         "collision": dst.exists(),
     }
 
@@ -356,6 +377,7 @@ def main():
     candidates = iter_candidate_files(limit)
     converted, excluded, collisions, failed = [], 0, [], []
     total_unresolved_images = 0
+    total_external_images = 0
 
     for path in candidates:
         try:
@@ -371,6 +393,7 @@ def main():
             continue
         converted.append(result)
         total_unresolved_images += len(result["unresolved_images"])
+        total_external_images += len(result["external_images"])
 
     print("\n" + "=" * 70)
     print("HTML -> MARKDOWN CONVERSION SUMMARY")
@@ -384,7 +407,8 @@ def main():
     print(f"  Failed:                    {len(failed)}")
     for name, err in failed:
         print(f"    - {name}: {err}")
-    print(f"  Unresolved image refs:     {total_unresolved_images} (image not yet in static/images/ -- recovery may still be running)")
+    print(f"  Unresolved image refs:     {total_unresolved_images} (davevoyles.com image not yet in static/images/ -- recovery may still be running, this count should reach zero)")
+    print(f"  External image refs:      {total_external_images} (hosted on a legacy/other domain, out of D3's recovery scope -- will NEVER resolve via D4; left as external hotlinks, a D6 stale-link candidate)")
     print("=" * 70)
 
     if failed:

@@ -2,7 +2,7 @@
 title = "My 10th weekly newsletter is out!"
 date = "2014-10-17T00:00:00"
 draft = false
-author = "davidvoyles"
+author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Game Dev", "HTML5", "Startups", "Venture Capital"]
 +++
@@ -39,11 +39,3 @@ If you find some links that you think would be useful, feel free to share! **Yo
 
 * [PhoneGap Day US 2014, in San Francisco](http://mzl.la/1sa7tu5)
 * [Apache Cordova 4 released](http://cordova.apache.org/announcements/2014/10/16/cordova-4.html)
-
-### Share this:
-
-* [Email](http://www.davevoyles.com/10th-weekly-newsletter/?share=email "Click to email this to a friend")
-* [Facebook](http://www.davevoyles.com/10th-weekly-newsletter/?share=facebook "Share on Facebook")
-* [Reddit](http://www.davevoyles.com/10th-weekly-newsletter/?share=reddit "Click to share on Reddit")
-* [Twitter](http://www.davevoyles.com/10th-weekly-newsletter/?share=twitter "Click to share on Twitter")
-* [Google](http://www.davevoyles.com/10th-weekly-newsletter/?share=google-plus-1 "Click to share on Google+")
