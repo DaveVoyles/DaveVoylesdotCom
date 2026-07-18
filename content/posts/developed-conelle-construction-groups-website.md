@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Conelle", "Resume", "Web Development"]
+topics = ["Gaming", "Tech", "Career / Students"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2010/03/conellecg_med.gif "Conellecg_med")](http://davidvoyles.files.wordpress.com/2010/03/conellecg_med.gif)  

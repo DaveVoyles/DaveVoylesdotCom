@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["BizSpark"]
+topics = ["Career / Students"]
 +++
 
 **Time:**                          Wednesday August 13 2014 | 4:00pm to 6:00pm

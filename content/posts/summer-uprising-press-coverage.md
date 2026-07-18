@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Journalism"]
 tags = ["Armless Octopus", "Journalism", "Marketing", "PR", "Resume", "Summer Uprising", "XBLIG"]
+topics = ["Gaming", "Career / Students", "Journalism / Marketing / PR"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2010/03/igsu-logo1.png?w=300 "IGSU Logo1")](http://davidvoyles.files.wordpress.com/2010/03/igsu-logo1.png)

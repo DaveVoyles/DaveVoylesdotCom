@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["GDC", "Summer Uprising"]
+topics = ["Gaming"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2012/01/gdc2012.jpg "GDC2012")](http://davidvoyles.wordpress.com/2012/01/12/my-summer-uprising-speech-at-gdc-2012-will-be-part-of-the-business-marketing-management-track/)

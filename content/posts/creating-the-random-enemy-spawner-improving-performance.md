@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Windows 8"]
 tags = ["Game Dev", "HTML5", "JavaScript", "Programming", "Win8"]
+topics = ["Gaming", "Tech"]
 +++
 
 When building my Win8 port of *Super Rawr-Type*, I ran into all sorts of performance issues, due to lack of optimization. This was to be expected, as I on gave myself 1 month to complete the base game, then I would take the second and final month to port it to different platforms and worry about optimization.

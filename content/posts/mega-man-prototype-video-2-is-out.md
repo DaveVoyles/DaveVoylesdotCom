@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["MM2 Dev Diary", "UDK"]
 tags = ["Dev Diary", "Mega Man 2", "UDK"]
+topics = ["Gaming"]
 +++
 
 You can find [the first video here.](http://davidvoyles.wordpress.com/2012/02/06/first-bubble-man-prototype-video-is-up/)  How I put this together is illustrated in [the second development diar](http://davidvoyles.wordpress.com/2012/02/11/mega-man-dev-diary-vol-2/)y as well. The noticeable changes I’ve made in this version include:

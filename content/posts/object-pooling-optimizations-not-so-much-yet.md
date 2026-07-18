@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Windows 8"]
 tags = ["Game Dev", "ImpactJS", "JavaScript", "Programming"]
+topics = ["Gaming", "Tech"]
 +++
 
 [UPDATE] Clarified that I have two classes for my bullet. One which uses pooling, and [another that does not use pooling](https://github.com/DaveVoyles/SuperRawrType/blob/master/lib/game/entities/bulletNoPooling.js).

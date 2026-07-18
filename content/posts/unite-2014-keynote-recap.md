@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Game Dev", "Programming", "Unity"]
+topics = ["Gaming", "Tech"]
 +++
 
 

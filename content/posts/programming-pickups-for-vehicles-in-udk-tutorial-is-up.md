@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Programming", "UDK", "Uncategorized", "UnrealScript"]
 tags = ["Game Dev", "Programming", "UDK", "UnrealScript"]
+topics = ["Gaming", "Tech"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2011/06/drag-and-drop.png "Drag and drop")](http://davidvoyles.wordpress.com/udk-title/creating-weapon-ammo-vehicle-pickups/)

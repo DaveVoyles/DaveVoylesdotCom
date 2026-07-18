@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Javascript / HTML5", "Mobile", "Web Dev", "Windows Phone 8"]
 tags = ["Cordova", "Game Development", "HTML5", "JavaScript", "Mobile"]
+topics = ["Gaming", "Tech"]
 +++
 
 

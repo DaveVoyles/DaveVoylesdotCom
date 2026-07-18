@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Azure", "Game Dev", "Microsoft", "Students", "Windows 8", "Windows Phone 8"]
 tags = ["Azure", "BizSpark", "Startups"]
+topics = ["Gaming", "Tech", "Career / Students"]
 +++
 
 

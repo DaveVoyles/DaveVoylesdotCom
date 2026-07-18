@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Programming", "UDK", "UnrealScript"]
 tags = ["Postmortem", "Programming", "UnrealScript"]
+topics = ["Gaming", "Tech"]
 +++
 
 [![UnrealScript HUD](http://davidvoyles.files.wordpress.com/2012/12/556ot_07_08.png)](http://davidvoyles.files.wordpress.com/2012/12/556ot_07_08.png)

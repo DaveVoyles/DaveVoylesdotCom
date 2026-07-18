@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["C#", "Game Dev", "Programming", "Windows 8", "Windows Phone 8"]
 tags = ["C#", "Programming", "Win8", "Windows 8", "Windows Phone 8", "XAML"]
+topics = ["Gaming", "Tech"]
 +++
 
 The most difficult part of this project thus far has been understanding the idea behind MVVM, or Model-View-View Model. Wikipedia defines it as:

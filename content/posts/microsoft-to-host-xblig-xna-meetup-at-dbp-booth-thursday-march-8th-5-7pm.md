@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["XBLIG", "XNA"]
+topics = ["Gaming"]
 +++
 
 

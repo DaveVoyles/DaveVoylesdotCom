@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["Game Development", "XBLIG", "XNA"]
+topics = ["Gaming"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2012/07/pong.png "Pong")](http://davidvoyles.wordpress.com/2012/07/13/ive-decided-to-finally-release-my-game/)

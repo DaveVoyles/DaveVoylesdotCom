@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Windows 8", "Windows Phone 8"]
 tags = ["Game Dev", "JavaScript", "Programming"]
+topics = ["Gaming", "Tech"]
 +++
 
 So I’m quickly progressing in my newest game, *Super Rawr-Type*and am just about to put the finishing touches on it. I’ve given myself one month (30 days) to work on this bad boy. GDC and PAX took up quite a bit of time recently, so I’ve got a few days left to go. It’s far from perfect, but it’ll do.

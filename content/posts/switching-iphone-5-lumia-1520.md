@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Windows Phone 8"]
 tags = ["Windows Phone"]
+topics = ["Tech"]
 +++
 
   

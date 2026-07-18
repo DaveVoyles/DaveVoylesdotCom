@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Journalism", "Marketing / PR"]
 tags = ["Armless Octopus", "Features", "Journalism", "Marketing", "PR", "Resume", "XBLIG"]
+topics = ["Gaming", "Career / Students", "Journalism / Marketing / PR"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2010/03/ace-ventura-pet-detective-original32.jpg "ace-ventura-pet-detective-original32")](http://www.armlessoctopus.com/2011/04/16/how-to-market-your-game-xblig-style-part-1/)

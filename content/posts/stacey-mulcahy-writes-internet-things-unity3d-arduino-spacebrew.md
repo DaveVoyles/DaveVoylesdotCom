@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Unity"]
 tags = ["Game Dev", "Programming", "Unity"]
+topics = ["Gaming", "Tech"]
 +++
 
 My co-worker, and web dev ninja, Stacey Mulcahy ([@bitchwhocodes](http://www.twitter.com/bitchwhocodes)) put together a great series of blog posts on how to use Spacebrew ( a web sockets solution built on Node that enables you to create interactive spaces with several clients ) with Unity3d and Arduino & Processing. This is the beginning / start of next week’s bit where she shows how to build your own DDR mat  and hook it into Unity3d,  Arduino, and Processing.
