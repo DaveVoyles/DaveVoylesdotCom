@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["C#", "Dev Diary", "Dream.Build.Play", "Game Development", "XBLIG", "XNA"]
+topics = ["Gaming", "Tech"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2012/05/pong-2012-05-01-06-24-14-40.jpg "Pong 2012-05-01 06-24-14-40")](http://davidvoyles.wordpress.com/2012/05/01/dream-build-play-dev-diary-2/)

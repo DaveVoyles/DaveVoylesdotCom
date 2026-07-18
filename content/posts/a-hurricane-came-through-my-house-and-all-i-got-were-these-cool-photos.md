@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Hurricane", "Irene", "PAX"]
+topics = ["Gaming"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2011/08/imag11031.jpg "IMAG1103")](http://davidvoyles.files.wordpress.com/2011/08/imag11031.jpg)

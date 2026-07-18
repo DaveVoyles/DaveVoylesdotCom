@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "UDK"]
 tags = ["UDK", "Unreal Engine"]
+topics = ["Gaming"]
 +++
 
 Here are some screens from the level layout I’ve been working on now that I’ve decided to go full speed with my project. I’ll add more as I finish more sets. I use SketchUp to layout the levels, in combination with Visio. It makes things much easier to have models for comparison before I actually build them in Unreal. You can find more of them on the Unreal Project page.

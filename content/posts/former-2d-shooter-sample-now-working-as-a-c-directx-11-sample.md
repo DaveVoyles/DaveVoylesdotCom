@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["C++ / DirectX 11", "Game Dev", "Programming", "Windows 8"]
 tags = ["C#", "DirectX 11", "XNA"]
+topics = ["Gaming", "Tech"]
 +++
 
 Charles Humprey ([@NemoKrad](https://twitter.com/NemoKrad)) was kind enough to help me get his 2D side scrolling shooter sample working in C++ / DX 11 this morning. [You can find the source code to the project here.](https://randomchaosdx11engine.codeplex.com/SourceControl/latest) He’s a fellow MVP who has been extremely active in the XNA community, and provided numerous samples in the past. You can find [more of his work here.](http://randomchaosdx11adventures.blogspot.co.uk/)

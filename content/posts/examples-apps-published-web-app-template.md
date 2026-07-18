@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Javascript / HTML5", "Windows 8", "Windows Phone 8"]
 tags = ["HTML5", "JavaScript", "Programming", "Web Development", "Windows 8", "Windows Phone 8"]
+topics = ["Tech"]
 +++
 
 A few months back, [I wrote a piece on a high level overview of Microsoft’s Web App Template.](http://davevoyles.azurewebsites.net/intro-web-app-template/) I’ve recently learned that it not only works on Windows 8, but is also applicable to Win Phone 8, with Universal support coming soon.

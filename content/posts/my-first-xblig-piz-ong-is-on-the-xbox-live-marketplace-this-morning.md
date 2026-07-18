@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["C#", "Game Dev", "XNA / XBLIG"]
 tags = ["C#", "XBLIG", "XNA"]
+topics = ["Gaming", "Tech"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2012/10/pizong1.jpg "Pizong1")](http://davidvoyles.wordpress.com/2012/10/22/my-first-xblig-piz-ong-is-on-the-xbox-live-marketplace-this-morning)

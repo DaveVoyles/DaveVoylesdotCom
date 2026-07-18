@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["MM2 Dev Diary", "UDK"]
 tags = ["Dev Diary", "Mega Man 2", "UDK"]
+topics = ["Gaming"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2012/01/sss_mm2_ea.jpg "SSS_MM2_EA")](http://davidvoyles.files.wordpress.com/2012/01/sss_mm2_ea.jpg)

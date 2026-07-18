@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["JavaScript", "Programming", "SmartGlass", "Windows 8", "Windows Phone 8", "Xbox"]
+topics = ["Gaming", "Tech"]
 +++
 
 

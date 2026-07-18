@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Javascript / HTML5", "Programming", "Windows 8", "Windows Phone 8"]
 tags = ["jQuery", "Programming", "Windows 8"]
+topics = ["Tech"]
 +++
 
 For some time now I’ve been building HTML5 apps for Windows 8. I had previously done work in C# and XAML (*Spell and Speak*, *Pizong,* and two Unity games), but prefer HTML5 and JavaScript for a number of reasons. First and foremost, it allows me to build apps for multiple platforms while only having to make marginal tweaks for each one.  Naturally, each platform comes with its own ups and downs, but I haven’t really had any issues with Windows 8 until I started integrating jQuery.

@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["igsu", "indie games summer uprising", "Journalism", "Resume", "Summer Uprising"]
+topics = ["Gaming", "Career / Students", "Journalism / Marketing / PR"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2011/07/arsinterview.png "ArsInterview")](http://davidvoyles.files.wordpress.com/2011/07/arsinterview.png)

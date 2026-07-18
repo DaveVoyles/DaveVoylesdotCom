@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["Dev Diary", "Dream.Build.Play", "XBLIG", "XNA"]
+topics = ["Gaming"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2012/04/dreambuildplay2012.png "dreambuildplay2012")](http://davidvoyles.files.wordpress.com/2012/04/dreambuildplay2012.png)

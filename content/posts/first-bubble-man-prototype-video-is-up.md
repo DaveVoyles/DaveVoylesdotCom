@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["MM2 Dev Diary", "UDK"]
 tags = ["Dev Diary", "Mega Man", "Mega Man 2", "UDK"]
+topics = ["Gaming"]
 +++
 
 Wow, I’ve been writing like a mad man on here for the past two weeks! Anyway, here’s the first video I’ve posted for my Mega Man prototype. It’s half way through Bubble Man’s stage, and begins just after you drop into the water. The physics are way off, and I haven’t altered the values for gravity or friction just yet, so that certainly could use some work.

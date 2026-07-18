@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["C#", "Game Dev", "Mobile", "Programming", "Unity", "Windows 8", "Windows Phone 8"]
 tags = ["C#", "Game Dev", "Programming", "Windows 8", "Windows Phone 8"]
+topics = ["Gaming", "Tech"]
 +++
 
 

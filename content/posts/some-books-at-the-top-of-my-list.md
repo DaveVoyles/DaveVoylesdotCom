@@ -5,6 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Books"]
 tags = ["Books", "Recommendations"]
+topics = ["Journalism / Marketing / PR"]
 +++
 
 I’ve taken a bit of a break from playing games lately, and instead have been cranking through books.  A lot of this seems like “self help” or “empowerment” books, but I’ve chose to keep those silly things off of this list. Instead, I wanted to focus on books that actually offer some sort of practical and useful knowledge.  Here’s a few of them, and why I think they would be worth your time:
