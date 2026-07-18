@@ -117,3 +117,63 @@ scripts/.venv/bin/python3 scripts/process_images.py [--limit N] [--dry-run]
 processed. `static/images/` in this repo may not yet contain the full
 recovered set; each run's summary output states exactly how many were found
 vs. processed vs. already done.
+
+## convert_posts.py
+
+Converts recovered post HTML (`content-recovery/staging/html/`, D3's output)
+into Hugo content files under `content/posts/`, per
+[ADR 0003](../docs/decisions/0003-clean-url-scheme-not-preserving-legacy-permalinks.md)
+(Hugo's default clean URL scheme, not the old WordPress permalinks).
+
+### Setup
+
+Uses the same shared venv as `process_images.py` (`scripts/.venv`), plus
+`beautifulsoup4` and `markdownify`:
+
+```bash
+scripts/.venv/bin/pip install beautifulsoup4 markdownify
+```
+
+### Usage
+
+```bash
+scripts/.venv/bin/python3 scripts/convert_posts.py [--limit N] [--dry-run]
+```
+
+### What It Does
+
+1. **Classifies** each recovered HTML capture as a real post or not. D3's CDX
+   filter recovers everything from feeds and category archives to WordPress
+   attachment pages (auto-generated per-image pages that share a dated
+   permalink and entry-title/entry-content/entry-date markup with real
+   posts) — a page only counts as a real post if it has substantive body
+   text (200+ characters) and no image-navigation nav (the attachment-page
+   tell). Known non-post URL patterns (feeds, embeds, tag/category/author
+   archives, pagination, trackbacks) are filtered out by filename first.
+2. **Extracts** title, date (preferring the page's own `<time>`/`.entry-date`
+   markup over the URL's date, since not all posts are at dated permalinks),
+   author, categories, and tags from the actual WordPress theme markup.
+3. **Cleans** the body of a social-follow signature block (Twitter/Twitch/
+   YouTube links, an embedded MailChimp newsletter form) that many posts have
+   appended after the real content — identified by truncating at the first
+   stable marker rather than trying to match every variant of this
+   inconsistently-malformed boilerplate.
+4. **Rewrites** `<img src>` (and any enclosing `<a href>` linking to the same
+   full-size image) to D4's `static/images/` output path, using D3's own
+   `url_to_filename()` so references resolve to whatever D4 actually wrote.
+   Images from other/legacy domains (the blog's pre-davevoyles.com WordPress.com
+   hosting, Jetpack's Photon CDN proxy) are out of D3's recovery scope and are
+   left as external links — a known long-tail limitation, not a bug.
+5. **Normalizes slugs** so the same post captured under URL variants D3's
+   dedup treats as distinct (e.g. an explicit `:80` port in the historical
+   URL) collapses to one file; a genuine duplicate is skipped and logged as
+   a collision rather than silently publishing the same post twice.
+6. **Logs** candidate/converted/excluded/collision/failed counts and how many
+   image references couldn't yet be resolved (recovery may still be running).
+
+### Note on completeness
+
+Same pattern as the other two scripts: candidate HTML pages fill in over time
+as D3's `--html-only` recovery continues, and `content/posts/` in this repo
+may not yet reflect the full recovered set. Run `hugo build` after any
+re-run to confirm the full current content set still builds cleanly.
