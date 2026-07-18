@@ -4,7 +4,7 @@ date = "2013-11-15T00:00:00"
 draft = false
 author = "Dave Voyles"
 categories = ["C++ / DirectX 11", "Game Dev", "Programming"]
-tags = ["C++ / DirectX 11", "Game Dev", "Programming", "Unreal Engine"]
+tags = ["C++", "DirectX 11", "Game Dev", "Programming", "Unreal Engine"]
 +++
 
  So now that November 15th has finally arrived, I can say what I’ve been working on lately; a new game with the Unreal Engine 4.
