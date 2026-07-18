@@ -1,0 +1,45 @@
+{{- $.Scratch.Add "nodes" slice -}}
+{{- $.Scratch.Add "edges" slice -}}
+
+{{- /* Collect all nodes from published posts (excluding archives/search layout pages) */ -}}
+{{- range site.RegularPages -}}
+    {{- if and (ne .Layout "archives") (ne .Layout "search") -}}
+        {{- $.Scratch.Add "nodes" (dict "id" .RelPermalink "title" .Title "permalink" .Permalink "topic" (index (.Params.topics | default slice) 0 | default "")) -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* Build edges by comparing all pairs of posts (excluding archives/search) */ -}}
+{{- $filteredPages := slice -}}
+{{- range site.RegularPages -}}
+    {{- if and (ne .Layout "archives") (ne .Layout "search") -}}
+        {{- $filteredPages = $filteredPages | append . -}}
+    {{- end -}}
+{{- end -}}
+{{- $pages := $filteredPages -}}
+{{- range $i, $page1 := $pages -}}
+    {{- range $j, $page2 := $pages -}}
+        {{- /* Only process pairs where i < j to avoid duplicates and self-edges */ -}}
+        {{- if lt $i $j -}}
+            {{- /* Combine tags and categories for both pages */ -}}
+            {{- $tags1 := $page1.Params.tags | default slice -}}
+            {{- $cats1 := $page1.Params.categories | default slice -}}
+            {{- $combined1 := (union $tags1 $cats1) -}}
+
+            {{- $tags2 := $page2.Params.tags | default slice -}}
+            {{- $cats2 := $page2.Params.categories | default slice -}}
+            {{- $combined2 := (union $tags2 $cats2) -}}
+
+            {{- /* Find shared values between the two posts */ -}}
+            {{- $shared := intersect $combined1 $combined2 -}}
+            {{- $sharedCount := len $shared -}}
+
+            {{- /* If there are shared values, create an edge */ -}}
+            {{- if gt $sharedCount 0 -}}
+                {{- $.Scratch.Add "edges" (dict "source" $page1.RelPermalink "target" $page2.RelPermalink "weight" $sharedCount) -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* Output final JSON */ -}}
+{{- dict "nodes" ($.Scratch.Get "nodes") "edges" ($.Scratch.Get "edges") | jsonify -}}
