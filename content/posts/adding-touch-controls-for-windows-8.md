@@ -1,13 +1,12 @@
 +++
 title = "Adding touch controls for Windows 8"
 date = "2013-05-09T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows 8, Win8); 13.2 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/win8-emulator-1.jpg?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/playing-super-rawr-type-on-touch.jpg?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/playing-super-rawr-type-on-touch.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.twitter.com/jessefreeman (HTTP 520); link http://jessefreeman.com/game-dev/the-6-minute-impact-starter-kit-for-windows-8-web/ (HTTP 404) (+6 more)"
+draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Windows 8"]
 +++
 
-[![Loading Super Rawr-Type within the Win8 touch simulator](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/win8-emulator-1.jpg?w=652)](http://davidvoyles.wordpress.com/2013/05/09/adding-touch-controls-for-windows-8/)
+
 
 Loading Super Rawr-Type within the Win8 touch simulator
 
@@ -15,7 +14,7 @@ For the last two weeks or so I’ve been working out bugs in *Super Rawr-Type*
 
 What proved most difficult for me really was not having a machine to test my controls on. I’ve had to rely on the simulator thus far, which basically runs a virtual machine on your desktop, wrapped a shell that appears like a Win8 tablet. The buttons on the right hand side emulate figure gestures, so you can view and understand how your own touches will affect the game.
 
-[![Active touch inputs, using the Win8 simulator](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/playing-super-rawr-type-on-touch.jpg?w=652)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/playing-super-rawr-type-on-touch.jpg)
+
 
 Active touch inputs, using the Win8 simulator
 
@@ -77,7 +76,7 @@ Those limits are set with this function:
 
 #### Drawing the buttons
 
-[![Screen without buttons](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/without-touch-buttons.jpg?w=652)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/without-touch-buttons.jpg)
+
 
 Screen without buttons
 
@@ -163,7 +162,7 @@ So in one function we are drawing the buttons on screen, in addition to register
 
 #### Updating the  joystick to respond to our touch
 
-[![Touch instructions before the game starts](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/instructions-screen.jpg?w=652)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/instructions-screen.jpg)
+
 
 Touch instructions before the game starts
 
@@ -364,7 +363,7 @@ Now I have the option of pressing the shoot button (tied to “C” on the keybo
 
 #### Conclusion
 
-[![Support for Win8 Snap View](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/win-8-sidebar-supprt.jpg?w=652)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/05/win-8-sidebar-supprt.jpg)
+
 
 Support for Win8 Snap View
 

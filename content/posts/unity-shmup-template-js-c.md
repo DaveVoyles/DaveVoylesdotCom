@@ -1,14 +1,13 @@
 +++
 title = "Unity shmup template (JS and C#)"
 date = "2014-03-15T00:00:00"
-draft = true
-stale_reason = "broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Screenshot-15.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link https://github.com/DaveVoyles/Unity-csharp-shmup-template (HTTP 404)"
+draft = false
 author = "Dave Voyles"
 categories = ["C#", "Game Dev", "Javascript / HTML5", "Programming", "Students", "Unity"]
 tags = ["open source", "Shmup", "Unity"]
 +++
 
-[![Unity C-sharp shmup](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Screenshot-15.png)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/03/Screenshot-15.png)
+
 
 I’ve been a huge fan of shmups for as long as I can remember. If it’s good, I’ve played it (and it’s probably Japanese). I [wrote my last one in JavaScript](http://replay.drexel.edu/research.html) using the Impact.js framework, but this time around I wanted to do it in Unity and really test the performance of the engine.
 

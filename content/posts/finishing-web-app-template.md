@@ -1,14 +1,13 @@
 +++
 title = "Finishing the Web App template"
 date = "2014-05-16T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows 8, BizSpark); 12.2 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/Screen-3-1024x575.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/Screen-3.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://apps.microsoft.com/windows/en-us/app/dave-voyles-web-app-template/f8afe265-c9e4-4d42-b6b9-8762869380c9 (HTTP 403); link http://davevoyles.azurewebsites.net/intro-web-app-template/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://phlcollective.azurewebsites.net/privacy.html (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+1 more)"
+draft = false
 author = "Dave Voyles"
 categories = ["Javascript / HTML5", "Programming", "Students", "Web Dev", "Windows 8"]
 tags = ["HTML5", "Programming", "Students"]
 +++
 
-[![Screen 3](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/Screen-3-1024x575.png)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/Screen-3.png)**[You can download the app from the Windows 8 Store, for free.](http://apps.microsoft.com/windows/en-us/app/dave-voyles-web-app-template/f8afe265-c9e4-4d42-b6b9-8762869380c9)**
+**[You can download the app from the Windows 8 Store, for free.](http://apps.microsoft.com/windows/en-us/app/dave-voyles-web-app-template/f8afe265-c9e4-4d42-b6b9-8762869380c9)**
 
 [In my last post,](http://davevoyles.azurewebsites.net/intro-web-app-template/) I mentioned that I began using Microsoft’s new Web App Template, to quickly and easily create an app out of my website, while using very little code. Now that my app is finished, I wanted to walk you through the steps, so that you can do the same. In total, it only took me about 2 hours to have my app created from scratch, and in the store!
 

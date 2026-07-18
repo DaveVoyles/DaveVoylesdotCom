@@ -1,14 +1,13 @@
 +++
 title = "Welcome, students of Philadelphia!"
 date = "2014-01-26T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (XNA, UDK, UnrealScript); 12.5 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Win-Phone-164x300.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Win-Phone.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://hackathon.haverford.edu/details.html (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Unity-300x165.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Unity.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+9 more)"
+draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Philadelphia", "Programming", "Web Dev"]
 tags = ["Philadelphia", "Students"]
 +++
 
-[![Win Phone HTML5](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Win-Phone-164x300.png)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Win-Phone.png)
+
 
 My goal right now is to build a network for students around Philadelphia to work on projects together, ask questions, and share their work.
 
@@ -19,7 +18,7 @@ I met some of you this weekend at the **[Global Game Jam](http://globalgamejam.
 I have a **[podcast where I interview high profile indie game developers](http://indiedevpodcast.wordpress.com/)**around the world. I’d love to do the same for students around Philadelphia. If you think you have something you’d like to talk about or show off, get in touch with me!  
 I’ll be in touch with you over the next few weeks to set up more game jams, hackathons, and networking events, so that you can meet other student engineers and programmers in the Philadelphia area. If know of anyone else would be interested in this as well, have them shoot me an e-mail.  Any questions or have some ideas of your own that you’d like to get out? Shoot me a message, I’d love to hear from you!
 
-[![Unity](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Unity-300x165.jpg)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/01/Unity.jpg)Free copy of Visual Studio, Windows, PluralSight, and web space through Azure are all available to you through **[DreamSpark](https://www.dreamspark.com/)**. If, for whatever reason, your school doesn’t offer DreamSpark, get in touch with me and I can get you signed up.
+Free copy of Visual Studio, Windows, PluralSight, and web space through Azure are all available to you through **[DreamSpark](https://www.dreamspark.com/)**. If, for whatever reason, your school doesn’t offer DreamSpark, get in touch with me and I can get you signed up.
 
 [**I’ve created a Facebook group for students**](https://www.facebook.com/groups/684625344922484/) in the Philly area to share projects, meet others, and collaborate on ideas as well. Come in and say hello and **show off what you worked on this weekend.**
 

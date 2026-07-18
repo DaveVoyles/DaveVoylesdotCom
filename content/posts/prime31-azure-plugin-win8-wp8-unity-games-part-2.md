@@ -1,14 +1,13 @@
 +++
 title = "prime[31] Azure plugin for Win8 Unity games (Part 2)"
 date = "2014-08-14T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (WP8, Windows 8, Win8, Azure Portal); 11.9 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://davevoyles.azurewebsites.net/prime31-azure-plugin-win8-wp8-unity-games/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Metro-Folder-1024x342.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Metro-Folder.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Arm-Debug-1.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+12 more)"
+draft = false
 author = "Dave Voyles"
 categories = ["Programming", "Unity", "Windows 8"]
 tags = ["C#", "Game Dev", "Programming", "Unity", "Windows 8"]
 +++
 
-[![Prime31](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png)
+
 
 **RESOURCES:** [You can find the source for this project on my GitHub.](https://github.com/DaveVoyles/prime31-azure)
 
@@ -16,7 +15,7 @@ tags = ["C#", "Game Dev", "Programming", "Unity", "Windows 8"]
 
 Now that we have the project built, let’s open it up the metro folder, and launch the *Prime31* Visual Studio solution.
 
-[![Metro-Folder](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Metro-Folder-1024x342.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Metro-Folder.gif)
+
 
 Your folder structure should look like this
 
@@ -24,13 +23,13 @@ Your folder structure should look like this
 
 Something that threw me in a loop initially, was the fact that the project wants to deploy to an ARM device immediately. If you hit debug *“Local Machine”* it will throw an error about your machine not being an ARM tablet. The solution:
 
-[![Arm-Debug-1](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Arm-Debug-1.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Arm-Debug-1.gif)Go to **Configuration Manager** and change the **Active Solution Platform** to **X86**.
+Go to **Configuration Manager** and change the **Active Solution Platform** to **X86**.
 
-[![Con-Man](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Con-Man.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Con-Man.gif)
+
 
 You can now run your projects and deploy them via Visual Studio. Do that, and you will be greeted with this screen:
 
-[![Unity_Prime31_FirstBuilt](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity_Prime31_FirstBuilt-1024x544.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity_Prime31_FirstBuilt.gif)Perfect! We’re up and running!
+Perfect! We’re up and running!
 
 > **NOTE:**On occasion, I’ll get an error, as seen in the text below. I’m not sure of what causes this, but when I switch my deployment from whatever it is currently on (for example, **Debug**) to **Release** or **Master**, it suddenly builds fine. I can then go back to Debug, and use that if I’d like.
 
@@ -53,11 +52,11 @@ echo AssemblyConverter done.
 
 Open the *MetroAzureDemoUi.cs* file, and take a look at the sample I put together.
 
-[![prime31-vs-1](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/prime31-vs-1-1024x640.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/prime31-vs-1.gif)
+
 
 It may look overwhelming at first, but I’ve commented everything in there. In terms of variables, I’ve added a *\_leaderboardItem*, which is exactly what it sounds like — a container for the things you insert into your leaderboard. It simply holds a name, score, and unique ID for each object you insert into the board.
 
-[![Leaderboard](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Leaderboard1.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Leaderboard1.gif)
+
 
 Following that, we have the list itself, which is just a collection of *\_leaderBoardItem*(s).
 
@@ -78,7 +77,7 @@ You’ll also notice:
 
 You COULD hard code your end point and app key here, but I chose to just leave this string in. Instead, I’ve added the end point and app key within the Unity Editor.
 
-[![end-point-and-app-key](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/end-point-and-app-key-1024x191.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/end-point-and-app-key.gif)
+
 
 If you write text in the editor on the right hand side, it should propagate the empty fields inside of the gameplay screen.
 
@@ -92,7 +91,7 @@ Moreover, you can set permissions to your Azure Mobile Service, which would only
 
 Beneath that, the *OnGui()* function is where all of our drawing occurs, for the buttons, text, and input fields.
 
-[![OnGui](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/OnGui-1024x748.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/OnGui.gif)
+
 
 I did it this way because I wanted to break the GUI functions into smaller functions so that they were easier to digest, and wanted to break them into columns on the screen so that they were easier to read. Take some time to read what each of the buttons do.It may seem overwhelming at first, but I broke them down into a logical order, and they are all laid out in the order that they appear on screen. I’ve still got some sorting to do, but hey, it works for now.
 
@@ -130,7 +129,7 @@ You can see that block of code here:
 
 We are going to set the value of the**username**from the latest item in the leaderboard to whatever it is that we type in the username input field.
 
-![Johnny-Quest-2](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Johnny-Quest-2.gif)
+
 
 So after we’ve returned our results, and  the update button appears do the following:
 

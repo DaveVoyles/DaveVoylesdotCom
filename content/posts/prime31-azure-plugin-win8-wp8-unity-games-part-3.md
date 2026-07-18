@@ -1,14 +1,13 @@
 +++
 title = "prime[31] Azure plugin for Win8 Unity games (Part 3)"
 date = "2014-08-26T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows Phone 8, WP8, Windows Phone, Windows 8, Win8, Azure Portal); 11.9 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://davevoyles.azurewebsites.net/prime31-azure-plugin-win8-wp8-unity-games-part-2/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-Tutorial-TEst.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-Tutorial-TEst-Debug-1024x287.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-Tutorial-TEst-Debug.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+2 more)"
+draft = false
 author = "Dave Voyles"
 categories = ["C#", "Game Dev", "Mobile", "Programming", "Unity", "Windows 8", "Windows Phone 8"]
 tags = ["C#", "Game Dev", "Programming", "Windows 8", "Windows Phone 8"]
 +++
 
-[![Prime31](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Prime31.png)
+
 
 **RESOURCES:**
 
@@ -23,13 +22,13 @@ tags = ["C#", "Game Dev", "Programming", "Windows 8", "Windows Phone 8"]
 
 Let’s test this out by running the project from Visual Studi and inserting a new object into our leaderboard. Deploy the sample, connect to the Azure service, then insert a new username and score.
 
-[![Unity-Tutorial-TEst](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-Tutorial-TEst.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-Tutorial-TEst.gif)
+
 
 You can see that I’ve entered “Unity Tutorial Test” as the user name and “70” as the score. Hit “Insert To Leaderboard” AFTER you connect, and you’ll be good to go.
 
 Not sure if it went through? Well let’s check the console.
 
-[![Unity-Tutorial-TEst-Debug](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-Tutorial-TEst-Debug-1024x287.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-Tutorial-TEst-Debug.gif)
+
 
 Successfully inserted!
 
@@ -44,7 +43,7 @@ That’s our callback function, which is executed on a successful insertion. If 
 
 Still don’t believe me that ‘s actually in our board? Well let’s go take a look at our Azure Portal and see  for ourselves.
 
-[![Azure-Insertion](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Azure-Insertion-1024x620.gif)](http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Azure-Insertion.gif)
+
 
 In your portal, go back to Azure Mobile Services, click on the name of your service (**UnityWin8Test** in my case), and that will load the main options screen. You can hit the **“Data”** tab on the top of the screen to see your leaderboards. Click on **“leaderboard”**from there, and you can see everything we’ve inserted! B*oomshakala!*
 

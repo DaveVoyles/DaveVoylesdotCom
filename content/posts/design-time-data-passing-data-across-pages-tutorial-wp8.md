@@ -1,14 +1,13 @@
 +++
 title = "[Tutorial] Design Time Data + Passing Data Across Pages  (WP8)"
 date = "2013-02-08T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows Phone 8, WP8, Windows Phone, Windows 8, Win8); 13.4 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-2.png?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-2.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
+draft = false
 author = "Dave Voyles"
 categories = ["C#", "Game Dev", "Programming", "Windows 8", "Windows Phone 8"]
 tags = ["C#", "Programming", "Win8", "Windows 8", "Windows Phone 8", "XAML"]
 +++
 
-[![Screenshot (1)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png?w=652)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-1.png)The most difficult part of this project thus far has been understanding the idea behind MVVM, or Model-View-View Model. Wikipedia defines it as:
+The most difficult part of this project thus far has been understanding the idea behind MVVM, or Model-View-View Model. Wikipedia defines it as:
 
 “MVVM facilitates a clear separation of the development of the [graphical user interface](http://en.wikipedia.org/wiki/Graphical_user_interface "Graphical user interface") (either as [markup language](http://en.wikipedia.org/wiki/Markup_language "Markup language") or GUI code) from the development of the [business logic](http://en.wikipedia.org/wiki/Business_logic "Business logic") or [back end](http://en.wikipedia.org/wiki/Back_end "Back end") logic known as the model (also known as the data model to distinguish it from the view model). The view model of MVVM is a value converter, meaning that the view model is responsible for exposing the data objects from the model in such a way that those objects are easily managed and consumed”
 
@@ -19,7 +18,7 @@ I used her example and wrote one of my own. With a solid understanding of one of
 
 I wrote a version of my app using her outline, which worked great for design time data. I could now make changes to the page layout and see the results in real time. Some designers prefer to work within Blend, but I found that for the most part manipulating the code within Visual Studio just seemd to work easier for me. Still, I would keep both apps open an switch back and forth between the two. Expression Blend certainly offers quite a bit of power over Visual Studio in terms of adding colors and  detail to your page, which would otherwise prove difficult if relying only on code.
 
-[![Screenshot (2)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-2.png?w=652)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/screenshot-2.png)
+
 
 The design time data was written an ObeservableCollection of type AItems (alphabet items):
 

@@ -1,8 +1,7 @@
 +++
 title = "Former 2d shooter sample, now working as a C++ / DirectX 11 sample"
 date = "2013-11-12T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (XNA, Windows 8); 12.7 years old; broken outbound reference(s): link https://twitter.com/NemoKrad (HTTP 404); link https://randomchaosdx11engine.codeplex.com/SourceControl/latest (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-1.gif?resize=700%2C234 (HTTP 400); image https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-1.gif (HTTP 400); image https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-2.gif?resize=618%2C378 (HTTP 400) (+13 more)"
+draft = false
 author = "Dave Voyles"
 categories = ["C++ / DirectX 11", "Game Dev", "Programming", "Windows 8"]
 tags = ["C#", "DirectX 11", "XNA"]
@@ -31,13 +30,13 @@ Both directories should be pointed to the folder where your DirectX SDK is insta
 
 5) Once you have made that change for the **Include Directory**, be sure to add “Include” at the end. This is important!
 
-[![VC-Dir-1](https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-1.gif?resize=700%2C234)](https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-1.gif)
+
 
 6) Once your Include Directory is set, do the same for your **Library Directory**, but add “Libx86” at the end, instead of Include.
 
 This confused me at first, because you can actually just type in the name of the path, instead of having using windows explorer to find the file path.
 
-[![VC-Dir-2](https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-2.gif?resize=618%2C378)](https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-2.gif)
+
 
 7) Click “OK” on the dialog, then “Apply” and “Close” and this will save your settings. Right click on the **RandomchaosDX11Lbrary**project and build it. If it doesn’t build correctly, then look at the directories and make sure they are pointed towards the correct path.
 
@@ -47,30 +46,30 @@ This confused me at first, because you can actually just type in the name of the
 
 9) Right-click on **Sandbox project** and open up the properties window, just as we did for the Randomchaos library.
 
-[![VC-Dir-3](https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-3.gif?resize=700%2C262)](https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-3.gif)  
+  
 10) Change your **Include Directory,** as we did before.
 
 11) Also, point towards your newly built RandomchaosDX11 Library. My solution is on my desktop, therefore my path looks like this:  
 *C:Usersdvoyle200DesktopRandomchaosDX11LibraryRandomchaosDX11Library*
 
-[![VC-Dir-4](https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-4.gif?resize=582%2C348)](https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-4.gif)
+
 
 12) Click on the **Library Directory** and point towards your DirectX SDK, as we did before. Your directories should look similar to mine.
 
-[![VC-Dir-5](https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-5.gif?resize=570%2C354)](https://i1.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-5.gif)
+
 
 13) The final change we need to make is to the **Linker.**Navigate to **Linker** -> **Input.**We need to change our **Additional Dependencies.**
 
-[![VC-Dir-6](https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-6.gif?resize=700%2C244)](https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-6.gif)
+
 
 14) You’ll want to make one change here: you want to point to the **RandomChaosDX11Library.lib** within your Debug folder.
 
 *C:Usersdvoyle200DesktopRandomchaosDX11LibraryDebugRandomchaosDX11Library.lib*
 
-[![VC-Dir-7](https://i0.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-7.gif?resize=672%2C378)](https://i0.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-7.gif)15) With that step done, we can now build this project. In the **Solution Explorer**, right-click on the **SandBox** project, and **build it**.
+15) With that step done, we can now build this project. In the **Solution Explorer**, right-click on the **SandBox** project, and **build it**.
 
 16)  One final step! You’re ready to debug your application! Hit F5 to debug, or click on “Local Windows Debugger” and you’re good to go!
 
-[![VC-Dir-8](https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-8.gif?resize=700%2C426)](https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2013/11/vc-dir-8.gif)
+
 
 The former XNA sample is now a working C++ / DirectX 11 sample, working on your machine.

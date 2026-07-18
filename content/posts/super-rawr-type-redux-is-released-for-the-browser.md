@@ -1,14 +1,13 @@
 +++
 title = "Super Rawr-Type Redux is released for the browser"
 date = "2013-11-03T00:00:00"
-draft = true
-stale_reason = "dead-tech keywords (Windows 8); 12.7 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/super-rawr-type-redux-1.gif?w=670 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://super-rawr-type.azurewebsites.net (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/super-rawr-type-redux-2.gif?w=670 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/super-rawr-type-redux-2.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.youtube.com/user/Kevvviiinnn?feature=watch (HTTP 404)"
+draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5"]
 tags = ["Game Dev", "Gaming", "HTML5", "ImpactJS", "JavaScript", "Programming"]
 +++
 
-[![Super-Rawr-Type-Redux-1](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/super-rawr-type-redux-1.gif?w=670)](http://super-rawr-type.azurewebsites.net)
+
 
 #### **[Click here to play Super Rawr-Type Redux](http://super-rawr-type.azurewebsites.net)**
 
@@ -20,7 +19,7 @@ I’ve spent the last 3 months working on the follow up to my previous game, *Su
 
 You can play the game from here. There are a few occasional bugs that I’m aware of, and others which I can’t reproduce, but I’m leaving this project “as-is” to begin work on other things.  The loading time is horrendous (thanks DropBox), but until I find an alternative or faster hosting solution, it is what it is. It works in all major browsers, and although it works on several mobile browsers (Safari, for example), I haven’t implemented touch controls, so you won’t be able to move anywhere.
 
-[![Super-Rawr-Type-Redux-2](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/super-rawr-type-redux-2.gif?w=670)](http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/super-rawr-type-redux-2.gif)
+
 
 Although the game retains much of the difficulty I  loved from arcade shooters of the 80s and 90s, I’ve found that using all of the tools you have at your disposal greatly help lower the difficulty curve. There are homing missiles, slow motion, and turrets for a reason. Use them!  My goal was to make a game which is initially difficult, but can be mastered without requiring trial-and-error playthroughs.
 
