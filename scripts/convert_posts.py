@@ -128,9 +128,19 @@ def parse_author(soup):
 def parse_terms(soup):
     """Categories and tags both render as <a rel="..."> links; bs4 splits
     the space-separated rel attribute into a list, so a category link's
-    rel is ['category', 'tag'] and a tag-only link's rel is just ['tag']."""
+    rel is ['category', 'tag'] and a tag-only link's rel is just ['tag'].
+
+    Scoped to footer.entry-meta (where these actually live -- confirmed
+    live against real posts) rather than the whole page: a sidebar
+    category-cloud/tag-cloud widget using the same rel convention for the
+    WHOLE SITE's terms, not just this post's, would otherwise pollute
+    every post with unrelated categories/tags. Not observed in this theme
+    (no outlier tag counts across the current converted set), but scoping
+    defensively costs nothing and removes the risk for posts from a
+    different theme era."""
+    scope = soup.select_one("footer.entry-meta") or soup
     categories, tags = [], []
-    for a in soup.find_all("a", rel=True):
+    for a in scope.find_all("a", rel=True):
         rel = a.get("rel") or []
         text = a.get_text(strip=True)
         if not text:
@@ -142,25 +152,37 @@ def parse_terms(soup):
     return categories, tags
 
 
+def _resolve_image_path(url):
+    """D4's output path for a davevoyles.com image URL, using D3's exact
+    url_to_filename() so it resolves to whatever D4 actually wrote."""
+    ext = Path(url.split("?")[0]).suffix or ".jpg"
+    filename = f"{url_to_filename(url)}{ext}"
+    return f"/images/{filename}", (STATIC_IMAGES_DIR / filename).exists()
+
+
 def rewrite_images(content_soup):
-    """Rewrite <img src> (and any enclosing <a href> linking to the same
-    full-size image) to D4's static/images/ output path, using D3's exact
-    url_to_filename() so references resolve to whatever D4 actually wrote."""
+    """Rewrite <img src> to D4's static/images/ output path. An enclosing
+    <a href> is resolved independently rather than copying the img's new
+    path onto it -- WordPress commonly wraps a resized thumbnail <img> in
+    an <a> linking to the full-size original, a DIFFERENT file than the
+    thumbnail, so the two need their own D4-resolved paths, not one shared
+    path forced onto both."""
     unresolved = []
     for img in content_soup.find_all("img"):
         src = img.get("src")
-        if not src or TARGET_DOMAIN not in src:
-            continue
-        ext = Path(src.split("?")[0]).suffix or ".jpg"
-        new_path = f"/images/{url_to_filename(src)}{ext}"
-        img["src"] = new_path
-        if not (STATIC_IMAGES_DIR / f"{url_to_filename(src)}{ext}").exists():
-            unresolved.append(src)
+        if src and TARGET_DOMAIN in src:
+            new_path, exists = _resolve_image_path(src)
+            img["src"] = new_path
+            if not exists:
+                unresolved.append(src)
 
         parent_a = img.find_parent("a")
-        if parent_a and parent_a.get("href") and TARGET_DOMAIN in parent_a["href"] \
-                and Path(parent_a["href"].split("?")[0]).suffix:
-            parent_a["href"] = new_path
+        href = parent_a.get("href") if parent_a else None
+        if href and TARGET_DOMAIN in href and Path(href.split("?")[0]).suffix:
+            new_href, exists = _resolve_image_path(href)
+            parent_a["href"] = new_href
+            if not exists:
+                unresolved.append(href)
 
     return unresolved
 
@@ -229,11 +251,15 @@ def slugify_title(title):
     return slug or "untitled"
 
 
-TOML_ESCAPE_RE = re.compile(r'(["\\])')
+TOML_ESCAPES = {"\\": "\\\\", '"': '\\"', "\n": "\\n", "\r": "\\r", "\t": "\\t"}
+TOML_ESCAPE_RE = re.compile(r'[\\"\n\r\t]')
 
 
 def toml_string(s):
-    return '"' + TOML_ESCAPE_RE.sub(r"\\\1", s) + '"'
+    # get_text(strip=True) only strips the ends -- an internal newline/tab
+    # surviving from the source markup would otherwise emit invalid TOML
+    # that Hugo fails to parse.
+    return '"' + TOML_ESCAPE_RE.sub(lambda m: TOML_ESCAPES[m.group()], s) + '"'
 
 
 def convert_one(path, dry_run=False):
@@ -254,6 +280,8 @@ def convert_one(path, dry_run=False):
         return None
 
     slug, filename_date = extract_slug_and_filename_date(path.stem)
+    if slug is None:
+        return None
     date = parse_date(soup, filename_date)
     if date is None:
         return None
