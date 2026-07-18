@@ -49,7 +49,8 @@
 .archive-month-header,
 .archive-entry-title,
 .archive-meta,
-.searchResults li {
+.searchResults li,
+.related-posts-title {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
 }
 
@@ -98,4 +99,45 @@
 .searchResults li:hover,
 .searchResults li:focus-within {
   border-color: var(--accent);
+}
+
+/* Related Posts widget (bottom of each post, plan 0002 / D4): same
+   left-rule-lights-up-on-hover treatment as post-entry/archive-entry above,
+   so it reads as part of the same list-style family rather than a
+   bolted-on block. */
+.related-posts {
+  margin-top: var(--gap, 24px);
+  padding-top: var(--gap, 24px);
+  border-top: 1px solid var(--border);
+}
+
+.related-posts-title {
+  font-size: 1rem;
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+}
+
+.related-posts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.related-posts-entry {
+  border-left: 2px solid transparent;
+  padding: 0.4rem 0.75rem;
+}
+
+.related-posts-entry:hover,
+.related-posts-entry:focus-within {
+  border-left-color: var(--accent);
+}
+
+.related-posts-entry a {
+  color: var(--content);
+  text-decoration: none;
+}
+
+.related-posts-entry a:hover {
+  color: var(--accent);
 }
