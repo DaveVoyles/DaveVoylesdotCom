@@ -4,6 +4,7 @@ date = "2014-08-10T00:00:00"
 draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
+tags = ["Productivity", "YouTube"]
 +++
 
 

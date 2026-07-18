@@ -4,6 +4,7 @@ date = "2014-01-01T00:00:00"
 draft = false
 author = "Dave Voyles"
 categories = ["Journalism"]
+tags = ["Gaming", "Year in Review"]
 +++
 
 I don’t write much about gaming anymore, which is disappointing, but I instead fill my time with development, and an [indie development podcast.](http://indiedevpodcast.wordpress.com/) So this is my one chance to round up my brief, if not disjointed, thoughts on gaming this year.
