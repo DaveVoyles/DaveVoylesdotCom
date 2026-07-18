@@ -41,7 +41,7 @@ TOPICS = [
     "AI and Agents",
     "Public Speaking and Presentations",
     "Career and Students",
-    "Journalism, Marketing and PR",
+    "Journalism and Marketing and PR",
 ]
 
 # Reviewable lookup table: each existing tag/category *value* (case-
@@ -77,7 +77,7 @@ _TOPIC_VALUES = {
     "Career and Students": [
         "Students", "Resume", "BizSpark", "Startups", "Venture Capital",
     ],
-    "Journalism, Marketing and PR": [
+    "Journalism and Marketing and PR": [
         "Journalism", "Marketing", "PR", "Marketing / PR",
         "Armless Octopus", "Features", "Recommendations", "Year in Review",
         "podcast", "Promotions",

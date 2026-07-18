@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Journalism"]
-topics = ["Journalism, Marketing and PR"]
+topics = ["Journalism and Marketing and PR"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2011/04/legend_of_zelda_a_link_to_the_past_the_super_famicom.jpg?w=300 "legend_of_zelda_a_link_to_the_past_the_super_famicom")](http://davidvoyles.files.wordpress.com/2011/04/legend-of-zelda_davevoyles.pdf)

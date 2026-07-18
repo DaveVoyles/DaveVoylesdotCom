@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Journalism"]
 tags = ["Atlus", "Persona 4", "Sony", "Vita"]
-topics = ["Gaming", "Journalism, Marketing and PR"]
+topics = ["Gaming", "Journalism and Marketing and PR"]
 +++
 
 

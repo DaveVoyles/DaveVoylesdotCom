@@ -255,7 +255,7 @@ python3 scripts/topics_mapping.py [--dry-run] [--limit N]
 1. **Looks up** each tag/category value (case-insensitive) against the
    curated bucket list (`Gaming`, `Tech`, `AI and Agents`,
    `Public Speaking and Presentations`, `Career and Students`,
-   `Journalism, Marketing and PR`) and assigns every matched topic, in
+   `Journalism and Marketing and PR`) and assigns every matched topic, in
    canonical bucket order, deduplicated.
 2. **Never guesses**: a post where no tag/category value has an entry in
    the lookup table is left untouched and printed in a distinct
