@@ -14,14 +14,13 @@ Options:
 """
 
 import sys
-import os
 import urllib.request
 import urllib.error
+import urllib.parse
 import json
 import time
 import re
 from pathlib import Path
-from urllib.parse import urlparse, quote
 
 # Configuration
 TARGET_DOMAIN = "davevoyles.com"
@@ -60,7 +59,12 @@ REQUEST_DELAY = 0.3  # seconds between requests
 
 
 def get_cdx_data():
-    """Query the Wayback CDX API for all captures of davevoyles.com"""
+    """Query the Wayback CDX API for all captures of davevoyles.com.
+
+    Retries on connection-level and 5xx/429 failures just like download_with_retry,
+    since this single request is a hard prerequisite for the entire run — one flaky
+    connection shouldn't kill an otherwise-working recovery pass.
+    """
     params = {
         "url": TARGET_DOMAIN,
         "matchType": "domain",
@@ -75,14 +79,28 @@ def get_cdx_data():
 
     print(f"[*] Querying CDX API: {url[:80]}...")
 
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as response:
-            data = json.loads(response.read().decode('utf-8'))
-            return data
-    except urllib.error.URLError as e:
-        print(f"[!] Failed to query CDX API: {e}")
-        sys.exit(1)
+    delay = RETRY_DELAY
+    for attempt in range(MAX_RETRIES + 1):
+        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+        try:
+            with urllib.request.urlopen(req, timeout=30) as response:
+                raw = response.read().decode('utf-8')
+            return json.loads(raw)
+        except urllib.error.HTTPError as e:
+            retryable = e.code in (429, 500, 502, 503, 504)
+        except (urllib.error.URLError, OSError) as e:
+            retryable = True
+        except json.JSONDecodeError as e:
+            print(f"[!] CDX API returned malformed JSON: {e}")
+            sys.exit(1)
+
+        if retryable and attempt < MAX_RETRIES:
+            print(f"  [!] CDX query failed, retrying in {delay}s...")
+            time.sleep(delay)
+            delay *= 2
+        else:
+            print(f"[!] Failed to query CDX API after {attempt + 1} attempt(s)")
+            sys.exit(1)
 
 
 def parse_cdx_data(cdx_data):
@@ -254,16 +272,53 @@ def download_with_retry(url, max_retries=MAX_RETRIES):
     return None, False
 
 
+def _download_batch(items, out_dir, filename_fn, limit):
+    """
+    Shared download loop for a batch of {key: (timestamp, mimetype, original)} items.
+    filename_fn(mimetype, original) -> filesystem-safe filename for that item.
+    Returns (downloaded, skipped).
+    """
+    downloaded = 0
+    skipped = 0
+
+    entries = list(items.items())[:limit] if limit else list(items.items())
+    for key, (timestamp, mimetype, original) in entries:
+        filename = filename_fn(mimetype, original)
+        filepath = out_dir / filename
+
+        if filepath.exists():
+            print(f"  [~] {filename} (exists, skipping)")
+            skipped += 1
+            continue
+
+        wayback_url = f"{WAYBACK_BASE}/{timestamp}id_/{original}"
+        print(f"  [>] {filename}...", end="", flush=True)
+
+        content, success = download_with_retry(wayback_url)
+        if success:
+            try:
+                filepath.write_bytes(content)
+                print(" OK")
+                downloaded += 1
+            except Exception as e:
+                print(f" SAVE_ERROR: {e}")
+        else:
+            print(" FAILED")
+
+        time.sleep(REQUEST_DELAY)
+
+    # Cap remaining items as skipped if limit was applied
+    if limit and len(items) > limit:
+        skipped += len(items) - limit
+
+    return downloaded, skipped
+
+
 def download_items(html_pages, images, limit=None, dry_run=False):
     """
     Download HTML pages and images. If limit is set, cap downloads.
     Returns (html_downloaded, html_skipped, images_downloaded, images_skipped).
     """
-    html_downloaded = 0
-    html_skipped = 0
-    images_downloaded = 0
-    images_skipped = 0
-
     if dry_run:
         print("[*] DRY RUN: skipping downloads")
         return 0, len(html_pages), 0, len(images)
@@ -272,67 +327,17 @@ def download_items(html_pages, images, limit=None, dry_run=False):
     HTML_DIR.mkdir(parents=True, exist_ok=True)
     IMAGE_DIR.mkdir(parents=True, exist_ok=True)
 
-    # Download HTML pages
     print(f"\n[*] Downloading HTML pages...")
-    for key, (timestamp, mimetype, original) in list(html_pages.items())[:limit] if limit else list(html_pages.items()):
-        filename = url_to_filename(original) + ".html"
-        filepath = HTML_DIR / filename
+    html_downloaded, html_skipped = _download_batch(
+        html_pages, HTML_DIR, lambda mimetype, original: url_to_filename(original) + ".html", limit
+    )
 
-        if filepath.exists():
-            print(f"  [~] {filename} (exists, skipping)")
-            html_skipped += 1
-            continue
-
-        wayback_url = f"{WAYBACK_BASE}/{timestamp}id_/{original}"
-        print(f"  [>] {filename}...", end="", flush=True)
-
-        content, success = download_with_retry(wayback_url)
-        if success:
-            try:
-                filepath.write_bytes(content)
-                print(" OK")
-                html_downloaded += 1
-            except Exception as e:
-                print(f" SAVE_ERROR: {e}")
-        else:
-            print(" FAILED")
-
-        time.sleep(REQUEST_DELAY)
-
-    # Cap remaining HTML pages as skipped if limit was applied
-    if limit and len(html_pages) > limit:
-        html_skipped += len(html_pages) - limit
-
-    # Download images
     print(f"\n[*] Downloading images...")
-    for key, (timestamp, mimetype, original) in list(images.items())[:limit] if limit else list(images.items()):
-        filename = url_to_filename(original) + get_mimetype_extension(mimetype)
-        filepath = IMAGE_DIR / filename
-
-        if filepath.exists():
-            print(f"  [~] {filename} (exists, skipping)")
-            images_skipped += 1
-            continue
-
-        wayback_url = f"{WAYBACK_BASE}/{timestamp}id_/{original}"
-        print(f"  [>] {filename}...", end="", flush=True)
-
-        content, success = download_with_retry(wayback_url)
-        if success:
-            try:
-                filepath.write_bytes(content)
-                print(" OK")
-                images_downloaded += 1
-            except Exception as e:
-                print(f" SAVE_ERROR: {e}")
-        else:
-            print(" FAILED")
-
-        time.sleep(REQUEST_DELAY)
-
-    # Cap remaining images as skipped if limit was applied
-    if limit and len(images) > limit:
-        images_skipped += len(images) - limit
+    images_downloaded, images_skipped = _download_batch(
+        images, IMAGE_DIR,
+        lambda mimetype, original: url_to_filename(original) + get_mimetype_extension(mimetype),
+        limit,
+    )
 
     return html_downloaded, html_skipped, images_downloaded, images_skipped
 
@@ -361,10 +366,12 @@ def print_summary(html_pages, images, html_downloaded, html_skipped, images_down
     print(f"  Images downloaded:           {images_downloaded}")
     print(f"  Images skipped (exist):      {images_skipped}")
 
+    dated_posts_in_range = 0.8 * BASELINE_DATED_POSTS <= len(dated_posts) <= 1.2 * BASELINE_DATED_POSTS
+
     print(f"\nBaseline Comparison:")
     print(f"  Found {len(dated_posts)} dated-permalink posts (the one concretely-known post URL shape)")
     print(f"    Baseline: ~{BASELINE_DATED_POSTS} dated posts")
-    print(f"    Status: {'✓ Within expected range (±20%)' if 0.8 * BASELINE_DATED_POSTS <= len(dated_posts) <= 1.2 * BASELINE_DATED_POSTS else '⚠ Outside expected range'}")
+    print(f"    Status: {'✓ Within expected range (±20%)' if dated_posts_in_range else '⚠ Outside expected range'}")
     print(f"  Found {len(other_pages)} other HTML captures (not directly comparable to a baseline —")
     print(f"    this bucket mixes real non-dated posts with feeds/embeds/archives/admin pages;")
     print(f"    content-based post/non-post classification is D5/D6's job, not D3's)")
@@ -372,28 +379,55 @@ def print_summary(html_pages, images, html_downloaded, html_skipped, images_down
     print(f"    estimate directly — that estimate is unique POSTS, this total is unique CAPTURES")
     print(f"    of every HTML page type on the domain (categories, tags, author pages, feeds, etc).")
 
+    images_in_range = abs(len(images) - BASELINE_IMAGES_TOTAL) <= 100
+
     print(f"\n  Found {len(images)} unique images")
     print(f"    Breakdown: {png_count} PNG + {jpeg_count} JPEG + {gif_count} GIF")
     print(f"    Baseline: {BASELINE_IMAGES_TOTAL} total ({BASELINE_IMAGES_PNG} PNG + {BASELINE_IMAGES_JPEG} JPEG + {BASELINE_IMAGES_GIF} GIF)")
-    print(f"    Status: {'✓ Close to baseline' if abs(len(images) - BASELINE_IMAGES_TOTAL) <= 100 else '⚠ Discrepancy noted'}")
+    print(f"    Status: {'✓ Close to baseline' if images_in_range else '⚠ Discrepancy noted'}")
 
     print("\n" + "="*70)
 
+    # Surfaced as the process exit code so a baseline regression can be caught by an
+    # operator/automation checking $? instead of requiring someone to read full scrollback.
+    return dated_posts_in_range and images_in_range
+
 
 def main():
-    # Parse command-line arguments
+    # Parse command-line arguments. Unrecognized flags error out rather than being
+    # silently ignored -- a typo'd flag (e.g. "--limt 10") previously fell through to
+    # an unbounded ~3000-file run with no warning.
     limit = None
     dry_run = False
 
-    for arg in sys.argv[1:]:
+    args = sys.argv[1:]
+    i = 0
+    while i < len(args):
+        arg = args[i]
         if arg == "--dry-run":
             dry_run = True
-        elif arg.startswith("--limit"):
-            try:
-                limit = int(arg.split("=")[1] if "=" in arg else sys.argv[sys.argv.index(arg) + 1])
-            except (ValueError, IndexError):
-                print("[!] Invalid --limit argument")
+            i += 1
+        elif arg == "--limit":
+            if i + 1 >= len(args):
+                print("[!] --limit requires a value")
                 sys.exit(1)
+            try:
+                limit = int(args[i + 1])
+            except ValueError:
+                print(f"[!] Invalid --limit value: {args[i + 1]!r}")
+                sys.exit(1)
+            i += 2
+        elif arg.startswith("--limit="):
+            try:
+                limit = int(arg.split("=", 1)[1])
+            except ValueError:
+                print(f"[!] Invalid --limit value: {arg!r}")
+                sys.exit(1)
+            i += 1
+        else:
+            print(f"[!] Unrecognized argument: {arg!r}")
+            print(__doc__)
+            sys.exit(1)
 
     print(f"Wayback Machine Content Recovery Script")
     print(f"Target: {TARGET_DOMAIN}")
@@ -410,8 +444,11 @@ def main():
     # Download
     html_dl, html_skip, img_dl, img_skip = download_items(html_pages, images, limit=limit, dry_run=dry_run)
 
-    # Print summary
-    print_summary(html_pages, images, html_dl, html_skip, img_dl, img_skip)
+    # Print summary; exit non-zero if recovered counts fall outside the expected
+    # baseline range, so a regression is catchable via $? and not just scrollback.
+    baseline_ok = print_summary(html_pages, images, html_dl, html_skip, img_dl, img_skip)
+    if not baseline_ok:
+        sys.exit(2)
 
 
 if __name__ == "__main__":
