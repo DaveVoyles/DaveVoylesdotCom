@@ -1,7 +1,8 @@
 +++
 title = "Summer Uprising Press Coverage"
 date = "2011-06-23T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Xbox Live Indie Games, XBLIG); 15.1 years old; broken outbound reference(s): link http://www.evilrobotlogic.com/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.armlessoctopus.com/2011/06/14/the-xbox-live-indie-games-summer-uprising-begins-in-august/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.diygamer.com/2011/06/xbox-live-indie-games-summer-uprising-deadline-approaching/ (HTTP 404); link http://www.trueachievements.com/n4259/indie-games-summer-uprising-revealed.htm (HTTP 403); link http://www.armlessoctopus.com/2011/06/16/armless-octocast-episode-56-snactacular-octocast/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
 author = "Dave Voyles"
 categories = ["Journalism"]
 tags = ["Armless Octopus", "Journalism", "Marketing", "PR", "Resume", "Summer Uprising", "XBLIG"]

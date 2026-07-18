@@ -1,7 +1,8 @@
 +++
 title = "Programming pickups for vehicles in UDK tutorial is up"
 date = "2011-06-24T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (UDK, UnrealScript); 15.1 years old"
 author = "Dave Voyles"
 categories = ["Game Dev", "Programming", "UDK", "Uncategorized", "UnrealScript"]
 +++

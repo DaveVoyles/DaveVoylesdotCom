@@ -1,7 +1,8 @@
 +++
 title = "TIL: Unity has way cheaper pricing for students / faculty"
 date = "2014-08-24T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (BizSpark); 11.9 years old; broken outbound reference(s): link http://www.studica.com/unity (HTTP 403); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-for-students-1024x804.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/08/Unity-for-students.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.autodesk.com/education/free-software/students-university/popular (connection error: timed out); link http://www.adobe.com/education/students/how-to-buy-eligibility.edu.html? (connection error: timed out) (+3 more)"
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Students"]

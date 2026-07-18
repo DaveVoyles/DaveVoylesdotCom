@@ -1,7 +1,8 @@
 +++
 title = "Off to GDC Europe, and GamesCom"
 date = "2011-08-13T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): image http://media.next-gen.biz/files/imagecache/article/gdc_europe11_logo_grad.jpg (HTTP 404); link http://www.facebook.com/event.php?eid=117339171698512 (HTTP 400); link http://www.twitter.com/DaveVoyles (HTTP 520)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["GamesCom", "GDC", "GDC Europe", "igsu", "indie games summer uprising"]

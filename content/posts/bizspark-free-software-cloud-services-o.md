@@ -1,7 +1,8 @@
 +++
 title = "BizSpark: Free software and cloud services for your startup"
 date = "2014-08-17T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows Phone 8, Windows Phone, Windows 8, BizSpark); 11.9 years old; broken outbound reference(s): image https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/08/BizSpark.jpg?resize=550%2C242 (HTTP 400); image https://i2.wp.com/davevoyles.azurewebsites.net/wp-content/uploads/2014/08/BizSpark.jpg (HTTP 400); link http://blogs.msdn.com/b/jennifer/archive/2014/06/06/bizspark-get-free-software-and-cloud-services-for-your-startup.aspx (HTTP 403); link http://bretstateham.com/bizspark-enrollment-tutorial/ (connection error: <urlopen error timed out>); link http://buildyourbiz.org/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+3 more)"
 author = "Dave Voyles"
 categories = ["Azure", "Game Dev", "Microsoft", "Students", "Windows 8", "Windows Phone 8"]
 tags = ["Azure", "BizSpark", "Startups"]

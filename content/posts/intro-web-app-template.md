@@ -1,7 +1,8 @@
 +++
 title = "Intro to the Web App Template"
 date = "2014-05-07T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows Phone 8, Windows Phone, Windows 8, Win8); 12.2 years old; broken outbound reference(s): link http://davevoyles.azurewebsites.net/finishing-web-app-template/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://davevoyles.azurewebsites.net/examples-apps-published-web-app-template/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://brokenmobile.tumblr.com/?utm_content=buffer010a0&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer (HTTP 404); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Stats2.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/05/WAT-Stats1.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>) (+12 more)"
 author = "Dave Voyles"
 categories = ["Javascript / HTML5", "Programming", "Students", "Web Dev", "Windows 8", "Windows Phone 8"]
 tags = ["HTML5", "Web App Template", "Windows 8"]

@@ -1,7 +1,8 @@
 +++
 title = "My third weekly newsletter is out"
 date = "2014-08-16T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): link http://blogs.unity3d.com/2014/08/07/introducing-universal-windows-applications-in-unity/ (HTTP 404); link http://blogs.msdn.com/b/developerexperience/archive/2014/06/18/4-tips-from-a-moonlight-game-dev-on-reaching-3-million-downloads-through-windows-store.aspx (HTTP 403); link http://davevoyles.azurewebsites.net/advanced-press-tips-beginners-get-game-noticed/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link https://msgooroo.com/GoorooTHINK/Article/16191/Which-language-wins-in-terms-of-salarydemand-July-2014/14105#.U-jFj_ldUjE (HTTP 404)"
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Game Dev", "HTML5"]

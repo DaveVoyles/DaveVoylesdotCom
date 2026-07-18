@@ -1,7 +1,8 @@
 +++
 title = "My book, UnrealScript Game Programming Cookbook has been published!"
 date = "2013-02-21T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (UnrealScript); 13.4 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/02/5565ot_cover_prefinal.jpg?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.packtpub.com/unrealscript-game-programming-cookbook/book#overview (HTTP 403); link http://www.packtpub.com/sites/default/files/9781849695565_Chapter_03.pdf?utm_source=packtpub&utm_medium=free&utm_campaign=pdf (HTTP 403)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Journalism", "Programming", "UnrealScript"]
 tags = ["Journalism", "Unreal", "UnrealScript"]

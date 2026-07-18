@@ -1,7 +1,8 @@
 +++
 title = "Super Rawr-Type Redux is released for the browser"
 date = "2013-11-03T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows 8); 12.7 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/super-rawr-type-redux-1.gif?w=670 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://super-rawr-type.azurewebsites.net (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/super-rawr-type-redux-2.gif?w=670 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/super-rawr-type-redux-2.gif (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.youtube.com/user/Kevvviiinnn?feature=watch (HTTP 404)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5"]
 tags = ["Game Dev", "Gaming", "HTML5", "ImpactJS", "JavaScript", "Programming"]

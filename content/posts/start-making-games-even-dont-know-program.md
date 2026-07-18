@@ -1,7 +1,8 @@
 +++
 title = "Start making games, even if you don't know how to program"
 date = "2014-02-01T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows Phone 8, Windows Phone, Windows 8); 12.5 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/02/Construct-2-1024x622.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/02/Construct-2.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.scirra.com/help/ (HTTP 403); link http://www.scirra.com/forum/ (HTTP 403); link http://www.scirra.com/construct/demos.php (HTTP 404) (+4 more)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Students", "Windows 8", "Windows Phone 8"]
 tags = ["Game Dev", "Programming", "Windows 8", "Windows Phone 8"]

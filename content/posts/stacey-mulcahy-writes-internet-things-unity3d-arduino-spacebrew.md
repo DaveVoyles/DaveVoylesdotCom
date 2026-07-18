@@ -1,7 +1,8 @@
 +++
 title = "Stacey Mulcahy writes: Internet of Things with Unity3d, Arduino and Spacebrew"
 date = "2014-07-30T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/space-brew.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.twitter.com/bitchwhocodes (HTTP 520)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Unity"]
 tags = ["Game Dev", "Programming", "Unity"]

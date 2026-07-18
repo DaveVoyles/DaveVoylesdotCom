@@ -1,7 +1,8 @@
 +++
 title = "How to write engaging second screen experiences, using SmartGlass or Win8"
 date = "2014-02-07T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows Phone 8, Windows Phone, Windows 8, Win8, SmartGlass); 12.4 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/02/SmartGlass-example.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://davevoyles.azurewebsites.net/get-game-app-xbox-one/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://video.ch9.ms/sessions/build/2012/2-028.pptx (HTTP 409); link http://code.msdn.microsoft.com/windowsapps/Connecting-with-WebSockets-643b10ab (HTTP 404); link http://in8bitblog.wordpress.com/2013/12/06/super-truckin-smartphone-second-screen-gameplay/ (HTTP 410) (+2 more)"
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["JavaScript", "Programming", "SmartGlass", "Windows 8", "Windows Phone 8", "Xbox"]

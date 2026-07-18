@@ -1,7 +1,8 @@
 +++
 title = "Indie Game Summer Uprising Post-Mortem"
 date = "2011-09-13T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Xbox Live Indie Games, XBLIG, XBLA, XNA); 14.8 years old; broken outbound reference(s): link http://www.twitter.com/KrisWD40 (HTTP 520); link http://forums.create.msdn.com/forums/71.aspx (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://kotaku.com/5830579/indie-games-summer-uprising-schedules-its-releases (HTTP 404); link http://xboxlive.ign.com/articles/118/1189687p1.html (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://kotaku.com/5822364/these-eight-xbox-indie-games-will-rise-this-summer/gallery/1 (HTTP 404) (+10 more)"
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["igsu", "Indie Games", "Resume", "Summer Uprising", "XBLIG", "XNA"]

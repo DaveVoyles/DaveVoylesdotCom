@@ -1,7 +1,8 @@
 +++
 title = "Switching from the iPhone 5 to the Lumia 1520"
 date = "2014-07-11T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows Phone 8, WP8, Windows Phone); 12.0 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Lumia-1520-1024x811.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/Lumia-1520.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.windowsphone.com/en-us/store/app/transfer-my-data/dc08943b-7b3d-4ee5-aa3c-30f1a826af02 (HTTP 404); image http://davevoyles.azurewebsites.net/wp-content/uploads/2014/07/photo-1024x768.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
 author = "Dave Voyles"
 categories = ["Windows Phone 8"]
 tags = ["Windows Phone"]

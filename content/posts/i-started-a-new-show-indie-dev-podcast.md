@@ -1,7 +1,8 @@
 +++
 title = "I started a new show – Indie Dev Podcast"
 date = "2013-11-14T00:00:00"
-draft = false
+draft = true
+stale_reason = "broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/11/indiedev.png (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://indiedevpodcast.podomatic.com/enclosure/2013-11-13T17_05_20-08_00.mp3 (HTTP 404); link http://benjaminbriggs.bandcamp.com/album/diddy-kong-racing-bootleg-circuit (HTTP 404)"
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Game Dev", "podcast"]

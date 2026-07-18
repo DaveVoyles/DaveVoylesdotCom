@@ -1,7 +1,8 @@
 +++
 title = "How to market your game, XBLIG Style – Part 1"
 date = "2011-06-23T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XBLIG); 15.1 years old; broken outbound reference(s): link http://www.armlessoctopus.com/2011/04/16/how-to-market-your-game-xblig-style-part-1/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
 author = "Dave Voyles"
 categories = ["Journalism", "Marketing / PR"]
 tags = ["Armless Octopus", "Features", "Journalism", "Marketing", "PR", "Resume", "XBLIG"]

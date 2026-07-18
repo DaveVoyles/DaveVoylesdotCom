@@ -1,7 +1,8 @@
 +++
 title = "Creating the random enemy spawner, improving performance"
 date = "2013-04-12T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows 8, Win8); 13.3 years old; broken outbound reference(s): image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/04/enemyspawner01.jpg?w=652 (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); image http://davevoyles.azurewebsites.net/wp-content/uploads/2013/04/enemyspawner01.jpg (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Windows 8"]
 tags = ["Game Dev", "HTML5", "JavaScript", "Programming", "Win8"]

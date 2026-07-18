@@ -1,7 +1,8 @@
 +++
 title = "The Indie Games Summer Uprising site is up!"
 date = "2011-07-05T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XBLIG); 15.0 years old; broken outbound reference(s): link http://www.gameproductionstudios.com/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.facebook.com/pages/Indie-Game-Summer-Uprising/191422484238144?sk=wall (HTTP 400)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["Game Development", "indie games summer uprising", "Resume", "XBLIG"]

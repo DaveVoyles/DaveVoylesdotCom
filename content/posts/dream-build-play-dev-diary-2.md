@@ -1,7 +1,8 @@
 +++
 title = "Dream.Build.Play dev diary 2"
 date = "2012-05-01T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (XBLIG, XNA); 14.2 years old; broken outbound reference(s): link http://oneksoftlabs.com/kit/ (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://blog.nickgravelyn.com/2009/08/easystorage-released/ (HTTP 403); link http://forums.create.msdn.com/forums/p/14756/77234.aspx (connection error: <urlopen error [Errno 8] nodename nor servname provided, or not known>); link http://www.twitter.com/Dfrandsen (HTTP 520)"
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["C#", "Dev Diary", "Dream.Build.Play", "Game Development", "XBLIG", "XNA"]

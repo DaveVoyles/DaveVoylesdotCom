@@ -1,7 +1,8 @@
 +++
 title = "Mega Man Prototype Video 2 Is Out"
 date = "2012-02-12T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (UDK); 14.4 years old"
 author = "Dave Voyles"
 categories = ["MM2 Dev Diary", "UDK"]
 tags = ["Dev Diary", "Mega Man 2", "UDK"]

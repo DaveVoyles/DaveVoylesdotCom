@@ -1,7 +1,8 @@
 +++
 title = "Object pooling optimizations – not so much [yet]"
 date = "2013-04-11T00:00:00"
-draft = false
+draft = true
+stale_reason = "dead-tech keywords (Windows 8); 13.3 years old; broken outbound reference(s): link https://github.com/DaveVoyles/SuperRawrType/blob/master/lib/game/entities/bulletNoPooling.js (HTTP 404); link https://github.com/DaveVoyles/SuperRawrType/blob/master/lib/plugins/pool.js (HTTP 404)"
 author = "Dave Voyles"
 categories = ["Game Dev", "Javascript / HTML5", "Programming", "Windows 8"]
 tags = ["Game Dev", "ImpactJS", "JavaScript", "Programming"]
