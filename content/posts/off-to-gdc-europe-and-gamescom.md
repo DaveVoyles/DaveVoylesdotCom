@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["GamesCom", "GDC", "GDC Europe", "igsu", "indie games summer uprising"]
-topics = ["Gaming", "Journalism / Marketing / PR"]
+topics = ["Gaming", "Journalism and Marketing and PR"]
 +++
 
 

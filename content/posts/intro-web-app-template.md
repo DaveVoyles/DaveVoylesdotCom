@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Javascript / HTML5", "Programming", "Students", "Web Dev", "Windows 8", "Windows Phone 8"]
 tags = ["HTML5", "Web App Template", "Windows 8"]
-topics = ["Tech", "Career / Students"]
+topics = ["Tech", "Career and Students"]
 +++
 
 *You can find Part 2 of this tutorial, [here.](http://davevoyles.azurewebsites.net/finishing-web-app-template/) I’ve also compiled a list of [great apps published with the WAT.](http://davevoyles.azurewebsites.net/examples-apps-published-web-app-template/)*

@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Game Dev", "podcast"]
-topics = ["Gaming", "Journalism / Marketing / PR"]
+topics = ["Gaming", "Journalism and Marketing and PR"]
 +++
 
 

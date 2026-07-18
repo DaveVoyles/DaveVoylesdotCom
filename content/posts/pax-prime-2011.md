@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Journalism"]
 tags = ["Armless Octopus", "PAX", "PAX Prime"]
-topics = ["Gaming", "Journalism / Marketing / PR"]
+topics = ["Gaming", "Journalism and Marketing and PR"]
 +++
 
 ## 

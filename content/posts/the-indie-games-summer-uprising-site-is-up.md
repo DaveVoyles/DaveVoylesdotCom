@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["Game Development", "indie games summer uprising", "Resume", "XBLIG"]
-topics = ["Gaming", "Career / Students", "Journalism / Marketing / PR"]
+topics = ["Gaming", "Career and Students", "Journalism and Marketing and PR"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2011/07/summeruprising_pressreleasebanner7_5x2.png "SummerUprising_PressReleaseBanner7_5x2")](http://www.indiegames-uprising.com/Default.aspx)

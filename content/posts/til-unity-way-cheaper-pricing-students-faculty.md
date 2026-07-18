@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Uncategorized"]
 tags = ["Students"]
-topics = ["Career / Students"]
+topics = ["Career and Students"]
 +++
 
 I was at Unity’s Unite conference in Seattle this week, and I learned from their education team that Unity has far cheaper licensing for students, faculty, and schools.

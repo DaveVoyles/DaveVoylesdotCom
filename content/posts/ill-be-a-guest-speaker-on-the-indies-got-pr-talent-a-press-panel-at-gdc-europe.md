@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Game Dev", "Marketing / PR"]
 tags = ["GDC", "GDC Europe", "Journalism", "Resume"]
-topics = ["Gaming", "Career / Students", "Journalism / Marketing / PR"]
+topics = ["Gaming", "Career and Students", "Journalism and Marketing and PR"]
 +++
 
 ![](http://davidvoyles.files.wordpress.com/2011/08/indiesgottalent.jpg "IndiesGotTalent")**UPDATE**:  Thanks [@BigBossBenGilbert](www.twitter.com/bigbossbengilbert) for the photo!

@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["XNA / XBLIG"]
 tags = ["igsu", "indie games summer uprising", "post-mortem", "Resume", "XBLIG"]
-topics = ["Gaming", "Career / Students"]
+topics = ["Gaming", "Career and Students"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2011/11/igsu-game-dev-mag-1.gif "IGSU-Game-Dev-Mag-1")](http://davidvoyles.files.wordpress.com/2011/11/igsu-game-dev-mag-1.gif)

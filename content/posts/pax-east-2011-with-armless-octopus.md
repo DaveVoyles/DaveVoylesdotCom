@@ -5,7 +5,7 @@ draft = false
 author = "Dave Voyles"
 categories = ["Journalism", "Marketing / PR"]
 tags = ["Armless Octopus", "Journalism", "Mike Wall", "PAX", "PAX East", "Resume", "XBLA", "XBLIG"]
-topics = ["Gaming", "Career / Students", "Journalism / Marketing / PR"]
+topics = ["Gaming", "Career and Students", "Journalism and Marketing and PR"]
 +++
 
 [![](http://davidvoyles.files.wordpress.com/2010/03/paxeast_2011.jpg "paxeast_2011")](http://davidvoyles.files.wordpress.com/2010/03/paxeast_2011.jpg)
