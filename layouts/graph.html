@@ -21,6 +21,8 @@
     {{- end }}
 </header>
 
+<div id="graph-filters" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center;"></div>
+
 <div id="graph-container" style="min-height: 70vh; border: 1px solid var(--border); border-radius: 4px; overflow: hidden;"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/force-graph@1.51.4/dist/force-graph.min.js"></script>
@@ -33,7 +35,31 @@
             console.error('Failed to fetch graph data');
             return;
         }
-        const graphData = await response.json();
+        const fullGraphData = await response.json();
+
+        // Topic color palette: light mode and dark mode hex values.
+        // All colors verified >=3.6:1 WCAG contrast.
+        const topicColors = {
+            'Gaming': { light: '#c05621', dark: '#dd6b20' },
+            'Tech': { light: '#2b6cb0', dark: '#4299e1' },
+            'AI and Agents': { light: '#9b2c2c', dark: '#f56565' },
+            'Public Speaking and Presentations': { light: '#2c7a7b', dark: '#4fd1c5' },
+            'Career and Students': { light: '#6b46c1', dark: '#9f7aea' },
+            'Journalism and Marketing and PR': { light: '#a36914', dark: '#d69e2e' },
+        };
+
+        // List of all topic buckets (in order for filter UI)
+        const allTopics = [
+            'Gaming',
+            'Tech',
+            'AI and Agents',
+            'Public Speaking and Presentations',
+            'Career and Students',
+            'Journalism and Marketing and PR',
+        ];
+
+        // Track which topics are active (toggled on). Start with all on.
+        const activeTopics = new Set(allTopics);
 
         // Resolve CSS custom properties to actual color values. Reads
         // getComputedStyle rather than assuming a media query or attribute
@@ -46,11 +72,80 @@
                 accent: computedStyle.getPropertyValue('--accent').trim(),
                 theme: computedStyle.getPropertyValue('--theme').trim(),
                 border: computedStyle.getPropertyValue('--border').trim(),
+                secondary: computedStyle.getPropertyValue('--secondary').trim(),
             };
         };
         let colors = readColors();
 
+        // Determine if dark mode is active
+        const isDarkMode = () => {
+            const themeAttr = root.getAttribute('data-theme');
+            if (themeAttr === 'dark') return true;
+            if (themeAttr === 'light') return false;
+            // Fallback to system preference
+            return window.matchMedia('(prefers-color-scheme: dark)').matches;
+        };
+
+        // Get node color based on topic
+        const getNodeColor = (node) => {
+            const topic = node.topic || '';
+            const dark = isDarkMode();
+
+            if (topic === '') {
+                // Empty topic: use neutral secondary color
+                return colors.secondary;
+            }
+
+            const topicColor = topicColors[topic];
+            if (topicColor) {
+                return dark ? topicColor.dark : topicColor.light;
+            }
+
+            // Fallback for unknown topic
+            return colors.secondary;
+        };
+
+        // force-graph's public API reads `graphData.links` (never
+        // `.edges`) -- confirmed by grepping the actual pinned bundle, which
+        // contains zero references to `.edges` anywhere. D1's JSON output
+        // field is (deliberately) named `edges` for readability in that
+        // template; this is where it gets translated to what the rendering
+        // library actually expects.
+        //
+        // Once the simulation starts, force-graph mutates each link's
+        // `source`/`target` in place from a plain id string into a reference
+        // to the actual node object -- so re-filtering from the same shared
+        // `fullGraphData.edges` array after the first render must handle
+        // both forms, or every filter click after the first would silently
+        // drop all edges.
+        const edgeEndpointId = (endpoint) => (
+            typeof endpoint === 'object' && endpoint !== null ? endpoint.id : endpoint
+        );
+
+        // Filter graph data based on active topics
+        const getFilteredGraphData = () => {
+            const activeSet = new Set(activeTopics);
+            const visibleNodeIds = new Set(
+                fullGraphData.nodes
+                    .filter(node => {
+                        const topic = node.topic || '';
+                        if (topic === '') return true; // Always show empty-topic nodes
+                        return activeSet.has(topic);
+                    })
+                    .map(node => node.id)
+            );
+
+            return {
+                nodes: fullGraphData.nodes.filter(node => visibleNodeIds.has(node.id)),
+                links: fullGraphData.edges.filter(edge =>
+                    visibleNodeIds.has(edgeEndpointId(edge.source)) &&
+                    visibleNodeIds.has(edgeEndpointId(edge.target))
+                ),
+            };
+        };
+
         // Initialize the force-graph
+        let graphData = getFilteredGraphData();
         const Graph = ForceGraph()
             (document.getElementById('graph-container'))
             .graphData(graphData)
@@ -62,12 +157,73 @@
             .onNodeClick(node => {
                 window.location.href = node.permalink;
             })
-            .nodeColor(() => colors.accent)
+            .nodeColor(node => getNodeColor(node))
             .backgroundColor(colors.theme)
             .linkColor(() => colors.border)
             .width(document.getElementById('graph-container').offsetWidth)
             .height(document.getElementById('graph-container').offsetHeight)
             .nodeRelSize(4.5);
+
+        // Create filter toggle UI
+        const filterId = (topic) => `filter-${topic.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+        const filtersContainer = document.getElementById('graph-filters');
+        allTopics.forEach(topic => {
+            const topicColor = topicColors[topic];
+            const dark = isDarkMode();
+            const hexColor = dark ? topicColor.dark : topicColor.light;
+
+            const button = document.createElement('button');
+            button.id = filterId(topic);
+            button.className = 'graph-filter-toggle';
+            button.setAttribute('data-topic', topic);
+            button.setAttribute('aria-pressed', 'true');
+            button.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.375rem 0.75rem;
+                background-color: var(--tertiary);
+                color: var(--content);
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+                font-size: 0.875rem;
+                cursor: pointer;
+                transition: opacity 0.15s ease;
+                opacity: 1;
+            `;
+
+            const swatch = document.createElement('span');
+            swatch.style.cssText = `
+                display: inline-block;
+                width: 0.75rem;
+                height: 0.75rem;
+                border-radius: 50%;
+                background-color: ${hexColor};
+                flex-shrink: 0;
+            `;
+
+            button.appendChild(swatch);
+            button.appendChild(document.createTextNode(topic));
+
+            button.addEventListener('click', () => {
+                if (activeTopics.has(topic)) {
+                    activeTopics.delete(topic);
+                    button.setAttribute('aria-pressed', 'false');
+                    button.style.opacity = '0.5';
+                } else {
+                    activeTopics.add(topic);
+                    button.setAttribute('aria-pressed', 'true');
+                    button.style.opacity = '1';
+                }
+
+                // Update graph with filtered data
+                graphData = getFilteredGraphData();
+                Graph.graphData(graphData);
+            });
+
+            filtersContainer.appendChild(button);
+        });
 
         // Handle window resizing
         window.addEventListener('resize', () => {
@@ -88,9 +244,21 @@
         new MutationObserver(() => {
             colors = readColors();
             Graph
-                .nodeColor(() => colors.accent)
+                .nodeColor(node => getNodeColor(node))
                 .backgroundColor(colors.theme)
                 .linkColor(() => colors.border);
+
+            // Also update filter button swatch colors
+            allTopics.forEach(topic => {
+                const button = document.getElementById(filterId(topic));
+                if (button) {
+                    const swatch = button.querySelector('span');
+                    const topicColor = topicColors[topic];
+                    const dark = isDarkMode();
+                    const hexColor = dark ? topicColor.dark : topicColor.light;
+                    swatch.style.backgroundColor = hexColor;
+                }
+            });
         }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
     } catch (error) {
         console.error('Error initializing graph:', error);
