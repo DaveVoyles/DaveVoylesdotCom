@@ -1,0 +1,58 @@
+{{- /*
+  Renders a post/vault note's body with [[Note Title]] wikilink support
+  (plan 0004 / D5, ADR 0008). Goldmark's CommonMark parser never creates a
+  link node for bare [[...]] syntax (verified empirically against this
+  site's own Hugo build -- no reference definition matches it, so both
+  bracket pairs fall back to literal text). A render hook alone therefore
+  can't intercept it: render-link.html only fires for markdown Goldmark
+  already parsed as a real link.
+
+  The fix: transform [[Title]] -> [Title](<Title>) BEFORE Goldmark parses
+  it, using .RawContent (unrendered markdown source) and .RenderString --
+  the same Page.RenderString mechanism layouts/partials/sidebar.html
+  already uses for the homepage bio, which documented-ly respects the
+  site's configured render hooks. That gives Goldmark a real link node
+  (text="Title", destination="Title"), which render-link.html then
+  resolves by title lookup since "Title" alone doesn't look like a URL.
+
+  The destination MUST be wrapped in <...> (CommonMark's angle-bracket
+  destination form): a bare, unwrapped destination cannot contain an
+  unescaped space, and virtually every real title is multiple words --
+  confirmed empirically the first time this was tried unwrapped: a
+  single-word title ("Wikilinks") produced a working link, but a
+  multi-word one ("Hello Vault") silently failed to parse as a link at
+  all and fell back to literal `[Hello Vault](Hello Vault)` text with no
+  build warning, since Goldmark just doesn't see it as a link in the
+  first place -- there's no hook invocation to warn from.
+
+  Caveat: this only affects what's rendered on the note/post's own page.
+  .Summary/.Plain (used in post-list entries, search index, RSS) are
+  computed by Hugo's own default content pipeline from the untransformed
+  source, so a wikilink appearing in a post's auto-generated summary
+  would still show raw [[Title]] text there -- out of scope for D5,
+  which only requires the built single-page HTML to resolve correctly.
+
+  Requires a title not contain an unescaped "<", ">", or newline --
+  CommonMark's angle-bracket destination form's own constraints, and
+  replaceRE has no way to escape the captured group's contents. Not a
+  concern for this site's current title set (plain English titles) --
+  accepted as a scope constraint here rather than reached for a more
+  complex escaping workaround.
+
+  This is a blind regex over the raw source, not markdown-structure-aware:
+  it doesn't know about code spans/fences, so literal "[[...]]" text
+  written to be DISPLAYED as-is (e.g. describing the wikilink syntax
+  itself in prose) gets transformed too, even inside backticks. Not fixed
+  here -- doing so correctly needs an actual markdown-aware pass, not a
+  regex, which is more machinery than a personal blog's wikilink feature
+  warrants. Content authors describing the syntax should avoid literal
+  double-bracket text and just describe it in words instead (see
+  content/vault/wikilinks.md for the seed note that hit this and was
+  reworded to sidestep it).
+*/ -}}
+{{- $transformed := replaceRE `\[\[([^\]]+)\]\]` `[$1](<$1>)` .RawContent -}}
+{{- $opts := dict "display" "block" -}}
+{{- $rendered := $transformed | .RenderString $opts -}}
+{{- if not (.Param "disableAnchoredHeadings") -}}
+{{- partial "anchored_headings.html" $rendered -}}
+{{- else -}}{{ $rendered }}{{- end -}}

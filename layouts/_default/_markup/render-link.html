@@ -1,0 +1,38 @@
+{{- /*
+  Wikilink resolution hook (plan 0004 / D5, ADR 0008). Handles every
+  markdown link Goldmark renders anywhere on the site -- not just
+  vault/post content -- so a real URL (absolute, rooted, anchor, mailto,
+  or bare "www." domain) always passes through unchanged first. Only a
+  destination that doesn't look like a real URL is treated as a wikilink
+  title lookup; this is what partials/render-wikilink-content.html's
+  [[Title]] -> [Title](Title) pre-transform produces (see that file for
+  why the transform exists -- Goldmark's CommonMark parser never creates
+  a link node for bare double-bracket syntax, so a render hook alone
+  can't see it without this first step).
+
+  The "www." case exists because 3 pre-2016 posts have pre-existing
+  markdown links missing their http:// prefix (e.g.
+  "www.armlessoctopus.com") -- without this, those already-imperfect but
+  at-least-clickable links would silently become plain, unclickable text
+  under this hook (verified: it fired an "Unresolvable wikilink" warning
+  for all 3 on the first build of this feature). Fixing those posts'
+  actual links is unrelated legacy content cleanup, out of scope here --
+  this only keeps this hook from making an existing edge case worse.
+*/ -}}
+{{- $dest := .Destination -}}
+{{- if or (in $dest "://") (hasPrefix $dest "/") (hasPrefix $dest "#") (hasPrefix $dest "mailto:") (hasPrefix $dest "www.") -}}
+<a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- else -}}
+{{- $target := "" -}}
+{{- range site.RegularPages -}}
+{{- if and (in (slice "posts" "vault") .Section) (eq (lower .Title) (lower $dest)) -}}
+{{- $target = . -}}
+{{- end -}}
+{{- end -}}
+{{- with $target -}}
+<a href="{{ .Permalink }}"{{ with $.Title }} title="{{ . }}"{{ end }}>{{ $.Text | safeHTML }}</a>
+{{- else -}}
+{{- warnf "Unresolvable wikilink %q on page %q" $dest $.Page.File.Path -}}
+{{- $.Text | safeHTML -}}
+{{- end -}}
+{{- end -}}
