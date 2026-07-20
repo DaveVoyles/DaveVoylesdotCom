@@ -3,6 +3,8 @@
 // Reuses toc.html's existing heading ids/anchors -- no heading-parsing
 // logic duplicated here, just observing what's already in the DOM.
 (function () {
+  if (typeof IntersectionObserver === "undefined") return;
+
   var tocRail = document.querySelector(".post-toc-rail");
   if (!tocRail) return;
 
