@@ -1,0 +1,53 @@
+{{- /*
+  Vault note template (plan 0004 / D4). Deliberately lighter than
+  layouts/single.html's post template -- no cover image, share buttons, or
+  comments, since vault notes are short reference-style content, not blog
+  posts. Renders inside D1's two-column shell automatically via
+  layouts/_default/baseof.html.
+*/ -}}
+{{- define "main" }}
+
+<article class="post-single vault-note">
+    <header class="post-header">
+        {{ partial "breadcrumbs.html" . }}
+        <h1 class="post-title">{{ .Title }}</h1>
+        {{- if .Description }}
+        <div class="post-description">
+            {{ .Description }}
+        </div>
+        {{- end }}
+    </header>
+
+    {{- if .Content }}
+    <div class="post-content md-content">
+        {{- if not (.Param "disableAnchoredHeadings") }}
+        {{- partial "anchored_headings.html" .Content -}}
+        {{- else }}{{ .Content }}{{ end }}
+    </div>
+    {{- end }}
+
+    {{- /* D6 (plan 0004) adds a Backlinks section here -- every post/note
+           that [[wikilink]]s to this one. Not implemented yet; D4 only
+           scaffolds the vault section itself. */ -}}
+
+    <footer class="post-footer">
+        {{- /* Hugo normalizes taxonomy plural identifiers to lowercase
+               internally (confirmed empirically: .GetTerms "vaultTopics"
+               returns zero results, .GetTerms "vaulttopics" doesn't) --
+               matches the generated /vaulttopics/<term>/ URL path.
+               layouts/single.html's `.Language.Params.Taxonomies.topic`
+               lookup pattern was not reusable here: it resolves to an
+               empty map (verified via debug print), and only "works" for
+               `topics` because that plural is already lowercase, so the
+               `default "topics"` fallback happens to match regardless. */ -}}
+        {{- with ($.GetTerms "vaulttopics") }}
+        <ul class="post-tags">
+            {{- range . }}
+            <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+            {{- end }}
+        </ul>
+        {{- end }}
+    </footer>
+</article>
+
+{{- end }}{{/* end main */}}
