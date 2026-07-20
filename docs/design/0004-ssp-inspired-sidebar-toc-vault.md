@@ -57,4 +57,5 @@ None. Every change is a template or content addition — a new partial, a new co
 
 ## Execution Tracking
 
-_Filled in by `plan-to-issues` after this doc is merged._
+- Issues: https://github.com/DaveVoyles/DaveVoylesdotCom/issues?q=is%3Aissue+state%3Aopen+label%3Aplan%3A0004
+- Board: https://github.com/users/DaveVoyles/projects/2 (Agent Work — all 8 issues seeded to Todo)
