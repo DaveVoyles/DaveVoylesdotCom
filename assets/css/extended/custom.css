@@ -217,3 +217,29 @@
     position: static;
   }
 }
+
+/* Post-page three-column TOC variant (plan 0004 / D2, ADR 0006): nests a
+   second grid inside D1's `.page-shell-content` column, splitting it into
+   article + a reserved TOC rail. Deliberately confined to `.page-shell-content`
+   rather than widening `.main` further, so D1's page width stays unchanged
+   for every other page type. D3 adds `position: sticky` + scroll-spy JS to
+   `.post-toc-rail` -- D2 only reserves the column. */
+.post-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: calc(var(--gap) * 2);
+  align-items: start;
+}
+
+/* Below ~1024px the rail reflows above the article body -- same markup as
+   desktop (toc.html's own <details class="toc"> is natively collapsible),
+   just repositioned via `order`, matching D1's CSS-only-reflow pattern. */
+@media (max-width: 1024px) {
+  .post-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .post-toc-rail {
+    order: -1;
+  }
+}
