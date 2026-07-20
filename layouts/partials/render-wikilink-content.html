@@ -32,12 +32,24 @@
   would still show raw [[Title]] text there -- out of scope for D5,
   which only requires the built single-page HTML to resolve correctly.
 
-  Requires a title not contain an unescaped "<", ">", or newline --
-  CommonMark's angle-bracket destination form's own constraints, and
-  replaceRE has no way to escape the captured group's contents. Not a
-  concern for this site's current title set (plain English titles) --
-  accepted as a scope constraint here rather than reached for a more
-  complex escaping workaround.
+  Requires a title not contain an unescaped "<", ">", "]", or newline --
+  the first three are CommonMark's angle-bracket destination constraints,
+  and replaceRE has no way to escape the captured group's contents. "]"
+  is a constraint of the capture pattern itself ([^\]]+): a title like
+  "Notes [Draft]" would only capture up to "Notes [Draft", silently
+  truncating. Not a concern for this site's current title set (plain
+  English titles, no brackets) -- accepted as a scope constraint here
+  rather than reached for a more complex pattern/escaping workaround.
+
+  Only handles plain [[Title]] -- not Obsidian's [[Title|Alias]] or
+  [[Title#Heading]] variants. A pipe/hash-containing title falls through
+  to the unresolvable-target path (plain text + build warning) rather
+  than a broken link, so it degrades safely, but the visible fallback
+  text includes the literal "|Alias" or "#Heading" suffix. Not
+  implemented: D5's acceptance criteria only asks for plain title
+  resolution: the plain link the render-link.html hook actually validates
+  against. Adding alias/anchor support would be a real feature addition,
+  not a bug fix -- left for a future deliverable if it's ever needed.
 
   This is a blind regex over the raw source, not markdown-structure-aware:
   it doesn't know about code spans/fences, so literal "[[...]]" text
