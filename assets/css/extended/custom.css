@@ -217,3 +217,61 @@
     position: static;
   }
 }
+
+/* Post-page three-column TOC variant (plan 0004 / D2, ADR 0006): nests a
+   second grid inside D1's `.page-shell-content` column, splitting it into
+   article + a reserved TOC rail. Deliberately confined to `.page-shell-content`
+   rather than widening `.main` further, so D1's page width stays unchanged
+   for every other page type. D3 adds `position: sticky` + scroll-spy JS to
+   `.post-toc-rail` -- D2 only reserves the column. */
+:root {
+  --toc-rail-width: 240px;
+}
+
+.post-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--toc-rail-width);
+  gap: calc(var(--gap) * 2);
+  align-items: start;
+}
+
+/* layouts/single.html places .post-toc-rail BEFORE .post-single in the DOM
+   (so keyboard/screen-reader tab order reaches it first, matching where
+   toc.html rendered pre-D2) -- these explicit grid-column assignments put
+   it on the right visually at desktop widths regardless of that DOM order.
+   Deliberately not using CSS `order` for this: `order` only changes visual
+   position, not tab order, which would silently reintroduce the same
+   visual/reading-order mismatch this is meant to avoid. */
+.post-toc-rail {
+  grid-column: 2;
+}
+
+.post-single {
+  grid-column: 1;
+}
+
+/* layouts/single.html only renders .post-toc-rail when toc.html actually
+   produced output (ShowToc true AND the post has headings) -- without this,
+   every post that doesn't meet both conditions would still get the second
+   grid column reserved, narrowing the article and leaving a permanently
+   empty right-hand gutter. Applies to all 76 existing posts today, since
+   none have ShowToc set yet (D3 flips the site-wide default). */
+.post-shell--no-toc {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Below ~1024px the rail reflows above the article body -- same markup as
+   desktop (toc.html's own <details class="toc"> is natively collapsible).
+   No `order` override needed here: resetting both to column 1 collapses
+   them into a single track, and DOM order (TOC first) already puts the
+   rail above the article, both visually and for tab order. */
+@media (max-width: 1024px) {
+  .post-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .post-toc-rail,
+  .post-single {
+    grid-column: 1;
+  }
+}

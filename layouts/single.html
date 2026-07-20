@@ -1,15 +1,56 @@
 {{- /*
-  Site-level override of PaperMod's single.html (plan 0002 / D5): adds a
-  post-topics footer block, identical in structure/styling to the existing
-  post-tags block just above it, linking to each post's /topics/<bucket>/
-  archive page(s) (declared as a taxonomy in hugo.toml). Everything else in
-  this file is copied verbatim from themes/PaperMod/layouts/single.html --
-  Hugo has no partial-only hook for the footer's tag list the way
-  extend_post_content.html covers the content area, so a full override is
-  the only way to insert a sibling block at this exact position.
+  Site-level override of PaperMod's single.html (plan 0002 / D5, plan 0004 /
+  D2): adds a post-topics footer block (D5), and wraps the article in a
+  .post-shell so the TOC gets a reserved right-hand rail on desktop widths
+  instead of rendering inline above the content (D2, ADR 0006). Below
+  ~1024px .post-shell collapses to one column and the TOC (still the same
+  <details class="toc"> markup toc.html always emits -- PaperMod's own TOC
+  is natively collapsible, no extra wrapper needed) reflows above the
+  article -- via DOM order alone, not CSS `order` (see below). D3 adds
+  sticky positioning + scroll-spy JS to the rail; D2 only reserves the
+  column. Everything else in this file is copied verbatim from
+  themes/PaperMod/layouts/single.html -- Hugo has no partial-only hook for
+  the footer's tag list the way extend_post_content.html covers the content
+  area, so a full override is the only way to insert a sibling block at
+  that exact position.
 */ -}}
 {{- define "main" }}
 
+{{- /* Capture toc.html's actual rendered output rather than gating the
+       rail on the ShowToc param alone: toc.html itself renders nothing
+       for a post with zero headings even when ShowToc is true, and none
+       of today's 76 posts have ShowToc set at all (D3 flips the
+       site-wide default). Gating on the param alone left .post-shell's
+       CSS grid permanently reserving an empty 240px column on every
+       existing post -- this ties the no-TOC layout fallback to whether
+       the rail actually has content, covering both cases at once.
+       trim is required, not cosmetic: toc.html's own file ends with a
+       trailing newline outside its {{if $has_headers}} guard, so the
+       partial's raw return value is never a true empty string even when
+       there are zero headings -- an untrimmed check would always treat
+       $toc as present. */ -}}
+{{- $toc := "" }}
+{{- if (.Param "ShowToc") }}
+{{- /* trim's return type demotes from partial's safe template.HTML back to
+       a plain string, so this must be re-marked safe with safeHTML or the
+       <details>/<summary> markup would render as escaped literal text. */ -}}
+{{- $toc = trim (partial "toc.html" .) " \n\r\t" | safeHTML }}
+{{- end }}
+
+{{- /* The TOC rail comes BEFORE the article in markup -- matching where
+       toc.html rendered pre-D2 (inline, ahead of the content) -- so
+       keyboard/screen-reader tab order still reaches it before the full
+       article body, not after. CSS `grid-column` (below) places it
+       visually on the right at desktop widths regardless of DOM order;
+       CSS `order` was deliberately avoided for this because it only
+       changes visual position, not tab order, which would have silently
+       reintroduced the same mismatch this fix closes. */ -}}
+<div class="post-shell{{ if not $toc }} post-shell--no-toc{{ end }}">
+{{- with $toc }}
+<aside class="post-toc-rail">
+  {{- . }}
+</aside>
+{{- end }}
 <article class="post-single">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
@@ -40,9 +81,6 @@
   </header>
   {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
   {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
-  {{- if (.Param "ShowToc") }}
-  {{- partial "toc.html" . }}
-  {{- end }}
 
   {{- if .Content }}
   <div class="post-content md-content">
@@ -81,5 +119,6 @@
   {{- partial "comments.html" . }}
   {{- end }}
 </article>
+</div>
 
 {{- end }}{{/* end main */}}
