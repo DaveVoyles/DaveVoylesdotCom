@@ -1,28 +1,36 @@
 # Handoff
 
-**Plans 0001-0003 are fully complete and live.** Plan 0004 (ssp.sh-inspired sidebar, sticky TOC, and a new Vault section) is **planned and exported, not yet implemented** — 8 issues (#59-66) created with dependency-wired blocking relationships, all seeded to the Agent Work board's Todo column. No implementation session has claimed any of them yet.
+**Plans 0001-0004 are all fully complete and live.** Plan 0004 (ssp.sh-inspired sidebar, sticky TOC, and a new Vault section) shipped in this session — all 8 deliverables (D1-D8), 9 PRs (#69-#77), merged 2026-07-19.
 
-## Plan 0004 — what's next
+## Plan 0004 — closed out
 
-- Doc: `docs/design/0004-ssp-inspired-sidebar-toc-vault.md`. Companion ADRs: 0006 (sidebar-based page shell), 0007 (vault taxonomy separate from `topics`), 0008 (first custom markdown render hook), 0009 (build-time reverse-link index).
-- Issues: https://github.com/DaveVoyles/DaveVoylesdotCom/issues?q=is%3Aissue+state%3Aopen+label%3Aplan%3A0004 — frontier starts at D1 (#59, unblocked) and D4 (#62, unblocked); D2/D3/D5/D6/D7/D8 are chain-blocked behind them.
-- A fresh `orchestrate` session should claim the frontier and work it per the plan's dependency chain — one orchestrator only (two racing the same frontier lost both races in a prior pilot).
-- Actual vault note-writing (content population) is explicitly out of scope for this plan — D8 only seeds 3-5 example notes to prove the mechanism end to end.
+- Doc: `docs/design/0004-ssp-inspired-sidebar-toc-vault.md` (Status column updated to Done for all 8 deliverables). ADRs 0006-0009.
+- Issues #59-66 all closed. Board: https://github.com/users/DaveVoyles/projects/2
+- Live: persistent sidebar (D1) + sticky/scroll-spy TOC (D2/D3) on every post; a new `/vault/` section (D4) with `[[wikilink]]` support (D5), Backlinks sections (D6), and graph integration (D7); 4 real seed vault notes (D8: Hello Vault, Wikilinks, Unity, UWP).
+- **Real bugs caught and fixed via the review-lenses self-review gate before merge** — worth knowing about if you're touching these files next:
+  - D1/D2 initially shipped a layout regression that would have affected all 76 existing posts (an unconditional grid column reserved regardless of content) — caught by two independent lens agents, fixed before merge.
+  - D4's vault taxonomy lookup used a copy-pasted pattern from `layouts/single.html` that turns out to have never actually worked (`.Language.Params.Taxonomies.X` resolves empty; `.GetTerms` needs Hugo's lowercase-normalized taxonomy key). Fixed in D4; **`layouts/single.html`'s own `tags`/`topics` lookups (pre-existing, not touched) have the same latent bug** — currently harmless only because `tags`/`topics` are already lowercase, so the broken fallback happens to match. Worth a follow-up if that file is ever touched.
+  - D7 initially double-rendered mutual `[[wikilinks]]` as two overlapping graph edges, and had a subtle Type/Section page-selection divergence between the graph's node list and the shared wikilink index that could have produced dangling edges. Both fixed.
+- **PR #73 (D5) was merged manually by Dave** partway through the session, before a follow-up fix commit (title-collision warning, case-insensitive `www.` check) could ride along on the same branch. That fix landed separately as PR #74, cherry-picked onto `main`. Content is fully landed either way — just documenting the mechanics in case the branch history looks unusual.
+- **Known tooling gap, hit repeatedly this session:** live browser screenshot verification (the plan's own Testing Decisions ask for a manual scroll-through on D1-D3) wasn't possible — the local Hugo dev server isn't reachable from the connected browser-automation session in this environment. Every deliverable substituted build-time structural verification (grep/inspect the generated `public/` output, direct CSS/JS syntax checks) instead, which is solid for correctness but doesn't confirm the *visual* result. Worth a real visual pass next time someone's at the actual site.
+
+## Cleanup still needed (minor, not blocking)
+
+- **`feat/wikilink-render-hook`** (local + remote branch): can't be auto-pruned by `git-prune-merged-branch.sh`/`git-prune-merged-remote-branch.sh` — its exact tip commit is not an ancestor of `main` (the one commit that didn't land was cherry-picked onto a different branch as part of the PR #73/#74 situation above, so its *content* is safe in `main`, but the branch's own SHA can't be proven merged by the verifying wrapper). Safe to delete by hand (`git branch -D feat/wikilink-render-hook` locally, `git push origin --delete feat/wikilink-render-hook` remotely) once you've eyeballed that `main` has everything — it does.
 
 ## Current live state (davevoyles.com)
 
-- 76 posts, all `draft = false`. 75 carry a curated `topics` field (6 controlled-vocabulary buckets). `hello-world.md` deliberately left without one.
-- Nav: Home, Tags, Archives, Search, Graph. Topics stays footer-linked only.
-- **Homepage**: bio + social sidebar via PaperMod's built-in home-info block (homepage-only today — plan 0004/D1 replaces this with a persistent, site-wide sidebar), plus year-header grouping on the post list.
-- **`/graph/`** — interactive force-directed graph (plan 0003), edges from shared `tags`/`categories`, nodes colored by `topics`. First client-side JS dependency ([ADR 0005](docs/decisions/0005-graph-view-introduces-first-client-side-js.md)). Plan 0004/D7 extends this with vault-note nodes and wikilink-derived edges, additive to the existing tag-based edges.
-- Deploy pipeline (`.github/workflows/hugo.yml`) smoke-tests `/`, `/tags/`, `/archives/`, `/search/`, `/topics/gaming/`, `/graph/` post-deploy. Both plan 0004 doc-only PRs (#58, #67) watched green.
+- 76 posts + 4 vault notes. Persistent sidebar + sticky TOC on every page. `/vault/` section live with wikilinks, backlinks, and graph integration.
+- `/graph/` now has 80 nodes (76 post + 4 vault) and 323 edges (319 tag/topic, unchanged from before plan 0004 + 4 wikilink).
+- Deploy pipeline (`.github/workflows/hugo.yml`) smoke-tests `/`, `/tags/`, `/archives/`, `/search/`, `/topics/gaming/`, `/graph/` post-deploy — not yet extended to smoke-test `/vault/` specifically; worth adding.
 
 ## Open follow-up work (not blocking, no active session)
 
 - **Content gap, [issue #55](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/55):** nothing in `content/posts/` between 2015-2024 — a legacy WordPress-theme migration gap, recovery unscoped.
 - **Graph follow-ups R3-R5** (ego graph, click-to-recenter/search, degree-based node sizing) — noted but not required by plan 0004; still open.
-- **Minor local-only cleanup:** the local branch ref `claude/blog-design-ssp-inspiration-2e26c6` in this worktree couldn't be auto-pruned (its local tip diverged from the merged PR's SHA after an in-session `git reset --hard` + recommit maneuver during this session's own branch cleanup). Both the corresponding remote branch and its sibling `docs/plan-0004-execution-tracking` (local + remote) were pruned cleanly. Harmless — no unique content, just a stale local ref; safe to `git branch -D claude/blog-design-ssp-inspiration-2e26c6` by hand next time this worktree is used.
+- **Vault content population** — D8 seeded 4 notes to prove the mechanism; ongoing vault-note writing is future work, explicitly out of scope for plan 0004.
+- **A background task was spawned** during this session to fix a template-variable bug in the `plan-to-issues` skill (issues #60-66 all shipped with a literal unsubstituted `#$Dx` placeholder in their "Blocked by" text instead of the real issue number) — separate repo (Chat-Agents), not blocking this repo's work.
 
 ## Nothing currently in-flight
 
-PRs #58 and #67 (plan 0004's doc + execution-tracking) both merged and CI-green. This session's worktree is not being torn down (harness-managed; see the cleanup note above) — the next session can reuse it or start fresh via `orchestrate` to work plan 0004's frontier.
+All plan 0004 work is merged and closed. Next session can start fresh on the content gap (#55), graph follow-ups, or new work.
