@@ -50,6 +50,8 @@ Two (2) free Xbox One developement kits are provided for active developers in th
 
 ### Unity
 
+See [[Unity]] for a quick primer on the engine, and [[UWP]] for the platform it was targeting here.
+
 Microsoft has partnered with Unity to make the process for going from Windows 8 to Xbox One as seamless as possible, as stated by this [official announcement from the ID@Xbox team.](http://news.xbox.com/2013/11/xbox-one-unity-id)
 
 > “To us, ID@Xbox is about providing a level playing field for all developers. So, we worked with Unity and we’re pleased to announce that, when released in 2014, the Xbox One add-on for Unity will be available at no cost to all developers in the ID@Xbox program, as will special Xbox One-only Unity Pro seat licenses for Xbox One developers in the ID@Xbox program.”    – Chris Charla, Director, ID@Xbox
