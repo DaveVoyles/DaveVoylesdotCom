@@ -31,10 +31,21 @@
   detection forces a recompute or the server restarts. Doesn't affect
   `hugo build` (always a full, fresh, single-pass build with no prior
   cache to go stale) -- the only mode this site's CI/deploy actually use.
+
+  Selected by Type, not Section, matching layouts/index.graphdata.json's
+  own page-set selection (plan 0004 / D7) -- both MUST agree, since D7's
+  graph edges are sourced directly from this file's output: if this
+  scan's page set ever included a page graphdata.json's node list
+  excluded (e.g. a future page whose `type` front matter diverges from
+  its section), the resulting edge would reference a node id absent
+  from the graph's "nodes" array. Type-based selection is this
+  codebase's already-established convention specifically to avoid this
+  class of divergence (see graphdata.json's own $pages comment, from
+  plan 0003).
 */ -}}
 {{- $edges := slice -}}
 {{- $seen := dict -}}
-{{- $allPages := where site.RegularPages "Section" "in" (slice "posts" "vault") -}}
+{{- $allPages := where site.RegularPages "Type" "in" (slice "posts" "vault") -}}
 {{- range $source := $allPages -}}
 {{- range $match := findRE `\[\[([^\]]+)\]\]` $source.RawContent -}}
 {{- $title := $match | strings.TrimPrefix "[[" | strings.TrimSuffix "]]" -}}
