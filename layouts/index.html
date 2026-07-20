@@ -1,3 +1,8 @@
+{{- /* Project-level override of the home page. Hugo has no way to extend a
+       theme's list.html with just the added bits below, so this mirrors
+       themes/PaperMod/layouts/list.html's home-only branch in full -- if
+       the PaperMod submodule is ever bumped, diff that file's home branch
+       against this one and port any upstream fixes by hand. */ -}}
 {{- define "main" }}
 
 {{- if (and site.Params.profileMode.enabled .IsHome) }}
@@ -17,10 +22,24 @@
        doesn't read as one undifferentiated wall of 76 posts. Reuses the
        Archives page's already-styled `archive-year-header` class (see
        assets/css/extended/custom.css) rather than introducing new CSS.
-       Grouping only applies within each paginated page -- posts are
-       already date-sorted descending, so headers simply reflect whichever
-       years appear on that page. */ -}}
+       Unlike Archives (which groups the full unpaginated list in one pass),
+       this runs per paginated page -- so $lastYear is seeded from the
+       previous page's last post (found by locating this page's first post
+       within the full, globally-sorted $pages) rather than reset to "" each
+       time. Without this, a year spanning a page boundary would print a
+       redundant duplicate header at the top of the next page. */ -}}
 {{- $lastYear := "" }}
+{{- if gt $paginator.PageNumber 1 }}
+    {{- $firstOfPage := index $paginator.Pages 0 }}
+    {{- range $i, $p := $pages }}
+        {{- if eq $p.RelPermalink $firstOfPage.RelPermalink }}
+            {{- if gt $i 0 }}
+                {{- $prevPost := index $pages (sub $i 1) }}
+                {{- $lastYear = $prevPost.Date.Format "2006" }}
+            {{- end }}
+        {{- end }}
+    {{- end }}
+{{- end }}
 {{- range $index, $page := $paginator.Pages }}
 
 {{- $year := $page.Date.Format "2006" }}

@@ -19,7 +19,7 @@
        any single shared tag), which directly targets the measured 42.5%
        edge density / hub-post problem. */ -}}
 {{- $excludeTerms := slice "Uncategorized" -}}
-{{- $downweightTerms := slice "Game Dev" "Programming" -}}
+{{- $downweightTerms := slice "Game Dev" "Game Development" "Programming" -}}
 {{- $edgeThreshold := 2.0 -}}
 
 {{- $.Scratch.Add "edges" slice -}}
@@ -40,16 +40,14 @@
             {{- $shared := intersect $combined1 $combined2 -}}
 
             {{- /* Weight: generic/high-frequency terms count half as much as a genuine shared term */ -}}
-            {{- $ws := newScratch -}}
-            {{- $ws.Set "weight" 0.0 -}}
+            {{- $weight := 0.0 -}}
             {{- range $shared -}}
                 {{- if in $downweightTerms . -}}
-                    {{- $ws.Add "weight" 0.5 -}}
+                    {{- $weight = add $weight 0.5 -}}
                 {{- else -}}
-                    {{- $ws.Add "weight" 1.0 -}}
+                    {{- $weight = add $weight 1.0 -}}
                 {{- end -}}
             {{- end -}}
-            {{- $weight := $ws.Get "weight" -}}
 
             {{- /* Only create an edge once the combined weight clears the threshold */ -}}
             {{- if ge $weight $edgeThreshold -}}
