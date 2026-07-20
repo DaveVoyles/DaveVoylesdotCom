@@ -7,7 +7,34 @@
 {{- $pages := where site.RegularPages "Type" "posts" -}}
 
 {{- range $pages -}}
-    {{- $.Scratch.Add "nodes" (dict "id" .RelPermalink "title" .Title "permalink" .Permalink "topic" (index (.Params.topics | default slice) 0 | default "")) -}}
+    {{- $.Scratch.Add "nodes" (dict "id" .RelPermalink "title" .Title "permalink" .Permalink "topic" (index (.Params.topics | default slice) 0 | default "") "type" "post") -}}
+{{- end -}}
+
+{{- /* Vault notes as a visually distinct node type (plan 0004 / D7):
+       "type": "vault" (new field, additive on post nodes too, above)
+       drives the frontend's node-coloring logic in layouts/graph.html.
+       No "topic" value -- vault notes use a separate vaultTopics
+       taxonomy (D4), not the posts-only topics taxonomy this graph's
+       existing tag/topic edge logic below is built around, and the
+       empty-topic case already renders/filters correctly (graph.html's
+       filter treats topic:"" nodes as always-visible).
+
+       Selected by Type, matching $pages above and
+       partials/wikilink-index.html's own page-set selection -- not by
+       Section. All three MUST use the same selection predicate: the
+       wikilink-edge loop below sources its source/target pages from
+       wikilink-index.html's scan, and if that scan's page set ever
+       diverged from this file's node list (e.g. a future post/vault
+       note whose `type` front matter differs from its section), an
+       edge could reference a node id absent from "nodes" -- a dangling
+       edge fed straight into force-graph's linkSource/linkTarget. No
+       current content triggers this (nothing sets `type` explicitly),
+       but Type-based selection is this codebase's already-established,
+       deliberately-chosen convention (see the comment on $pages above,
+       from plan 0003) precisely to avoid this class of surprise. */ -}}
+{{- $vaultPages := where site.RegularPages "Type" "vault" -}}
+{{- range $vaultPages -}}
+    {{- $.Scratch.Add "nodes" (dict "id" .RelPermalink "title" .Title "permalink" .Permalink "topic" "" "type" "vault") -}}
 {{- end -}}
 
 {{- /* Research-backed hairball fixes (docs/research/graph-view-ux-patterns.md,
@@ -54,6 +81,49 @@
                 {{- $.Scratch.Add "edges" (dict "source" $page1.RelPermalink "target" $page2.RelPermalink "weight" $weight) -}}
             {{- end -}}
         {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* Wikilink-derived edges (plan 0004 / D7, ADR 0009): sourced from D6's
+       shared reverse-link index (same partialCached "wikilink-index"
+       call, so this can never drift from what the Backlinks UI shows).
+       Purely additive alongside the existing shared-tag/topic edges
+       above -- doesn't touch that loop or its weighting logic, so the
+       pre-existing post-to-post edge count is unaffected. "kind" tags
+       these distinctly from tag/topic edges (which have no "kind"
+       field) in case a future change wants to style them differently.
+
+       No minimum-weight threshold, unlike the tag/topic edges' $weight
+       >= $edgeThreshold gate above: that gate exists specifically
+       because incidental shared-tag co-occurrence is a noisy signal at
+       this site's scale (the measured 42.5% edge-density hairball,
+       R1/R2). A [[wikilink]] is the opposite -- a deliberate, explicit
+       connection an author chose to write, which is the entire point
+       of a "second brain" graph. Gating it behind a threshold would
+       suppress exactly the signal this feature exists to surface.
+
+       $wikilinkEdges is directed and deduped per (source,target) pair
+       by wikilink-index.html (D6), but two pages that mutually
+       [[link]] each other -- a common case, and true of this plan's
+       own two seed notes -- produce two directed entries (A=>B and
+       B=>A) there. Undirected-deduped here the same way the tag/topic
+       loop above dedupes with `if lt $i $j`, so a mutual link renders
+       as one graph edge, not two overlapping lines. Weight is 2.5,
+       comfortably above $edgeThreshold's 2.0 floor, so a wikilink edge
+       (linkWidth = sqrt(2.5) ~= 1.58) renders at least as prominently
+       as any tag/topic edge (minimum sqrt(2.0) ~= 1.41) -- the most
+       explicit signal in the graph shouldn't render as the thinnest
+       line, which a flat weight of 1.0 would have caused (verified
+       empirically: sqrt(1.0) = 1.0 < every tag/topic edge's minimum). */ -}}
+{{- $wikilinkEdges := partialCached "wikilink-index.html" "wikilink-index" -}}
+{{- $seenWikilinkPairs := dict -}}
+{{- range $wikilinkEdges -}}
+    {{- $a := .source.RelPermalink -}}
+    {{- $b := .target.RelPermalink -}}
+    {{- $pairKey := cond (lt $a $b) (printf "%s|%s" $a $b) (printf "%s|%s" $b $a) -}}
+    {{- if not (index $seenWikilinkPairs $pairKey) -}}
+        {{- $.Scratch.Add "edges" (dict "source" $a "target" $b "weight" 2.5 "kind" "wikilink") -}}
+        {{- $seenWikilinkPairs = merge $seenWikilinkPairs (dict $pairKey true) -}}
     {{- end -}}
 {{- end -}}
 
