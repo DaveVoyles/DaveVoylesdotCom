@@ -10,27 +10,48 @@
     {{- $.Scratch.Add "nodes" (dict "id" .RelPermalink "title" .Title "permalink" .Permalink "topic" (index (.Params.topics | default slice) 0 | default "")) -}}
 {{- end -}}
 
+{{- /* Research-backed hairball fixes (docs/research/graph-view-ux-patterns.md,
+       R1/R2): "Uncategorized" is a placeholder with no topical signal and is
+       excluded outright; "Game Dev"/"Programming" are generic legacy tags
+       covering 46%/38% of all posts and act as universal connectors, so a
+       shared occurrence of either counts as half a normal shared tag rather
+       than a full one. An edge requires a combined weight of 2+ (not just
+       any single shared tag), which directly targets the measured 42.5%
+       edge density / hub-post problem. */ -}}
+{{- $excludeTerms := slice "Uncategorized" -}}
+{{- $downweightTerms := slice "Game Dev" "Game Development" "Programming" -}}
+{{- $edgeThreshold := 2.0 -}}
+
 {{- $.Scratch.Add "edges" slice -}}
 {{- range $i, $page1 := $pages -}}
     {{- range $j, $page2 := $pages -}}
         {{- /* Only process pairs where i < j to avoid duplicates and self-edges */ -}}
         {{- if lt $i $j -}}
-            {{- /* Combine tags and categories for both pages */ -}}
+            {{- /* Combine tags and categories for both pages, dropping noise terms */ -}}
             {{- $tags1 := $page1.Params.tags | default slice -}}
             {{- $cats1 := $page1.Params.categories | default slice -}}
-            {{- $combined1 := (union $tags1 $cats1) -}}
+            {{- $combined1 := complement $excludeTerms (union $tags1 $cats1) -}}
 
             {{- $tags2 := $page2.Params.tags | default slice -}}
             {{- $cats2 := $page2.Params.categories | default slice -}}
-            {{- $combined2 := (union $tags2 $cats2) -}}
+            {{- $combined2 := complement $excludeTerms (union $tags2 $cats2) -}}
 
             {{- /* Find shared values between the two posts */ -}}
             {{- $shared := intersect $combined1 $combined2 -}}
-            {{- $sharedCount := len $shared -}}
 
-            {{- /* If there are shared values, create an edge */ -}}
-            {{- if gt $sharedCount 0 -}}
-                {{- $.Scratch.Add "edges" (dict "source" $page1.RelPermalink "target" $page2.RelPermalink "weight" $sharedCount) -}}
+            {{- /* Weight: generic/high-frequency terms count half as much as a genuine shared term */ -}}
+            {{- $weight := 0.0 -}}
+            {{- range $shared -}}
+                {{- if in $downweightTerms . -}}
+                    {{- $weight = add $weight 0.5 -}}
+                {{- else -}}
+                    {{- $weight = add $weight 1.0 -}}
+                {{- end -}}
+            {{- end -}}
+
+            {{- /* Only create an edge once the combined weight clears the threshold */ -}}
+            {{- if ge $weight $edgeThreshold -}}
+                {{- $.Scratch.Add "edges" (dict "source" $page1.RelPermalink "target" $page2.RelPermalink "weight" $weight) -}}
             {{- end -}}
         {{- end -}}
     {{- end -}}
