@@ -31,8 +31,16 @@
            scaffolds the vault section itself. */ -}}
 
     <footer class="post-footer">
-        {{- $vaultTopics := .Language.Params.Taxonomies.vaultTopic | default "vaultTopics" }}
-        {{- with ($.GetTerms $vaultTopics) }}
+        {{- /* Hugo normalizes taxonomy plural identifiers to lowercase
+               internally (confirmed empirically: .GetTerms "vaultTopics"
+               returns zero results, .GetTerms "vaulttopics" doesn't) --
+               matches the generated /vaulttopics/<term>/ URL path.
+               layouts/single.html's `.Language.Params.Taxonomies.topic`
+               lookup pattern was not reusable here: it resolves to an
+               empty map (verified via debug print), and only "works" for
+               `topics` because that plural is already lowercase, so the
+               `default "topics"` fallback happens to match regardless. */ -}}
+        {{- with ($.GetTerms "vaulttopics") }}
         <ul class="post-tags">
             {{- range . }}
             <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>

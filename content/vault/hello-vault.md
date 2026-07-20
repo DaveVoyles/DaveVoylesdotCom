@@ -2,7 +2,7 @@
 title = 'Hello Vault'
 date = 2026-07-19
 draft = false
-vaultTopics = []
+vaultTopics = ['Meta']
 +++
 
 This is the first note in the vault -- a short, atomic, interlinked
