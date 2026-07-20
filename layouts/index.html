@@ -14,9 +14,13 @@
 
 {{- $paginator := .Paginate $pages }}
 
-{{- if and site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
-{{- partial "home_info.html" . }}
-{{- end }}
+{{- /* home_info.html's one-off homepage hero (plan 0004 / D1) is superseded
+       by the persistent sidebar bio in layouts/partials/sidebar.html,
+       rendered site-wide from baseof.html -- no longer called here to
+       avoid showing the bio twice on the homepage. $user_preferred below
+       still checks site.Params.homeInfoParams so the first post keeps its
+       plain (non-"first-entry") styling, matching the pre-D1 behavior now
+       that the sidebar plays that visual role instead. */ -}}
 
 {{- /* Homepage year grouping: a lightweight visual break so the post list
        doesn't read as one undifferentiated wall of 76 posts. Reuses the

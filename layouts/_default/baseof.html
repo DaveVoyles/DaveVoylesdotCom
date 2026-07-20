@@ -1,0 +1,49 @@
+{{- /*
+  Project-level override of PaperMod's baseof.html (plan 0004 / D1, ADR
+  0006): wraps every page's <main> in a persistent two-column shell (bio
+  sidebar + content) instead of the theme's single centered column. Post
+  pages (single.html) layer a third TOC column on top of this same shell in
+  D2 -- this file only owns the two-column case that applies everywhere.
+  Everything else below is copied verbatim from
+  themes/PaperMod/layouts/baseof.html -- if the PaperMod submodule is ever
+  bumped, diff that file against this one and port any upstream fixes by
+  hand (same convention as layouts/single.html's project override).
+*/ -}}
+{{- if lt hugo.Version "0.146.0" }}
+{{- errorf "=> hugo v0.146.0 or greater is required for hugo-PaperMod to build " }}
+{{- end -}}
+
+<!DOCTYPE html>
+{{- $theme := site.Params.defaultTheme | default "auto" }}
+{{- if eq $theme "dark" }}
+<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}" data-theme="dark">
+{{- else if eq $theme "light" }}
+<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}" data-theme="light">
+{{- else }}
+<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}" data-theme="auto">
+{{- end }}
+
+<head>
+    {{- partial "head.html" . }}
+</head>
+
+{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) }}
+<body class="list" id="top">
+{{- else }}
+<body id="top">
+{{- end }}
+    {{ partialCached "header.html" . .Page -}}
+    <main class="main">
+        <div class="page-shell">
+            <aside class="site-sidebar">
+                {{- partial "sidebar.html" . }}
+            </aside>
+            <div class="page-shell-content">
+                {{- block "main" . }}{{ end }}
+            </div>
+        </div>
+    </main>
+    {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
+</body>
+
+</html>

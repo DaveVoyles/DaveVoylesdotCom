@@ -1,0 +1,22 @@
+{{- /*
+  Persistent bio rail (plan 0004 / D1, ADR 0006). Reuses the same
+  site.Params.homeInfoParams / [[params.socialIcons]] the theme's built-in
+  home_info.html already reads for the homepage-only hero, but renders on
+  every page via baseof.html rather than being gated to .IsHome. Avatar is
+  optional -- hugo.toml has no photo param configured yet, so this reads
+  a homeInfoParams.Avatar path if one is ever added, and simply omits the
+  image until then rather than requiring a new required config field.
+*/ -}}
+{{- with site.Params.homeInfoParams }}
+<div class="sidebar-bio">
+    {{- with .Avatar }}
+    <img class="sidebar-avatar" src="{{ . | absURL }}" alt="{{ site.Params.author | default site.Title }}" />
+    {{- end }}
+    <h2 class="sidebar-title">{{ .Title | markdownify }}</h2>
+    <div class="sidebar-content md-content">
+        {{ $opts := dict "display" "block" }}
+        {{ .Content | $.RenderString $opts }}
+    </div>
+    {{- partial "social_icons.html" (dict "align" .AlignSocialIconsTo) }}
+</div>
+{{- end -}}
