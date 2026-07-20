@@ -5,7 +5,7 @@
   or bare "www." domain) always passes through unchanged first. Only a
   destination that doesn't look like a real URL is treated as a wikilink
   title lookup; this is what partials/render-wikilink-content.html's
-  [[Title]] -> [Title](Title) pre-transform produces (see that file for
+  [[Title]] -> [Title](<Title>) pre-transform produces (see that file for
   why the transform exists -- Goldmark's CommonMark parser never creates
   a link node for bare double-bracket syntax, so a render hook alone
   can't see it without this first step).
@@ -17,17 +17,35 @@
   under this hook (verified: it fired an "Unresolvable wikilink" warning
   for all 3 on the first build of this feature). Fixing those posts'
   actual links is unrelated legacy content cleanup, out of scope here --
-  this only keeps this hook from making an existing edge case worse.
+  this only keeps this hook from making an existing edge case worse. One
+  further pre-existing post (unite-2014-keynote-recap.md) has a markdown
+  link whose destination is its own link text, not a real URL either --
+  already a dead relative link before this hook existed, so falling
+  through to the same unresolvable/plain-text path here isn't a new
+  regression, just a different (arguably more honest) flavor of broken;
+  not special-cased, unlike "www." which affected 3 posts systematically
+  rather than one one-off content bug.
+
+  Title matching is case-insensitive; if more than one post/vault note
+  ever shares a title (none do today -- verified across all current
+  content), resolution still picks one rather than failing the build,
+  but logs a build warning naming the count, so the ambiguity is visible
+  instead of a silent wrong-link.
 */ -}}
 {{- $dest := .Destination -}}
-{{- if or (in $dest "://") (hasPrefix $dest "/") (hasPrefix $dest "#") (hasPrefix $dest "mailto:") (hasPrefix $dest "www.") -}}
+{{- if or (in $dest "://") (hasPrefix $dest "/") (hasPrefix $dest "#") (hasPrefix $dest "mailto:") (hasPrefix (lower $dest) "www.") -}}
 <a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
 {{- else -}}
 {{- $target := "" -}}
+{{- $matchCount := 0 -}}
 {{- range site.RegularPages -}}
 {{- if and (in (slice "posts" "vault") .Section) (eq (lower .Title) (lower $dest)) -}}
 {{- $target = . -}}
+{{- $matchCount = add $matchCount 1 -}}
 {{- end -}}
+{{- end -}}
+{{- if gt $matchCount 1 -}}
+{{- warnf "Ambiguous wikilink %q on page %q matches %d pages by title -- resolving to one of them; give each a distinct title to fix" $dest $.Page.File.Path $matchCount -}}
 {{- end -}}
 {{- with $target -}}
 <a href="{{ .Permalink }}"{{ with $.Title }} title="{{ . }}"{{ end }}>{{ $.Text | safeHTML }}</a>
