@@ -7,7 +7,20 @@
 {{- $pages := where site.RegularPages "Type" "posts" -}}
 
 {{- range $pages -}}
-    {{- $.Scratch.Add "nodes" (dict "id" .RelPermalink "title" .Title "permalink" .Permalink "topic" (index (.Params.topics | default slice) 0 | default "")) -}}
+    {{- $.Scratch.Add "nodes" (dict "id" .RelPermalink "title" .Title "permalink" .Permalink "topic" (index (.Params.topics | default slice) 0 | default "") "type" "post") -}}
+{{- end -}}
+
+{{- /* Vault notes as a visually distinct node type (plan 0004 / D7):
+       "type": "vault" (new field, additive on post nodes too, above)
+       drives the frontend's node-coloring logic in layouts/graph.html.
+       No "topic" value -- vault notes use a separate vaultTopics
+       taxonomy (D4), not the posts-only topics taxonomy this graph's
+       existing tag/topic edge logic below is built around, and the
+       empty-topic case already renders/filters correctly (graph.html's
+       filter treats topic:"" nodes as always-visible). */ -}}
+{{- $vaultPages := where site.RegularPages "Section" "vault" -}}
+{{- range $vaultPages -}}
+    {{- $.Scratch.Add "nodes" (dict "id" .RelPermalink "title" .Title "permalink" .Permalink "topic" "" "type" "vault") -}}
 {{- end -}}
 
 {{- /* Research-backed hairball fixes (docs/research/graph-view-ux-patterns.md,
@@ -55,6 +68,21 @@
             {{- end -}}
         {{- end -}}
     {{- end -}}
+{{- end -}}
+
+{{- /* Wikilink-derived edges (plan 0004 / D7, ADR 0009): sourced from D6's
+       shared reverse-link index (same partialCached "wikilink-index"
+       call, so this can never drift from what the Backlinks UI shows).
+       Purely additive alongside the existing shared-tag/topic edges
+       above -- doesn't touch that loop or its weighting logic, so the
+       pre-existing post-to-post edge count is unaffected. "kind" tags
+       these distinctly from tag/topic edges (which have no "kind"
+       field) in case a future change wants to style them differently;
+       "weight" is a flat 1.0 since wikilink edges have no natural
+       shared-term count to weight by, unlike the tag/topic edges. */ -}}
+{{- $wikilinkEdges := partialCached "wikilink-index.html" "wikilink-index" -}}
+{{- range $wikilinkEdges -}}
+    {{- $.Scratch.Add "edges" (dict "source" .source.RelPermalink "target" .target.RelPermalink "weight" 1.0 "kind" "wikilink") -}}
 {{- end -}}
 
 {{- /* Output final JSON */ -}}

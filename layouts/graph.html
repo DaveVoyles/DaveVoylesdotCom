@@ -48,6 +48,12 @@
             'Journalism and Marketing and PR': { light: '#a36914', dark: '#d69e2e' },
         };
 
+        // Vault notes (plan 0004 / D7) get one fixed color, distinct from
+        // every topic hue above -- they use a separate vaultTopics
+        // taxonomy (D4), not `topics`, so they're not part of the topic
+        // color/filter system at all. Same contrast bar as topicColors.
+        const vaultNodeColor = { light: '#97266d', dark: '#ed64a6' };
+
         // List of all topic buckets (in order for filter UI)
         const allTopics = [
             'Gaming',
@@ -86,11 +92,15 @@
             return window.matchMedia('(prefers-color-scheme: dark)').matches;
         };
 
-        // Get node color based on topic
+        // Get node color based on type (vault vs. post) and topic
         const getNodeColor = (node) => {
-            const topic = node.topic || '';
             const dark = isDarkMode();
 
+            if (node.type === 'vault') {
+                return dark ? vaultNodeColor.dark : vaultNodeColor.light;
+            }
+
+            const topic = node.topic || '';
             if (topic === '') {
                 // Empty topic: use neutral secondary color
                 return colors.secondary;
