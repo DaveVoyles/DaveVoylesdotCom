@@ -22,6 +22,13 @@ notAlone = true
 tag = 'tags'
 category = 'categories'
 topic = 'topics'
+# Vault notes get their own classification vocabulary, separate from
+# `topics` (plan 0004 / D4, ADR 0007): `topics`' 6 buckets were designed to
+# classify blog posts at a coarse level, not atomic reference-style vault
+# notes. `vaultTopic` (singular front-matter field) -> `vaultTopics`
+# (plural, /vaulttopics/<bucket>/) -- scoped to content/vault/*.md only by
+# convention (nothing stops a post from setting it, but nothing does).
+vaultTopic = 'vaultTopics'
 
 # Related Content (plan 0002 / D3): relatedness is computed from the curated
 # `topics` front-matter field (plan 0002 / D1-D2), not the fine-grained

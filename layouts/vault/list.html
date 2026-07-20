@@ -1,0 +1,36 @@
+{{- /*
+  Vault section index (plan 0004 / D4): lists every note under
+  content/vault/*.md. Renders inside D1's two-column shell automatically
+  via layouts/_default/baseof.html -- no shell markup needed here. Sorted
+  alphabetically by title rather than by date, since the vault is a
+  reference/glossary-style collection, not a chronological feed like posts.
+*/ -}}
+{{- define "main" }}
+
+{{- partial "breadcrumbs.html" . }}
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{- if .Description }}
+    <div class="post-description">
+        {{ .Description }}
+    </div>
+    {{- end }}
+</header>
+
+<div class="vault-index">
+    {{- range .Pages.ByTitle }}
+    <article class="post-entry">
+        <header class="entry-header">
+            <h2 class="entry-hint-parent">{{ .Title }}</h2>
+        </header>
+        {{- if (ne (.Param "hideSummary") true) }}
+        <div class="entry-content">
+            <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+        </div>
+        {{- end }}
+        <a class="entry-link" aria-label="vault note link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+    </article>
+    {{- end }}
+</div>
+
+{{- end }}{{/* end main */}}
