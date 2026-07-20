@@ -1,19 +1,24 @@
 {{- /*
   Site-level override of PaperMod's single.html (plan 0002 / D5, plan 0004 /
-  D2, D3): adds a post-topics footer block (D5), and wraps the article in a
-  .post-shell so the TOC gets a reserved right-hand rail on desktop widths
-  instead of rendering inline above the content (D2, ADR 0006). Below
-  ~1024px .post-shell collapses to one column and the TOC (still the same
-  <details class="toc"> markup toc.html always emits -- PaperMod's own TOC
-  is natively collapsible, no extra wrapper needed) reflows above the
-  article -- via DOM order alone, not CSS `order` (see below). D3 adds
-  sticky positioning (CSS, assets/css/extended/custom.css) and scroll-spy
-  active-link highlighting (assets/js/toc-active.js, IntersectionObserver)
-  to the rail. Everything else in this file is copied verbatim from
-  themes/PaperMod/layouts/single.html -- Hugo has no partial-only hook for
-  the footer's tag list the way extend_post_content.html covers the content
-  area, so a full override is the only way to insert a sibling block at
-  that exact position.
+  D2, D3, D5 -- two different plans both happen to have a "D5", unrelated
+  to each other): adds a post-topics footer block (plan 0002 D5), and
+  wraps the article in a .post-shell so the TOC gets a reserved right-hand
+  rail on desktop widths instead of rendering inline above the content
+  (plan 0004 D2, ADR 0006). Below ~1024px .post-shell collapses to one
+  column and the TOC (still the same <details class="toc"> markup
+  toc.html always emits -- PaperMod's own TOC is natively collapsible, no
+  extra wrapper needed) reflows above the article -- via DOM order alone,
+  not CSS `order` (see below). Plan 0004 D3 adds sticky positioning (CSS,
+  assets/css/extended/custom.css) and scroll-spy active-link highlighting
+  (assets/js/toc-active.js, IntersectionObserver) to the rail. Plan 0004
+  D5 routes the article body through partials/render-wikilink-content.html
+  instead of plain .Content, so [[Note Title]] wikilinks resolve (ADR
+  0008) -- see that partial for why a direct render-link.html hook alone
+  can't intercept bare [[...]] syntax. Everything else in this file is
+  copied verbatim from themes/PaperMod/layouts/single.html -- Hugo has no
+  partial-only hook for the footer's tag list the way
+  extend_post_content.html covers the content area, so a full override is
+  the only way to insert a sibling block at that exact position.
 */ -}}
 {{- define "main" }}
 
@@ -85,9 +90,7 @@
 
   {{- if .Content }}
   <div class="post-content md-content">
-    {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
+    {{- partial "render-wikilink-content.html" . -}}
   </div>
   {{- end }}
 
