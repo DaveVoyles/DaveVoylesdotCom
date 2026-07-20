@@ -141,3 +141,79 @@
 .related-posts-entry a:hover {
   color: var(--accent);
 }
+
+/* Site-wide sidebar shell (plan 0004 / D1, ADR 0006): every page renders
+   inside a persistent two-column grid (bio rail + content), replacing the
+   theme's single centered `.main` column. `.main`'s own max-width (set by
+   PaperMod's core CSS) is widened here to fit both columns -- everything
+   past this point assumes `.page-shell` is always present, since
+   layouts/_default/baseof.html now wraps every page in it. */
+:root {
+  --sidebar-width: 260px;
+}
+
+.main {
+  max-width: calc(var(--main-width) + var(--sidebar-width) + var(--gap) * 3);
+}
+
+.page-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  gap: calc(var(--gap) * 2);
+  align-items: start;
+}
+
+.page-shell-content {
+  min-width: 0;
+}
+
+.site-sidebar {
+  position: sticky;
+  top: var(--gap);
+}
+
+.sidebar-bio {
+  padding: var(--content-gap);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--entry);
+}
+
+.sidebar-avatar {
+  display: block;
+  width: 100%;
+  max-width: 160px;
+  border-radius: var(--radius);
+  margin-bottom: var(--content-gap);
+}
+
+.sidebar-title {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+}
+
+.sidebar-content {
+  font-size: 0.95rem;
+  color: var(--content);
+}
+
+.sidebar-content p:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar-bio .social-icons {
+  margin-top: var(--content-gap);
+}
+
+/* Below ~1024px both rails collapse via CSS reflow only -- no separate
+   mobile markup/partial, per ADR 0006's responsive framing. The sidebar
+   becomes a stacked card above the page content. */
+@media (max-width: 1024px) {
+  .page-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .site-sidebar {
+    position: static;
+  }
+}
