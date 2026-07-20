@@ -2,24 +2,58 @@
   Site-wide reverse wikilink index (plan 0004 / D6, ADR 0009). Scans every
   post/vault page's raw markdown for [[Title]] references and resolves
   each to its target page, using the same case-insensitive title-match
-  logic as layouts/_default/_markup/render-link.html (an unresolvable
-  wikilink is simply skipped here -- render-link.html already surfaces
-  it as a build warning at render time, no need to duplicate that).
+  logic as layouts/_default/_markup/render-link.html (matching semantics
+  only -- an unresolvable wikilink is simply skipped here rather than
+  duplicating render-link.html's build warning, since it already surfaces
+  that at render time; an ambiguous one warns separately below, since
+  this scan has no per-link render-hook context of its own to piggyback
+  a warning onto the way render-link.html does).
 
   Returns a flat slice of {"source": Page, "target": Page} dicts. Called
-  via partialCached with no variant args, so the full-site scan runs
-  exactly once per build regardless of how many pages ask for it -- per
-  ADR 0009, D6's Backlinks UI and D7's graph edges both consume this same
-  slice, so the two views can never drift out of sync.
+  via partialCached with the literal cache key "wikilink-index" (no
+  per-page variant), so the full-site scan runs exactly once per build
+  regardless of how many pages ask for it -- per ADR 0009, D6's Backlinks
+  UI and D7's graph edges both consume this same slice, so the two views
+  can never drift out of sync. D7 MUST reuse that exact key string, or a
+  typo creates a second, independent cache entry and silently defeats
+  the single-scan guarantee this whole design depends on.
+
+  Excludes self-links (a page mentioning its own title) and dedupes
+  repeated mentions of the same title within one source page down to one
+  edge -- both confirmed necessary via a temporary local test: a note
+  mentioning [[Title]] twice produced two identical backlink rows on the
+  target page's Backlinks section before the dedup was added.
+
+  Caveat inherited from partialCached generally (not new to this file --
+  see baseof.html's existing partialCached "header.html" usage): a long-
+  running `hugo server` session could theoretically serve a stale cached
+  edge list after a mid-session content edit, until Hugo's own change
+  detection forces a recompute or the server restarts. Doesn't affect
+  `hugo build` (always a full, fresh, single-pass build with no prior
+  cache to go stale) -- the only mode this site's CI/deploy actually use.
 */ -}}
 {{- $edges := slice -}}
+{{- $seen := dict -}}
 {{- $allPages := where site.RegularPages "Section" "in" (slice "posts" "vault") -}}
 {{- range $source := $allPages -}}
 {{- range $match := findRE `\[\[([^\]]+)\]\]` $source.RawContent -}}
 {{- $title := $match | strings.TrimPrefix "[[" | strings.TrimSuffix "]]" -}}
+{{- $target := "" -}}
+{{- $matchCount := 0 -}}
 {{- range $candidate := $allPages -}}
-{{- if eq (lower $candidate.Title) (lower $title) -}}
-{{- $edges = $edges | append (dict "source" $source "target" $candidate) -}}
+{{- if and (eq (lower $candidate.Title) (lower $title)) (ne $candidate $source) -}}
+{{- $target = $candidate -}}
+{{- $matchCount = add $matchCount 1 -}}
+{{- end -}}
+{{- end -}}
+{{- if gt $matchCount 1 -}}
+{{- warnf "Ambiguous wikilink %q on page %q matches %d pages by title while building the backlink index" $title $source.File.Path $matchCount -}}
+{{- end -}}
+{{- with $target -}}
+{{- $key := printf "%s=>%s" $source.File.Path .File.Path -}}
+{{- if not (index $seen $key) -}}
+{{- $edges = $edges | append (dict "source" $source "target" .) -}}
+{{- $seen = merge $seen (dict $key true) -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
