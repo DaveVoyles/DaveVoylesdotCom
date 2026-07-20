@@ -43,6 +43,22 @@ weight = 100
 author = 'Dave Voyles'
 description = 'Blog by Dave Voyles'
 
+# Homepage bio + social links (homepage-only, per the follow-on grilling
+# raised in plan 0003's Out of Scope -- PaperMod has no persistent-sidebar
+# concept, so this uses the theme's built-in home-info block instead of a
+# custom layout).
+[params.homeInfoParams]
+Title = "Hi, I'm Dave 👋"
+Content = "Formerly a Principal Software Engineer and Technical Program Manager at Xbox/Microsoft. I write about game development, cloud, and AI/agents — plus whatever I'm building on the side."
+
+[[params.socialIcons]]
+name = 'linkedin'
+url = 'https://www.linkedin.com/in/davevoyles/'
+
+[[params.socialIcons]]
+name = 'github'
+url = 'https://github.com/davevoyles'
+
 [[menu.main]]
 identifier = 'tags'
 name = 'Tags'
