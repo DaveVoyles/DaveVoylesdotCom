@@ -148,13 +148,17 @@
    PaperMod's core CSS) is widened here to fit both columns -- everything
    past this point assumes `.page-shell` is always present, since
    layouts/_default/baseof.html now wraps every page in it. */
+:root {
+  --sidebar-width: 260px;
+}
+
 .main {
-  max-width: calc(var(--main-width) + 260px + var(--gap) * 3);
+  max-width: calc(var(--main-width) + var(--sidebar-width) + var(--gap) * 3);
 }
 
 .page-shell {
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
   gap: calc(var(--gap) * 2);
   align-items: start;
 }
