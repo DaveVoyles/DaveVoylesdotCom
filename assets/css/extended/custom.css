@@ -298,3 +298,59 @@
     overflow-y: visible;
   }
 }
+
+/* Backlinks section (plan 0004 / D6, vault notes only): same
+   left-rule-lights-up-on-hover list treatment as Related Posts (plan
+   0002 / D4) above, so it reads as part of the same list-style family. */
+.backlinks {
+  margin-top: var(--gap);
+  padding-top: var(--gap);
+  border-top: 1px solid var(--border);
+}
+
+.backlinks-title {
+  font-size: 1rem;
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+}
+
+.backlinks-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.backlinks-list li {
+  border-left: 2px solid transparent;
+  padding: 0.4rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.backlinks-list li:hover,
+.backlinks-list li:focus-within {
+  border-left-color: var(--accent);
+}
+
+.backlinks-list a {
+  color: var(--content);
+  text-decoration: none;
+}
+
+.backlinks-list a:hover {
+  color: var(--accent);
+}
+
+.backlink-kind {
+  font-size: 0.75rem;
+  color: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.1rem 0.4rem;
+}
+
+.backlinks-empty {
+  font-size: 0.9rem;
+  color: var(--secondary);
+}

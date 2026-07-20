@@ -1,11 +1,13 @@
 {{- /*
-  Vault note template (plan 0004 / D4, D5). Deliberately lighter than
+  Vault note template (plan 0004 / D4, D5, D6). Deliberately lighter than
   layouts/single.html's post template -- no cover image, share buttons, or
   comments, since vault notes are short reference-style content, not blog
   posts. Renders inside D1's two-column shell automatically via
   layouts/_default/baseof.html. D5 routes the body through
   partials/render-wikilink-content.html instead of plain .Content, so
   [[Note Title]] wikilinks resolve (ADR 0008) -- see that partial for why.
+  D6 adds partials/backlinks.html, reading the shared reverse-wikilink
+  index (partials/wikilink-index.html, ADR 0009).
 */ -}}
 {{- define "main" }}
 
@@ -26,9 +28,7 @@
     </div>
     {{- end }}
 
-    {{- /* D6 (plan 0004) adds a Backlinks section here -- every post/note
-           that [[wikilink]]s to this one. Not implemented yet; D4 only
-           scaffolds the vault section itself. */ -}}
+    {{- partial "backlinks.html" . }}
 
     <footer class="post-footer">
         {{- /* Hugo normalizes taxonomy plural identifiers to lowercase
