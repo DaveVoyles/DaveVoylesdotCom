@@ -1,0 +1,24 @@
+{{- /*
+  Backlinks section (plan 0004 / D6): lists every post/vault note that
+  [[wikilink]]s to this page, tagged Post or Vault. Reads
+  wikilink-index.html's shared, once-per-build edge list (ADR 0009)
+  rather than re-scanning content itself.
+*/ -}}
+{{- $edges := partialCached "wikilink-index.html" "wikilink-index" -}}
+{{- $incoming := where $edges "target" . -}}
+<section class="backlinks">
+    <h2 class="backlinks-title">Backlinks</h2>
+    {{- if $incoming }}
+    <ul class="backlinks-list">
+        {{- range $incoming }}
+        {{- $source := .source }}
+        <li>
+            <a href="{{ $source.Permalink }}">{{ $source.Title }}</a>
+            <span class="backlink-kind">{{ if eq $source.Section "vault" }}Vault{{ else }}Post{{ end }}</span>
+        </li>
+        {{- end }}
+    </ul>
+    {{- else }}
+    <p class="backlinks-empty">No backlinks yet.</p>
+    {{- end }}
+</section>

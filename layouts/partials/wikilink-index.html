@@ -1,0 +1,27 @@
+{{- /*
+  Site-wide reverse wikilink index (plan 0004 / D6, ADR 0009). Scans every
+  post/vault page's raw markdown for [[Title]] references and resolves
+  each to its target page, using the same case-insensitive title-match
+  logic as layouts/_default/_markup/render-link.html (an unresolvable
+  wikilink is simply skipped here -- render-link.html already surfaces
+  it as a build warning at render time, no need to duplicate that).
+
+  Returns a flat slice of {"source": Page, "target": Page} dicts. Called
+  via partialCached with no variant args, so the full-site scan runs
+  exactly once per build regardless of how many pages ask for it -- per
+  ADR 0009, D6's Backlinks UI and D7's graph edges both consume this same
+  slice, so the two views can never drift out of sync.
+*/ -}}
+{{- $edges := slice -}}
+{{- $allPages := where site.RegularPages "Section" "in" (slice "posts" "vault") -}}
+{{- range $source := $allPages -}}
+{{- range $match := findRE `\[\[([^\]]+)\]\]` $source.RawContent -}}
+{{- $title := $match | strings.TrimPrefix "[[" | strings.TrimSuffix "]]" -}}
+{{- range $candidate := $allPages -}}
+{{- if eq (lower $candidate.Title) (lower $title) -}}
+{{- $edges = $edges | append (dict "source" $source "target" $candidate) -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- return $edges -}}
