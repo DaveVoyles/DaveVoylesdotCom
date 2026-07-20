@@ -1,14 +1,15 @@
 {{- /*
   Site-level override of PaperMod's single.html (plan 0002 / D5, plan 0004 /
-  D2): adds a post-topics footer block (D5), and wraps the article in a
+  D2, D3): adds a post-topics footer block (D5), and wraps the article in a
   .post-shell so the TOC gets a reserved right-hand rail on desktop widths
   instead of rendering inline above the content (D2, ADR 0006). Below
   ~1024px .post-shell collapses to one column and the TOC (still the same
   <details class="toc"> markup toc.html always emits -- PaperMod's own TOC
   is natively collapsible, no extra wrapper needed) reflows above the
   article -- via DOM order alone, not CSS `order` (see below). D3 adds
-  sticky positioning + scroll-spy JS to the rail; D2 only reserves the
-  column. Everything else in this file is copied verbatim from
+  sticky positioning (CSS, assets/css/extended/custom.css) and scroll-spy
+  active-link highlighting (assets/js/toc-active.js, IntersectionObserver)
+  to the rail. Everything else in this file is copied verbatim from
   themes/PaperMod/layouts/single.html -- Hugo has no partial-only hook for
   the footer's tag list the way extend_post_content.html covers the content
   area, so a full override is the only way to insert a sibling block at
@@ -120,5 +121,13 @@
   {{- end }}
 </article>
 </div>
+
+{{- /* Scroll-spy JS only loads on pages that actually have a TOC rail --
+       skipped entirely on the 0 posts that opt out (once D3 ships) and on
+       every other page kind, which never reach this template at all. */ -}}
+{{- with $toc }}
+{{- $tocActiveJS := resources.Get "js/toc-active.js" | resources.Minify | fingerprint }}
+<script src="{{ $tocActiveJS.RelPermalink }}" integrity="{{ $tocActiveJS.Data.Integrity }}" defer></script>
+{{- end }}
 
 {{- end }}{{/* end main */}}

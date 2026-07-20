@@ -242,8 +242,25 @@
    Deliberately not using CSS `order` for this: `order` only changes visual
    position, not tab order, which would silently reintroduce the same
    visual/reading-order mismatch this is meant to avoid. */
+/* Sticky + scroll-spy active-link highlighting (plan 0004 / D3). Sticky is
+   desktop-only -- reset to `static` in the media query below, since the
+   mobile rail is a plain inline collapsible block above the article, not
+   a pinned one (per the plan's explicit responsive framing). max-height +
+   overflow-y keeps a long TOC from overrunning the viewport instead of
+   just disappearing off the bottom of the screen. */
 .post-toc-rail {
   grid-column: 2;
+  position: sticky;
+  top: var(--gap);
+  max-height: calc(100vh - var(--gap) * 2);
+  overflow-y: auto;
+}
+
+/* assets/js/toc-active.js toggles this via IntersectionObserver, matching
+   the existing accent-on-active convention (.menu .active, above). */
+.post-toc-rail .toc a.active {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .post-single {
@@ -273,5 +290,11 @@
   .post-toc-rail,
   .post-single {
     grid-column: 1;
+  }
+
+  .post-toc-rail {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
   }
 }

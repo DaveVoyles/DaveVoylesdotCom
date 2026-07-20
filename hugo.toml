@@ -50,6 +50,13 @@ weight = 100
 author = 'Dave Voyles'
 description = 'Blog by Dave Voyles'
 
+# Site-wide TOC default (plan 0004 / D3): `.Param "ShowToc"` in
+# layouts/single.html checks page frontmatter first, falling back to this
+# site param -- so this activates the sticky/scroll-spy TOC rail (D2/D3)
+# on all 76 existing posts without editing any of them. A post can still
+# opt out individually with `ShowToc = false` in its own frontmatter.
+ShowToc = true
+
 # Homepage bio + social links (homepage-only, per the follow-on grilling
 # raised in plan 0003's Out of Scope -- PaperMod has no persistent-sidebar
 # concept, so this uses the theme's built-in home-info block instead of a
