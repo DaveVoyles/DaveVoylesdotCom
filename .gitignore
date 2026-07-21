@@ -7,3 +7,13 @@ scripts/.venv/
 static/images/*.tmp
 public/
 .hugo_build.lock
+
+# Agent-landing-floor tooling (scripts/enable-landing-floor.sh symlinks) -- machine-local, never commit
+/scripts/land-pr.sh
+/scripts/gatekeeper.sh
+/scripts/review-lens-route.sh
+/scripts/review-lens-fanout.sh
+/scripts/review-lens-synthesize.sh
+/scripts/review-lens-validate-findings.sh
+/scripts/review-lens-receipt.sh
+/scripts/board-seed.sh
