@@ -66,6 +66,7 @@ ShowToc = true
 Title = "Hi, I'm Dave 👋"
 Content = "Formerly a Software Engineer and Technical Program Manager at Xbox/Microsoft. I write about game development, cloud, and AI/agents — plus whatever I'm building on the side."
 Avatar = "/images/posts/Dave_Debbie.jpeg"
+AvatarAlt = "Dave Voyles and his wife"
 
 [[params.socialIcons]]
 name = 'linkedin'
