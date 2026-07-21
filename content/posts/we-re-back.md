@@ -3,9 +3,11 @@ title: "We're Back"
 date: 2026-07-21
 draft: false
 tags: ["Meta"]
+cover:
+  image: "/images/posts/were-back-dinosaur-story.jpg"
+  alt: "We're Back! A Dinosaur's Story"
+  caption: "Yes, this is a real 1993 movie. No, I'm not sorry."
 ---
-
-![We're Back! A Dinosaur's Story](/images/posts/were-back-dinosaur-story.jpg "Yes, this is a real 1993 movie. No, I'm not sorry.")
 
 It's been about six years since the last post here — heads-down at Xbox/Microsoft will do that to a blog.
 
