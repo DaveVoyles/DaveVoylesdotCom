@@ -57,13 +57,15 @@ description = 'Blog by Dave Voyles'
 # opt out individually with `ShowToc = false` in its own frontmatter.
 ShowToc = true
 
-# Homepage bio + social links (homepage-only, per the follow-on grilling
-# raised in plan 0003's Out of Scope -- PaperMod has no persistent-sidebar
-# concept, so this uses the theme's built-in home-info block instead of a
-# custom layout).
+# Persistent sidebar bio + social links (plan 0004 / D1, ADR 0006). Rendered
+# on every page via layouts/partials/sidebar.html, not gated to the
+# homepage -- PaperMod has no built-in persistent-sidebar concept, so this
+# reuses the theme's homeInfoParams config surface but through a custom
+# partial rather than the theme's homepage-only home_info.html.
 [params.homeInfoParams]
 Title = "Hi, I'm Dave 👋"
-Content = "Formerly a Principal Software Engineer and Technical Program Manager at Xbox/Microsoft. I write about game development, cloud, and AI/agents — plus whatever I'm building on the side."
+Content = "Formerly a Software Engineer and Technical Program Manager at Xbox/Microsoft. I write about game development, cloud, and AI/agents — plus whatever I'm building on the side."
+Avatar = "/images/posts/Dave_Debbie.jpeg"
 
 [[params.socialIcons]]
 name = 'linkedin'
