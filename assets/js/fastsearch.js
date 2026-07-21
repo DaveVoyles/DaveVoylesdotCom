@@ -1,3 +1,11 @@
+// Site-level override of themes/PaperMod/assets/js/fastsearch.js (Hugo's
+// asset lookup prefers a site path over the same path in the theme), forked
+// at PaperMod commit 154d006e0182dfc7da38008323976b02e6bfab4a. The only
+// intentional change from that vendored copy is the initSearch() trigger
+// at the bottom of this file (see the comment there). If PaperMod's own
+// fastsearch.js changes upstream, re-diff against the new version and
+// re-apply the same one-line change rather than assuming this fork is
+// still current.
 import * as params from '@params';
 
 const resList = document.getElementById('searchResults');
