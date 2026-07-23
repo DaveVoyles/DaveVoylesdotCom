@@ -5,7 +5,7 @@ ShowToc = false
 hideReadingTime = true
 +++
 
-![Dave Voyles overview — Senior Technical Program Manager based in Philadelphia, PA, bridging complex technology with clear business and organizational rigor](/images/about/dave-voyles-overview.png)
+![Dave Voyles overview — Senior Technical Program Manager based in Philadelphia, PA, bridging complex technology with clear business and organizational rigor](/images/posts/Gemini_Img_Dvoyles_overview.png)
 
 I'm a Senior Technical Program Manager based in Philadelphia, PA. I spend my days bridging complex technology with clear business and organizational rigor — engineer, TPM, product manager, and active builder, in that order of how I actually spend my time.
 
