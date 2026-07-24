@@ -1,0 +1,67 @@
+{{- /*
+  Interactive SVG constellation for the About page.
+
+  Expects the constellation map from front matter (nodes + edges).
+  Node positions are percent-based (0–100) inside a viewBox of 100×100.
+  data-cluster / data-node-id are the JS and future-WebGL contract.
+*/ -}}
+{{- $nodes := .nodes }}
+{{- $edges := .edges }}
+{{- $nodeMap := dict }}
+{{- range $nodes }}
+  {{- $nodeMap = merge $nodeMap (dict .id .) }}
+{{- end }}
+
+<figure class="about-constellation-figure">
+  <svg
+    class="about-constellation-svg"
+    viewBox="0 0 100 100"
+    role="img"
+    aria-label="Agent and platform system constellation: orchestrator, planner, coder, search, LLM router, skills, eval gates, MCP, Docker host, Azure, dashboards, and human approval"
+  >
+    <defs>
+      <radialGradient id="about-node-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.45" />
+        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+
+    <g class="about-constellation-edges" aria-hidden="true">
+      {{- range $edges }}
+      {{- $from := index $nodeMap .from }}
+      {{- $to := index $nodeMap .to }}
+      {{- if and $from $to }}
+      <line
+        class="about-constellation-edge"
+        data-from="{{ .from }}"
+        data-to="{{ .to }}"
+        x1="{{ $from.x }}"
+        y1="{{ $from.y }}"
+        x2="{{ $to.x }}"
+        y2="{{ $to.y }}"
+      />
+      {{- end }}
+      {{- end }}
+    </g>
+
+    <g class="about-constellation-nodes">
+      {{- range $nodes }}
+      <g
+        class="about-constellation-node"
+        data-node-id="{{ .id }}"
+        data-cluster="{{ .cluster }}"
+        tabindex="0"
+        role="button"
+        aria-label="{{ .label }} ({{ .cluster }})"
+      >
+        <circle class="about-constellation-halo" cx="{{ .x }}" cy="{{ .y }}" r="5.5" fill="url(#about-node-glow)" />
+        <circle class="about-constellation-dot" cx="{{ .x }}" cy="{{ .y }}" r="2.1" />
+        <text class="about-constellation-label" x="{{ .x }}" y="{{ add .y 5.2 }}" text-anchor="middle">{{ .label }}</text>
+      </g>
+      {{- end }}
+    </g>
+  </svg>
+  <figcaption class="about-constellation-caption">
+    How the fleet is wired: agents plan and code, an orchestrator routes work, eval gates and human approval control risk, Docker and Azure host the stack, dashboards surface status. Not a career graph — a system diagram. A future WebGL pass can replace this SVG without changing the node list.
+  </figcaption>
+</figure>

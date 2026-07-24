@@ -1,0 +1,201 @@
+{{- /*
+  Portfolio About layout (3.jpg-inspired, console theme).
+
+  All structure/copy comes from content/about.md front matter under .Params.about.
+  Progressive enhancement:
+    - static HTML always readable
+    - assets/js/about-constellation.js wires pill ↔ node highlight
+    - constellation graph is SVG today; same node ids/clusters are the
+      hand-off surface for a future WebGL scene
+*/ -}}
+{{- define "main" }}
+{{- $a := .Params.about }}
+{{- if not $a }}
+  {{- errorf "content/about.md is missing the [about] front-matter block required by layouts/about.html" }}
+{{- end }}
+
+<article class="about-page" id="about">
+  {{/* -------- Hero -------- */}}
+  <header class="about-hero">
+    {{- with $a.badge }}
+    <p class="about-badge">{{ . }}</p>
+    {{- end }}
+    <h1 class="about-headline">
+      <span class="about-headline-main">{{ $a.headline }}</span>
+      {{- with $a.headline_accent }}
+      <span class="about-headline-accent">{{ . }}</span>
+      {{- end }}
+    </h1>
+    {{- with $a.lede }}
+    <p class="about-lede">{{ . }}</p>
+    {{- end }}
+    {{- with $a.location }}
+    <p class="about-location">{{ . }}</p>
+    {{- end }}
+    {{- with $a.ctas }}
+    <div class="about-ctas">
+      {{- range . }}
+      <a class="about-cta{{ if .primary }} about-cta--primary{{ end }}" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>{{ .label }}</a>
+      {{- end }}
+    </div>
+    {{- end }}
+    {{- with $a.tech }}
+    <div class="about-tech" aria-label="Technologies">
+      <span class="about-section-label">Stack I work with</span>
+      <ul class="about-tech-list">
+        {{- range . }}
+        <li class="about-tech-item">{{ .name }}</li>
+        {{- end }}
+      </ul>
+    </div>
+    {{- end }}
+  </header>
+
+  {{/* -------- Stats -------- */}}
+  {{- with $a.stats }}
+  <section class="about-stats" aria-label="Highlights">
+    {{- range . }}
+    <div class="about-stat">
+      <div class="about-stat-value">{{ .value }}</div>
+      <div class="about-stat-label">{{ .label }}</div>
+      {{- with .detail }}
+      <div class="about-stat-detail">{{ . }}</div>
+      {{- end }}
+    </div>
+    {{- end }}
+  </section>
+  {{- end }}
+
+  {{/* -------- Constellation (interactive SVG; WebGL-ready data) -------- */}}
+  {{- with $a.constellation }}
+  <section class="about-constellation" aria-labelledby="about-constellation-title">
+    <div class="about-section-head">
+      <h2 id="about-constellation-title">{{ .title }}</h2>
+      {{- with .subtitle }}
+      <p class="about-section-sub">{{ . }}</p>
+      {{- end }}
+    </div>
+    {{- partial "about-constellation.html" . }}
+  </section>
+  {{- end }}
+
+  {{/* -------- Skills -------- */}}
+  <section class="about-skills" aria-labelledby="about-skills-title">
+    <div class="about-section-head">
+      <h2 id="about-skills-title">Core competencies</h2>
+      <p class="about-section-sub">Agents lead. Web supports. Platform and production keep it real.</p>
+    </div>
+
+    {{- with $a.skills_primary }}
+    {{- $cluster := .cluster }}
+    <div class="about-skills-primary" data-cluster="{{ $cluster }}">
+      <div class="about-skills-primary-head">
+        <h3>{{ .title }}</h3>
+        {{- with .subtitle }}
+        <span class="about-skills-flag">{{ . }}</span>
+        {{- end }}
+      </div>
+      <ul class="about-pills about-pills--primary">
+        {{- range .pills }}
+        <li><button type="button" class="about-pill" data-cluster="{{ $cluster }}" data-pill="{{ . }}">{{ . }}</button></li>
+        {{- end }}
+      </ul>
+    </div>
+    {{- end }}
+
+    {{- with $a.skills_web }}
+    {{- $cluster := .cluster }}
+    <div class="about-skills-web" data-cluster="{{ $cluster }}">
+      <div class="about-skills-web-head">
+        <h3>{{ .title }}</h3>
+        {{- with .subtitle }}
+        <span class="about-skills-flag about-skills-flag--muted">{{ . }}</span>
+        {{- end }}
+      </div>
+      <ul class="about-pills about-pills--strip">
+        {{- range .pills }}
+        <li><button type="button" class="about-pill about-pill--strip" data-cluster="{{ $cluster }}" data-pill="{{ . }}">{{ . }}</button></li>
+        {{- end }}
+      </ul>
+    </div>
+    {{- end }}
+
+    {{- with $a.skills_secondary }}
+    <div class="about-skills-secondary">
+      {{- range . }}
+      {{- $cluster := .cluster }}
+      <div class="about-skills-card" data-cluster="{{ $cluster }}">
+        <h3>{{ .title }}</h3>
+        <ul class="about-pills">
+          {{- range .pills }}
+          <li><button type="button" class="about-pill" data-cluster="{{ $cluster }}" data-pill="{{ . }}">{{ . }}</button></li>
+          {{- end }}
+        </ul>
+      </div>
+      {{- end }}
+    </div>
+    {{- end }}
+  </section>
+
+  {{/* -------- Selected impact -------- */}}
+  {{- with $a.impact }}
+  <section class="about-impact" aria-labelledby="about-impact-title">
+    <div class="about-section-head">
+      <h2 id="about-impact-title">Selected impact</h2>
+    </div>
+    <div class="about-impact-grid">
+      {{- range . }}
+      <article class="about-impact-card" data-cluster="{{ .cluster }}">
+        <h3>{{ .title }}</h3>
+        <p>{{ .summary }}</p>
+        {{- with .tags }}
+        <ul class="about-impact-tags">
+          {{- range . }}
+          <li>{{ . }}</li>
+          {{- end }}
+        </ul>
+        {{- end }}
+      </article>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{/* -------- Approach -------- */}}
+  {{- with $a.approach }}
+  <section class="about-approach" aria-labelledby="about-approach-title">
+    <div class="about-section-head">
+      <h2 id="about-approach-title">{{ .title }}</h2>
+      {{- with .tagline }}
+      <p class="about-approach-tagline">{{ . }}</p>
+      {{- end }}
+    </div>
+    {{- with .steps }}
+    <ol class="about-approach-steps">
+      {{- range . }}
+      <li>{{ . }}</li>
+      {{- end }}
+    </ol>
+    {{- end }}
+  </section>
+  {{- end }}
+
+  {{/* -------- Footer CTA -------- */}}
+  {{- with $a.footer }}
+  <footer class="about-footer">
+    <p class="about-footer-line">{{ .line }}</p>
+    <div class="about-ctas">
+      {{- with .linkedin }}
+      <a class="about-cta about-cta--primary" href="{{ . }}" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+      {{- end }}
+      {{- with .github }}
+      <a class="about-cta" href="{{ . }}" rel="noopener noreferrer" target="_blank">GitHub</a>
+      {{- end }}
+    </div>
+  </footer>
+  {{- end }}
+</article>
+
+{{- $aboutJS := resources.Get "js/about-constellation.js" | resources.Minify | fingerprint }}
+<script src="{{ $aboutJS.RelPermalink }}" integrity="{{ $aboutJS.Data.Integrity }}" defer></script>
+{{- end }}
