@@ -37,4 +37,4 @@
 
 ## Nothing currently in-flight
 
-Agent-platform improvements ready to land (or just landed) on `main`.
+Auto-publish + agent-platform pass landed on `main` (`d2c0806`, `5e0d34d`). Working tree clean; next session starts clean.
