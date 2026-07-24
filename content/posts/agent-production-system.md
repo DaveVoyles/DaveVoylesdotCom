@@ -7,6 +7,8 @@ description = "A claim-safe walkthrough of the multi-agent production system I o
 categories = ["Programming", "AI"]
 tags = ["AI agents", "Docker", "Azure", "orchestration", "TPM"]
 topics = ["Tech"]
+series = ["Agent production system"]
+series_weight = 0
 [cover]
 image = "/images/posts/agent-system-ops-floor.jpg"
 alt = "Illustration of a multi-agent production system: central orchestrator hub, agent nodes, eval checks, cloud hosts, and a human approval station"
@@ -92,3 +94,19 @@ Agent fleets don’t replace that background — they inherit it. Shipping multi
 - Not a dump of unverified vanity metrics.
 
 If you only click one thing after this post, open the [agent production system map](/about/) and select **Eval gates** and **Human approval**. That’s the product thesis: agents move work; controls keep it real.
+
+## This series
+
+Weekly deep-dives that expand this map. Full schedule: [`docs/series/agent-production-system.md`](https://github.com/DaveVoyles/DaveVoylesdotCom/blob/main/docs/series/agent-production-system.md) in the site repo.
+
+| # | Post | Status |
+|---|------|--------|
+| 0 | **How I run an agent production system** (this post) | Live |
+| 1 | [Eval gates are not optional theater](/posts/eval-gates-not-theater/) | Scheduled |
+| 2 | [Human approval: the merge button still matters](/posts/human-approval-merge-button/) | Scheduled |
+| 3 | [Twenty-plus containers and agent-operated ops](/posts/docker-homelab-agent-ops/) | Scheduled |
+| 4 | [From Xbox SLAs to agent fleets](/posts/xbox-slas-to-agent-fleets/) | Scheduled |
+| 5 | [Claim safety: evidence before metrics](/posts/claim-safety-evidence-before-metrics/) | Scheduled |
+| 6 | [What I will not automate](/posts/what-i-will-not-automate/) | Scheduled |
+
+Links resolve when each post is published (`draft = false`). Until then, the files live in the repo ready to release.

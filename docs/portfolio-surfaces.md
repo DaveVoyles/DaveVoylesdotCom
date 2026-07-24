@@ -87,6 +87,7 @@ Config: `[params.home]` in `hugo.toml`.
 | Turn off WebGL hero | `params.home.show_webgl_hero = false` |
 | Turn off projects section | `params.home.show_projects = false` |
 | Case study post | `content/posts/agent-production-system.md` (feeds Featured/Recent as newest) |
+| Agent production **series** | `docs/series/agent-production-system.md` + 6 draft posts; release with `./scripts/release-series-post.sh <slug>` |
 
 ### Projects (current intent)
 
