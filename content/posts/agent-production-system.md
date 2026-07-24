@@ -7,6 +7,10 @@ description = "A claim-safe walkthrough of the multi-agent production system I o
 categories = ["Programming", "AI"]
 tags = ["AI agents", "Docker", "Azure", "orchestration", "TPM"]
 topics = ["Tech"]
+[cover]
+image = "/images/posts/agent-system-ops-floor.jpg"
+alt = "Illustration of a multi-agent production system: central orchestrator hub, agent nodes, eval checks, cloud hosts, and a human approval station"
+caption = "Factory floor, not chatbot: orchestrator, agents, gates, hosts, human approval."
 +++
 
 Most “AI agent” demos stop at a chat box. What I care about is the opposite: **a production system** with routing, tools, gates, hosts, and a human who still owns irreversible decisions.
@@ -38,6 +42,8 @@ That topology lives as a constellation on [About](/about/?cluster=agents). Click
 I **extend and operate** multi-agent platforms and skill fleets. I do **not** claim original authorship of upstream open-source agent projects I integrate.
 
 ### Gates & program control
+
+![Eval gates and human-in-the-loop control: streams pass checkpoint arches; amber paths pause at a human console](/images/posts/agent-eval-gates.jpg)
 
 - **Eval gates** — fail-closed automated checks before merge. Green is not theater.
 - **Human approval** — hard stop when the blast radius is real (force-push, secrets, irreversible infra, ambiguous validation).

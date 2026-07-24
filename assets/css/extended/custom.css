@@ -145,15 +145,31 @@
 /* Site-wide sidebar shell (plan 0004 / D1, ADR 0006): every page renders
    inside a persistent two-column grid (bio rail + content), replacing the
    theme's single centered `.main` column. `.main`'s own max-width (set by
-   PaperMod's core CSS) is widened here to fit both columns -- everything
-   past this point assumes `.page-shell` is always present, since
-   layouts/_default/baseof.html now wraps every page in it. */
+   PaperMod's core CSS) is widened here to fit bio + article + TOC rail --
+   everything past this point assumes `.page-shell` is always present, since
+   layouts/_default/baseof.html now wraps every page in it.
+
+   Widths: PaperMod defaults --main-width 720 / --nav-width 1024 are too
+   narrow once bio + TOC rails exist; content was squeezing into ~480px. */
 :root {
-  --sidebar-width: 260px;
+  --main-width: 900px;
+  --nav-width: 1440px;
+  --sidebar-width: 240px;
+  --toc-rail-width: 280px;
 }
 
 .main {
-  max-width: calc(var(--main-width) + var(--sidebar-width) + var(--gap) * 3);
+  /* Room for left bio + reading column + right TOC (even on non-post pages
+     the extra headroom just leaves a little air — better than clipping). */
+  max-width: calc(
+    var(--main-width) + var(--sidebar-width) + var(--toc-rail-width) + var(--gap) * 4
+  );
+}
+
+.footer {
+  max-width: calc(
+    var(--main-width) + var(--sidebar-width) + var(--toc-rail-width) + var(--gap) * 4
+  );
 }
 
 .page-shell {
@@ -218,84 +234,147 @@
   }
 }
 
-/* Post-page three-column TOC variant (plan 0004 / D2, ADR 0006): nests a
-   second grid inside D1's `.page-shell-content` column, splitting it into
-   article + a reserved TOC rail. Deliberately confined to `.page-shell-content`
-   rather than widening `.main` further, so D1's page width stays unchanged
-   for every other page type. D3 adds `position: sticky` + scroll-spy JS to
-   `.post-toc-rail` -- D2 only reserves the column. */
-:root {
-  --toc-rail-width: 240px;
-}
-
+/* Post-page TOC rail (plan 0004 / D2–D3): article + reserved right rail.
+   Desktop: sticky always-open sidebar so opening "Table of Contents" never
+   shoves the article down. Mobile: collapsible, stacked *below* the article
+   (flex order) so expand doesn't push the post body. */
 .post-shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--toc-rail-width);
-  gap: calc(var(--gap) * 2);
+  gap: calc(var(--gap) * 1.5);
   align-items: start;
 }
 
 /* layouts/single.html places .post-toc-rail BEFORE .post-single in the DOM
-   (so keyboard/screen-reader tab order reaches it first, matching where
-   toc.html rendered pre-D2) -- these explicit grid-column assignments put
-   it on the right visually at desktop widths regardless of that DOM order.
-   Deliberately not using CSS `order` for this: `order` only changes visual
-   position, not tab order, which would silently reintroduce the same
-   visual/reading-order mismatch this is meant to avoid. */
-/* Sticky + scroll-spy active-link highlighting (plan 0004 / D3). Sticky is
-   desktop-only -- reset to `static` in the media query below, since the
-   mobile rail is a plain inline collapsible block above the article, not
-   a pinned one (per the plan's explicit responsive framing). max-height +
-   overflow-y keeps a long TOC from overrunning the viewport instead of
-   just disappearing off the bottom of the screen. */
+   (tab order reaches TOC first). grid-column puts it on the right visually. */
 .post-toc-rail {
   grid-column: 2;
   position: sticky;
   top: var(--gap);
   max-height: calc(100vh - var(--gap) * 2);
   overflow-y: auto;
+  align-self: start;
 }
 
-/* assets/js/toc-active.js toggles this via IntersectionObserver, matching
-   the existing accent-on-active convention (.menu .active, above). */
+/* Side-panel look: denser TOC, less "card that expands into the flow". */
+.post-toc-rail details.toc {
+  margin-bottom: 0;
+  padding: 0.35rem 0;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+.post-toc-rail details.toc summary {
+  padding: 0.55rem 0.85rem;
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  list-style: none;
+}
+
+.post-toc-rail details.toc summary::-webkit-details-marker {
+  display: none;
+}
+
+.post-toc-rail details.toc summary::marker {
+  content: "";
+}
+
+.post-toc-rail details.toc .inner {
+  padding: 0.15rem 0.85rem 0.75rem;
+}
+
+.post-toc-rail details.toc .inner ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post-toc-rail details.toc .inner li {
+  margin: 0.2rem 0;
+}
+
+.post-toc-rail details.toc .inner a {
+  display: block;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: var(--secondary);
+  text-decoration: none;
+  padding: 0.2rem 0.35rem;
+  border-radius: 4px;
+  border-left: 2px solid transparent;
+}
+
+.post-toc-rail details.toc .inner a:hover {
+  color: var(--primary);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  text-decoration: none;
+}
+
+/* assets/js/toc-active.js toggles .active via IntersectionObserver. */
 .post-toc-rail .toc a.active {
   color: var(--accent);
   font-weight: 600;
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+/* Desktop: keep TOC permanently expanded — no click-to-open, no layout jump. */
+@media (min-width: 1025px) {
+  .post-toc-rail details.toc summary {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .post-toc-rail details.toc summary .title::after {
+    content: none;
+  }
+
+  /* If JS hasn't set open yet, still show panel chrome; open is forced in JS. */
+  .post-toc-rail details.toc[open] summary {
+    border-bottom: 1px solid var(--border);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
 }
 
 .post-single {
   grid-column: 1;
+  min-width: 0;
 }
 
-/* layouts/single.html only renders .post-toc-rail when toc.html actually
-   produced output (ShowToc true AND the post has headings) -- without this,
-   every post that doesn't meet both conditions would still get the second
-   grid column reserved, narrowing the article and leaving a permanently
-   empty right-hand gutter. Applies to all 76 existing posts today, since
-   none have ShowToc set yet (D3 flips the site-wide default). */
 .post-shell--no-toc {
   grid-template-columns: minmax(0, 1fr);
 }
 
-/* Below ~1024px the rail reflows above the article body -- same markup as
-   desktop (toc.html's own <details class="toc"> is natively collapsible).
-   No `order` override needed here: resetting both to column 1 collapses
-   them into a single track, and DOM order (TOC first) already puts the
-   rail above the article, both visually and for tab order. */
+/* Narrow: stack article first, TOC second so expanding details never shoves
+   the post body. Sticky rail disabled. */
 @media (max-width: 1024px) {
   .post-shell {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
   }
 
-  .post-toc-rail,
   .post-single {
-    grid-column: 1;
+    order: 1;
+    grid-column: auto;
   }
 
   .post-toc-rail {
+    order: 2;
+    grid-column: auto;
     position: static;
     max-height: none;
     overflow-y: visible;
+    margin-top: var(--gap);
+  }
+
+  .post-toc-rail details.toc summary {
+    pointer-events: auto;
+    cursor: pointer;
   }
 }
 
@@ -363,7 +442,7 @@
    ========================================================================== */
 
 .about-page {
-  max-width: 52rem;
+  max-width: 58rem;
   margin: 0 auto;
   padding-bottom: calc(var(--gap) * 3);
 }
@@ -1192,7 +1271,7 @@
    ========================================================================== */
 
 .home-dashboard {
-  max-width: 54rem;
+  max-width: 60rem;
   margin: 0 auto;
   padding-bottom: calc(var(--gap) * 2);
 }

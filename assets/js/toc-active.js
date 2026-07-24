@@ -1,12 +1,41 @@
-// Scroll-spy for the post TOC rail (plan 0004 / D3): toggles an "active"
-// class on the TOC link for whichever heading is currently in view.
-// Reuses toc.html's existing heading ids/anchors -- no heading-parsing
-// logic duplicated here, just observing what's already in the DOM.
+// Post TOC rail: scroll-spy + desktop always-open sidebar behavior.
+// Plan 0004 / D3 scroll-spy; 2026-07 layout polish keeps the TOC open on
+// wide viewports so expanding "Table of Contents" never pushes the article.
 (function () {
-  if (typeof IntersectionObserver === "undefined") return;
-
   var tocRail = document.querySelector(".post-toc-rail");
   if (!tocRail) return;
+
+  var details = tocRail.querySelector("details.toc");
+  var desktopQuery = window.matchMedia("(min-width: 1025px)");
+
+  function syncDesktopOpen() {
+    if (!details) return;
+    if (desktopQuery.matches) {
+      details.open = true;
+      details.setAttribute("data-toc-rail", "desktop");
+    } else {
+      details.removeAttribute("data-toc-rail");
+      // Leave open state alone on mobile — user controls the collapsible.
+    }
+  }
+
+  syncDesktopOpen();
+  if (desktopQuery.addEventListener) {
+    desktopQuery.addEventListener("change", syncDesktopOpen);
+  } else if (desktopQuery.addListener) {
+    desktopQuery.addListener(syncDesktopOpen);
+  }
+
+  // Re-open if something closes the panel while we're in desktop rail mode.
+  if (details) {
+    details.addEventListener("toggle", function () {
+      if (desktopQuery.matches && !details.open) {
+        details.open = true;
+      }
+    });
+  }
+
+  if (typeof IntersectionObserver === "undefined") return;
 
   var tocLinks = Array.prototype.slice.call(
     tocRail.querySelectorAll('a[href^="#"]')
@@ -32,10 +61,7 @@
     if (active) active.classList.add("active");
   }
 
-  // rootMargin trims the bottom 70% of the viewport out of the
-  // intersection area, so a heading is only considered "current" once it
-  // crosses into the top band -- the usual scroll-spy trigger point,
-  // rather than firing the moment any part of a section is visible.
+  // rootMargin trims the bottom 70% so a heading is "current" in the top band.
   var observer = new IntersectionObserver(
     function (entries) {
       var visible = entries
