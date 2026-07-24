@@ -1,5 +1,21 @@
 # Writing a new post
 
+## Series: Agent production system
+
+Six scheduled follow-ups to the agent case study live as **`draft = true`**
+posts plus a schedule at [`docs/series/agent-production-system.md`](series/agent-production-system.md).
+
+To publish the next one:
+
+```bash
+./scripts/release-series-post.sh eval-gates-not-theater
+git add content/posts/eval-gates-not-theater.md
+git commit -m "publish: eval gates (series 1)"
+git push origin main
+```
+
+Preview drafts anytime with `hugo server -D`.
+
 ## Option A: have an agent draft it (fastest)
 
 You don't need to touch `hugo new content` or write TOML by hand. In a
