@@ -1,5 +1,16 @@
 # Learnings
 
+## 2026-07-24 — Portfolio home/About/WebGL + agent docs
+
+- **Home must not re-grow into a full archive list.** The dashboard deliberately caps featured/recent/archive-picks and sends bulk history to `/archives/`. Reintroducing PaperMod-style full pagination on `/` undoes [ADR 0010](decisions/0010-home-dashboard-not-full-archive.md). Config knobs live under `[params.home]` — prefer those over inventing a new list template.
+- **About is front-matter-driven; the markdown body is a no-op for the custom layout.** Agents that only edit prose under the `+++` fence will ship no visible change. Edit `[about]` tables (stats, skills, constellation, impact) in `content/about.md` and/or `layouts/about.html`.
+- **Constellation is a system diagram, not a career map.** Vague titles ("How the system fits together") made users unsure what they were looking at. Keep copy explicit: agent fleet, Docker host, eval gates, human approval.
+- **Skills are positioning, not a full inventory.** Drop soft claims (Terraform, Kubernetes) even if a mock resume or template showed them. Lead with AI agents/orchestration; Web is a supporting strip; Azure + Docker for production.
+- **Claim safety lives outside this repo** (resume-builder candidate-profile + accuracy-and-claims). Don't invent Xbox/agent metrics or authorship for OpenClaw/Hermes/firstmate.
+- **Three.js via CDN + progressive enhancement matches the existing force-graph pattern** — no need to introduce a JS bundler for a page-local canvas. Always keep SVG/static fallback + `prefers-reduced-motion`.
+- **PaperMod submodule is still the #1 empty-checkout footgun** — `git submodule update --init --recursive` before any `hugo` command. Upstream layouts use `_partials/`; site overrides stay in `layouts/` + `assets/`.
+- **`docs/platform-guide.md` previously claimed `custom.css` didn't exist** — false after the console theme. Always verify styling path against the tree, not old guide prose. Canonical portfolio map: [`portfolio-surfaces.md`](portfolio-surfaces.md).
+
 ## 2026-07-21 — Sidebar bio text + avatar photo (PR #84)
 
 - **This sandbox has no access to the user's real local filesystem on either of his machines, even though paths look plausible.** Dave twice gave a local file path he'd just saved a photo to (`/Users/davevoyles/Downloads/Dave_Debbie.jpeg`, then `/Volumes/davevoyles/Downloads/Dave_Debbie.jpeg` on "the correct" Mac) — both resolved to a real-looking but different filesystem here (`/Users/davevoyles/` exists and lists plausible-looking content, `Downloads/` has only 2 unrelated files, `/Volumes/davevoyles` doesn't exist at all). **Generalize: never assume a user-given local path is reachable just because the directory structure looks familiar — verify with `ls`, don't infer from a convincing-looking username/hostname match.**

@@ -56,61 +56,45 @@ hosting bill, no plugin security patching, and a full backup that's just
 
 ## 🎨 Changing colors and styling
 
-**Right now the site uses PaperMod's plain defaults** — nothing has been
-customized yet, so there's a genuinely blank canvas here.
+The site uses a **console theme** (green accent, monospace chrome) defined
+in `assets/css/extended/custom.css`. That file already exists and loads
+*after* PaperMod's CSS — edit it rather than the theme submodule.
 
 ### Do you need to ask an agent?
 
-**Not necessarily — it depends on the size of the change:**
-
 | Change | Who can do it | Why |
 |---|---|---|
-| Swap the accent color, background, text color | 🙋 You, if you're comfortable in a text file — or an agent, in about a minute | One small CSS file, fully reversible |
-| Change fonts, spacing, add a new page section | 🤖 Better as an agent request | Touches more of the theme's structure |
-| Something more ambitious (new layout, custom homepage) | 🤖 Definitely an agent, and probably worth a real discussion first | Bigger, less reversible |
+| Swap accent / background / text via CSS variables | 🙋 You or an agent | One file, fully reversible |
+| Homepage projects, status line, recent counts | 🙋 You or an agent | `hugo.toml` → `[params.home]` / `[[params.home.projects]]` |
+| About skills, stats, constellation nodes | 🙋 You or an agent | `content/about.md` front matter — see [`portfolio-surfaces.md`](portfolio-surfaces.md) |
+| New homepage sections or WebGL behavior | 🤖 Agent (discuss first) | Custom layouts + JS |
 
 ### How the color system actually works
 
-The theme defines its whole palette as a handful of named values — separate
-sets for light mode and dark mode (the site auto-switches based on the
-visitor's system setting, plus a manual toggle button):
+PaperMod exposes named CSS variables for light and dark mode. The console
+theme redefines them (and adds `--accent`) in `custom.css`:
 
-| Name | What it controls | Light mode default | Dark mode default |
-|---|---|---|---|
-| `--theme` | Page background | white | near-black |
-| `--entry` | Card/post background | white | dark gray |
-| `--primary` | Main text color | near-black | light gray |
-| `--secondary` | Muted text (dates, meta info) | medium gray | lighter gray |
-| `--content` | Body paragraph text | near-black | light gray |
-| `--border` | Dividing lines | light gray | dark gray |
-| `--code-block-bg` | Code block background | dark | dark gray |
+| Name | What it controls |
+|---|---|
+| `--theme` | Page background |
+| `--entry` | Card / panel background |
+| `--primary` | Main headings / strong text |
+| `--secondary` | Muted meta text |
+| `--content` | Body copy |
+| `--border` | Dividers |
+| `--accent` | Console green — links, chips, CTAs |
+| `--tertiary` | Soft fill behind badges |
 
-To change any of these, the whole site's styling is controlled by **one file
-you'd create**: `assets/css/extended/custom.css` at the repo root (that
-folder doesn't exist yet — you're creating it). Anything in there loads
-*after* the theme's own styles, so it can override any of the values above
-without ever touching the theme itself (the theme is a separate project
-pulled in as a "submodule" — editing it directly would be like editing
-someone else's code).
+Prefer `var(--accent)` (etc.) in new CSS so light/dark stay consistent.
 
-Example — a quick warmer, less stark palette:
+### Portfolio pages (home + About)
 
-```css
-:root {
-  --theme: rgb(250, 248, 244);
-  --primary: rgb(40, 34, 28);
-}
+These are **not** stock PaperMod list pages:
 
-[data-theme="dark"] {
-  --theme: rgb(24, 22, 20);
-  --primary: rgb(230, 224, 216);
-}
-```
+- **Home** — dashboard + magazine desk; does *not* list all posts ([ADR 0010](decisions/0010-home-dashboard-not-full-archive.md))
+- **About** — portfolio layout + optional WebGL agent system map
 
-Drop that in, push it, and the whole site's palette shifts — no theme
-surgery required. This is exactly the kind of change worth just asking an
-agent for ("make the site's accent color a warm amber instead of the
-default"), since it's small and easy to undo.
+Full agent map: [`portfolio-surfaces.md`](portfolio-surfaces.md).
 
 ## 🖼️ Images — where they live and how to add one
 
