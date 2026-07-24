@@ -1566,3 +1566,106 @@
     display: none;
   }
 }
+
+/* --- Projects grid --- */
+.home-projects {
+  margin-bottom: calc(var(--gap) * 1.5);
+}
+
+.home-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.home-project-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--entry);
+  padding: 1.1rem 1rem 1rem;
+  border-top: 2px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.home-project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.home-project-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--tertiary);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  margin: 0 0 0.55rem;
+}
+
+.home-project-title {
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  font-size: 1.05rem;
+  margin: 0 0 0.45rem;
+  color: var(--primary);
+  line-height: 1.3;
+}
+
+.home-project-blurb {
+  margin: 0 0 0.85rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--content);
+  flex: 1;
+}
+
+.home-project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+  margin-top: auto;
+}
+
+.home-project-link {
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.home-project-link:hover,
+.home-project-link:focus-visible {
+  color: var(--accent);
+}
+
+.home-project-link--primary {
+  color: var(--accent);
+}
+
+.home-panels--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 720px) {
+  .home-projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-panels--two {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-project-card:hover {
+    transform: none;
+  }
+}

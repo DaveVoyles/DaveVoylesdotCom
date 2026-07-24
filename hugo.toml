@@ -67,27 +67,44 @@ featured_count = 1
 recent_count = 5
 archive_picks = 3
 show_topic_rails = true
-show_building = true
+show_projects = true
 show_graph_pane = true
 show_webgl_hero = true
 # Archive picks are drawn from posts older than this year so the desk
 # stays "current" while the magazine still surface-links the back catalog.
 archive_before_year = 2020
 
-[[params.home.building]]
-title = "Agent production systems"
-blurb = "Multi-agent fleets, Docker hosts, eval gates — the stack behind the About map."
-url = "/about/"
+# Featured projects on the homepage (full-width card grid).
+# `badge` is a short kind label; `url` is the primary CTA.
+[[params.home.projects]]
+title = "Resume Builder"
+badge = "Agents / tooling"
+blurb = "Evidence-backed resume workspace for AI-assisted job search — claims, role matching, and agent-operated tooling."
+url = "https://github.com/DaveVoyles/resume-builder"
+url_label = "GitHub"
 
-[[params.home.building]]
-title = "This site"
-blurb = "Hugo + console theme + interactive About/Graph surfaces."
-url = "https://github.com/DaveVoyles/DaveVoylesdotCom"
+[[params.home.projects]]
+title = "Philly Lax Viz"
+badge = "PWA / stats"
+blurb = "Philadelphia high-school boys lacrosse stats hub — standings, rankings, coach dashboards, nightly refreshes."
+url = "https://github.com/DaveVoyles/Philly-Lax-Viz"
+url_label = "GitHub"
+secondary_url = "https://phillylaxstats.com/"
+secondary_label = "Live site"
 
-[[params.home.building]]
-title = "Philly sports web platforms"
-blurb = "Production PWAs and WebGL playbook viz for local lacrosse."
-url = "https://github.com/DaveVoyles"
+[[params.home.projects]]
+title = "CFB 26 Playbooks"
+badge = "WebGL"
+blurb = "Interactive WebGL playbook explorer for College Football 26 — schemes, formations, and visual learning tools."
+url = "https://github.com/DaveVoyles/College-Football-26-Playbooks-site"
+url_label = "GitHub"
+
+[[params.home.projects]]
+title = "Harriton Lacrosse"
+badge = "Head coach"
+blurb = "Head coach at Harriton High School (Lower Merion, PA). Team site for schedules, rosters, and program news."
+url = "https://harritonlacrosse.com/"
+url_label = "Team site"
 
 # Persistent sidebar bio + social links (plan 0004 / D1, ADR 0006). Rendered
 # on every page via layouts/partials/sidebar.html, not gated to the

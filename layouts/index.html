@@ -111,8 +111,45 @@
   </section>
   {{- end }}
 
-  {{/* -------- Panel grid: topics + building + graph -------- */}}
-  <section class="home-panels" aria-label="Site panels">
+  {{/* -------- Projects (highlighted personal work) -------- */}}
+  {{- if and ($home.show_projects | default true) $home.projects }}
+  <section class="home-projects" aria-labelledby="home-projects-title">
+    <div class="home-section-head">
+      <h2 id="home-projects-title">Projects</h2>
+      <p class="home-section-sub">Selected work — agents, sports tech, and the team I coach.</p>
+    </div>
+    <div class="home-projects-grid">
+      {{- range $home.projects }}
+      <article class="home-project-card">
+        {{- with .badge }}
+        <p class="home-project-badge">{{ . }}</p>
+        {{- end }}
+        <h3 class="home-project-title">{{ .title }}</h3>
+        {{- with .blurb }}
+        <p class="home-project-blurb">{{ . }}</p>
+        {{- end }}
+        <div class="home-project-links">
+          {{- $urlLabel := .url_label | default "Open" }}
+          {{- $secLabel := .secondary_label | default "More" }}
+          {{- with .url }}
+          <a class="home-project-link home-project-link--primary" href="{{ . }}"{{ if strings.HasPrefix . "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
+            {{ $urlLabel }} →
+          </a>
+          {{- end }}
+          {{- with .secondary_url }}
+          <a class="home-project-link" href="{{ . }}"{{ if strings.HasPrefix . "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
+            {{ $secLabel }}
+          </a>
+          {{- end }}
+        </div>
+      </article>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{/* -------- Panel grid: topics + graph -------- */}}
+  <section class="home-panels home-panels--two" aria-label="Site panels">
     {{- if $home.show_topic_rails | default true }}
     <div class="home-panel home-panel--topics">
       <h2 class="home-panel-title">Topics</h2>
@@ -130,22 +167,6 @@
           {{- end }}
         {{- else }}
           <li class="home-panel-empty">Topics will appear as posts are tagged.</li>
-        {{- end }}
-      </ul>
-    </div>
-    {{- end }}
-
-    {{- if and ($home.show_building | default true) $home.building }}
-    <div class="home-panel home-panel--building">
-      <h2 class="home-panel-title">Currently building</h2>
-      <ul class="home-building-list">
-        {{- range $home.building }}
-        <li>
-          <a class="home-building-item" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
-            <span class="home-building-title">{{ .title }}</span>
-            <span class="home-building-blurb">{{ .blurb }}</span>
-          </a>
-        </li>
         {{- end }}
       </ul>
     </div>
