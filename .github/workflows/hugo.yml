@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+  # Daily rebuild so future-dated posts (draft=false, date > now) go live
+  # on schedule without a manual push. Hugo excludes future content by default.
+  # 14:00 UTC ≈ 10:00 ET (EDT); ~09:00 EST in winter.
+  schedule:
+    - cron: "0 14 * * *"
   workflow_dispatch:
 
 permissions:

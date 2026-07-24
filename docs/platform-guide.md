@@ -41,12 +41,16 @@ WordPress/Squarespace/Wix:
   (or an agent) edit the file, then `hugo server` locally shows you what it
   looks like before it goes live.
 - **⏱️ Every change needs a build.** Nothing updates instantly — pushing to
-  `main` kicks off a ~1 minute GitHub Actions build + deploy. There's no way
-  to "just tweak something in the browser" and have it stick; the repo is
-  always the source of truth.
+  `main` kicks off a ~1 minute GitHub Actions build + deploy. A **daily**
+  cron rebuild also runs so future-dated posts can go live without a
+  push. There's no way to "just tweak something in the browser" and have
+  it stick; the repo is always the source of truth.
 - **📝 Drafts never go live.** Any post with `draft = true` in its front
   matter is completely excluded from what gets deployed — not password
   protected, not hidden-but-reachable, just absent.
+- **📅 Future dates stay hidden until their day.** With `draft = false`
+  and a `date` still in the future, Hugo omits the post from the build.
+  The daily rebuild publishes it after that timestamp.
 - **📦 Images live in the repo itself**, not a separate media library — more
   on that below, including why that's actually deliberate.
 

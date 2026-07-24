@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Release a drafted series post: draft=false + date=now.
+# Early-release helper: draft=false + date=now.
+# Preferred path for scheduled series posts is Approach A:
+#   draft=false + future date + daily Hugo rebuild (no script needed).
+# Use this only to ship a held draft early or force date=now.
 # Usage: ./scripts/release-series-post.sh <slug>
 # Example: ./scripts/release-series-post.sh eval-gates-not-theater
 set -euo pipefail

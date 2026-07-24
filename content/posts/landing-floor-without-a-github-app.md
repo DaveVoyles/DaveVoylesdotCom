@@ -1,7 +1,7 @@
 +++
 title = "Landing floor without a GitHub App — gates still count"
 date = "2026-09-18T09:00:00-04:00"
-draft = true
+draft = false
 author = "Dave Voyles"
 description = "You do not need a GitHub App or bot merge to run a serious agent landing path. Human mode: Intent, CI, SHA-keyed review receipts, and a wrapper that refuses bare merges."
 categories = ["Programming", "AI"]

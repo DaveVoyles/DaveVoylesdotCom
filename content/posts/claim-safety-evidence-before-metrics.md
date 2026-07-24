@@ -1,7 +1,7 @@
 +++
 title = "Claim safety: evidence before metrics"
 date = "2026-08-28T09:00:00-04:00"
-draft = true
+draft = false
 author = "Dave Voyles"
 description = "How I keep public numbers and authorship honest — on the site, in agent output, and in tools like an evidence-backed resume workspace."
 categories = ["Programming", "AI"]

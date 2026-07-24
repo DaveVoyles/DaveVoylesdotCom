@@ -8,16 +8,16 @@
 Schedule + claim rules:  
 [`docs/series/agent-production-system.md`](series/agent-production-system.md)
 
-Drafts stay `draft = true` until you release:
+**Scheduled series posts** use `draft = false` + a future `date`; a daily
+GitHub Actions rebuild ships them automatically (see
+[`docs/series/README.md`](series/README.md)). Hold unfinished work with
+`draft = true`. Ship early by setting `date` to now and pushing `main`.
+
+Preview scheduled/future posts locally:
 
 ```bash
-./scripts/release-series-post.sh <slug>
-git add content/posts/<slug>.md
-git commit -m "publish: <title>"
-git push origin main
+hugo server -D -F
 ```
-
-Preview drafts anytime with `hugo server -D`.
 
 ## Option A: have an agent draft it (fastest)
 
@@ -31,8 +31,9 @@ the post:
 
 The agent should:
 
-1. Pick a URL-safe slug and create `content/posts/<slug>.md` with
-   `draft = true` (never publishes until you say so).
+1. Pick a URL-safe slug and create `content/posts/<slug>.md`. Use
+   `draft = true` while writing; for a scheduled auto-publish set
+   `draft = false` and a future `date` only when the post is ready.
 2. Check the *existing* tag vocabulary first —
    `git grep -h '^tags' content/posts/*.md` — and reuse those exact
    terms instead of inventing new compound ones (e.g. use `"JavaScript"`
@@ -43,11 +44,11 @@ The agent should:
 4. Commit to a **new branch**, not `main` directly — so you review the
    diff before anything goes live.
 
-Then you review (`git diff`, or `hugo server -D` to preview it
-rendered), ask for edits in plain language if anything's off, and once
-you're happy either tell the agent to flip `draft = false` and open a
-PR, or do that yourself per **Publish** below. Nothing reaches the live
-site without `draft = false` and a merge to `main`.
+Then you review (`git diff`, or `hugo server -D -F` to preview drafts
+and future-dated posts), ask for edits in plain language if anything's
+off, and once you're happy merge to `main` with either `draft = false`
+(live immediately if `date` is now/past) or a future `date` (auto-ships
+on the next daily rebuild after that time).
 
 ## Option B: write it yourself
 
@@ -85,9 +86,9 @@ Edit the front matter as needed:
 - `title` — defaults to a title-cased version of the filename; override it
   directly.
 - `date` — auto-filled to now; change it if backdating.
-- `draft` — **must be set to `false`** before the post will actually
-  publish. Leave it `true` while still writing; a `draft: true` post builds
-  locally but is excluded from the deployed site.
+- `draft` — `true` holds the post forever (never deploys). `false` is
+  required for publish; combined with a future `date`, Hugo still
+  withholds it until that time (see auto-publish below).
 - `tags` — optional, add as a TOML array, e.g. `tags = ['hugo', 'meta']`.
 
 Write the post body as Markdown below the closing `+++`.
@@ -95,17 +96,21 @@ Write the post body as Markdown below the closing `+++`.
 ## Preview locally
 
 ```bash
-hugo server -D
+hugo server -D -F
 ```
 
-`-D` includes drafts in the local preview (they're still excluded from
-`hugo build`'s output, which is what actually deploys). Open
-http://localhost:1313 to check formatting, then stop the server
-(Ctrl-C) when done.
+- `-D` includes `draft = true` posts  
+- `-F` includes **future-dated** posts  
+
+Neither flag is used in production builds. Open http://localhost:1313
+to check formatting, then stop the server (Ctrl-C) when done.
 
 ## Publish
 
-Once `draft = false`, commit and push to `main`:
+### Immediate
+
+Set `draft = false` and `date` to now (or leave a past date), commit and
+push to `main`:
 
 ```bash
 git add content/posts/my-post-slug.md
@@ -113,9 +118,17 @@ git commit -m "docs: add my-post-slug post"
 git push
 ```
 
-Every push to `main` triggers the GitHub Actions workflow
-(`.github/workflows/hugo.yml`) set up in D1: it runs `hugo --minify`,
-deploys to GitHub Pages, and smoke-tests the deployed URL. Watch it with:
+### Scheduled (auto-publish)
+
+Set `draft = false` and a **future** `date` (ISO with timezone, e.g.
+`2026-07-31T09:00:00-04:00`). Push to `main` whenever the content is
+ready. Hugo excludes future content on build; the deploy workflow also
+runs **daily** (`cron: 0 14 * * *` ≈ 10:00 ET) so the post goes live on
+the first rebuild after its `date` without another push.
+
+Every push to `main` (and the daily cron) triggers
+`.github/workflows/hugo.yml`: `hugo --minify`, GitHub Pages deploy, and
+smoke tests. Watch it with:
 
 ```bash
 gh run watch

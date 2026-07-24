@@ -6,23 +6,40 @@ Writing conventions: [`../authoring-guide.md`](../authoring-guide.md).
 
 ---
 
-## Preview drafts (local)
+## Preview scheduled / draft posts (local)
 
 ```bash
 cd ~/REPOS/DaveVoylesdotCom
 git submodule update --init --recursive   # if themes/PaperMod is empty
-hugo server -D
+hugo server -D -F
 ```
 
-Open **http://127.0.0.1:1313/** — `-D` includes `draft = true` posts.
+Open **http://127.0.0.1:1313/**:
 
-| Example | URL |
-|---------|-----|
-| Overview (live) | `/posts/agent-production-system/` |
-| Tokens draft | `/posts/github-tokens-for-agent-fleets/` |
-| Landing floor draft | `/posts/landing-floor-without-a-github-app/` |
+| Flag | Effect |
+|------|--------|
+| `-D` | include `draft = true` posts |
+| `-F` | include **future-dated** posts (`date` still in the future) |
 
-Without `-D`, drafts are hidden (same as production / GitHub Pages).
+Production builds use neither flag — future posts stay hidden until their `date`.
+
+| Example | URL | Goes live (ET) |
+|---------|-----|----------------|
+| Overview (live) | `/posts/agent-production-system/` | already live |
+| Eval gates | `/posts/eval-gates-not-theater/` | 2026-07-31 09:00 |
+| Tokens | `/posts/github-tokens-for-agent-fleets/` | 2026-09-11 09:00 |
+
+---
+
+## Auto-publish model (Approach A)
+
+1. Post on `main` with **`draft = false`** and a **future `date`** in front matter.  
+2. GitHub Actions rebuilds the site **daily** (`cron: 0 14 * * *` ≈ 10:00 ET) plus on every push.  
+3. Hugo **excludes future content by default**, so the post appears on the first rebuild **after** its `date`.
+
+No manual flip on release day for scheduled series posts. See [`.github/workflows/hugo.yml`](../../.github/workflows/hugo.yml).
+
+**Caveat:** posts are “ready to ship” in the public repo before the date (not secret) — only the live site hides them until then.
 
 ---
 
@@ -34,32 +51,28 @@ Paste (edit topic/angle):
 > **Topic:** …  
 > **Angle:** …  
 > **Claim-safe** — only verified About metrics; no invented authorship of upstream tools.  
-> Create `content/posts/<slug>.md` with **`draft = true`**, add a row to  
-> `docs/series/agent-production-system.md`, cross-link the series table on related posts,  
-> and **do not publish** until I say so.  
-> Optional: cover under `static/images/posts/` + `[cover]` front matter.
+> Create `content/posts/<slug>.md` with **`draft = false`**, set **`date`** to the planned publish time, add a row to  
+> `docs/series/agent-production-system.md`, and cross-link the series table on related posts.  
+> Optional: cover under `static/images/posts/` + `[cover]` front matter.  
+> If the post is **not** ready to auto-ship yet, use **`draft = true`** instead (never goes live until flipped).
 
 **Hard rules:** former Xbox TPM (past tense); agents-first; Azure/Docker yes; no Terraform/K8s as skill claims; prefer “extended and operates.”
 
 ---
 
-## Release one post (publish)
+## Ship early / unscheduled (manual)
+
+Still available when you want something live **before** its scheduled date:
 
 ```bash
-./scripts/release-series-post.sh <slug>
+./scripts/release-series-post.sh <slug>   # draft=false + date=now (if it was a draft)
+# or edit front matter: set date to now
 git add content/posts/<slug>.md
 git commit -m "publish: <short title>"
 git push origin main
 ```
 
-Examples:
-
-```bash
-./scripts/release-series-post.sh github-tokens-for-agent-fleets
-./scripts/release-series-post.sh landing-floor-without-a-github-app
-```
-
-Or tell the agent: **“Publish series part N”** / **“Release the tokens post”** — it should run the script, commit, and push (only when you explicitly ask to publish).
+Or tell the agent: **“Publish series part N now”** — it should bump `date` to now, commit, and push (only when you explicitly ask).
 
 ---
 
@@ -77,11 +90,10 @@ Ask: *“Add a 16:9 cover matching the site theme; set `[cover]` in front matter
 
 ## Schedule model
 
-- Drafts stay **`draft = true`** with a planned date in the series table.  
-- Nothing ships early.  
-- Release day = flip draft (script) + push `main` → GitHub Pages rebuild.
-
-Prefer this over auto-future dates unless you also have a regular Hugo rebuild cron.
+- Scheduled posts: **`draft = false`** + future **`date`** + daily Pages rebuild.  
+- Not ready yet: **`draft = true`** (excluded forever until flipped).  
+- Release day usually requires **no** manual action for scheduled posts.  
+- Early release: set `date` to now + push `main`.
 
 ---
 
@@ -89,8 +101,9 @@ Prefer this over auto-future dates unless you also have a regular Hugo rebuild c
 
 | Goal | Action |
 |------|--------|
-| Preview | `hugo server -D` |
-| New post | Agent + “draft=true, claim-safe, update series doc” |
-| Ship | `./scripts/release-series-post.sh <slug>` → commit → push |
+| Preview scheduled | `hugo server -D -F` |
+| New post (auto later) | `draft=false` + future `date` + series doc row |
+| Hold a post | `draft=true` until ready |
+| Ship early | bump `date` to now → commit → push |
 | Images | Ask for cover or diagram export |
 | Schedule list | [`agent-production-system.md`](agent-production-system.md) |
