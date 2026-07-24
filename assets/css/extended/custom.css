@@ -235,25 +235,38 @@
 }
 
 /* Post-page TOC rail (plan 0004 / D2–D3): article + reserved right rail.
-   Desktop: sticky always-open sidebar so opening "Table of Contents" never
-   shoves the article down. Mobile: collapsible, stacked *below* the article
-   (flex order) so expand doesn't push the post body. */
+   DOM order is article then TOC. grid-template-areas keeps them on ONE row
+   (title top-aligned with TOC) so the TOC never stacks above the post. */
 .post-shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--toc-rail-width);
-  gap: calc(var(--gap) * 1.5);
+  grid-template-areas: "article toc";
+  column-gap: calc(var(--gap) * 1.5);
+  row-gap: var(--gap);
   align-items: start;
 }
 
-/* layouts/single.html places .post-toc-rail BEFORE .post-single in the DOM
-   (tab order reaches TOC first). grid-column puts it on the right visually. */
+.post-single {
+  grid-area: article;
+  min-width: 0;
+  /* PaperMod .post-header uses margin: 24px auto … which dropped the title
+     below the TOC top edge; keep tops flush with the bio + TOC rails. */
+  margin-top: 0;
+}
+
+.post-shell .post-header {
+  margin-top: 0;
+}
+
 .post-toc-rail {
-  grid-column: 2;
+  grid-area: toc;
   position: sticky;
   top: var(--gap);
   max-height: calc(100vh - var(--gap) * 2);
   overflow-y: auto;
   align-self: start;
+  /* Match sticky bio rail vertical start inside .main padding */
+  margin-top: 0;
 }
 
 /* Side-panel look: denser TOC, less "card that expands into the flow". */
@@ -341,35 +354,24 @@
   }
 }
 
-.post-single {
-  grid-column: 1;
-  min-width: 0;
-}
-
 .post-shell--no-toc {
   grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "article";
 }
 
-/* Narrow: stack article first, TOC second so expanding details never shoves
-   the post body. Sticky rail disabled. */
+/* Narrow: single column — article (title) first, TOC below. */
 @media (max-width: 1024px) {
   .post-shell {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .post-single {
-    order: 1;
-    grid-column: auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "article"
+      "toc";
   }
 
   .post-toc-rail {
-    order: 2;
-    grid-column: auto;
     position: static;
     max-height: none;
     overflow-y: visible;
-    margin-top: var(--gap);
   }
 
   .post-toc-rail details.toc summary {

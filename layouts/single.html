@@ -43,20 +43,9 @@
 {{- $toc = trim (partial "toc.html" .) " \n\r\t" | safeHTML }}
 {{- end }}
 
-{{- /* The TOC rail comes BEFORE the article in markup -- matching where
-       toc.html rendered pre-D2 (inline, ahead of the content) -- so
-       keyboard/screen-reader tab order still reaches it before the full
-       article body, not after. CSS `grid-column` (below) places it
-       visually on the right at desktop widths regardless of DOM order;
-       CSS `order` was deliberately avoided for this because it only
-       changes visual position, not tab order, which would have silently
-       reintroduced the same mismatch this fix closes. */ -}}
+{{- /* Article first, TOC second: natural LTR grid (title | TOC) without
+       grid-column swaps that can fall back to stacked DOM order. */ -}}
 <div class="post-shell{{ if not $toc }} post-shell--no-toc{{ end }}">
-{{- with $toc }}
-<aside class="post-toc-rail">
-  {{- . }}
-</aside>
-{{- end }}
 <article class="post-single">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
@@ -123,6 +112,11 @@
   {{- partial "comments.html" . }}
   {{- end }}
 </article>
+{{- with $toc }}
+<aside class="post-toc-rail" aria-label="Table of contents">
+  {{- . }}
+</aside>
+{{- end }}
 </div>
 
 {{- /* Scroll-spy JS only loads on pages that actually have a TOC rail --
