@@ -3,6 +3,7 @@ title: "We're Back"
 date: 2026-07-21
 draft: false
 tags: ["Meta"]
+topics: ["AI and Agents", "Gaming", "Tech"]
 cover:
   image: "/images/posts/were-back-dinosaur-story.jpg"
   alt: "We're Back! A Dinosaur's Story"

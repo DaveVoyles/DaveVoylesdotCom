@@ -3,6 +3,7 @@ title: "Hello World"
 date: 2024-01-15T10:00:00Z
 draft: false
 tags: ["Meta"]
+topics: ["Tech"]
 ---
 
 Welcome to my blog! This is the first post on my newly rebuilt Hugo site.
