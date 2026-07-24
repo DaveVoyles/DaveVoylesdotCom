@@ -92,7 +92,7 @@ Featured external work, not blog posts. As of 2026-07:
 
 - Resume Builder (GitHub)
 - Philly Lax Viz (GitHub + live)
-- CFB 26 Playbooks (GitHub / WebGL)
+- CFB 26 Playbooks (GitHub + live site / WebGL)
 - Harriton Lacrosse (team site; Dave is **head coach**, Lower Merion, PA)
 
 Keep blurbs accurate; don’t invent metrics.

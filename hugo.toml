@@ -98,6 +98,8 @@ badge = "WebGL"
 blurb = "Interactive WebGL playbook explorer for College Football 26 — schemes, formations, and visual learning tools."
 url = "https://github.com/DaveVoyles/College-Football-26-Playbooks-site"
 url_label = "GitHub"
+secondary_url = "https://davevoyles.github.io/College-Football-26-Playbooks-site"
+secondary_label = "Live site"
 
 [[params.home.projects]]
 title = "Harriton Lacrosse"
