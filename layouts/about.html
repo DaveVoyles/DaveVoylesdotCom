@@ -1,12 +1,11 @@
 {{- /*
-  Portfolio About layout (3.jpg-inspired, console theme).
+  Portfolio About layout (console theme).
 
   All structure/copy comes from content/about.md front matter under .Params.about.
   Progressive enhancement:
     - static HTML always readable
-    - assets/js/about-constellation.js wires pill ↔ node highlight
-    - constellation graph is SVG today; same node ids/clusters are the
-      hand-off surface for a future WebGL scene
+    - assets/js/about-constellation.js wires pill ↔ node highlight, node detail
+      panel, ?cluster= / ?node= deep links, and optional Three.js WebGL scene
 */ -}}
 {{- define "main" }}
 {{- $a := .Params.about }}
@@ -17,26 +16,61 @@
 <article class="about-page" id="about">
   {{/* -------- Hero -------- */}}
   <header class="about-hero">
-    {{- with $a.badge }}
-    <p class="about-badge">{{ . }}</p>
-    {{- end }}
-    <h1 class="about-headline">
-      <span class="about-headline-main">{{ $a.headline }}</span>
-      {{- with $a.headline_accent }}
-      <span class="about-headline-accent">{{ . }}</span>
+    <div class="about-hero-main">
+      {{- with $a.photo }}
+      <div class="about-hero-photo">
+        <img
+          src="{{ . | relURL }}"
+          alt="{{ $a.photo_alt | default "Dave Voyles" }}"
+          width="160"
+          height="160"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
       {{- end }}
-    </h1>
-    {{- with $a.lede }}
-    <p class="about-lede">{{ . }}</p>
+      <div class="about-hero-copy">
+        {{- with $a.badge }}
+        <p class="about-badge">{{ . }}</p>
+        {{- end }}
+        <h1 class="about-headline">
+          <span class="about-headline-main">{{ $a.headline }}</span>
+          {{- with $a.headline_accent }}
+          <span class="about-headline-accent">{{ . }}</span>
+          {{- end }}
+        </h1>
+        {{- with $a.lede }}
+        <p class="about-lede">{{ . }}</p>
+        {{- end }}
+        {{- with $a.location }}
+        <p class="about-location">{{ . }}</p>
+        {{- end }}
+      </div>
+    </div>
+
+    {{- if or $a.focus $a.building }}
+    <div class="about-status" aria-label="Current focus">
+      {{- with $a.focus }}
+      <div class="about-status-row">
+        <span class="about-status-label">Looking for</span>
+        <p class="about-status-text">{{ . }}</p>
+      </div>
+      {{- end }}
+      {{- with $a.building }}
+      <div class="about-status-row">
+        <span class="about-status-label">Currently building</span>
+        <p class="about-status-text">{{ . }}</p>
+      </div>
+      {{- end }}
+    </div>
     {{- end }}
-    {{- with $a.location }}
-    <p class="about-location">{{ . }}</p>
-    {{- end }}
+
     {{- with $a.ctas }}
     <div class="about-ctas">
       {{- range . }}
       <a class="about-cta{{ if .primary }} about-cta--primary{{ end }}" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>{{ .label }}</a>
       {{- end }}
+      <a class="about-cta" href="{{ "/posts/agent-production-system/" | relURL }}">Case study</a>
     </div>
     {{- end }}
     {{- with $a.tech }}
@@ -66,7 +100,7 @@
   </section>
   {{- end }}
 
-  {{/* -------- Constellation (interactive SVG; WebGL-ready data) -------- */}}
+  {{/* -------- Constellation (SVG + optional WebGL + detail panel) -------- */}}
   {{- with $a.constellation }}
   <section class="about-constellation" aria-labelledby="about-constellation-title">
     <div class="about-section-head">
@@ -191,6 +225,7 @@
       {{- with .github }}
       <a class="about-cta" href="{{ . }}" rel="noopener noreferrer" target="_blank">GitHub</a>
       {{- end }}
+      <a class="about-cta" href="{{ "/posts/agent-production-system/" | relURL }}">Case study</a>
     </div>
   </footer>
   {{- end }}

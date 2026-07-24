@@ -31,8 +31,13 @@ on `main` and documented for the next agent.
 
 - Graph page UX follow-ups still under broader [#24](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/24) umbrella if still open.  
 - Content gap 2015–2024 if still tracked ([#55](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/55)).  
-- “Recent” may still surface older posts until more modern posts exist.  
-- Optional later: richer WebGL, About headshot, filter Recent by year.
+- Optional later: filter Recent by year; richer WebGL packet-flow; dedicated headshot crop if Dave_Debbie crop is awkward.
+
+## Shipped after portfolio docs (2026-07-24 polish)
+
+- About: headshot + looking-for / currently building; constellation **node detail panel**; `?cluster=` / `?node=` deep links; keys 1–4 + Esc.  
+- Home: **Currently building** strip (`params.home.building`).  
+- Case study post: `/posts/agent-production-system/` (claim-safe; feeds Featured).
 
 ## Nothing currently in-flight
 

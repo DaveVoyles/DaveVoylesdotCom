@@ -20,6 +20,10 @@ headline = "Hi, I'm Dave."
 headline_accent = "I bridge deep tech with execution rigor."
 lede = "Former Senior Technical Program Manager at Xbox/Microsoft. I spent years shipping platform systems at scale — and now I build the agent fleets that help engineering work get done under real controls."
 location = "Philadelphia, PA · Remote-US"
+photo = "/images/posts/Dave_Debbie.jpeg"
+photo_alt = "Dave Voyles"
+focus = "Builder-first TPM / agent platform work — production systems with real controls, not demo-only chatbots."
+building = "Agent fleets on a Dockerized homelab, evidence-backed resume tooling, sports tech (Philly Lax + CFB playbooks), and head coach at Harriton lacrosse."
 
 [[about.ctas]]
 label = "LinkedIn"
@@ -165,7 +169,7 @@ github = "https://github.com/davevoyles"
 # it as "how my agent fleet works," not "what jobs I've held."
 [about.constellation]
 title = "My agent production system"
-subtitle = "A map of how I run multi-agent work in production — not a résumé timeline. Drag to orbit; hover a skill pill or node to highlight a layer."
+subtitle = "A map of how I run multi-agent work in production — not a résumé timeline. Click a node for what it does; hover a skill pill to highlight a layer. Keys 1–4 filter clusters; Esc clears. Drag to orbit in WebGL."
 
 [[about.constellation.nodes]]
 id = "orchestrator"
@@ -173,6 +177,7 @@ label = "Orchestrator"
 cluster = "agents"
 x = 50
 y = 42
+detail = "Captain of the fleet: takes a work order, assigns planner/coder/search agents, and holds the critical path until eval gates pass or a human is needed."
 
 [[about.constellation.nodes]]
 id = "planner"
@@ -180,6 +185,7 @@ label = "Planner"
 cluster = "agents"
 x = 28
 y = 28
+detail = "Breaks ambiguous goals into sequenced, verifiable tasks — sizes work, names dependencies, and refuses to hand the coder a vague ticket."
 
 [[about.constellation.nodes]]
 id = "coder"
@@ -187,6 +193,7 @@ label = "Coder"
 cluster = "agents"
 x = 72
 y = 28
+detail = "Implements changes in isolated worktrees: write code, run tests, open PRs. Never the merge authority — that lives downstream in eval + human approval."
 
 [[about.constellation.nodes]]
 id = "search"
@@ -194,6 +201,7 @@ label = "Search"
 cluster = "agents"
 x = 22
 y = 52
+detail = "Retrieval across wiki, code, and docs (BM25 + vectors + tools). Read-first before inventing; cites sources so claims stay grounded."
 
 [[about.constellation.nodes]]
 id = "router"
@@ -201,6 +209,7 @@ label = "LLM router"
 cluster = "agents"
 x = 50
 y = 22
+detail = "Routes each request to the right model or agent for cost, latency, and capability — multi-LLM by design, not a single-vendor chat box."
 
 [[about.constellation.nodes]]
 id = "skills"
@@ -208,6 +217,7 @@ label = "Skills / tools"
 cluster = "agents"
 x = 78
 y = 48
+detail = "Versioned tool-calling skills (plan, TDD, review, deploy patterns). The fleet’s shared craft library — how work is done, not just which model answers."
 
 [[about.constellation.nodes]]
 id = "eval"
@@ -215,6 +225,7 @@ label = "Eval gates"
 cluster = "agents"
 x = 50
 y = 62
+detail = "Automated checks before merge: tests, lint, claim safety, policy gates. Fail-closed on destructive or ambiguous work; green is not optional theater."
 
 [[about.constellation.nodes]]
 id = "mcp"
@@ -222,6 +233,7 @@ label = "MCP"
 cluster = "agents"
 x = 65
 y = 58
+detail = "Model Context Protocol interfaces — structured tools so agents share one contract for vault search, boards, and external systems instead of ad-hoc scrapes."
 
 [[about.constellation.nodes]]
 id = "docker"
@@ -229,6 +241,7 @@ label = "Docker host"
 cluster = "production"
 x = 18
 y = 72
+detail = "20+ containers on the homelab host: agents, runners, media, dashboards. Agent-operated container ops with hardened defaults (capabilities dropped, networks scoped)."
 
 [[about.constellation.nodes]]
 id = "azure"
@@ -236,6 +249,7 @@ label = "Azure / ADO"
 cluster = "production"
 x = 38
 y = 78
+detail = "Cloud and delivery surface: Azure services plus GitHub/ADO-style pipelines. Where platform work leaves the laptop and meets real SLAs."
 
 [[about.constellation.nodes]]
 id = "dashboard"
@@ -243,6 +257,7 @@ label = "Dashboards"
 cluster = "web"
 x = 82
 y = 72
+detail = "Status UIs and observability — what’s running, what’s blocked, what merged. Web is the control surface, not the product identity."
 
 [[about.constellation.nodes]]
 id = "human"
@@ -250,6 +265,7 @@ label = "Human approval"
 cluster = "program"
 x = 50
 y = 88
+detail = "Hard stop for irreversible or high-risk actions. Autonomy is earned; I still own the merge button when the blast radius is real."
 
 [[about.constellation.edges]]
 from = "router"

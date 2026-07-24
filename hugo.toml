@@ -70,9 +70,26 @@ show_topic_rails = true
 show_projects = true
 show_graph_pane = true
 show_webgl_hero = true
+show_building = true
 # Archive picks are drawn from posts older than this year so the desk
 # stays "current" while the magazine still surface-links the back catalog.
 archive_before_year = 2020
+
+# "Currently building" strip on the homepage — hand-edited, keep honest.
+[[params.home.building]]
+label = "Agent production system"
+note = "Multi-agent fleet on a Dockerized homelab — eval gates, human approval, claim safety."
+url = "/posts/agent-production-system/"
+
+[[params.home.building]]
+label = "Resume Builder"
+note = "Evidence-backed AI job-search workspace."
+url = "https://github.com/DaveVoyles/resume-builder"
+
+[[params.home.building]]
+label = "Philly Lax + CFB playbooks"
+note = "Live sports tech and WebGL coaching tools."
+url = "https://phillylaxstats.com/"
 
 # Featured projects on the homepage (full-width card grid).
 # `badge` is a short kind label; `url` is the primary CTA.

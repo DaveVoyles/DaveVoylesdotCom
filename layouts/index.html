@@ -111,6 +111,37 @@
   </section>
   {{- end }}
 
+  {{/* -------- Currently building (hand-edited status strip) -------- */}}
+  {{- if and ($home.show_building | default true) $home.building }}
+  <section class="home-building" aria-labelledby="home-building-title">
+    <div class="home-section-head">
+      <h2 id="home-building-title">Currently building</h2>
+      <p class="home-section-sub">What I’m actively working on — not a full portfolio dump.</p>
+    </div>
+    <ul class="home-building-list home-building-list--cards">
+      {{- range $home.building }}
+      <li class="home-building-item">
+        {{- if .url }}
+        <a class="home-building-card" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
+          <span class="home-building-label">{{ .label }}</span>
+          {{- with .note }}
+          <span class="home-building-note">{{ . }}</span>
+          {{- end }}
+        </a>
+        {{- else }}
+        <div class="home-building-card home-building-card--static">
+          <span class="home-building-label">{{ .label }}</span>
+          {{- with .note }}
+          <span class="home-building-note">{{ . }}</span>
+          {{- end }}
+        </div>
+        {{- end }}
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+
   {{/* -------- Projects (highlighted personal work) -------- */}}
   {{- if and ($home.show_projects | default true) $home.projects }}
   <section class="home-projects" aria-labelledby="home-projects-title">

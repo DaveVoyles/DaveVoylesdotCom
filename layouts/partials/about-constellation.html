@@ -1,10 +1,9 @@
 {{- /*
-  About constellation: SVG fallback + WebGL canvas host.
+  About constellation: SVG fallback + WebGL canvas host + detail panel.
 
   Node/edge topology comes from front matter. Positions are percent-based
   (0–100). data-cluster / data-node-id (and the JSON blob below) are the
-  contract for assets/js/about-constellation.js — SVG highlight today,
-  Three.js scene when WebGL is available and motion is allowed.
+  contract for assets/js/about-constellation.js.
 */ -}}
 {{- $nodes := .nodes }}
 {{- $edges := .edges }}
@@ -13,72 +12,92 @@
   {{- $nodeMap = merge $nodeMap (dict .id .) }}
 {{- end }}
 
-{{- /* Build a JSON payload for the WebGL boot path (safeJS for script body). */ -}}
 {{- $graph := dict "nodes" $nodes "edges" $edges }}
 
-<figure class="about-constellation-figure" data-constellation-root>
-  <div
-    class="about-constellation-webgl"
-    data-constellation-webgl
-    hidden
-    aria-hidden="true"
-  ></div>
+<div class="about-constellation-stage">
+  <figure class="about-constellation-figure" data-constellation-root>
+    <div
+      class="about-constellation-webgl"
+      data-constellation-webgl
+      hidden
+      aria-hidden="true"
+    ></div>
 
-  <svg
-    class="about-constellation-svg"
-    viewBox="0 0 100 100"
-    role="img"
-    data-constellation-svg
-    aria-label="Agent production system map: orchestrator, planner, coder, search, LLM router, skills, eval gates, MCP, Docker host, Azure, dashboards, and human approval"
-  >
-    <defs>
-      <radialGradient id="about-node-glow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.45" />
-        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0" />
-      </radialGradient>
-    </defs>
+    <svg
+      class="about-constellation-svg"
+      viewBox="0 0 100 100"
+      role="img"
+      data-constellation-svg
+      aria-label="Agent production system map: orchestrator, planner, coder, search, LLM router, skills, eval gates, MCP, Docker host, Azure, dashboards, and human approval"
+    >
+      <defs>
+        <radialGradient id="about-node-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.45" />
+          <stop offset="100%" stop-color="var(--accent)" stop-opacity="0" />
+        </radialGradient>
+      </defs>
 
-    <g class="about-constellation-edges" aria-hidden="true">
-      {{- range $edges }}
-      {{- $from := index $nodeMap .from }}
-      {{- $to := index $nodeMap .to }}
-      {{- if and $from $to }}
-      <line
-        class="about-constellation-edge"
-        data-from="{{ .from }}"
-        data-to="{{ .to }}"
-        x1="{{ $from.x }}"
-        y1="{{ $from.y }}"
-        x2="{{ $to.x }}"
-        y2="{{ $to.y }}"
-      />
-      {{- end }}
-      {{- end }}
-    </g>
-
-    <g class="about-constellation-nodes">
-      {{- range $nodes }}
-      <g
-        class="about-constellation-node"
-        data-node-id="{{ .id }}"
-        data-cluster="{{ .cluster }}"
-        tabindex="0"
-        role="button"
-        aria-label="{{ .label }} ({{ .cluster }})"
-      >
-        <circle class="about-constellation-halo" cx="{{ .x }}" cy="{{ .y }}" r="5.5" fill="url(#about-node-glow)" />
-        <circle class="about-constellation-dot" cx="{{ .x }}" cy="{{ .y }}" r="2.1" />
-        <text class="about-constellation-label" x="{{ .x }}" y="{{ add .y 5.2 }}" text-anchor="middle">{{ .label }}</text>
+      <g class="about-constellation-edges" aria-hidden="true">
+        {{- range $edges }}
+        {{- $from := index $nodeMap .from }}
+        {{- $to := index $nodeMap .to }}
+        {{- if and $from $to }}
+        <line
+          class="about-constellation-edge"
+          data-from="{{ .from }}"
+          data-to="{{ .to }}"
+          x1="{{ $from.x }}"
+          y1="{{ $from.y }}"
+          x2="{{ $to.x }}"
+          y2="{{ $to.y }}"
+        />
+        {{- end }}
+        {{- end }}
       </g>
-      {{- end }}
-    </g>
-  </svg>
 
-  <script type="application/json" data-constellation-data>
+      <g class="about-constellation-nodes">
+        {{- range $nodes }}
+        <g
+          class="about-constellation-node"
+          data-node-id="{{ .id }}"
+          data-cluster="{{ .cluster }}"
+          tabindex="0"
+          role="button"
+          aria-label="{{ .label }} ({{ .cluster }})"
+          aria-controls="about-node-detail"
+        >
+          <circle class="about-constellation-halo" cx="{{ .x }}" cy="{{ .y }}" r="5.5" fill="url(#about-node-glow)" />
+          <circle class="about-constellation-dot" cx="{{ .x }}" cy="{{ .y }}" r="2.1" />
+          <text class="about-constellation-label" x="{{ .x }}" y="{{ add .y 5.2 }}" text-anchor="middle">{{ .label }}</text>
+        </g>
+        {{- end }}
+      </g>
+    </svg>
+
+    <script type="application/json" data-constellation-data>
 {{- $graph | jsonify (dict "indent" "  ") | safeJS }}
-  </script>
+    </script>
 
-  <figcaption class="about-constellation-caption">
-    How the fleet is wired: agents plan and code, an orchestrator routes work, eval gates and human approval control risk, Docker and Azure host the stack, dashboards surface status. Not a career graph — a system diagram. WebGL when available; flat diagram as fallback.
-  </figcaption>
-</figure>
+    <figcaption class="about-constellation-caption">
+      How the fleet is wired: agents plan and code, an orchestrator routes work, eval gates and human approval control risk, Docker and Azure host the stack, dashboards surface status. Not a career graph — a system diagram. Click any node for a plain-English role. WebGL when available; flat diagram as fallback.
+    </figcaption>
+  </figure>
+
+  <aside
+    class="about-node-detail"
+    id="about-node-detail"
+    data-node-detail
+    aria-live="polite"
+    aria-atomic="true"
+  >
+    <p class="about-node-detail-kicker" data-node-detail-kicker>Inspect</p>
+    <h3 class="about-node-detail-title" data-node-detail-title>Select a node</h3>
+    <p class="about-node-detail-cluster" data-node-detail-cluster hidden></p>
+    <p class="about-node-detail-body" data-node-detail-body>
+      Click a node on the map to see what that piece of the agent production system does. Deep link with <code>?node=eval</code> or filter a layer with <code>?cluster=agents</code>.
+    </p>
+    <button type="button" class="about-node-detail-clear" data-node-detail-clear hidden>
+      Clear selection
+    </button>
+  </aside>
+</div>

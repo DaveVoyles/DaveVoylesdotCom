@@ -81,10 +81,12 @@ Config: `[params.home]` in `hugo.toml`.
 | Task | Where |
 |------|--------|
 | Change hero status text | `params.home.status` |
+| Currently building strip | `[[params.home.building]]` — `label`, `note`, optional `url`; toggle `show_building` |
 | Add/edit a project card | `[[params.home.projects]]` — `title`, `badge`, `blurb`, `url`, `url_label`, optional `secondary_url` / `secondary_label` |
 | Show more/fewer recent posts | `params.home.recent_count` |
 | Turn off WebGL hero | `params.home.show_webgl_hero = false` |
 | Turn off projects section | `params.home.show_projects = false` |
+| Case study post | `content/posts/agent-production-system.md` (feeds Featured/Recent as newest) |
 
 ### Projects (current intent)
 
@@ -107,8 +109,25 @@ Custom layout (`layout = "about"`). Body markdown is intentionally empty —
 **all structure comes from front matter** under `[about]` in
 `content/about.md`.
 
-Sections (in order): hero → stats → constellation → skills → impact →
-approach → footer CTAs.
+Sections (in order): hero (photo + looking-for / building) → stats →
+constellation (map + **node detail panel**) → skills → impact → approach →
+footer CTAs.
+
+### Hero identity fields
+
+| Field | Purpose |
+|-------|---------|
+| `photo` / `photo_alt` | Headshot (reuses sidebar avatar path unless overridden) |
+| `focus` | “Looking for” target line |
+| `building` | “Currently building” one-liner |
+
+### Constellation interaction
+
+- **Click a node** → detail panel (`detail` text on each node in front matter)
+- **Hover pills** → cluster highlight (unchanged)
+- **Deep links:** `/about/?cluster=agents`, `/about/?node=eval`
+- **Keyboard:** `1` agents · `2` web · `3` program · `4` production · `Esc` clears
+- URL updates via `history.replaceState` when selection changes
 
 ### Identity framing (important)
 
@@ -218,9 +237,15 @@ edit the projects loop in `layouts/index.html`.
 
 ### Add a constellation node
 
-1. Add `[[about.constellation.nodes]]` with unique `id`, `label`, `cluster`, `x`, `y`  
+1. Add `[[about.constellation.nodes]]` with unique `id`, `label`, `cluster`, `x`, `y`, and **`detail`** (plain-English panel copy)  
 2. Add edges with `[[about.constellation.edges]]`  
-3. Preview About — SVG updates at build; WebGL reads the same JSON  
+3. Preview About — SVG updates at build; WebGL + detail panel read the same JSON  
+
+### Deep-link a cluster or node
+
+- `/about/?cluster=agents` (or `web` / `program` / `production`)  
+- `/about/?node=eval` (any node `id`)  
+- Prefer linking these from posts or LinkedIn instead of screenshots alone.
 
 ### New custom page with interaction
 
