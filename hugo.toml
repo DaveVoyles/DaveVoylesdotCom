@@ -132,7 +132,7 @@ url_label = "Team site"
 # partial rather than the theme's homepage-only home_info.html.
 [params.homeInfoParams]
 Title = "Hi, I'm Dave 👋"
-Content = "Formerly a Software Engineer and Technical Program Manager at Xbox/Microsoft. I write about game development, cloud, and AI/agents — plus whatever I'm building on the side."
+Content = "Formerly a Software Engineer and Technical Program Manager at Xbox/Microsoft. Head lacrosse coach at Harriton High School (Lower Merion, PA). I write about AI/agents, cloud, games — plus whatever I'm building on the side."
 Avatar = "/images/posts/Dave_Debbie.jpeg"
 AvatarAlt = "Dave Voyles and his wife"
 
