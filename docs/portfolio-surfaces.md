@@ -167,10 +167,12 @@ loss falls back to SVG.
 
 ### Claim safety
 
-About metrics and product claims must stay aligned with:
+**In-repo source of truth:** [`claim-safe-facts.md`](claim-safe-facts.md)
+(allowed metrics, banned claims, constellation node ids).
 
-- `~/REPOS/resume-builder-Dave/docs/candidate-profile.md` (or sibling
-  resume-builder repo paths Dave uses)
+Also align with (when available on disk):
+
+- `~/REPOS/resume-builder-Dave/docs/candidate-profile.md`
 - `docs/accuracy-and-claims.md` in that repo when present  
 
 Hard rules that have already bitten agents:

@@ -65,14 +65,5 @@ If an agent restarts a healthy stack “because it felt stuck,” that is not op
 
 Cloud is not a logo strip on a résumé. In this system, **Azure** (and GitHub/ADO-style pipelines) is where personal production meets **SLA-shaped delivery**: builds, deploys, and the long tail of platform work. Homelab and cloud are complementary: local density for agents and tools; cloud for reach and durable delivery surfaces.
 
-## Series
-
-| | |
-|--|--|
-| ← Previous | [Human approval: the merge button still matters](/posts/human-approval-merge-button/) |
-| Overview | [How I run an agent production system](/posts/agent-production-system/) |
-| Next → | *From Xbox SLAs to agent fleets* (scheduled) |
-
----
 
 **Bottom line:** prompts do not host production. Containers, networks, pipelines, and dashboards do. If you cannot draw the host layer, you do not yet have an agent **production** system — you have a conversation.

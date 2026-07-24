@@ -1,5 +1,12 @@
 # Learnings
 
+## 2026-07-24 — Agent platform affordances
+
+- **In-repo claim-safe facts beat “see resume-builder” alone** — agents invent metrics when the allowlist is outside the site repo. Keep `docs/claim-safe-facts.md` as the floor; resume-builder remains deeper evidence when present.
+- **Content gates belong in CI before Hugo**, not only deploy smoke URLs — bad topics, missing covers, and fake `/posts/` links never hit the six smoke paths.
+- **Series prev/next tables go stale on ship day** — generate from `series` + `series_weight` in a partial; only live (non-future) siblings appear until auto-publish.
+- **macOS BSD awk has no `\s`** — content-check parsers must use portable character classes or `$1 == "image"`.
+
 ## 2026-07-24 — Portfolio home/About/WebGL + agent docs
 
 - **Home must not re-grow into a full archive list.** The dashboard deliberately caps featured/recent/archive-picks and sends bulk history to `/archives/`. Reintroducing PaperMod-style full pagination on `/` undoes [ADR 0010](decisions/0010-home-dashboard-not-full-archive.md). Config knobs live under `[params.home]` — prefer those over inventing a new list template.

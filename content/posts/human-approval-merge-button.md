@@ -73,14 +73,5 @@ Bad agent behavior:
 - Retrying until a check flaps green  
 - Treating human delay as a bug instead of a control  
 
-## Series
-
-| | |
-|--|--|
-| ← Previous | [Eval gates are not optional theater](/posts/eval-gates-not-theater/) |
-| Overview | [How I run an agent production system](/posts/agent-production-system/) |
-| Next → | *Twenty-plus containers and agent-operated ops* (scheduled) |
-
----
 
 **Bottom line:** if your architecture has no place for a human to say no, you did not build a production system. You built a demo with CI cosplay.

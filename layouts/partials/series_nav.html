@@ -1,0 +1,70 @@
+{{- /*
+  Series prev / overview / next from front matter:
+    series = ["Agent production system"]
+    series_weight = N
+
+  Only includes pages Hugo considers published (non-draft; non-future
+  unless built with -F). "Next" appears when that sibling's date arrives.
+*/ -}}
+{{- with .Params.series -}}
+{{- $seriesName := index . 0 -}}
+{{- if $seriesName -}}
+{{- $peers := slice -}}
+{{- range $p := where $.Site.RegularPages "Type" "posts" -}}
+  {{- with $p.Params.series -}}
+    {{- if in . $seriesName -}}
+      {{- $peers = $peers | append $p -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- /* Need 2+ live peers so we don't show a lone self-index before siblings ship */ -}}
+{{- if gt (len $peers) 1 -}}
+{{- $sorted := sort $peers "Params.series_weight" "asc" -}}
+{{- $.Scratch.Set "seriesIdx" -1 -}}
+{{- range $i, $p := $sorted -}}
+  {{- if eq $p.RelPermalink $.RelPermalink -}}
+    {{- $.Scratch.Set "seriesIdx" $i -}}
+  {{- end -}}
+{{- end -}}
+{{- $idx := $.Scratch.Get "seriesIdx" -}}
+{{- $overview := false -}}
+{{- range $sorted -}}
+  {{- if eq (.Params.series_weight | default -1) 0 -}}
+    {{- $overview = . -}}
+  {{- end -}}
+{{- end -}}
+<nav class="series-nav" aria-label="Series navigation">
+  <h2 class="series-nav-title">Series</h2>
+  <p class="series-nav-name">{{ $seriesName }}</p>
+  <ul class="series-nav-list">
+    {{- if ge $idx 1 -}}
+    {{- with index $sorted (sub $idx 1) }}
+    <li class="series-nav-entry"><span class="series-nav-label">← Previous</span> <a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{- end }}
+    {{- end }}
+    {{- with $overview }}
+    {{- if ne .RelPermalink $.RelPermalink }}
+    <li class="series-nav-entry"><span class="series-nav-label">Overview</span> <a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{- end }}
+    {{- end }}
+    {{- if and (ge $idx 0) (lt (add $idx 1) (len $sorted)) -}}
+    {{- with index $sorted (add $idx 1) }}
+    <li class="series-nav-entry"><span class="series-nav-label">Next →</span> <a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{- end }}
+    {{- end }}
+  </ul>
+  <ol class="series-nav-index">
+    {{- range $sorted }}
+    <li{{ if eq .RelPermalink $.RelPermalink }} class="series-nav-index-current"{{ end }}>
+      {{- if eq .RelPermalink $.RelPermalink -}}
+      <strong>{{ .Title }}</strong>
+      {{- else -}}
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{- end -}}
+    </li>
+    {{- end }}
+  </ol>
+</nav>
+{{- end -}}
+{{- end -}}
+{{- end -}}

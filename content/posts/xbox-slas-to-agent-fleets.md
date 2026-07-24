@@ -63,14 +63,5 @@ The series thesis in one line:
 
 Transfer is about **discipline**, not resume inflation.
 
-## Series
-
-| | |
-|--|--|
-| ← Previous | [Twenty-plus containers and agent-operated ops](/posts/docker-homelab-agent-ops/) |
-| Overview | [How I run an agent production system](/posts/agent-production-system/) |
-| Next → | *Claim safety: evidence before metrics* (scheduled) |
-
----
 
 **Bottom line:** if you want agent systems that survive contact with production, hire (or become) people who have already shipped under SLA pressure. The models will change. The need for critical path and fail-closed judgment will not.

@@ -66,20 +66,5 @@ If you only remember one walk through [About](/about/):
 
 The map is the product thesis. This post is the moral of the map.
 
-## Series index
-
-| # | Post |
-|---|------|
-| 0 | [How I run an agent production system](/posts/agent-production-system/) |
-| 1 | [Eval gates are not optional theater](/posts/eval-gates-not-theater/) |
-| 2 | [Human approval: the merge button still matters](/posts/human-approval-merge-button/) |
-| 3 | [Twenty-plus containers and agent-operated ops](/posts/docker-homelab-agent-ops/) |
-| 4 | [From Xbox SLAs to agent fleets](/posts/xbox-slas-to-agent-fleets/) |
-| 5 | [Claim safety: evidence before metrics](/posts/claim-safety-evidence-before-metrics/) |
-| 6 | **What I will not automate** (this post) |
-| 7 | [GitHub tokens for agent fleets](/posts/github-tokens-for-agent-fleets/) (scheduled) |
-| 8 | [Landing floor without a GitHub App](/posts/landing-floor-without-a-github-app/) (scheduled) |
-
----
 
 **Bottom line:** the goal was never maximum automation. The goal is a **production system** — agents for leverage, gates for truth, humans for judgment. If that sounds like TPM work, good. It is.

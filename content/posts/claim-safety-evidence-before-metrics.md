@@ -62,14 +62,5 @@ The product idea is simple: **role matching and language generation stay attache
 
 On the map: start at [Eval gates](/about/?node=eval) and [Search](/about/?node=search).
 
-## Series
-
-| | |
-|--|--|
-| ← Previous | [From Xbox SLAs to agent fleets](/posts/xbox-slas-to-agent-fleets/) |
-| Overview | [How I run an agent production system](/posts/agent-production-system/) |
-| Next → | *What I will not automate* (scheduled) |
-
----
 
 **Bottom line:** impressive is easy; **defensible** is the product. If your agents can publish, your gates must be able to say “show me the source.”

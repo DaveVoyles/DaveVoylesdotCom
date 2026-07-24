@@ -73,13 +73,5 @@ On [About](/about/?node=eval):
 
 Click the node if you want the one-line version. This post is the long version.
 
-## Series
-
-| | |
-|--|--|
-| ← Overview | [How I run an agent production system](/posts/agent-production-system/) |
-| Next → | *Human approval: the merge button still matters* (scheduled) |
-
----
 
 **Bottom line:** agents move work; **gates decide whether work counts.** If you only invest in smarter models and never in harder gates, you are optimizing the wrong half of the system.

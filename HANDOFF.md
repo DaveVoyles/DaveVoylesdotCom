@@ -1,44 +1,40 @@
 # Handoff
 
-**2026-07-24 portfolio surfaces session closed with docs.** Site UX work is
-on `main` and documented for the next agent.
+**2026-07-24 — agent platform affordances + auto-publish.**
 
-## What shipped (this initiative)
+## What just shipped
 
-| Work | PR / commit | Notes |
-|------|-------------|--------|
-| About portfolio layout | [#86](https://github.com/DaveVoyles/DaveVoylesdotCom/pull/86) | Data-driven `content/about.md`, console styling |
-| About WebGL constellation | [#87](https://github.com/DaveVoyles/DaveVoylesdotCom/pull/87) | Three.js + SVG fallback, cluster highlight |
-| Home dashboard + magazine | [#88](https://github.com/DaveVoyles/DaveVoylesdotCom/pull/88) | No full archive dump; WebGL hero field |
-| Projects grid | [#89](https://github.com/DaveVoyles/DaveVoylesdotCom/pull/89) | Resume Builder, Philly Lax Viz, CFB 26 Playbooks, Harriton (head coach) |
-| Agent docs | (this commit) | `docs/portfolio-surfaces.md`, ADR 0010, README/platform/CONTEXT/learnings |
+| Work | Notes |
+|------|--------|
+| Auto-publish (Approach A) | Series parts 1–8: `draft=false` + future dates; daily cron on Hugo workflow ≈10:00 ET |
+| `AGENTS.md` | Thin router for agents |
+| `docs/claim-safe-facts.md` | Allowed metrics, bans, constellation node ids, topics |
+| `scripts/check-content.sh` | Topics, covers, series_weight, claim patterns, internal `/posts/` links — runs in CI before build |
+| `scripts/new-series-post.sh` + `archetypes/series.md` | Scaffold scheduled series posts |
+| `scripts/list-tags.sh` | Tag vocabulary dump |
+| Series nav partial | `layouts/partials/series_nav.html` auto prev/next/index from `series` + `series_weight` |
+| `Makefile` | `preview`, `build`, `check`, `list-future`, `list-tags`, `submodules` |
 
 ## Where to start next session
 
-1. Read **`docs/portfolio-surfaces.md`** before any home/About/WebGL change.  
-2. `git submodule update --init --recursive` if `themes/PaperMod` is empty.  
-3. Preview: `hugo server -D` → `/`, `/about/`, `/archives/`.
+1. Read **`AGENTS.md`**, then the doc for your task.  
+2. `make submodules` if PaperMod is empty.  
+3. `make check && make preview` before content work.  
+4. Claim-safe facts: **`docs/claim-safe-facts.md`**.
 
-## Current live intent
+## Live / schedule
 
-- **Home:** dashboard — featured, projects, short recent, archive CTA.  
-- **About:** former Xbox/Microsoft TPM; agents-first skills; constellation =
-  *agent production system*, not a résumé timeline.  
-- **Claims:** keep aligned with resume-builder candidate-profile / accuracy docs.  
-- **No Terraform/K8s** as skill claims; Azure + Docker yes.
+- **Live:** series overview `/posts/agent-production-system/`  
+- **Next auto-ship:** part 1 `eval-gates-not-theater` on **2026-07-31** (after daily rebuild)  
+- Full schedule: `docs/series/agent-production-system.md`
 
 ## Open / not blocking
 
-- Graph page UX follow-ups still under broader [#24](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/24) umbrella if still open.  
-- Content gap 2015–2024 if still tracked ([#55](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/55)).  
-- Optional later: filter Recent by year; richer WebGL packet-flow; dedicated headshot crop if Dave_Debbie crop is awkward.
-
-## Shipped after portfolio docs (2026-07-24 polish)
-
-- About: headshot + looking-for / currently building; constellation **node detail panel**; `?cluster=` / `?node=` deep links; keys 1–4 + Esc.  
-- Home: **Currently building** strip (`params.home.building`).  
-- Case study post: `/posts/agent-production-system/` (claim-safe; feeds Featured).
+- Home “Series” strip once 2–3 parts are live  
+- Optional per-post cover variety  
+- Graph UX under broader #24 if still open  
+- Content gap 2015–2024 (#55) if still tracked  
 
 ## Nothing currently in-flight
 
-Portfolio UX + docs handoff complete. Next session can start clean.
+Agent-platform improvements ready to land (or just landed) on `main`.

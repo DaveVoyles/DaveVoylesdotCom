@@ -40,11 +40,15 @@ what each top-level folder is for and when you'd touch it.
 | [`docs/portfolio-surfaces.md`](docs/portfolio-surfaces.md) | **Agent map** for home, About, projects, constellation, WebGL. | Any portfolio UI change. |
 | [`docs/design/`](docs/design/) | Design plans for major initiatives. | Understanding scope of large work. |
 | [`docs/decisions/`](docs/decisions/) | ADRs (including [0010](docs/decisions/0010-home-dashboard-not-full-archive.md) home dashboard). | Before reversing a deliberate choice. |
+| [`AGENTS.md`](AGENTS.md) | Thin router for coding agents. | First file to open in a new session. |
+| [`docs/claim-safe-facts.md`](docs/claim-safe-facts.md) | Allowed metrics, banned claims, constellation node ids. | Any post/About copy with numbers or product claims. |
 | [`docs/authoring-guide.md`](docs/authoring-guide.md) | Write → preview → publish a post. | Every new post. |
+| [`docs/series/README.md`](docs/series/README.md) | Series operator card (auto-publish, scaffold). | Agent production series. |
 | [`docs/platform-guide.md`](docs/platform-guide.md) | Human-facing platform explainer. | "Can I do X on this site?" |
 | [`docs/learnings.md`](docs/learnings.md) | Session gotchas. | Before non-trivial work. |
 | `HANDOFF.md` | Last session snapshot (overwrite, don't append). | Start of a new session. |
 | `history.md` | One-line task log (append). | Close-out. |
+| [`Makefile`](Makefile) | `preview`, `build`, `check`, `list-future`, `list-tags`. | Day-to-day agent/human commands. |
 | `hugo.toml` | Site config: theme, menus, `[params.home]` (dashboard + **projects**), sidebar bio. | Home projects/status, site-wide settings. |
 
 Everything under `content/`, `static/`, `archetypes/`, `layouts/`, `assets/`,
@@ -54,8 +58,11 @@ and `hugo.toml` is what Hugo builds into the deployed site. Everything under
 ## Local preview
 
 ```bash
-git submodule update --init --recursive   # once per fresh checkout
-hugo server -D
+make submodules   # once per fresh checkout (PaperMod)
+make preview      # hugo server -D -F  (drafts + future-dated)
+# or: make check && make build
 ```
 
 Open `http://localhost:1313/` (home), `/about/`, `/graph/`, `/archives/`.
+
+**Agents:** start at [`AGENTS.md`](AGENTS.md). Claim-safe numbers: [`docs/claim-safe-facts.md`](docs/claim-safe-facts.md).

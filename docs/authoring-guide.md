@@ -13,11 +13,33 @@ GitHub Actions rebuild ships them automatically (see
 [`docs/series/README.md`](series/README.md)). Hold unfinished work with
 `draft = true`. Ship early by setting `date` to now and pushing `main`.
 
+**Claim-safe facts** (metrics, bans, node ids): [`claim-safe-facts.md`](claim-safe-facts.md).  
+**Agent router:** [`../AGENTS.md`](../AGENTS.md).
+
 Preview scheduled/future posts locally:
 
 ```bash
-hugo server -D -F
+make preview          # preferred
+# or: hugo server -D -F
 ```
+
+Before push:
+
+```bash
+make check            # topics, covers, claims, internal links
+```
+
+Series scaffold:
+
+```bash
+./scripts/new-series-post.sh <slug> <weight> <ISO-date>
+```
+
+Series prev/next is **automatic** from `series` + `series_weight` — do not
+hand-maintain “Next → (scheduled)” tables at the bottom of posts.
+
+**Covers:** series posts should set `[cover]` with an image under
+`static/images/posts/`; `make check` fails if the path is missing.
 
 ## Option A: have an agent draft it (fastest)
 

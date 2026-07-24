@@ -101,6 +101,74 @@
   border-color: var(--accent);
 }
 
+/* Series nav (auto from series + series_weight front matter) */
+.series-nav {
+  margin-top: var(--gap, 24px);
+  padding-top: var(--gap, 24px);
+  border-top: 1px solid var(--border);
+}
+
+.series-nav-title {
+  font-size: 1rem;
+  color: var(--secondary);
+  margin: 0 0 0.25rem;
+}
+
+.series-nav-name {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin: 0 0 0.75rem;
+}
+
+.series-nav-list {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+}
+
+.series-nav-entry {
+  padding: 0.25rem 0;
+  color: var(--content);
+}
+
+.series-nav-label {
+  display: inline-block;
+  min-width: 6.5rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  color: var(--secondary);
+}
+
+.series-nav-entry a {
+  color: var(--content);
+  text-decoration: none;
+}
+
+.series-nav-entry a:hover {
+  color: var(--accent);
+}
+
+.series-nav-index {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--secondary);
+}
+
+.series-nav-index a {
+  color: var(--content);
+  text-decoration: none;
+}
+
+.series-nav-index a:hover {
+  color: var(--accent);
+}
+
+.series-nav-index-current {
+  color: var(--accent);
+}
+
 /* Related Posts widget (bottom of each post, plan 0002 / D4): same
    left-rule-lights-up-on-hover treatment as post-entry/archive-entry above,
    so it reads as part of the same list-style family rather than a

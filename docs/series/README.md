@@ -50,13 +50,16 @@ Paste (edit topic/angle):
 > Draft a series post for davevoyles.com.  
 > **Topic:** …  
 > **Angle:** …  
-> **Claim-safe** — only verified About metrics; no invented authorship of upstream tools.  
-> Create `content/posts/<slug>.md` with **`draft = false`**, set **`date`** to the planned publish time, add a row to  
-> `docs/series/agent-production-system.md`, and cross-link the series table on related posts.  
-> Optional: cover under `static/images/posts/` + `[cover]` front matter.  
-> If the post is **not** ready to auto-ship yet, use **`draft = true`** instead (never goes live until flipped).
+> **Claim-safe** — only facts in `docs/claim-safe-facts.md`.  
+> Prefer `./scripts/new-series-post.sh <slug> <weight> <ISO-date>` then edit the body.  
+> Or create `content/posts/<slug>.md` with **`draft = false`**, future **`date`**,  
+> `series = ["Agent production system"]`, `series_weight = N`, `[cover]`,  
+> add a row to `docs/series/agent-production-system.md`.  
+> Do **not** hand-write prev/next tables (auto from layout).  
+> Run `make check` before commit.  
+> If not ready to auto-ship, use **`draft = true`**.
 
-**Hard rules:** former Xbox TPM (past tense); agents-first; Azure/Docker yes; no Terraform/K8s as skill claims; prefer “extended and operates.”
+**Hard rules:** see [`../claim-safe-facts.md`](../claim-safe-facts.md).
 
 ---
 
@@ -101,9 +104,12 @@ Ask: *“Add a 16:9 cover matching the site theme; set `[cover]` in front matter
 
 | Goal | Action |
 |------|--------|
-| Preview scheduled | `hugo server -D -F` |
-| New post (auto later) | `draft=false` + future `date` + series doc row |
+| Preview scheduled | `make preview` |
+| New post (scaffold) | `./scripts/new-series-post.sh <slug> <weight> <date>` |
+| New post (manual) | `draft=false` + future `date` + series doc row |
+| Validate | `make check` |
 | Hold a post | `draft=true` until ready |
 | Ship early | bump `date` to now → commit → push |
 | Images | Ask for cover or diagram export |
 | Schedule list | [`agent-production-system.md`](agent-production-system.md) |
+| Claim rules | [`../claim-safe-facts.md`](../claim-safe-facts.md) |

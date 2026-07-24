@@ -111,4 +111,4 @@ Weekly deep-dives that expand this map. Full schedule: [`docs/series/agent-produ
 | 7 | [GitHub tokens for agent fleets](/posts/github-tokens-for-agent-fleets/) | Scheduled |
 | 8 | [Landing floor without a GitHub App](/posts/landing-floor-without-a-github-app/) | Scheduled |
 
-Links resolve when each post is published (`draft = false`). Until then, the files live in the repo ready to release.
+Parts ship on their scheduled `date` (auto-publish: `draft = false` + daily rebuild). Series prev/next at the bottom of each part is generated from front matter once siblings are live.

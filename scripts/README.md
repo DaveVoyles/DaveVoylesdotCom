@@ -2,6 +2,17 @@
 
 This directory contains utility scripts for the davevoyles.com rebuild project.
 
+## Day-to-day (agents + authors)
+
+| Script | Purpose |
+|--------|---------|
+| [`check-content.sh`](check-content.sh) | Content gates: topics vocabulary, cover paths, series_weight, claim-safety patterns, internal `/posts/` links. Run via `make check` (also CI before Hugo build). |
+| [`new-series-post.sh`](new-series-post.sh) | Scaffold a scheduled series post (`draft=false` + date + series front matter). |
+| [`list-tags.sh`](list-tags.sh) | Unique tag values from posts — reuse these instead of inventing compounds. |
+| [`release-series-post.sh`](release-series-post.sh) | Early-release helper (`draft=false` + date=now). Prefer auto-publish for scheduled posts. |
+
+Also: root [`Makefile`](../Makefile) (`preview`, `build`, `check`, `list-future`, `list-tags`).
+
 ## recover_wayback_content.py
 
 A Python 3 script that recovers archived HTML pages and images for davevoyles.com from the Wayback Machine.

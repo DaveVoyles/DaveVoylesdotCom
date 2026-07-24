@@ -138,13 +138,5 @@ Tokens are not a side quest. They are part of the **control plane**.
 - A dump of private runbook internals or live credentials  
 - Permission to skip review because “the bot said so”
 
-## Series context
-
-| | |
-|--|--|
-| Overview | [How I run an agent production system](/posts/agent-production-system/) |
-| Related | [Eval gates](/posts/eval-gates-not-theater/), [Human approval](/posts/human-approval-merge-button/), [What I will not automate](/posts/what-i-will-not-automate/) |
-
----
 
 **Bottom line:** give agents **paths** to mint **short-lived, scoped** GitHub access through **code-defined policy**, keep **human and bot identities separate**, and make **land fail closed** on missing receipts. That is how token automation stays useful without becoming a slower way to leak `ghp_…` into a chat log.
