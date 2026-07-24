@@ -1,9 +1,10 @@
 {{- /*
-  Interactive SVG constellation for the About page.
+  About constellation: SVG fallback + WebGL canvas host.
 
-  Expects the constellation map from front matter (nodes + edges).
-  Node positions are percent-based (0–100) inside a viewBox of 100×100.
-  data-cluster / data-node-id are the JS and future-WebGL contract.
+  Node/edge topology comes from front matter. Positions are percent-based
+  (0–100). data-cluster / data-node-id (and the JSON blob below) are the
+  contract for assets/js/about-constellation.js — SVG highlight today,
+  Three.js scene when WebGL is available and motion is allowed.
 */ -}}
 {{- $nodes := .nodes }}
 {{- $edges := .edges }}
@@ -12,12 +13,23 @@
   {{- $nodeMap = merge $nodeMap (dict .id .) }}
 {{- end }}
 
-<figure class="about-constellation-figure">
+{{- /* Build a JSON payload for the WebGL boot path (safeJS for script body). */ -}}
+{{- $graph := dict "nodes" $nodes "edges" $edges }}
+
+<figure class="about-constellation-figure" data-constellation-root>
+  <div
+    class="about-constellation-webgl"
+    data-constellation-webgl
+    hidden
+    aria-hidden="true"
+  ></div>
+
   <svg
     class="about-constellation-svg"
     viewBox="0 0 100 100"
     role="img"
-    aria-label="Agent and platform system constellation: orchestrator, planner, coder, search, LLM router, skills, eval gates, MCP, Docker host, Azure, dashboards, and human approval"
+    data-constellation-svg
+    aria-label="Agent production system map: orchestrator, planner, coder, search, LLM router, skills, eval gates, MCP, Docker host, Azure, dashboards, and human approval"
   >
     <defs>
       <radialGradient id="about-node-glow" cx="50%" cy="50%" r="50%">
@@ -61,7 +73,12 @@
       {{- end }}
     </g>
   </svg>
+
+  <script type="application/json" data-constellation-data>
+{{- $graph | jsonify (dict "indent" "  ") | safeJS }}
+  </script>
+
   <figcaption class="about-constellation-caption">
-    How the fleet is wired: agents plan and code, an orchestrator routes work, eval gates and human approval control risk, Docker and Azure host the stack, dashboards surface status. Not a career graph — a system diagram. A future WebGL pass can replace this SVG without changing the node list.
+    How the fleet is wired: agents plan and code, an orchestrator routes work, eval gates and human approval control risk, Docker and Azure host the stack, dashboards surface status. Not a career graph — a system diagram. WebGL when available; flat diagram as fallback.
   </figcaption>
 </figure>

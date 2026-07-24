@@ -901,3 +901,87 @@
     background: var(--entry);
   }
 }
+
+/* --- Constellation WebGL layer --- */
+.about-constellation-figure {
+  position: relative;
+}
+
+.about-constellation-webgl {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  border-radius: calc(var(--radius) - 2px);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 35%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
+    var(--entry);
+  touch-action: none;
+}
+
+.about-constellation-webgl canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  cursor: grab;
+}
+
+.about-constellation-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.about-constellation-glabel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  font-size: 0.68rem;
+  color: var(--secondary);
+  white-space: nowrap;
+  text-shadow:
+    0 0 6px var(--entry),
+    0 0 10px var(--entry);
+  transition: color 0.15s ease, opacity 0.15s ease;
+  opacity: 0.9;
+}
+
+.about-constellation-glabel.is-active {
+  color: var(--primary);
+  opacity: 1;
+}
+
+.about-constellation-glabel.is-dimmed {
+  opacity: 0.25;
+}
+
+/* When WebGL is live, hide the SVG visually but keep it for screen readers /
+   no-JS dual path is already covered (SVG always in DOM before enhance). */
+.about-constellation-figure--webgl .about-constellation-svg {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-constellation-webgl {
+    display: none !important;
+  }
+  .about-constellation-figure--webgl .about-constellation-svg {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    clip: auto;
+    overflow: visible;
+    white-space: normal;
+  }
+}

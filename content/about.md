@@ -165,7 +165,7 @@ github = "https://github.com/davevoyles"
 # it as "how my agent fleet works," not "what jobs I've held."
 [about.constellation]
 title = "My agent production system"
-subtitle = "A map of how I run multi-agent work in production — not a résumé timeline. Hover a skill pill or a node to highlight a layer."
+subtitle = "A map of how I run multi-agent work in production — not a résumé timeline. Drag to orbit; hover a skill pill or node to highlight a layer."
 
 [[about.constellation.nodes]]
 id = "orchestrator"

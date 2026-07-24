@@ -1,27 +1,30 @@
 /**
- * About page constellation interactivity.
+ * About page constellation.
  *
- * Phase 1: pill ↔ node ↔ impact-card highlight by data-cluster.
- * Phase 2 (future): same data-node-id / data-cluster attributes feed a WebGL scene.
+ * - Always: pill ↔ cluster highlight across skills, impact cards, SVG nodes.
+ * - When WebGL + motion allowed: Three.js scene replaces the SVG visually,
+ *   using the same graph JSON (data-constellation-data) and cluster contract.
  *
- * Respects prefers-reduced-motion for auto-effects; manual hover/focus still works.
+ * Progressive enhancement: no Three, no WebGL, or prefers-reduced-motion
+ * keeps the interactive SVG.
  */
 (function () {
   const root = document.querySelector(".about-page");
   if (!root) return;
 
+  const figure = root.querySelector("[data-constellation-root]");
   const pills = Array.from(root.querySelectorAll(".about-pill[data-cluster]"));
-  const nodes = Array.from(root.querySelectorAll(".about-constellation-node[data-cluster]"));
-  const edges = Array.from(root.querySelectorAll(".about-constellation-edge"));
+  const svgNodes = Array.from(root.querySelectorAll(".about-constellation-node[data-cluster]"));
+  const svgEdges = Array.from(root.querySelectorAll(".about-constellation-edge"));
   const impactCards = Array.from(root.querySelectorAll(".about-impact-card[data-cluster]"));
   const skillBlocks = Array.from(
-    root.querySelectorAll(
-      ".about-skills-primary, .about-skills-web, .about-skills-card"
-    )
+    root.querySelectorAll(".about-skills-primary, .about-skills-web, .about-skills-card")
   );
 
   let activeCluster = null;
   let locked = false;
+  /** @type {null | ((cluster: string | null) => void)} */
+  let webglSetCluster = null;
 
   function setCluster(cluster, { lock = false } = {}) {
     activeCluster = cluster || null;
@@ -36,7 +39,7 @@
       el.classList.toggle("is-dimmed", Boolean(cluster) && !match(el));
     });
 
-    nodes.forEach((el) => {
+    svgNodes.forEach((el) => {
       const on = match(el) && Boolean(cluster);
       el.classList.toggle("is-active", on);
       el.classList.toggle("is-dimmed", Boolean(cluster) && !match(el));
@@ -53,29 +56,37 @@
       el.classList.toggle("is-dimmed", Boolean(cluster) && !match(el));
     });
 
-    // Dim edges that do not touch an active-cluster node
     if (!cluster) {
-      edges.forEach((e) => e.classList.remove("is-active", "is-dimmed"));
-      return;
+      svgEdges.forEach((e) => e.classList.remove("is-active", "is-dimmed"));
+    } else {
+      const activeIds = new Set(
+        svgNodes
+          .filter((n) => n.getAttribute("data-cluster") === cluster)
+          .map((n) => n.getAttribute("data-node-id"))
+      );
+      svgEdges.forEach((edge) => {
+        const from = edge.getAttribute("data-from");
+        const to = edge.getAttribute("data-to");
+        const on = activeIds.has(from) || activeIds.has(to);
+        edge.classList.toggle("is-active", on);
+        edge.classList.toggle("is-dimmed", !on);
+      });
     }
 
-    const activeIds = new Set(
-      nodes
-        .filter((n) => n.getAttribute("data-cluster") === cluster)
-        .map((n) => n.getAttribute("data-node-id"))
-    );
-
-    edges.forEach((edge) => {
-      const from = edge.getAttribute("data-from");
-      const to = edge.getAttribute("data-to");
-      const on = activeIds.has(from) || activeIds.has(to);
-      edge.classList.toggle("is-active", on);
-      edge.classList.toggle("is-dimmed", !on);
-    });
+    if (webglSetCluster) webglSetCluster(cluster);
   }
 
   function clearIfUnlocked() {
     if (!locked) setCluster(null);
+  }
+
+  function toggleLock(cluster) {
+    if (locked && activeCluster === cluster) {
+      locked = false;
+      setCluster(null);
+    } else {
+      setCluster(cluster, { lock: true });
+    }
   }
 
   pills.forEach((pill) => {
@@ -88,17 +99,10 @@
       if (!locked) setCluster(cluster);
     });
     pill.addEventListener("blur", clearIfUnlocked);
-    pill.addEventListener("click", () => {
-      if (locked && activeCluster === cluster) {
-        locked = false;
-        setCluster(null);
-      } else {
-        setCluster(cluster, { lock: true });
-      }
-    });
+    pill.addEventListener("click", () => toggleLock(cluster));
   });
 
-  nodes.forEach((node) => {
+  svgNodes.forEach((node) => {
     const cluster = node.getAttribute("data-cluster");
     node.addEventListener("mouseenter", () => {
       if (!locked) setCluster(cluster);
@@ -108,14 +112,7 @@
       if (!locked) setCluster(cluster);
     });
     node.addEventListener("blur", clearIfUnlocked);
-    node.addEventListener("click", () => {
-      if (locked && activeCluster === cluster) {
-        locked = false;
-        setCluster(null);
-      } else {
-        setCluster(cluster, { lock: true });
-      }
-    });
+    node.addEventListener("click", () => toggleLock(cluster));
     node.addEventListener("keydown", (ev) => {
       if (ev.key === "Enter" || ev.key === " ") {
         ev.preventDefault();
@@ -124,7 +121,6 @@
     });
   });
 
-  // Click empty constellation background to clear a lock
   const svg = root.querySelector(".about-constellation-svg");
   if (svg) {
     svg.addEventListener("click", (ev) => {
@@ -132,6 +128,398 @@
         locked = false;
         setCluster(null);
       }
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // WebGL path
+  // ---------------------------------------------------------------------------
+
+  function prefersReducedMotion() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function webglAvailable() {
+    try {
+      const c = document.createElement("canvas");
+      return !!(c.getContext("webgl") || c.getContext("experimental-webgl"));
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function readAccentHex() {
+    const raw = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
+    // --accent is "rgb(r, g, b)" in this theme
+    const m = raw.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+    if (m) {
+      return (Number(m[1]) << 16) | (Number(m[2]) << 8) | Number(m[3]);
+    }
+    return 0x5fb87a;
+  }
+
+  function clusterColor(cluster, accent) {
+    // Slight hue shifts around the console accent so clusters read apart
+    // without leaving the site palette entirely.
+    const map = {
+      agents: accent,
+      web: 0x4aa8c9,
+      program: 0xc4a35a,
+      production: 0x7a8f9a,
+    };
+    return map[cluster] || accent;
+  }
+
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      if (window.THREE) {
+        resolve(window.THREE);
+        return;
+      }
+      const s = document.createElement("script");
+      s.src = src;
+      s.async = true;
+      s.onload = () => (window.THREE ? resolve(window.THREE) : reject(new Error("THREE missing")));
+      s.onerror = () => reject(new Error("Failed to load Three.js"));
+      document.head.appendChild(s);
+    });
+  }
+
+  function parseGraphData() {
+    if (!figure) return null;
+    const el = figure.querySelector("[data-constellation-data]");
+    if (!el) return null;
+    try {
+      return JSON.parse(el.textContent);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /**
+   * Map percent coords (0–100, y down) to a gentle 3D layout.
+   * z depth by cluster so the fleet layers in space.
+   */
+  function toVec3(THREE, node) {
+    const x = ((node.x || 50) / 100) * 10 - 5;
+    const y = -(((node.y || 50) / 100) * 7 - 3.5);
+    const zByCluster = {
+      agents: 0.6,
+      web: -0.2,
+      production: -0.9,
+      program: -1.2,
+    };
+    const z = zByCluster[node.cluster] || 0;
+    return new THREE.Vector3(x, y, z);
+  }
+
+  async function bootWebGL() {
+    if (!figure || prefersReducedMotion() || !webglAvailable()) return;
+
+    const graph = parseGraphData();
+    if (!graph || !graph.nodes || !graph.nodes.length) return;
+
+    const host = figure.querySelector("[data-constellation-webgl]");
+    if (!host) return;
+
+    const THREE = await loadScript(
+      "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.min.js"
+    );
+
+    const accent = readAccentHex();
+    const width = figure.clientWidth || 640;
+    const height = Math.max(320, Math.min(480, Math.round(width * 0.55)));
+
+    host.hidden = false;
+    host.removeAttribute("aria-hidden");
+    host.style.height = height + "px";
+    figure.classList.add("about-constellation-figure--webgl");
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0d0f0d, 0.045);
+
+    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
+    camera.position.set(0, 0.4, 11.5);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(width, height);
+    renderer.setClearColor(0x000000, 0);
+    host.appendChild(renderer.domElement);
+    renderer.domElement.setAttribute("aria-label", "Interactive 3D agent production system map");
+    renderer.domElement.tabIndex = 0;
+
+    // Soft console lighting
+    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+    const key = new THREE.PointLight(accent, 1.4, 40);
+    key.position.set(2, 4, 6);
+    scene.add(key);
+    const fill = new THREE.PointLight(0x4a6a55, 0.55, 40);
+    fill.position.set(-4, -2, 4);
+    scene.add(fill);
+
+    // Subtle ground grid for depth (console floor)
+    const grid = new THREE.GridHelper(14, 14, accent, 0x1a221a);
+    grid.position.y = -4.2;
+    grid.material.opacity = 0.35;
+    grid.material.transparent = true;
+    scene.add(grid);
+
+    const nodeMap = new Map();
+    const meshById = new Map();
+    const baseScale = new Map();
+    const edgeLines = [];
+
+    graph.nodes.forEach((node) => {
+      nodeMap.set(node.id, node);
+      const pos = toVec3(THREE, node);
+      const color = clusterColor(node.cluster, accent);
+
+      const geo = new THREE.SphereGeometry(0.22, 24, 24);
+      const mat = new THREE.MeshStandardMaterial({
+        color: color,
+        emissive: color,
+        emissiveIntensity: 0.35,
+        metalness: 0.2,
+        roughness: 0.35,
+        transparent: true,
+        opacity: 1,
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.copy(pos);
+      mesh.userData = {
+        id: node.id,
+        cluster: node.cluster,
+        label: node.label,
+        baseColor: color,
+      };
+      scene.add(mesh);
+      meshById.set(node.id, mesh);
+      baseScale.set(node.id, 1);
+
+      // Soft glow shell
+      const glowGeo = new THREE.SphereGeometry(0.38, 16, 16);
+      const glowMat = new THREE.MeshBasicMaterial({
+        color: color,
+        transparent: true,
+        opacity: 0.12,
+        depthWrite: false,
+      });
+      const glow = new THREE.Mesh(glowGeo, glowMat);
+      mesh.add(glow);
+      mesh.userData.glow = glow;
+    });
+
+    (graph.edges || []).forEach((edge) => {
+      const a = nodeMap.get(edge.from);
+      const b = nodeMap.get(edge.to);
+      if (!a || !b) return;
+      const pa = toVec3(THREE, a);
+      const pb = toVec3(THREE, b);
+      const positions = new Float32Array([pa.x, pa.y, pa.z, pb.x, pb.y, pb.z]);
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      const mat = new THREE.LineBasicMaterial({
+        color: accent,
+        transparent: true,
+        opacity: 0.35,
+      });
+      const line = new THREE.Line(geo, mat);
+      line.userData = { from: edge.from, to: edge.to, baseOpacity: 0.35 };
+      scene.add(line);
+      edgeLines.push(line);
+    });
+
+    // HTML labels overlay (crisper than canvas sprites for short labels)
+    const labelLayer = document.createElement("div");
+    labelLayer.className = "about-constellation-labels";
+    host.appendChild(labelLayer);
+    const labelEls = new Map();
+    graph.nodes.forEach((node) => {
+      const el = document.createElement("span");
+      el.className = "about-constellation-glabel";
+      el.textContent = node.label;
+      el.dataset.nodeId = node.id;
+      el.dataset.cluster = node.cluster;
+      labelLayer.appendChild(el);
+      labelEls.set(node.id, el);
+    });
+
+    function projectLabels() {
+      const rect = renderer.domElement.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      meshById.forEach((mesh, id) => {
+        const el = labelEls.get(id);
+        if (!el) return;
+        const v = mesh.position.clone().project(camera);
+        if (v.z > 1) {
+          el.style.opacity = "0";
+          return;
+        }
+        const x = (v.x * 0.5 + 0.5) * w;
+        const y = (-v.y * 0.5 + 0.5) * h;
+        el.style.transform = `translate(-50%, -50%) translate(${x}px, ${y + 18}px)`;
+      });
+    }
+
+    function applyClusterVisual(cluster) {
+      meshById.forEach((mesh) => {
+        const on = !cluster || mesh.userData.cluster === cluster;
+        const mat = mesh.material;
+        mat.opacity = on ? 1 : 0.18;
+        mat.emissiveIntensity = on && cluster ? 0.75 : on ? 0.35 : 0.08;
+        if (mesh.userData.glow) {
+          mesh.userData.glow.material.opacity = on && cluster ? 0.28 : on ? 0.12 : 0.03;
+        }
+        const target = on && cluster ? 1.35 : 1;
+        baseScale.set(mesh.userData.id, target);
+        const lab = labelEls.get(mesh.userData.id);
+        if (lab) {
+          lab.classList.toggle("is-active", Boolean(cluster) && on);
+          lab.classList.toggle("is-dimmed", Boolean(cluster) && !on);
+        }
+      });
+      edgeLines.forEach((line) => {
+        const fromMesh = meshById.get(line.userData.from);
+        const toMesh = meshById.get(line.userData.to);
+        if (!fromMesh || !toMesh) return;
+        const on =
+          !cluster ||
+          fromMesh.userData.cluster === cluster ||
+          toMesh.userData.cluster === cluster;
+        line.material.opacity = on ? (cluster ? 0.75 : line.userData.baseOpacity) : 0.08;
+      });
+    }
+
+    webglSetCluster = applyClusterVisual;
+
+    // Pointer interaction
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    let hoveredId = null;
+
+    function pick(clientX, clientY) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      const hits = raycaster.intersectObjects(Array.from(meshById.values()), false);
+      return hits[0] ? hits[0].object : null;
+    }
+
+    renderer.domElement.addEventListener("pointermove", (ev) => {
+      const hit = pick(ev.clientX, ev.clientY);
+      const id = hit ? hit.userData.id : null;
+      if (id !== hoveredId) {
+        hoveredId = id;
+        renderer.domElement.style.cursor = hit ? "pointer" : "grab";
+        if (!locked) {
+          setCluster(hit ? hit.userData.cluster : null);
+        }
+      }
+    });
+
+    renderer.domElement.addEventListener("pointerleave", () => {
+      hoveredId = null;
+      if (!locked) setCluster(null);
+    });
+
+    renderer.domElement.addEventListener("click", (ev) => {
+      const hit = pick(ev.clientX, ev.clientY);
+      if (hit) {
+        toggleLock(hit.userData.cluster);
+      } else {
+        locked = false;
+        setCluster(null);
+      }
+    });
+
+    // Gentle orbit via pointer drag
+    let dragging = false;
+    let lastX = 0;
+    let rotY = 0.15;
+    let rotX = -0.12;
+    renderer.domElement.addEventListener("pointerdown", (ev) => {
+      dragging = true;
+      lastX = ev.clientX;
+      renderer.domElement.setPointerCapture(ev.pointerId);
+      renderer.domElement.style.cursor = "grabbing";
+    });
+    renderer.domElement.addEventListener("pointerup", (ev) => {
+      dragging = false;
+      renderer.domElement.releasePointerCapture(ev.pointerId);
+      renderer.domElement.style.cursor = hoveredId ? "pointer" : "grab";
+    });
+    renderer.domElement.addEventListener("pointermove", (ev) => {
+      if (!dragging) return;
+      const dx = ev.clientX - lastX;
+      lastX = ev.clientX;
+      rotY += dx * 0.005;
+    });
+
+    function onResize() {
+      const w = figure.clientWidth || width;
+      const h = Math.max(320, Math.min(480, Math.round(w * 0.55)));
+      host.style.height = h + "px";
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    }
+    window.addEventListener("resize", onResize);
+
+    let raf = 0;
+    const clock = new THREE.Clock();
+    function frame() {
+      raf = requestAnimationFrame(frame);
+      const t = clock.getElapsedTime();
+
+      // Idle spin (very slow); drag overrides yaw
+      if (!dragging && !locked) {
+        rotY += 0.0018;
+      }
+
+      // Orbit camera around origin
+      const radius = 11.5;
+      camera.position.x = Math.sin(rotY) * radius * Math.cos(rotX);
+      camera.position.z = Math.cos(rotY) * radius * Math.cos(rotX);
+      camera.position.y = Math.sin(rotX) * radius * 0.35 + 0.4;
+      camera.lookAt(0, 0, 0);
+
+      // Soft pulse on active / all nodes
+      meshById.forEach((mesh, id) => {
+        const target = baseScale.get(id) || 1;
+        const pulse = 1 + Math.sin(t * 2 + mesh.position.x) * 0.03;
+        const s = THREE.MathUtils.lerp(mesh.scale.x, target * pulse, 0.12);
+        mesh.scale.setScalar(s);
+      });
+
+      projectLabels();
+      renderer.render(scene, camera);
+    }
+    frame();
+
+    // Theme toggle: re-read accent is hard mid-flight; skip for v1.
+    // If WebGL context is lost, fall back to SVG.
+    renderer.domElement.addEventListener(
+      "webglcontextlost",
+      (ev) => {
+        ev.preventDefault();
+        cancelAnimationFrame(raf);
+        figure.classList.remove("about-constellation-figure--webgl");
+        host.hidden = true;
+        webglSetCluster = null;
+      },
+      false
+    );
+  }
+
+  // Boot WebGL after paint so layout width is known
+  if (figure) {
+    requestAnimationFrame(() => {
+      bootWebGL().catch(() => {
+        // Keep SVG path; silent degrade is intentional.
+      });
     });
   }
 })();
