@@ -78,6 +78,7 @@ The map is the product thesis. This post is the moral of the map.
 | 5 | [Claim safety: evidence before metrics](/posts/claim-safety-evidence-before-metrics/) |
 | 6 | **What I will not automate** (this post) |
 | 7 | [GitHub tokens for agent fleets](/posts/github-tokens-for-agent-fleets/) (scheduled) |
+| 8 | [Landing floor without a GitHub App](/posts/landing-floor-without-a-github-app/) (scheduled) |
 
 ---
 

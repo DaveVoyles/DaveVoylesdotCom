@@ -10,16 +10,20 @@ topics = ["Tech"]
 series = ["Agent production system"]
 series_weight = 7
 [cover]
-image = "/images/posts/agent-system-ops-floor.jpg"
-alt = "Agent production system illustration — hosts, gates, and human control"
-caption = "Tokens are part of the control plane, not a chat afterthought."
+image = "/images/posts/github-tokens-agent-system.png"
+alt = "Architecture diagram: agent session through Gatekeeper and gh-app-token to a GitHub App bot for approve/merge, with a separate personal OAuth path for PR creation"
+caption = "Two lanes: automation (short-lived App tokens) vs interactive (personal OAuth). PR author stays human."
 +++
 
-This post sits with the [Agent production system](/posts/agent-production-system/) series — same thesis as [eval gates](/posts/eval-gates-not-theater/) and [human approval](/posts/human-approval-merge-button/), applied to **how agents authenticate to GitHub**.
+This post sits with the [Agent production system](/posts/agent-production-system/) series — same thesis as [eval gates](/posts/eval-gates-not-theater/) and [human approval](/posts/human-approval-merge-button/), applied to **how agents authenticate to GitHub**. Prefer the floor **without** an App first? See [Landing floor without a GitHub App](/posts/landing-floor-without-a-github-app/).
 
 Most agent demos treat GitHub as “put a PAT in the env and hope.” That works until the token leaks into a transcript, the rate limit collides with your interactive work, or an agent tries to approve its own PR and the platform says no.
 
 Here is the shape I use in production: **two identities, short-lived bot tokens, a deterministic broker, and a landing path that cannot rubber-stamp itself.**
+
+![GitHub tokens in the agentic system — agent → Gatekeeper → gh-app-token → GitHub App API → bot approve/merge; separate personal OAuth path authors the PR](/images/posts/github-tokens-agent-system.png)
+
+*One App install, many mints. Agents call the broker; they do not each own long-lived PATs. Machine secrets stay out of git.*
 
 ---
 
@@ -40,20 +44,9 @@ Think of two lanes:
 
 Agents do **not** each own an App. They call a single mint path that talks to **one App install**, gets a **time-limited** token, and throws it away when done.
 
-```
-Agent session
-    │  mint-token (repo-scoped, least privilege)
-    ▼
-Credential broker (policy + audit — code, not a model)
-    │  grant path
-    ▼
-App token mint  ──JWT──►  GitHub App API  ──►  ~1h install token
-    │
-    ├── bot: approve / merge (only after gates)
-    └── never: author the PR as the App
-```
+The diagram above is the map; in prose:
 
-**Interactive** stays on the personal OAuth path. **Automation** stays on the App. Mixing them is how you get “the bot authored the PR and now cannot approve it” failures — GitHub correctly refuses self-approval.
+**Interactive** stays on the personal OAuth path (`gh` / keychain). **Automation** stays on the App (Gatekeeper → mint → ~1h token → bot approve/merge after gates). Mixing them is how you get “the bot authored the PR and now cannot approve it” failures — GitHub correctly refuses self-approval.
 
 ### Rule that saves pain
 

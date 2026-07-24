@@ -13,19 +13,21 @@ A claim-safe series that expands the [case study post](/posts/agent-production-s
 | 4 | 2026-08-21 | `xbox-slas-to-agent-fleets` | Draft ready |
 | 5 | 2026-08-28 | `claim-safety-evidence-before-metrics` | Draft ready |
 | 6 | 2026-09-04 | `what-i-will-not-automate` | Draft ready |
-| 7 | 2026-09-11 | `github-tokens-for-agent-fleets` | Draft ready — tokens / App / broker |
+| 7 | 2026-09-11 | `github-tokens-for-agent-fleets` | Draft ready — tokens / App / broker + diagram |
+| 8 | 2026-09-18 | `landing-floor-without-a-github-app` | Draft ready — human mode only |
 
 Dates are in front matter (`date`). All unpublished posts use `draft = true` so they never ship early.
 
 ### Companion sources (private → public)
 
-Part 7 is distilled from Chat-Agents public patterns + auth runbook (do not paste secrets into the site):
+Parts 7–8 are distilled from Chat-Agents public patterns + auth runbook (do not paste secrets into the site):
 
 - `Chat-Agents/docs/public/pattern-credential-broker.md`
 - `Chat-Agents/docs/public/setup-github-app-landing-floor.md`
 - `Chat-Agents/docs/public/pattern-bot-identity-landing-floor.md`
+- `Chat-Agents/docs/public/flagship-receipt-gated-landing-floor.md`
 - `Chat-Agents/docs/github-auth.md`
-- `Chat-Agents/docs/github-tokens-chat-agents.html` (archify diagram)
+- `Chat-Agents/docs/github-tokens-chat-agents.html` → exported PNG at `static/images/posts/github-tokens-agent-system.png`
 
 ## How to release one
 
