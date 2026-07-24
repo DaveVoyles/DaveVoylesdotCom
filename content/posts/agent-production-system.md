@@ -108,5 +108,6 @@ Weekly deep-dives that expand this map. Full schedule: [`docs/series/agent-produ
 | 4 | [From Xbox SLAs to agent fleets](/posts/xbox-slas-to-agent-fleets/) | Scheduled |
 | 5 | [Claim safety: evidence before metrics](/posts/claim-safety-evidence-before-metrics/) | Scheduled |
 | 6 | [What I will not automate](/posts/what-i-will-not-automate/) | Scheduled |
+| 7 | [GitHub tokens for agent fleets](/posts/github-tokens-for-agent-fleets/) | Scheduled |
 
 Links resolve when each post is published (`draft = false`). Until then, the files live in the repo ready to release.
