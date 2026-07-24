@@ -1,5 +1,8 @@
 # Series: Agent production system
 
+**Day-to-day ops (preview, draft prompts, release, images):** see the  
+[**series operator card**](README.md).
+
 A claim-safe series that expands the [case study post](/posts/agent-production-system/) and the [About constellation](/about/). Same voice: factory floor, not chatbot; verified metrics only; “extended and operates,” not invented authorship.
 
 ## Schedule (weekly, Fridays)

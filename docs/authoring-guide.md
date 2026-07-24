@@ -2,15 +2,18 @@
 
 ## Series: Agent production system
 
-Six scheduled follow-ups to the agent case study live as **`draft = true`**
-posts plus a schedule at [`docs/series/agent-production-system.md`](series/agent-production-system.md).
+**Operator card (preview / draft / release / images):**  
+[`docs/series/README.md`](series/README.md)
 
-To publish the next one:
+Schedule + claim rules:  
+[`docs/series/agent-production-system.md`](series/agent-production-system.md)
+
+Drafts stay `draft = true` until you release:
 
 ```bash
-./scripts/release-series-post.sh eval-gates-not-theater
-git add content/posts/eval-gates-not-theater.md
-git commit -m "publish: eval gates (series 1)"
+./scripts/release-series-post.sh <slug>
+git add content/posts/<slug>.md
+git commit -m "publish: <title>"
 git push origin main
 ```
 
