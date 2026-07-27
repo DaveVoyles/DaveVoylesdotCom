@@ -1,0 +1,13 @@
+# Pinned to what D1 verified working on 2026-07-27 (Python 3.13.14, macOS arm64).
+# Install with: uv pip install --python .venv/bin/python -r requirements.txt
+pillow==12.3.0
+kokoro==0.9.4
+soundfile==0.14.0
+
+# Transitive, pinned because the espeak/phonemizer chain is the fragile part
+# (see PROTOTYPE.md "Known gotcha: espeak-ng data path").
+torch==2.13.0
+misaki==0.9.4
+phonemizer-fork==3.3.2
+espeakng-loader==0.2.4
+numpy==2.5.1
