@@ -2,9 +2,7 @@
 
 **2026-07-27 — plan 0005 post-to-video spike executed; awaiting Dave's verdict.**
 
-_(Previous: 2026-07-24 — agent platform affordances + auto-publish.)_
-
-## What just shipped
+## What shipped in the previous pass (2026-07-24 — agent platform affordances + auto-publish)
 
 | Work | Notes |
 |------|--------|
