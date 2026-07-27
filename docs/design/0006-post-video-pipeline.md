@@ -139,8 +139,8 @@ anything a site visitor can see.
 
 ## Related
 
-- ADR 0011 — Video hosting is YouTube with a manual publish gate *(this plan, D9)*
-- ADR 0012 — Narration is claim-safety-gated content *(this plan, D9)*
+- [ADR 0011 — Video hosting is YouTube with a manual publish gate](../decisions/0011-video-hosting-youtube-manual-publish-gate.md) *(this plan, D9)*
+- [ADR 0012 — Narration is claim-safety-gated content](../decisions/0012-narration-claim-safety-gated.md) *(this plan, D9)*
 - Plan [0005](0005-post-video-prototype.md) — the originating prototype
 
 ## Execution Tracking
