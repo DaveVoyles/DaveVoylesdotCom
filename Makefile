@@ -42,5 +42,5 @@ video-render:
 	@echo "Video rendered to tools/video/out/ (mechanical acceptance probe passed)"
 
 video-upload:
-	@echo "video-upload: not yet implemented (plan 0006/D7)" >&2
-	@exit 1
+	@if [ -z "$(MP4)" ]; then echo "error: MP4=<path> required" >&2; exit 1; fi
+	@cd tools/video && .venv/bin/python upload_video.py "$(MP4)"
