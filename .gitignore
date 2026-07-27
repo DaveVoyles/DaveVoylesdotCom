@@ -12,6 +12,9 @@ public/
 .env
 .env.local
 .env.*.local
+.env.production
+.env.development
+.env.test
 
 # Agent-landing-floor tooling (scripts/enable-landing-floor.sh symlinks) -- machine-local, never commit
 /scripts/land-pr.sh
