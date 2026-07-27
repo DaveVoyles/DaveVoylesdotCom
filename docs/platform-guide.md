@@ -150,3 +150,7 @@ This one's worth being precise about, because it's easy to assume otherwise:
 
 So: if you want a video visible on the page, use the shortcode. If a plain
 link is fine (visitor clicks through to YouTube), either works.
+
+**Generating a video from a post** (not just embedding an existing one) —
+see [`video-guide.md`](video-guide.md) for the `make video-draft` /
+`video-render` / `video-upload` pipeline.
