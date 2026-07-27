@@ -31,8 +31,8 @@ list-tags:
 	./scripts/list-tags.sh
 
 video-draft:
-	@echo "video-draft: not yet implemented (plan 0006/D5)" >&2
-	@exit 1
+	@if [ -z "$(POST)" ]; then echo "error: POST=<slug> required" >&2; exit 1; fi
+	@python3 tools/video/draft_scenes.py --post "$(POST)"
 
 video-render:
 	@if [ -z "$(SCENES)" ]; then echo "error: SCENES=<path> required" >&2; exit 1; fi
