@@ -63,4 +63,5 @@ None. All installs are pinned and reversible (brew/pip); all output lands on a t
 
 ## Execution Tracking
 
-(Added by `plan-to-issues` after approval.)
+- Issues (D1–D5 → #92–#96, sequential chain via native `blocked_by`): https://github.com/DaveVoyles/DaveVoylesdotCom/issues?q=is%3Aissue+state%3Aopen+label%3Aplan%3A0005
+- Board: [Agent Work (Projects v2 #2)](https://github.com/users/DaveVoyles/projects/2) — all five cards seeded to Todo, 2026-07-27.
