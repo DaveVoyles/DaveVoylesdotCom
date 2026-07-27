@@ -10,8 +10,10 @@ Usage:
     tools/video/embed_video.py --post <slug> --video-id <id> [--force]
 """
 import argparse
+import os
 import re
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -40,11 +42,21 @@ def embed(post_slug: str, video_id: str, force: bool) -> Path:
             raise ValueError(
                 f"post already has an embed ({existing.group(0)}) — pass --force to replace it"
             )
-        body = SHORTCODE_RE.sub(shortcode, body, count=1)
+        # lambda replacement so a video ID containing a backslash can't be
+        # misinterpreted as a regex backreference by re.sub's string-repl path.
+        body = SHORTCODE_RE.sub(lambda _m: shortcode, body, count=1)
     else:
         body = "\n" + shortcode + "\n" + body
 
-    post_path.write_text(front_matter + body)
+    new_text = front_matter + body
+    fd, tmp_name = tempfile.mkstemp(dir=post_path.parent, prefix=f".{post_path.name}.")
+    try:
+        with os.fdopen(fd, "w") as f:
+            f.write(new_text)
+        os.replace(tmp_name, post_path)
+    except BaseException:
+        Path(tmp_name).unlink(missing_ok=True)
+        raise
     return post_path
 
 

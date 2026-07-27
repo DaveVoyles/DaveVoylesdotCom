@@ -34,7 +34,7 @@ list-tags:
 
 video-draft:
 	@if [ -z "$(POST)" ]; then echo "error: POST=<slug> required" >&2; exit 1; fi
-	@python3 tools/video/draft_scenes.py --post "$(POST)"
+	@python3 tools/video/draft_scenes.py --post "$(POST)" $(if $(FORCE),--force,)
 
 video-render:
 	@if [ -z "$(SCENES)" ]; then echo "error: SCENES=<path> required" >&2; exit 1; fi

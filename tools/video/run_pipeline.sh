@@ -7,6 +7,11 @@
 # failing stage. Never flips the upload to public — that stays a manual
 # step in YouTube Studio (ADR 0011).
 #
+# Always regenerates tools/video/scenes.json from scratch (FORCE=1) for the
+# requested post, since this path has no human pause to review/edit an
+# existing draft first. Prefer the four manual stages instead if you want to
+# keep a hand-edited scenes.json across a re-render.
+#
 # Usage:
 #   tools/video/run_pipeline.sh <post-slug>
 set -euo pipefail
@@ -15,7 +20,7 @@ POST="${1:?post slug required (e.g. agent-production-system)}"
 cd "$(dirname "$0")/../.."
 
 echo "== 1/4 draft =="
-make video-draft POST="$POST"
+make video-draft POST="$POST" FORCE=1
 
 echo
 echo "== 2/4 render =="
@@ -29,7 +34,7 @@ echo "== 3/4 upload =="
 UPLOAD_LOG="$(mktemp)"
 trap 'rm -f "$UPLOAD_LOG"' EXIT
 make video-upload MP4="$MP4" | tee "$UPLOAD_LOG"
-VIDEO_ID="$(grep -o 'Video ID: .*' "$UPLOAD_LOG" | sed 's/Video ID: //')"
+VIDEO_ID="$(grep -o 'Video ID: .*' "$UPLOAD_LOG" | tail -1 | sed 's/Video ID: //')"
 
 if [[ -z "$VIDEO_ID" ]]; then
   echo "error: could not parse video ID from upload output" >&2
