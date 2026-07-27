@@ -131,7 +131,41 @@ if [[ $exit_code -ne 0 ]]; then
 fi
 
 echo ""
-echo "=== Test 4: Clean fixture (no forbidden claims) ==="
+echo "=== Test 4: Forbidden claim in table visual headers/rows ==="
+cat > "$FIXTURE_DIR/scenes-forbidden-table.json" <<'EOF'
+{
+  "post": "content/posts/test.md",
+  "voice": "am_michael",
+  "scenes": [
+    {
+      "id": "s1",
+      "narration": "Clean narration",
+      "headline": "Clean headline",
+      "visual": {
+        "type": "table",
+        "headers": ["Theater", "Real gate"],
+        "rows": [["I authored firstmate", "Clean cell"]]
+      }
+    }
+  ]
+}
+EOF
+
+if VIDEO_SCENES_FILE="$FIXTURE_DIR/scenes-forbidden-table.json" ./scripts/check-content.sh > "$FIXTURE_DIR/output3b.txt" 2>&1; then
+  exit_code=0
+else
+  exit_code=$?
+fi
+
+test_result "Forbidden claim in table visual → exit 1" $exit_code 1
+
+if [[ $exit_code -ne 0 ]]; then
+  echo "  Error output:"
+  sed 's/^/    /' "$FIXTURE_DIR/output3b.txt" || true
+fi
+
+echo ""
+echo "=== Test 5: Clean fixture (no forbidden claims) ==="
 cat > "$FIXTURE_DIR/scenes-clean.json" <<'EOF'
 {
   "post": "content/posts/test.md",
@@ -164,7 +198,7 @@ else
 fi
 
 echo ""
-echo "=== Test 5: Multi-scene fixture, only one scene violates ==="
+echo "=== Test 6: Multi-scene fixture, only one scene violates ==="
 cat > "$FIXTURE_DIR/scenes-multi-one-bad.json" <<'EOF'
 {
   "post": "content/posts/test.md",
@@ -206,7 +240,7 @@ if [[ $exit_code -ne 0 ]]; then
 fi
 
 echo ""
-echo "=== Test 6: scenes file entirely absent (pre-D1 scenario) ==="
+echo "=== Test 7: scenes file entirely absent (pre-D1 scenario) ==="
 if VIDEO_SCENES_FILE="$FIXTURE_DIR/does-not-exist.json" ./scripts/check-content.sh > "$FIXTURE_DIR/output6.txt" 2>&1; then
   exit_code=0
 else

@@ -125,8 +125,11 @@ def main():
         elif v.get("type") == "card":
             if not v.get("text"):
                 fails.append(f"{where}: card visual missing 'text'")
+        elif v.get("type") == "table":
+            if not v.get("headers") or not v.get("rows"):
+                fails.append(f"{where}: table visual missing 'headers' or 'rows'")
         else:
-            fails.append(f"{where}: visual.type must be 'card' or 'image', got {v.get('type')!r}")
+            fails.append(f"{where}: visual.type must be 'card', 'image', or 'table', got {v.get('type')!r}")
 
     if not WORD_MIN <= total_words <= WORD_MAX:
         fails.append(f"narration {total_words} words outside {WORD_MIN}-{WORD_MAX}")

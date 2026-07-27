@@ -141,7 +141,9 @@ if [[ -f "$VIDEO_SCENES_FILE" ]]; then
         .scenes[]? | (
           .narration // empty,
           .headline // empty,
-          if .visual.type == "card" then .visual.text // empty else empty end
+          if .visual.type == "card" then .visual.text // empty else empty end,
+          if .visual.type == "table" then (.visual.headers // [])[] else empty end,
+          if .visual.type == "table" then (.visual.rows // [])[][] else empty end
         )
       ' "$VIDEO_SCENES_FILE" 2>&1
     )" || jq_status=$?

@@ -269,6 +269,48 @@ def section_narrations(section_text, max_words):
     return [n for n in [_budget_join(prose_chunks, max_words), _budget_join(list_chunks, max_words)] if n]
 
 
+TABLE_ROW_RE = re.compile(r"^\|.*\|\s*$")
+TABLE_SEP_RE = re.compile(r"^\|?[\s:|-]+\|?\s*$")
+MAX_TABLE_ROWS = 4
+
+
+def extract_table(section_text):
+    """Parse the first markdown table in a section into (headers, rows) —
+    both markdown-cleaned. Returns None if the section has no table."""
+    lines = section_text.split("\n")
+    for i, line in enumerate(lines[:-1]):
+        if TABLE_ROW_RE.match(line.strip()) and TABLE_SEP_RE.match(lines[i + 1].strip()):
+            headers = [_clean_markdown(c) for c in line.strip().strip("|").split("|")]
+            rows = []
+            for row_line in lines[i + 2 :]:
+                if not TABLE_ROW_RE.match(row_line.strip()):
+                    break
+                rows.append([_clean_markdown(c) for c in row_line.strip().strip("|").split("|")])
+            if headers and rows:
+                return headers, rows
+            return None
+    return None
+
+
+def table_narration(headers, rows, max_words):
+    """Extractive narration built from the table's own header labels and
+    cell text (e.g. "Theater: X. Real gate instead: Y.") — genuinely drawn
+    from the table's own words and lightly templated into sentences, same
+    spirit as clean_bullet() turning list items into narratable prose.
+    Returns "" if the table isn't a plain 2-column comparison."""
+    if len(headers) != 2:
+        return ""
+    h1, h2 = headers
+    chunks = []
+    for row in rows:
+        if len(row) != 2:
+            continue
+        c1, c2 = row
+        chunks.append(f"{h1}: {c1}.")
+        chunks.append(f"{h2} instead: {c2}.")
+    return _budget_join(_filtered_chunks(chunks), max_words)
+
+
 def draft_scenes(post_slug):
     """Draft scenes from a post's actual markdown sections. Returns (scenes_list, narration_preview).
 
@@ -295,8 +337,16 @@ def draft_scenes(post_slug):
     for heading, section_text in extract_sections(body, title=fm.get("title", "")):
         if any(s in heading.lower() for s in STOPLIST_HEADING_SUBSTRINGS):
             continue
+        table = extract_table(section_text)
+        if table:
+            headers, rows = table[0], table[1][:MAX_TABLE_ROWS]
+            t_narration = table_narration(headers, rows, per_scene_budget)
+            if t_narration:
+                candidates.append((heading, t_narration, {"type": "table", "headers": headers, "rows": rows}))
+                if len(candidates) >= SCENE_MAX:
+                    break
         for narration in section_narrations(section_text, per_scene_budget):
-            candidates.append((heading, narration))
+            candidates.append((heading, narration, None))
             if len(candidates) >= SCENE_MAX:
                 break
         if len(candidates) >= SCENE_MAX:
@@ -307,9 +357,11 @@ def draft_scenes(post_slug):
 
     images_to_place = list(available_required)
     scenes = []
-    for i, (heading, narration) in enumerate(candidates):
+    for i, (heading, narration, visual_override) in enumerate(candidates):
         sid = f"s{i + 1}-" + (re.sub(r"[^a-z0-9]+", "-", heading.lower()).strip("-")[:24] or "scene")
-        if images_to_place:
+        if visual_override:
+            visual = visual_override
+        elif images_to_place:
             visual = {"type": "image", "src": images_to_place.pop(0)}
         else:
             visual = {"type": "card", "text": card_snippet(narration)}

@@ -102,6 +102,59 @@ def render_card(headline, subtext, out_path):
     return out_path
 
 
+def render_table(headline, headers, rows, out_path):
+    """A 2-column comparison chart in the site's dark aesthetic — a real
+    visual for structured content (e.g. a post's own markdown table)
+    instead of forcing it into a text card."""
+    img = Image.new("RGB", (W, H), BG)
+    d = ImageDraw.Draw(img)
+
+    d.rectangle([MARGIN - 60, 70, W - MARGIN + 60, H - 70], outline=BORDER, width=2)
+
+    max_w = W - 2 * MARGIN
+    head_font, head_lines = fit_lines(d, headline, FONT_BOLD, max_w, 76, 48, 2)
+    head_lh = int(head_font.size * 1.18)
+    y = 130
+    d.rectangle([MARGIN - 44, y + 6, MARGIN - 44 + RULE_W, y + len(head_lines) * head_lh - 6], fill=SECONDARY)
+    for line in head_lines:
+        d.text((MARGIN, y), line, font=head_font, fill=PRIMARY)
+        y += head_lh
+    y += 40
+
+    col_w = (max_w - 60) // 2
+    col1_x, col2_x = MARGIN, MARGIN + col_w + 60
+
+    header_font = font(FONT_BOLD, 40)
+    cell_font = font(FONT_DEMI, 34)
+    row_gap = 28
+    n_rows = len(rows)
+    available_h = H - 70 - y
+    row_h = max(70, min(140, (available_h - row_gap) // max(1, n_rows + 1)))
+
+    def draw_cell(x, text, fnt, fill, top):
+        lines = wrap(d, text, fnt, col_w)[:3]
+        for i, line in enumerate(lines):
+            d.text((x, top + i * int(fnt.size * 1.25)), line, font=fnt, fill=fill)
+        return len(lines) * int(fnt.size * 1.25)
+
+    draw_cell(col1_x, headers[0], header_font, SECONDARY, y)
+    draw_cell(col2_x, headers[1], header_font, SECONDARY, y)
+    y += row_h
+    d.line([(MARGIN, y - row_gap // 2), (W - MARGIN, y - row_gap // 2)], fill=BORDER, width=2)
+
+    for c1, c2 in rows:
+        h1 = draw_cell(col1_x, c1, cell_font, CONTENT, y)
+        h2 = draw_cell(col2_x, c2, cell_font, PRIMARY, y)
+        y += max(row_h, max(h1, h2) + row_gap)
+
+    footer = font(FONT_DEMI, 30)
+    d.text((MARGIN, H - 148), "davevoyles.com", font=footer, fill=SECONDARY)
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    img.save(out_path)
+    return out_path
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--scenes", default=str(ROOT / "scenes.json"))
@@ -113,9 +166,12 @@ def main():
     made = 0
     for s in scenes:
         v = s["visual"]
-        if v["type"] != "card":
+        if v["type"] == "card":
+            out = render_card(s["headline"], v["text"], outdir / f"{s['id']}.png")
+        elif v["type"] == "table":
+            out = render_table(s["headline"], v["headers"], v["rows"], outdir / f"{s['id']}.png")
+        else:
             continue
-        out = render_card(s["headline"], v["text"], outdir / f"{s['id']}.png")
         print(f"{s['id']:<18} {out}")
         made += 1
     print(f"rendered {made} cards -> {outdir}")
