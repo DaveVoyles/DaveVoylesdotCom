@@ -8,6 +8,11 @@ static/images/*.tmp
 public/
 .hugo_build.lock
 
+# Environment variables and credentials — never commit these
+.env
+.env.local
+.env.*.local
+
 # Agent-landing-floor tooling (scripts/enable-landing-floor.sh symlinks) -- machine-local, never commit
 /scripts/land-pr.sh
 /scripts/gatekeeper.sh
