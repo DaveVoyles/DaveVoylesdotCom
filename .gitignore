@@ -17,3 +17,5 @@ public/
 /scripts/review-lens-validate-findings.sh
 /scripts/review-lens-receipt.sh
 /scripts/board-seed.sh
+/scripts/gh-app-token.sh
+/scripts/gh-auth-doctor.sh
