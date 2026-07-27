@@ -28,23 +28,18 @@ test_result() {
   fi
 }
 
-# Temp fixture directory
+# Temp fixture directory. Fixtures are pointed at via VIDEO_SCENES_FILE
+# (check-content.sh's overridable scan path) rather than swapped into the
+# real tracked tools/video/scenes.json — no mutation of tracked content,
+# so no backup/restore is needed.
 FIXTURE_DIR="/tmp/claim-safety-test-$$"
 mkdir -p "$FIXTURE_DIR"
 
-# Cleanup function
 cleanup() {
-  # Restore original scenes.json
-  if [[ -f "$FIXTURE_DIR/scenes-backup.json" ]]; then
-    command cp -f "$FIXTURE_DIR/scenes-backup.json" tools/video/scenes.json 2>/dev/null || true
-  fi
   rm -rf "$FIXTURE_DIR" 2>/dev/null || true
 }
 
 trap cleanup EXIT
-
-# Backup the real scenes.json
-command cp -f tools/video/scenes.json "$FIXTURE_DIR/scenes-backup.json"
 
 echo "=== Test 1: Forbidden claim in narration field ==="
 cat > "$FIXTURE_DIR/scenes-forbidden-narration.json" <<'EOF'
@@ -62,9 +57,7 @@ cat > "$FIXTURE_DIR/scenes-forbidden-narration.json" <<'EOF'
 }
 EOF
 
-command cp -f "$FIXTURE_DIR/scenes-forbidden-narration.json" tools/video/scenes.json
-
-if ./scripts/check-content.sh > "$FIXTURE_DIR/output1.txt" 2>&1; then
+if VIDEO_SCENES_FILE="$FIXTURE_DIR/scenes-forbidden-narration.json" ./scripts/check-content.sh > "$FIXTURE_DIR/output1.txt" 2>&1; then
   exit_code=0
 else
   exit_code=$?
@@ -76,8 +69,6 @@ if [[ $exit_code -ne 0 ]]; then
   echo "  Error output:"
   sed 's/^/    /' "$FIXTURE_DIR/output1.txt" || true
 fi
-
-command cp -f "$FIXTURE_DIR/scenes-backup.json" tools/video/scenes.json
 
 echo ""
 echo "=== Test 2: Forbidden claim in headline field ==="
@@ -96,9 +87,7 @@ cat > "$FIXTURE_DIR/scenes-forbidden-headline.json" <<'EOF'
 }
 EOF
 
-command cp -f "$FIXTURE_DIR/scenes-forbidden-headline.json" tools/video/scenes.json
-
-if ./scripts/check-content.sh > "$FIXTURE_DIR/output2.txt" 2>&1; then
+if VIDEO_SCENES_FILE="$FIXTURE_DIR/scenes-forbidden-headline.json" ./scripts/check-content.sh > "$FIXTURE_DIR/output2.txt" 2>&1; then
   exit_code=0
 else
   exit_code=$?
@@ -110,8 +99,6 @@ if [[ $exit_code -ne 0 ]]; then
   echo "  Error output:"
   sed 's/^/    /' "$FIXTURE_DIR/output2.txt" || true
 fi
-
-command cp -f "$FIXTURE_DIR/scenes-backup.json" tools/video/scenes.json
 
 echo ""
 echo "=== Test 3: Forbidden claim in card visual text ==="
@@ -130,9 +117,7 @@ cat > "$FIXTURE_DIR/scenes-forbidden-card-text.json" <<'EOF'
 }
 EOF
 
-command cp -f "$FIXTURE_DIR/scenes-forbidden-card-text.json" tools/video/scenes.json
-
-if ./scripts/check-content.sh > "$FIXTURE_DIR/output3.txt" 2>&1; then
+if VIDEO_SCENES_FILE="$FIXTURE_DIR/scenes-forbidden-card-text.json" ./scripts/check-content.sh > "$FIXTURE_DIR/output3.txt" 2>&1; then
   exit_code=0
 else
   exit_code=$?
@@ -144,8 +129,6 @@ if [[ $exit_code -ne 0 ]]; then
   echo "  Error output:"
   sed 's/^/    /' "$FIXTURE_DIR/output3.txt" || true
 fi
-
-command cp -f "$FIXTURE_DIR/scenes-backup.json" tools/video/scenes.json
 
 echo ""
 echo "=== Test 4: Clean fixture (no forbidden claims) ==="
@@ -164,9 +147,7 @@ cat > "$FIXTURE_DIR/scenes-clean.json" <<'EOF'
 }
 EOF
 
-command cp -f "$FIXTURE_DIR/scenes-clean.json" tools/video/scenes.json
-
-if ./scripts/check-content.sh > "$FIXTURE_DIR/output4.txt" 2>&1; then
+if VIDEO_SCENES_FILE="$FIXTURE_DIR/scenes-clean.json" ./scripts/check-content.sh > "$FIXTURE_DIR/output4.txt" 2>&1; then
   exit_code=0
 else
   exit_code=$?
@@ -182,7 +163,62 @@ else
   sed 's/^/    /' "$FIXTURE_DIR/output4.txt" || true
 fi
 
-command cp -f "$FIXTURE_DIR/scenes-backup.json" tools/video/scenes.json
+echo ""
+echo "=== Test 5: Multi-scene fixture, only one scene violates ==="
+cat > "$FIXTURE_DIR/scenes-multi-one-bad.json" <<'EOF'
+{
+  "post": "content/posts/test.md",
+  "voice": "am_michael",
+  "scenes": [
+    {
+      "id": "s1",
+      "narration": "Clean narration for scene one",
+      "headline": "Scene one",
+      "visual": {"type": "image", "src": "static/images/posts/x.jpg"}
+    },
+    {
+      "id": "s2",
+      "narration": "I wrote firstmate as my own product",
+      "headline": "Scene two",
+      "visual": {"type": "card", "text": "Also clean"}
+    },
+    {
+      "id": "s3",
+      "narration": "Clean narration for scene three",
+      "headline": "Scene three",
+      "visual": {"type": "card", "text": "Clean text"}
+    }
+  ]
+}
+EOF
+
+if VIDEO_SCENES_FILE="$FIXTURE_DIR/scenes-multi-one-bad.json" ./scripts/check-content.sh > "$FIXTURE_DIR/output5.txt" 2>&1; then
+  exit_code=0
+else
+  exit_code=$?
+fi
+
+test_result "Multi-scene, one violation → exit 1" $exit_code 1
+
+if [[ $exit_code -ne 0 ]]; then
+  echo "  Error output:"
+  sed 's/^/    /' "$FIXTURE_DIR/output5.txt" || true
+fi
+
+echo ""
+echo "=== Test 6: scenes file entirely absent (pre-D1 scenario) ==="
+if VIDEO_SCENES_FILE="$FIXTURE_DIR/does-not-exist.json" ./scripts/check-content.sh > "$FIXTURE_DIR/output6.txt" 2>&1; then
+  exit_code=0
+else
+  exit_code=$?
+fi
+
+test_result "Scenes file absent → exit 0 (scan skipped, not an error)" $exit_code 0
+
+if [[ $exit_code -ne 0 ]]; then
+  echo "  Error output:"
+  sed 's/^/    /' "$FIXTURE_DIR/output6.txt" || true
+fi
 
 echo ""
 echo "=== Test Summary ==="
