@@ -165,15 +165,19 @@ def main():
     outdir = Path(args.outdir)
     made = 0
     for s in scenes:
-        v = s["visual"]
-        if v["type"] == "card":
-            out = render_card(s["headline"], v["text"], outdir / f"{s['id']}.png")
-        elif v["type"] == "table":
-            out = render_table(s["headline"], v["headers"], v["rows"], outdir / f"{s['id']}.png")
-        else:
-            continue
-        print(f"{s['id']:<18} {out}")
-        made += 1
+        beats = s["visual"]
+        if isinstance(beats, dict):
+            beats = [beats]
+        for bi, v in enumerate(beats):
+            out_path = outdir / f"{s['id']}-{bi}.png"
+            if v["type"] == "card":
+                out = render_card(s["headline"], v["text"], out_path)
+            elif v["type"] == "table":
+                out = render_table(s["headline"], v["headers"], v["rows"], out_path)
+            else:
+                continue
+            print(f"{s['id']}-{bi:<14} {out}")
+            made += 1
     print(f"rendered {made} cards -> {outdir}")
 
 

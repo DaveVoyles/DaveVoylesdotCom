@@ -116,20 +116,29 @@ def main():
         total_words += len(words(s.get("narration", "")))
         total_secs += float(s.get("target_seconds", 0))
 
-        v = s.get("visual", {})
-        if v.get("type") == "image":
-            src = v.get("src", "")
-            if not (REPO / src).is_file():
-                fails.append(f"{where}: image not found: {src}")
-            used_images.add(src)
-        elif v.get("type") == "card":
-            if not v.get("text"):
-                fails.append(f"{where}: card visual missing 'text'")
-        elif v.get("type") == "table":
-            if not v.get("headers") or not v.get("rows"):
-                fails.append(f"{where}: table visual missing 'headers' or 'rows'")
-        else:
-            fails.append(f"{where}: visual.type must be 'card', 'image', or 'table', got {v.get('type')!r}")
+        # visual is a list of 1+ beats shown in sequence within the scene's
+        # clip (more frequent visual changes than one static visual per
+        # scene) — a bare dict is also accepted for backward compatibility
+        # with a hand-authored single-visual scene.
+        raw_visual = s.get("visual", [])
+        beats = [raw_visual] if isinstance(raw_visual, dict) else raw_visual
+        if not beats:
+            fails.append(f"{where}: visual has no beats")
+        for bi, v in enumerate(beats):
+            bwhere = f"{where} beat[{bi}]"
+            if v.get("type") == "image":
+                src = v.get("src", "")
+                if not (REPO / src).is_file():
+                    fails.append(f"{bwhere}: image not found: {src}")
+                used_images.add(src)
+            elif v.get("type") == "card":
+                if not v.get("text"):
+                    fails.append(f"{bwhere}: card visual missing 'text'")
+            elif v.get("type") == "table":
+                if not v.get("headers") or not v.get("rows"):
+                    fails.append(f"{bwhere}: table visual missing 'headers' or 'rows'")
+            else:
+                fails.append(f"{bwhere}: visual.type must be 'card', 'image', or 'table', got {v.get('type')!r}")
 
     if not WORD_MIN <= total_words <= WORD_MAX:
         fails.append(f"narration {total_words} words outside {WORD_MIN}-{WORD_MAX}")

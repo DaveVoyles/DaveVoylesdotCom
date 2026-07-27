@@ -69,6 +69,27 @@ def _claim_safe_sentences(text):
     return [s for s in sentences if _is_claim_safe(s)]
 
 
+def split_narration(narration):
+    """Split narration into two halves at the sentence boundary closest to
+    the midpoint by word count, for two-beat scenes (more frequent visual
+    changes — the screen shows what's being said in each half, not one
+    static visual for the whole scene). Returns (part_a, "") if there's
+    only one sentence — not meaningfully splittable."""
+    sentences = [s for s in SENTENCE_SPLIT_RE.split(narration) if s.strip()]
+    if len(sentences) < 2:
+        return narration, ""
+    half = sum(count_words(s) for s in sentences) / 2
+    running, split_at = 0, 1
+    for i, s in enumerate(sentences):
+        running += count_words(s)
+        if running >= half:
+            split_at = i + 1
+            break
+    part_a = " ".join(sentences[:split_at])
+    part_b = " ".join(sentences[split_at:])
+    return (narration, "") if not part_b.strip() else (part_a, part_b)
+
+
 def card_snippet(narration, max_words=16):
     """A short on-screen phrase for a card's body text — the scene's own
     narration (already claim-safe by construction), not the section
@@ -359,12 +380,20 @@ def draft_scenes(post_slug):
     scenes = []
     for i, (heading, narration, visual_override) in enumerate(candidates):
         sid = f"s{i + 1}-" + (re.sub(r"[^a-z0-9]+", "-", heading.lower()).strip("-")[:24] or "scene")
+        part_a, part_b = split_narration(narration)
         if visual_override:
-            visual = visual_override
+            # Table scenes stay single-beat — the chart already shows every
+            # row at once, splitting it wouldn't add anything.
+            visual = [visual_override]
         elif images_to_place:
-            visual = {"type": "image", "src": images_to_place.pop(0)}
+            img = images_to_place.pop(0)
+            visual = [{"type": "image", "src": img}]
+            if part_b:
+                visual.append({"type": "card", "text": card_snippet(part_b)})
         else:
-            visual = {"type": "card", "text": card_snippet(narration)}
+            visual = [{"type": "card", "text": card_snippet(part_a)}]
+            if part_b:
+                visual.append({"type": "card", "text": card_snippet(part_b)})
         scenes.append(
             {
                 "id": sid,

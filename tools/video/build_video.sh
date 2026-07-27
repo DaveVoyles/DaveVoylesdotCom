@@ -45,17 +45,36 @@ TARGET_LUFS=-16       # web-embed loudness target (YouTube -14, podcasts -16)
 
 mkdir -p "$WORK" "$OUT" "$CARDS" "$AUDIO" "$CLIPS" "$SRC"
 
-# Emit "id<TAB>visual_type<TAB>source_path<TAB>target_seconds" per scene.
-manifest() {
-  "$PY" - "$REPO" <<'PY'
-import json, pathlib, sys
-repo = pathlib.Path(sys.argv[1])
-root = pathlib.Path(__file__).resolve().parent if False else pathlib.Path.cwd()
-scenes = json.loads((root / "scenes.json").read_text())["scenes"]
+# Emit "id<TAB>target_seconds<TAB>n_beats" per scene. visual is a list of
+# 1+ beats shown in sequence within that scene's clip — more frequent
+# on-screen changes than one static visual for the whole scene.
+scene_manifest() {
+  "$PY" - <<'PY'
+import json, pathlib
+scenes = json.loads((pathlib.Path.cwd() / "scenes.json").read_text())["scenes"]
 for s in scenes:
-    v = s["visual"]
-    src = str(repo / v["src"]) if v["type"] == "image" else str(root / "work" / "cards" / f"{s['id']}.png")
-    print(f"{s['id']}\t{v['type']}\t{src}\t{s['target_seconds']}")
+    visuals = s["visual"]
+    if isinstance(visuals, dict):
+        visuals = [visuals]
+    print(f"{s['id']}\t{s['target_seconds']}\t{len(visuals)}")
+PY
+}
+
+# Emit "beat_index<TAB>visual_type<TAB>source_path" for one scene's beats.
+beat_manifest() {
+  local id="$1"
+  "$PY" - "$id" "$REPO" <<'PY'
+import json, pathlib, sys
+sid, repo = sys.argv[1], pathlib.Path(sys.argv[2])
+root = pathlib.Path.cwd()
+scenes = json.loads((root / "scenes.json").read_text())["scenes"]
+s = next(sc for sc in scenes if sc["id"] == sid)
+visuals = s["visual"]
+if isinstance(visuals, dict):
+    visuals = [visuals]
+for bi, v in enumerate(visuals):
+    src = str(repo / v["src"]) if v["type"] == "image" else str(root / "work" / "cards" / f"{sid}-{bi}.png")
+    print(f"{bi}\t{v['type']}\t{src}")
 PY
 }
 
@@ -92,26 +111,43 @@ build_clips() {
   local duration_source="${1:-target}"
   "$PY" render_cards.py >/dev/null
   local i=0
-  while IFS=$'\t' read -r id type src target; do
-    local prepared seconds frames direction
-    prepared="$(prepare_source "$id" "$src")"
-
+  while IFS=$'\t' read -r id target n_beats; do
+    local seconds
     if [[ "$duration_source" == "audio" ]]; then
       local wav="$AUDIO/$id.wav"
       [[ -f "$wav" ]] || { echo "missing narration: $wav (run './build_video.sh audio' first)" >&2; exit 1; }
-      seconds="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$wav")"
-      seconds="$(awk -v s="$seconds" -v p="$PAD_SECONDS" 'BEGIN{printf "%.4f", s+p}')"
+      local raw
+      raw="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$wav")"
+      seconds="$(awk -v s="$raw" -v p="$PAD_SECONDS" 'BEGIN{printf "%.4f", s+p}')"
     else
       seconds="$target"
     fi
 
-    frames="$(awk -v s="$seconds" -v f="$FPS" 'BEGIN{printf "%d", int(s*f+0.5)}')"
-    if (( i % 2 == 0 )); then direction=in; else direction=out; fi
-    kenburns "$prepared" "$CLIPS/$id.mp4" "$frames" "$direction"
+    # Split the scene's total duration evenly across its beats — each beat
+    # gets its own short Ken Burns sub-clip, concatenated into one clip per
+    # scene id (what assemble()'s per-scene clips.txt already expects).
+    local per_beat frames
+    per_beat="$(awk -v s="$seconds" -v n="$n_beats" 'BEGIN{printf "%.4f", s/n}')"
+    frames="$(awk -v s="$per_beat" -v f="$FPS" 'BEGIN{printf "%d", int(s*f+0.5)}')"
 
-    printf '%-18s %-5s %6.2fs -> %s\n' "$id" "$direction" "$seconds" "$CLIPS/$id.mp4"
+    : > "$WORK/beats-$id.txt"
+    while IFS=$'\t' read -r bi btype bsrc; do
+      local prepared direction
+      prepared="$(prepare_source "$id-$bi" "$bsrc")"
+      if (( (i + bi) % 2 == 0 )); then direction=in; else direction=out; fi
+      kenburns "$prepared" "$CLIPS/$id-$bi.mp4" "$frames" "$direction"
+      echo "file '$CLIPS/$id-$bi.mp4'" >> "$WORK/beats-$id.txt"
+    done < <(beat_manifest "$id")
+
+    if (( n_beats > 1 )); then
+      ffmpeg -nostdin -y -v error -f concat -safe 0 -i "$WORK/beats-$id.txt" -c copy "$CLIPS/$id.mp4"
+    else
+      cp -f "$CLIPS/$id-0.mp4" "$CLIPS/$id.mp4"
+    fi
+
+    printf '%-18s %d beat(s) %6.2fs -> %s\n' "$id" "$n_beats" "$seconds" "$CLIPS/$id.mp4"
     i=$((i + 1))
-  done < <(manifest)
+  done < <(scene_manifest)
 }
 
 build_audio() {
@@ -124,10 +160,10 @@ assemble() {
 
   : > "$WORK/clips.txt"
   : > "$WORK/audio.txt"
-  while IFS=$'\t' read -r id _ _ _; do
+  while IFS=$'\t' read -r id _ _; do
     echo "file '$CLIPS/$id.mp4'" >> "$WORK/clips.txt"
     echo "file '$AUDIO/$id.wav'" >> "$WORK/audio.txt"
-  done < <(manifest)
+  done < <(scene_manifest)
 
   ffmpeg -nostdin -y -v error -f concat -safe 0 -i "$WORK/clips.txt" -c copy "$WORK/video.mp4"
   # Re-encode the audio concat: per-scene WAVs are padded to their clip length so the
