@@ -1,0 +1,86 @@
+{
+  "post": "content/posts/agent-production-system.md",
+  "voice": "am_michael",
+  "scenes": [
+    {
+      "id": "s1-hook",
+      "narration": "Most AI agent demos stop at a chat box. What I care about is the opposite — a production system with routing, tools, gates, and hosts.",
+      "headline": "Not a chat box",
+      "visual": {
+        "type": "card",
+        "text": "A production system: routing, tools, gates, hosts"
+      },
+      "target_seconds": 9.0
+    },
+    {
+      "id": "s2-factory-floor",
+      "narration": "Think factory floor, not chatbot. Work arrives, and an orchestrator assigns specialist agents to it — planner, coder, search.",
+      "headline": "Factory floor, not chatbot",
+      "visual": {
+        "type": "image",
+        "src": "static/images/posts/agent-system-ops-floor.jpg"
+      },
+      "target_seconds": 8.0
+    },
+    {
+      "id": "s3-skills",
+      "narration": "They work through shared skills and tools, and they retrieve from real sources rather than inventing from nothing.",
+      "headline": "Skills, tools, retrieval",
+      "visual": {
+        "type": "card",
+        "text": "Shared craft library — not invention from nothing"
+      },
+      "target_seconds": 8.0
+    },
+    {
+      "id": "s4-eval-gates",
+      "narration": "Eval gates then check the result — tests, policy, claim safety. They fail closed before anything merges. Green is not theater.",
+      "headline": "Green is not theater",
+      "visual": {
+        "type": "image",
+        "src": "static/images/posts/agent-eval-gates.jpg"
+      },
+      "target_seconds": 9.0
+    },
+    {
+      "id": "s5-human-approval",
+      "narration": "And a human still owns the irreversible moves — force pushes, secrets, infrastructure where the blast radius is real.",
+      "headline": "Human approval",
+      "visual": {
+        "type": "card",
+        "text": "Force pushes · secrets · irreversible infrastructure"
+      },
+      "target_seconds": 8.0
+    },
+    {
+      "id": "s6-hosts",
+      "narration": "Docker and Azure host the runtime — twenty plus production containers on a homelab I operate — and dashboards show status.",
+      "headline": "Docker · Azure · dashboards",
+      "visual": {
+        "type": "card",
+        "text": "20+ production containers on a homelab I operate"
+      },
+      "target_seconds": 9.0
+    },
+    {
+      "id": "s7-practices",
+      "narration": "The practices matter more than model choice. Verification before trust. Claim safety, so numbers stay tied to evidence. And when something burns, the fix goes into policy and gates.",
+      "headline": "Practices over model choice",
+      "visual": {
+        "type": "card",
+        "text": "Verification before trust · claim safety · fail-closed defaults"
+      },
+      "target_seconds": 12.0
+    },
+    {
+      "id": "s8-close",
+      "narration": "That's the thesis. Agents move the work; controls keep it real.",
+      "headline": "Agents move work. Controls keep it real.",
+      "visual": {
+        "type": "card",
+        "text": "davevoyles.com"
+      },
+      "target_seconds": 5.0
+    }
+  ]
+}
