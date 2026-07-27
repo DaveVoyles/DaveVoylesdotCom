@@ -46,6 +46,9 @@ toLower = true
 name = 'topics'
 weight = 100
 
+[privacy.youtube]
+privacyEnhanced = true
+
 [params]
 author = 'Dave Voyles'
 description = 'Blog by Dave Voyles'
