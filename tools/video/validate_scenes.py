@@ -7,6 +7,7 @@ Exits non-zero with a list of failures.
     ./.venv/bin/python validate_scenes.py
 """
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -60,7 +61,10 @@ def words(text):
 
 
 def main():
-    data = json.loads((ROOT / "scenes.json").read_text())
+    # Overridable so callers (e.g. draft_scenes.py) can validate a candidate
+    # draft without mutating the tracked tools/video/scenes.json.
+    scenes_file = Path(os.environ.get("SCENES_FILE", str(ROOT / "scenes.json")))
+    data = json.loads(scenes_file.read_text())
     fails = []
 
     scenes = data.get("scenes", [])

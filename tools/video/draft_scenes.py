@@ -274,29 +274,29 @@ def main():
 
     print(f"Draft generated to {tmp_path}", file=sys.stderr)
 
-    # Validate schema: temporarily use as scenes.json
-    scenes_path = ROOT / "scenes.json"
-    original_content = scenes_path.read_text() if scenes_path.exists() else None
-
+    # Validate the candidate draft via each gate's overridable-path env var
+    # (SCENES_FILE / VIDEO_SCENES_FILE) rather than mutating the tracked
+    # tools/video/scenes.json in place — that pattern was found and fixed as
+    # a real-file-corruption risk during D4's review (a killed process could
+    # leave the tracked file holding an unapproved draft with no restore).
     try:
-        # Write to scenes.json for validation
-        scenes_path.write_text(tmp_path.read_text())
+        env = {**os.environ, "SCENES_FILE": str(tmp_path)}
 
-        # Run validator
         print("\n=== Schema validation ===", file=sys.stderr)
         result = subprocess.run(
             [sys.executable, str(ROOT / "validate_scenes.py")],
             cwd=str(ROOT),
+            env=env,
         )
         if result.returncode != 0:
             print("error: schema validation failed", file=sys.stderr)
             raise SystemExit(1)
 
-        # Run claim-safety gate
         print("\n=== Claim-safety gate ===", file=sys.stderr)
         result = subprocess.run(
             ["bash", str(REPO / "scripts/check-content.sh")],
             cwd=str(REPO),
+            env={**os.environ, "VIDEO_SCENES_FILE": str(tmp_path)},
         )
         if result.returncode != 0:
             print("error: claim-safety gate failed", file=sys.stderr)
@@ -307,13 +307,6 @@ def main():
         print(f"\nScenes written to {output_path}", file=sys.stderr)
 
     finally:
-        # Restore original scenes.json
-        if original_content is not None:
-            scenes_path.write_text(original_content)
-        else:
-            if scenes_path.exists():
-                scenes_path.unlink()
-
         # Clean up temp file
         if tmp_path.exists():
             tmp_path.unlink()
