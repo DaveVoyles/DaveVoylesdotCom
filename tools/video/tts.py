@@ -86,12 +86,12 @@ def main():
     # 1. Explicit --voice CLI flag (if passed, args.voice is not None)
     # 2. voice key from scenes.json (if --scenes is used and no explicit --voice)
     # 3. DEFAULT_VOICE fallback
+    scenes_data = json.loads(Path(args.scenes).read_text()) if args.scenes else None
     if args.voice is not None:
         # Explicit CLI flag was passed
         effective_voice = args.voice
-    elif args.scenes:
+    elif scenes_data is not None:
         # Using scenes mode without explicit --voice; read voice from scenes.json
-        scenes_data = json.loads(Path(args.scenes).read_text())
         effective_voice = scenes_data.get("voice", DEFAULT_VOICE)
     else:
         # Text mode or neither scenes nor explicit voice; use default
@@ -107,7 +107,7 @@ def main():
         print(f"wrote {args.out} ({dur:.2f}s)")
         return
 
-    scenes = json.loads(Path(args.scenes).read_text())["scenes"]
+    scenes = scenes_data["scenes"]
     outdir = Path(args.outdir)
     total = 0.0
     for scene in scenes:
