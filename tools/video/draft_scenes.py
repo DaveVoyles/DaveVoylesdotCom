@@ -311,7 +311,7 @@ def main():
 
     try:
         scenes, narration_preview = draft_scenes(post_slug)
-    except FileNotFoundError as e:
+    except (FileNotFoundError, ValueError) as e:
         print(f"error: {e}", file=sys.stderr)
         sys.exit(1)
 
