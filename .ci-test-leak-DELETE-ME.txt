@@ -1,0 +1,2 @@
+aws_key = AKIA0123456789ABCDEF
+# DELETE ME — throwaway commit to verify the gitleaks CI workflow (issue #118) actually blocks a real leak. Never merge.
