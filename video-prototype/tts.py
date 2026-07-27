@@ -27,6 +27,7 @@ EspeakWrapper.set_library(BREW_LIB)
 EspeakWrapper.set_data_path(BREW_DATA)
 
 import numpy as np  # noqa: E402
+import torch  # noqa: E402
 import soundfile as sf  # noqa: E402
 from kokoro import KPipeline  # noqa: E402
 
@@ -36,10 +37,19 @@ DEFAULT_VOICE = "am_michael"
 # pushed the assembled cut past its 75s ceiling. A light speed-up recovers the budget
 # without cutting narration; above ~1.1 it starts to sound rushed.
 DEFAULT_SPEED = 1.06
+DEFAULT_SEED = 0
 
 
-def render(pipeline, text, voice, out_path, speed=1.0):
-    """Render one narration string to a single WAV, concatenating Kokoro's chunks."""
+def render(pipeline, text, voice, out_path, speed=1.0, seed=DEFAULT_SEED):
+    """Render one narration string to a single WAV, concatenating Kokoro's chunks.
+
+    Kokoro is non-deterministic by default: the same text renders to the same *length*
+    but a different waveform each run (max sample delta ~0.10), which makes the built MP4
+    differ byte-for-byte between otherwise identical builds. Seeding per render restores
+    bit-reproducibility.
+    """
+    torch.manual_seed(seed)
+    np.random.seed(seed)
     chunks = [audio for _, _, audio in pipeline(text, voice=voice, speed=speed)]
     if not chunks:
         raise RuntimeError(f"Kokoro produced no audio for: {text[:60]!r}")
@@ -57,6 +67,7 @@ def main():
     ap.add_argument("--outdir")
     ap.add_argument("--voice", default=DEFAULT_VOICE)
     ap.add_argument("--speed", type=float, default=DEFAULT_SPEED)
+    ap.add_argument("--seed", type=int, default=DEFAULT_SEED)
     args = ap.parse_args()
 
     t0 = time.time()
@@ -64,7 +75,7 @@ def main():
     print(f"pipeline ready in {time.time() - t0:.1f}s", flush=True)
 
     if args.text:
-        dur = render(pipeline, args.text, args.voice, Path(args.out), args.speed)
+        dur = render(pipeline, args.text, args.voice, Path(args.out), args.speed, args.seed)
         print(f"wrote {args.out} ({dur:.2f}s)")
         return
 
@@ -73,7 +84,7 @@ def main():
     total = 0.0
     for scene in scenes:
         out = outdir / f"{scene['id']}.wav"
-        dur = render(pipeline, scene["narration"], args.voice, out, args.speed)
+        dur = render(pipeline, scene["narration"], args.voice, out, args.speed, args.seed)
         total += dur
         print(f"{scene['id']:<12} {dur:6.2f}s  target {scene['target_seconds']:.1f}s  {out}")
     print(f"TOTAL narration {total:.2f}s")

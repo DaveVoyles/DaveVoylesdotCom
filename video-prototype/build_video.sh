@@ -27,6 +27,7 @@ W=1920
 H=1080
 ZOOM_MAX=1.12          # gentle; more than this reads as a zoom effect rather than motion
 PAD_SECONDS=0.35       # breathing room after each scene's narration
+TARGET_LUFS=-16       # web-embed loudness target (YouTube -14, podcasts -16)
 
 mkdir -p "$WORK" "$OUT" "$CARDS" "$AUDIO" "$CLIPS" "$SRC"
 
@@ -129,7 +130,11 @@ for s in scenes:
     parts.append(f"file '{out}'")
 (root/"work"/"audio-padded.txt").write_text("\n".join(parts)+"\n")
 PY
-  ffmpeg -nostdin -y -v error -f concat -safe 0 -i "$WORK/audio-padded.txt" -c:a pcm_s16le "$WORK/narration.wav"
+  # Kokoro renders around -27 LUFS integrated, ~11 dB under the -16 LUFS web target —
+  # quiet enough that an embedded player sounds broken next to any other page audio.
+  # Normalise on the concatenated track so scene-to-scene levels stay relative.
+  ffmpeg -nostdin -y -v error -f concat -safe 0 -i "$WORK/audio-padded.txt" \
+    -af "loudnorm=I=${TARGET_LUFS}:TP=-1.5:LRA=11" -ar 24000 -c:a pcm_s16le "$WORK/narration.wav"
 
   ffmpeg -nostdin -y -v error -i "$WORK/video.mp4" -i "$WORK/narration.wav" \
     -c:v copy -c:a aac -b:a 128k -movflags +faststart -shortest "$OUT/$NAME.mp4"
