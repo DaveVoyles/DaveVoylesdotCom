@@ -1,6 +1,6 @@
 +++
 title = "Human approval: the merge button still matters"
-date = "2026-08-07T09:00:00-04:00"
+date = "2026-07-31T09:00:00-04:00"
 draft = false
 author = "Dave Voyles"
 description = "Autonomy is earned per action class. Where I keep a human on the critical path — and why that is a feature of agent production systems, not a failure of them."

@@ -1,6 +1,6 @@
 +++
 title = "Twenty-plus containers and agent-operated ops"
-date = "2026-08-14T09:00:00-04:00"
+date = "2026-08-04T09:00:00-04:00"
 draft = false
 author = "Dave Voyles"
 description = "A Dockerized homelab is not a toy rack — it is the host layer for an agent production system: runtimes, runners, dashboards, and hardened defaults."

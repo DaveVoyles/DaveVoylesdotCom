@@ -26,8 +26,8 @@ Production builds use neither flag — future posts stay hidden until their `dat
 | Example | URL | Goes live (ET) |
 |---------|-----|----------------|
 | Overview (live) | `/posts/agent-production-system/` | already live |
-| Eval gates | `/posts/eval-gates-not-theater/` | 2026-07-31 09:00 |
-| Tokens | `/posts/github-tokens-for-agent-fleets/` | 2026-09-11 09:00 |
+| Eval gates | `/posts/eval-gates-not-theater/` | 2026-07-28 09:00 |
+| Tokens | `/posts/github-tokens-for-agent-fleets/` | 2026-08-18 09:00 |
 
 ---
 

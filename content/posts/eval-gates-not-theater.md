@@ -1,6 +1,6 @@
 +++
 title = "Eval gates are not optional theater"
-date = "2026-07-31T09:00:00-04:00"
+date = "2026-07-28T09:00:00-04:00"
 draft = false
 author = "Dave Voyles"
 description = "Automated checks before merge — tests, policy, claim safety — are the product, not a checkbox. How eval gates fit an agent production system."
