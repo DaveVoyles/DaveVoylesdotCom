@@ -145,4 +145,31 @@ anything a site visitor can see.
 
 ## Execution Tracking
 
-*(Populated by the plan-to-issues export.)*
+- **Issues:** https://github.com/DaveVoyles/DaveVoylesdotCom/issues?q=is%3Aissue+state%3Aopen+label%3Aplan%3A0006
+- **Board:** https://github.com/users/DaveVoyles/projects/2 (Agent Work)
+
+| Deliverable | Issue | Blocked by |
+|---|---|---|
+| D1 — Promote to `tools/video/` + staged Make targets | [#101](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/101) | — |
+| D2 — Voice switch + wire the dead `voice` key | [#105](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/105) | #101 |
+| D3 — Secret hygiene + gitleaks scan | [#102](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/102) | — |
+| D4 — Claim-safety gate (spoken + on-screen) | [#106](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/106) | #101 |
+| D5 — `video-draft` stage | [#108](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/108) | #101, #106 |
+| D6 — Google Cloud + OAuth setup 🛑 | [#107](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/107) | #102 |
+| D7 — `video-upload` + live probe 🛑 | [#109](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/109) | #101, #107 |
+| D8 — Privacy-enhanced embeds | [#103](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/103) | — |
+| D9 — ADRs 0011 + 0012 | [#104](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/104) | — |
+| D10 — `docs/video-guide.md` + cross-links | [#111](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/111) | #101, #105, #108, #109 |
+| D11 — Full `bm_lewis` re-render | [#110](https://github.com/DaveVoyles/DaveVoylesdotCom/issues/110) | #105 |
+
+All 12 dependency edges are registered as **native** GitHub `blocked_by`
+relationships, not prose only — the frontier reads the API, not the issue body.
+No classifier refusals occurred during export.
+
+**Starting frontier:** #101 (D1), #102 (D3), #103 (D8), #104 (D9) — open,
+unblocked, unassigned.
+
+🛑 **D6 (#107) and D7 (#109) are gated.** They carry the plan's ⚠️ irreversible
+steps, which the Lavish form approval does **not** authorize. The orchestrator must
+get an explicit in-chat go-ahead from Dave before starting either, and should park
+them (plus D10, which depends on D7) rather than idling if he is unavailable.
