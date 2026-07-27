@@ -25,7 +25,7 @@ import tempfile
 from pathlib import Path
 
 import requests
-from google.auth.exceptions import RefreshError
+from google.auth.exceptions import GoogleAuthError
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -74,7 +74,11 @@ def get_credentials():
         if creds and creds.expired and creds.refresh_token:
             try:
                 creds.refresh(Request())
-            except RefreshError as e:
+            except GoogleAuthError as e:
+                # Catches both RefreshError (bad/revoked refresh token) and
+                # TransportError (network failure during the refresh call) —
+                # they're sibling exceptions, not one a subclass of the
+                # other, so both need handling here.
                 print(
                     f"error: cached token could not be refreshed ({e}) — "
                     f"delete {TOKEN_PATH} and re-run to re-authorize from scratch",
@@ -98,16 +102,19 @@ def main():
             TOKENINFO_URL, params={"access_token": creds.token}, timeout=REQUEST_TIMEOUT
         )
         resp.raise_for_status()
-    except requests.RequestException:
+        info = resp.json()
+    except (requests.RequestException, ValueError):
         # Deliberately not including the exception's own str() here: it can
         # embed the full request URL, which includes the raw access_token as
         # a query parameter — never let a token value reach stderr/logs.
+        # ValueError also covers resp.json() failing on a non-JSON 200 body
+        # (e.g. a captive portal/proxy intercepting the request).
         print(
-            "error: tokeninfo read-back call failed (network error or invalid/expired token)",
+            "error: tokeninfo read-back call failed (network error, invalid/expired "
+            "token, or a non-JSON response)",
             file=sys.stderr,
         )
         sys.exit(1)
-    info = resp.json()
 
     scope_ok = info.get("scope") == SCOPES[0]
     audience_ok = info.get("aud") == creds.client_id
