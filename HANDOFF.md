@@ -1,6 +1,8 @@
 # Handoff
 
-**2026-07-24 — agent platform affordances + auto-publish.**
+**2026-07-27 — plan 0005 post-to-video spike executed; awaiting Dave's verdict.**
+
+_(Previous: 2026-07-24 — agent platform affordances + auto-publish.)_
 
 ## What just shipped
 
@@ -35,6 +37,29 @@
 - Graph UX under broader #24 if still open  
 - Content gap 2015–2024 (#55) if still tracked  
 
-## Nothing currently in-flight
+## In flight — plan 0005 awaiting Dave's verdict
 
-Auto-publish + agent-platform pass landed on `main` (`d2c0806`, `5e0d34d`). Working tree clean; next session starts clean.
+**Skill: none for the wait itself.** If Dave says go, that is new feature work → `grilling` → `design-plans`.
+
+Plan 0005 (post-to-video spike) is **executed and closed** — D1–D5, issues #92–#96 all closed with
+verbatim probe evidence. Everything lives on **`prototype/post-video-pipeline`**, which is deliberately
+never merged to `main`; nothing from it touches the live site.
+
+- Findings + verdict packet: `video-prototype/PROTOTYPE.md` **on that branch**, not on `main`.
+- Final artifact: 72.47s, 9.56 MB, 1920×1080/30fps, −17.0 LUFS. Full cold rebuild: 24.4s.
+- **Waiting on Dave:** whether Kokoro's voice is good enough to publish (subjective — no agent has judged
+  it), and whether to build the production pipeline (Remotion template, `make-video`, a Hugo shortcode
+  on `main`). Nothing proceeds until he calls it.
+
+To reproduce the video: `cd video-prototype && ./build_video.sh all`, then `./preview.sh` for the local
+Hugo embed. Needs `brew install espeak-ng` and a 3.13 venv — the machine's `python3` is 3.14, ahead of
+PyTorch wheel coverage. `PROTOTYPE.md` has the setup block.
+
+## Gotchas worth knowing before touching video or Hugo rendering
+
+- `themes/PaperMod` is a submodule; a fresh worktree needs `make submodules` (or
+  `git submodule update --init`) or every build fails.
+- goldmark's `renderer.unsafe` is **false**, so raw HTML in markdown is silently stripped — a `<video>`
+  tag just vanishes and the build stays green. Use a shortcode; do not flip the site-wide setting.
+- Any `ffmpeg` call inside a `while read` loop needs `-nostdin`, or it eats the loop's input and
+  produces plausible-looking but wrong output.
