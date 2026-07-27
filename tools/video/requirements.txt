@@ -11,3 +11,8 @@ misaki==0.9.4
 phonemizer-fork==3.3.2
 espeakng-loader==0.2.4
 numpy==2.5.1
+
+# YouTube Data API OAuth + upload (plan 0006 D6/D7).
+google-api-python-client==2.198.0
+google-auth-httplib2==0.4.0
+google-auth-oauthlib==1.4.0
