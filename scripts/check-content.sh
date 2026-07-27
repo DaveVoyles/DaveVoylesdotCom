@@ -128,6 +128,40 @@ fi
 
 ok "claim-safety authorship / about bans"
 
+# --- claim-safety: video narration and on-screen text ---
+# Overridable so tests can point at a fixture without mutating the tracked file.
+VIDEO_SCENES_FILE="${VIDEO_SCENES_FILE:-tools/video/scenes.json}"
+if [[ -f "$VIDEO_SCENES_FILE" ]]; then
+  if ! command -v jq &> /dev/null; then
+    err "jq not found — required to scan video scenes.json for claim safety"
+  else
+    jq_status=0
+    scenes_fields="$(
+      jq -r '
+        .scenes[]? | (
+          .narration // empty,
+          .headline // empty,
+          if .visual.type == "card" then .visual.text // empty else empty end
+        )
+      ' "$VIDEO_SCENES_FILE" 2>&1
+    )" || jq_status=$?
+
+    if [[ "$jq_status" -ne 0 ]]; then
+      err "malformed JSON in $VIDEO_SCENES_FILE — jq: $scenes_fields"
+    else
+      while IFS= read -r text_field; do
+        [[ -z "$text_field" ]] && continue
+        for pat in "${forbid_patterns[@]}"; do
+          if rg -qi --pcre2 "$pat" <<< "$text_field"; then
+            err "forbidden authorship claim in $VIDEO_SCENES_FILE matching /$pat/ in: $text_field"
+          fi
+        done
+      done <<< "$scenes_fields"
+    fi
+    ok "claim-safety video narration/headlines"
+  fi
+fi
+
 # --- internal /posts/ links point at existing files ---
 # Only post slugs (not /images/posts/*.jpg cover paths that share the segment)
 while IFS= read -r link; do
