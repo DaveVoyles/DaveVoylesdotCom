@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-REPO = ROOT.parent
+REPO = ROOT.parent.parent
 
 WORD_MIN, WORD_MAX = 140, 160
 SCENE_MIN, SCENE_MAX = 6, 8

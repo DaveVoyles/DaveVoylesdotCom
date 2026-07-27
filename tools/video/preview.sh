@@ -10,7 +10,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
-REPO="$(cd "$ROOT/.." && pwd)"
+REPO="$(cd "$ROOT/../.." && pwd)"
 NAME="agent-production-system-60s"
 DEST="$REPO/static/video"
 

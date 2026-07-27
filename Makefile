@@ -38,7 +38,8 @@ video-render:
 	@if [ -z "$(SCENES)" ]; then echo "error: SCENES=<path> required" >&2; exit 1; fi
 	@if [ "$$(realpath $(SCENES))" != "$$(realpath tools/video/scenes.json)" ]; then cp "$(SCENES)" tools/video/scenes.json; fi
 	@cd tools/video && bash build_video.sh all
-	@echo "Video rendered to tools/video/out/"
+	@cd tools/video && .venv/bin/python probe.py final
+	@echo "Video rendered to tools/video/out/ (mechanical acceptance probe passed)"
 
 video-upload:
 	@echo "video-upload: not yet implemented (plan 0006/D7)" >&2
