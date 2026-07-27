@@ -1,0 +1,44 @@
+name: Gitleaks Secret Scan
+
+# Runtime-agnostic secret scan, independent of the machine-local pre-commit
+# hook (Chat-Agents' scripts/enable-secret-scan.sh, symlinked per-clone),
+# which fails open if gitleaks isn't installed and is skipped entirely by
+# --no-verify or a fresh clone that never ran the scaffold script. This
+# workflow runs regardless of which machine or agent pushed the commit.
+# Mirrors Chat-Agents' .github/workflows/gitleaks.yml, adapted for a
+# GitHub-hosted runner (no self-hosted runner is registered for this repo).
+# Note: nothing here makes this a REQUIRED check yet -- main has no branch
+# protection rule wiring this in, so a red run is a visible signal, not an
+# enforced block, until that's configured separately.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  # pull-requests: write (not just read) because gitleaks-action's
+  # ScanPullRequest() also posts inline PR review comments on findings --
+  # write covers both. Without at least read here, its uncaught
+  # `GET .../pulls/{n}/commits` call (used to derive the scan range on
+  # pull_request events) 403s on every PR regardless of whether a secret
+  # exists, since an unlisted scope defaults to `none`.
+  pull-requests: write
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Scan
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Pin to the same series verified locally (brew-pinned 8.30.x in
+          # Chat-Agents) -- the action's own default fallback is 8.24.3,
+          # which could apply a different ruleset than what was checked.
+          GITLEAKS_VERSION: "8.30.1"
