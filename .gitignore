@@ -17,3 +17,6 @@ public/
 /scripts/review-lens-validate-findings.sh
 /scripts/review-lens-receipt.sh
 /scripts/board-seed.sh
+
+# plan 0005 prototype: generated video is a build artifact, never committed
+static/video/

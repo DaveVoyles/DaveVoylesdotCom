@@ -32,11 +32,15 @@ from kokoro import KPipeline  # noqa: E402
 
 SAMPLE_RATE = 24000
 DEFAULT_VOICE = "am_michael"
+# Kokoro reads ~130 wpm at speed 1.0, slower than the plan's 150 wpm estimate, which
+# pushed the assembled cut past its 75s ceiling. A light speed-up recovers the budget
+# without cutting narration; above ~1.1 it starts to sound rushed.
+DEFAULT_SPEED = 1.06
 
 
-def render(pipeline, text, voice, out_path):
+def render(pipeline, text, voice, out_path, speed=1.0):
     """Render one narration string to a single WAV, concatenating Kokoro's chunks."""
-    chunks = [audio for _, _, audio in pipeline(text, voice=voice)]
+    chunks = [audio for _, _, audio in pipeline(text, voice=voice, speed=speed)]
     if not chunks:
         raise RuntimeError(f"Kokoro produced no audio for: {text[:60]!r}")
     audio = np.concatenate(chunks) if len(chunks) > 1 else chunks[0]
@@ -52,6 +56,7 @@ def main():
     ap.add_argument("--out")
     ap.add_argument("--outdir")
     ap.add_argument("--voice", default=DEFAULT_VOICE)
+    ap.add_argument("--speed", type=float, default=DEFAULT_SPEED)
     args = ap.parse_args()
 
     t0 = time.time()
@@ -59,7 +64,7 @@ def main():
     print(f"pipeline ready in {time.time() - t0:.1f}s", flush=True)
 
     if args.text:
-        dur = render(pipeline, args.text, args.voice, Path(args.out))
+        dur = render(pipeline, args.text, args.voice, Path(args.out), args.speed)
         print(f"wrote {args.out} ({dur:.2f}s)")
         return
 
@@ -68,7 +73,7 @@ def main():
     total = 0.0
     for scene in scenes:
         out = outdir / f"{scene['id']}.wav"
-        dur = render(pipeline, scene["narration"], args.voice, out)
+        dur = render(pipeline, scene["narration"], args.voice, out, args.speed)
         total += dur
         print(f"{scene['id']:<12} {dur:6.2f}s  target {scene['target_seconds']:.1f}s  {out}")
     print(f"TOTAL narration {total:.2f}s")

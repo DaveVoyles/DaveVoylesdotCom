@@ -1,0 +1,17 @@
+{{/*
+  plan 0005 prototype only — lives on prototype/post-video-pipeline, never merged to main.
+
+  Exists because goldmark's renderer.unsafe defaults to false, so a raw <video> tag written
+  straight into markdown is stripped. Flipping unsafe site-wide for a throwaway spike is not
+  a trade worth making; a shortcode renders regardless.
+
+    {{< prototypevideo src="/video/foo.mp4" poster="/video/foo.jpg" >}}
+*/}}
+<video
+  controls
+  preload="metadata"
+  {{ with .Get "poster" }}poster="{{ . }}"{{ end }}
+  style="width:100%;max-width:960px;border-radius:8px;display:block;margin:2rem auto;">
+  <source src="{{ .Get "src" }}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>

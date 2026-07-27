@@ -26,7 +26,7 @@ FPS=30
 W=1920
 H=1080
 ZOOM_MAX=1.12          # gentle; more than this reads as a zoom effect rather than motion
-PAD_SECONDS=0.45       # breathing room after each scene's narration
+PAD_SECONDS=0.35       # breathing room after each scene's narration
 
 mkdir -p "$WORK" "$OUT" "$CARDS" "$AUDIO" "$CLIPS" "$SRC"
 
