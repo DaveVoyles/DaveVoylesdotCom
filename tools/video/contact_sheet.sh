@@ -37,14 +37,15 @@ echo "  Interval: every $INTERVAL frames"
 echo "  Layout: $LAYOUT"
 echo "  Output: $OUTPUT"
 
-ffmpeg -nostdin -i "$INPUT" \
+ffmpeg -nostdin -y -i "$INPUT" \
   -vf "select='not(mod(n\,$INTERVAL))',scale=320:-1,tile=$LAYOUT" \
   -frames:v 1 "$OUTPUT" 2>&1 | grep -viE 'deprecated|warning|overhead' || true
+ffmpeg_status="${PIPESTATUS[0]}"
 
-if [[ -f "$OUTPUT" ]]; then
+if [[ "$ffmpeg_status" -eq 0 && -f "$OUTPUT" ]]; then
   size=$(ls -lh "$OUTPUT" | awk '{print $5}')
   echo "✓ Contact sheet saved ($size)"
 else
-  echo "error: contact sheet generation failed" >&2
+  echo "error: contact sheet generation failed (ffmpeg exit $ffmpeg_status)" >&2
   exit 1
 fi
