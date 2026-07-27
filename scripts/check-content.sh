@@ -128,6 +128,34 @@ fi
 
 ok "claim-safety authorship / about bans"
 
+# --- claim-safety: video narration and on-screen text ---
+if [[ -f "tools/video/scenes.json" ]]; then
+  if ! command -v jq &> /dev/null; then
+    err "jq not found — required to scan video scenes.json for claim safety"
+  else
+    # Extract all narration, headline, and card visual text fields
+    # Use jq to iterate scenes and extract text that should be gated
+    while IFS= read -r text_field; do
+      [[ -z "$text_field" ]] && continue
+      for pat in "${forbid_patterns[@]}"; do
+        if echo "$text_field" | rg -qi --pcre2 "$pat" &>/dev/null; then
+          err "forbidden authorship claim in tools/video/scenes.json matching /$pat/ in: $text_field"
+        fi
+      done
+    done < <(
+      # Extract narration, headline, and card visual text
+      jq -r '
+        .scenes[]? | (
+          .narration // empty,
+          .headline // empty,
+          if .visual.type == "card" then .visual.text // empty else empty end
+        )
+      ' "tools/video/scenes.json" 2>/dev/null || true
+    )
+    ok "claim-safety video narration/headlines"
+  fi
+fi
+
 # --- internal /posts/ links point at existing files ---
 # Only post slugs (not /images/posts/*.jpg cover paths that share the segment)
 while IFS= read -r link; do
