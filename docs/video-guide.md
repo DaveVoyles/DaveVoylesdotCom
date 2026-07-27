@@ -10,8 +10,26 @@ the decisions behind the design below.
 
 ## Quickstart (Dave)
 
-Three independently re-runnable stages — a narration tweak doesn't force a
-re-upload:
+**One-shot (recommended for a normal run):**
+
+```bash
+make video POST=agent-production-system
+```
+Chains draft → render → upload → embed with **no prompts** — draft's own
+schema/claim-safety gate and render's mechanical acceptance probe are the
+safety net, not a human "continue?" in the middle. Uploads as **private** and
+inserts `{{< youtube VIDEO_ID >}}` into `content/posts/agent-production-system.md`
+for you. Stops on the first failing stage (e.g. a claim-safety violation, a
+failed probe, `quotaExceeded`) rather than pressing on with something broken.
+You still watch the video, flip it to Public in YouTube Studio, and review +
+commit the post diff yourself — see "Remaining manual steps" below.
+
+Runs under 6 uploads/day (the daily quota ceiling — see Known failure modes)
+per invocation, same as running the four stages by hand.
+
+**Or run the four stages individually** — useful for re-rendering after a
+narration tweak without re-uploading, or for stopping to inspect between
+steps:
 
 ```bash
 make video-draft POST=agent-production-system
@@ -39,12 +57,21 @@ API cannot make it public. **You** flip it to unlisted/public in
 [YouTube Studio](https://studio.youtube.com/) once you've watched it. This is
 deliberate, not unfinished — see ADR 0011.
 
-**Worked example, start to finish:**
+```bash
+make video-embed POST=agent-production-system VIDEO_ID=<id>
+```
+Inserts `{{< youtube VIDEO_ID >}}` into `content/posts/agent-production-system.md`,
+right after the front matter. Refuses to run twice on the same post unless you
+pass `--force` (via `python3 tools/video/embed_video.py --post <slug> --video-id <id> --force`)
+to replace an existing embed — safe to re-run by accident.
+
+**Worked example, start to finish** (either the one-shot above, or by hand):
 ```bash
 make video-draft POST=agent-production-system      # review narration, edit if needed
 make video-render SCENES=tools/video/scenes.json   # produces out/agent-production-system-60s.mp4
 make video-upload MP4=tools/video/out/agent-production-system-60s.mp4   # → private video ID
-# watch it in YouTube Studio, flip to Public when happy
+make video-embed POST=agent-production-system VIDEO_ID=<id-from-upload>
+# watch it in YouTube Studio, flip to Public when happy; then review + commit the post diff
 ```
 
 **Suggested first action:** if you haven't watched the current render, run
@@ -52,13 +79,35 @@ make video-upload MP4=tools/video/out/agent-production-system-60s.mp4   # → pr
 `tools/video/out/agent-production-system-60s.mp4` locally — no YouTube account
 or credentials needed for that step.
 
-**Embedding a published video** in a post — Hugo's built-in shortcode, already
-enabled with the privacy-enhanced (no-cookie) domain (plan 0006 D8):
+**Remaining manual steps, always** — none of the above ever does these, by
+design (ADR 0011):
+1. Watch the video, then flip it Private → Public/Unlisted in
+   [YouTube Studio](https://studio.youtube.com/).
+2. Review the post diff (`git diff content/posts/<slug>.md`) — the embed is
+   just an insertion, but check placement and that nothing else in the file
+   moved.
+3. Commit and push the post yourself, same as any other post edit.
+
+**Embedding** uses Hugo's built-in shortcode, already enabled with the
+privacy-enhanced (no-cookie) domain (plan 0006 D8):
 ```
 {{< youtube VIDEO_ID >}}
 ```
 See [`platform-guide.md`](platform-guide.md), §🎥 Video, for the full
 embed-vs-plain-link behavior.
+
+## Agent-triggered (opt-in per post)
+
+When drafting a post via the agent (see [`authoring-guide.md`](authoring-guide.md),
+"Option A"), a video is **never** generated automatically — only when you ask
+for one, e.g. "draft a post about X, with a video." When you do ask, the agent
+runs `make video POST=<slug>` against the freshly-drafted post: draft, render,
+upload, and embed all happen with no further confirmation (per your own
+call — see the plan history for why this differs from D6/D7's one-time
+manual gate). Same safety net as the manual one-shot above: a claim-safety
+violation or a failed probe stops the chain before anything gets uploaded. A
+`quotaExceeded` failure just means today's ~6-upload ceiling is used up —
+the agent will say so rather than retry.
 
 ### One-time setup (already done for `agent-production-system`, needed once per machine)
 
@@ -147,6 +196,8 @@ in place.
 | `video-draft` | post markdown, `claim-safe-facts.md` | `scenes.json` (won't overwrite without `--force`) | render, upload |
 | `video-render` | `scenes.json` | `tools/video/out/*.mp4` (gitignored) | upload, touch the live site |
 | `video-upload` | a local MP4 path | nothing local — creates a **private** YouTube video | ever set visibility to public/unlisted |
+| `video-embed` | a post + a video ID | inserts `{{< youtube ID >}}` into `content/posts/<slug>.md` (won't overwrite without `--force`) | flip visibility, commit, push |
+| `video` (one-shot) | a post slug | chains all four stages above, no prompts | flip visibility, commit, push |
 
 Each stage validates its own inputs and stops on failure rather than
 proceeding with something unverified — `video-draft` runs the schema

@@ -1,5 +1,5 @@
 # davevoyles.com — common agent/human tasks
-.PHONY: submodules preview build check list-future list-tags help video-draft video-render video-upload
+.PHONY: submodules preview build check list-future list-tags help video-draft video-render video-upload video-embed video
 
 help:
 	@echo "make submodules      - init PaperMod theme"
@@ -8,9 +8,11 @@ help:
 	@echo "make check           - content gates (topics, covers, claims, links)"
 	@echo "make list-future     - posts waiting on publish date"
 	@echo "make list-tags       - unique tags in content/posts"
+	@echo "make video           - one-shot: draft -> render -> upload -> embed, no prompts (POST=<slug>)"
 	@echo "make video-draft     - draft video narrative from source post"
 	@echo "make video-render    - render video from scenes.json (SCENES=<path>)"
 	@echo "make video-upload    - upload rendered video to destination"
+	@echo "make video-embed     - insert {{< youtube ID >}} into a post (POST=<slug> VIDEO_ID=<id>)"
 
 submodules:
 	git submodule update --init --recursive
@@ -44,3 +46,11 @@ video-render:
 video-upload:
 	@if [ -z "$(MP4)" ]; then echo "error: MP4=<path> required" >&2; exit 1; fi
 	@cd tools/video && .venv/bin/python upload_video.py "$(MP4)"
+
+video-embed:
+	@if [ -z "$(POST)" ] || [ -z "$(VIDEO_ID)" ]; then echo "error: POST=<slug> VIDEO_ID=<id> required" >&2; exit 1; fi
+	@python3 tools/video/embed_video.py --post "$(POST)" --video-id "$(VIDEO_ID)"
+
+video:
+	@if [ -z "$(POST)" ]; then echo "error: POST=<slug> required" >&2; exit 1; fi
+	@./tools/video/run_pipeline.sh "$(POST)"
