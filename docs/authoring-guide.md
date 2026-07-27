@@ -14,7 +14,8 @@ GitHub Actions rebuild ships them automatically (see
 `draft = true`. Ship early by setting `date` to now and pushing `main`.
 
 **Claim-safe facts** (metrics, bans, node ids): [`claim-safe-facts.md`](claim-safe-facts.md).  
-**Agent router:** [`../AGENTS.md`](../AGENTS.md).
+**Agent router:** [`../AGENTS.md`](../AGENTS.md).  
+**Turning a post into a video:** [`video-guide.md`](video-guide.md).
 
 Preview scheduled/future posts locally:
 
