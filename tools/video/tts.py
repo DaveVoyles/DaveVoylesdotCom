@@ -40,6 +40,16 @@ DEFAULT_SPEED = 1.06
 DEFAULT_SEED = 0
 
 
+def lang_code_for_voice(voice: str) -> str:
+    """Derive Kokoro language code from voice name.
+
+    Kokoro convention: voice names starting 'bm_'/'bf_' are British (lang_code 'b'),
+    'am_'/'af_' are American (lang_code 'a'). This ensures phonemization matches
+    the voice's dialect.
+    """
+    return "b" if voice.startswith(("bm_", "bf_")) else "a"
+
+
 def render(pipeline, text, voice, out_path, speed=1.0, seed=DEFAULT_SEED):
     """Render one narration string to a single WAV, concatenating Kokoro's chunks.
 
@@ -65,17 +75,35 @@ def main():
     ap.add_argument("--scenes")
     ap.add_argument("--out")
     ap.add_argument("--outdir")
-    ap.add_argument("--voice", default=DEFAULT_VOICE)
+    ap.add_argument("--voice", default=None)
     ap.add_argument("--speed", type=float, default=DEFAULT_SPEED)
     ap.add_argument("--seed", type=int, default=DEFAULT_SEED)
     args = ap.parse_args()
 
     t0 = time.time()
-    pipeline = KPipeline(lang_code="a")
+
+    # Precedence for voice selection:
+    # 1. Explicit --voice CLI flag (if passed, args.voice is not None)
+    # 2. voice key from scenes.json (if --scenes is used and no explicit --voice)
+    # 3. DEFAULT_VOICE fallback
+    if args.voice is not None:
+        # Explicit CLI flag was passed
+        effective_voice = args.voice
+    elif args.scenes:
+        # Using scenes mode without explicit --voice; read voice from scenes.json
+        scenes_data = json.loads(Path(args.scenes).read_text())
+        effective_voice = scenes_data.get("voice", DEFAULT_VOICE)
+    else:
+        # Text mode or neither scenes nor explicit voice; use default
+        effective_voice = DEFAULT_VOICE
+
+    # Create pipeline with language code derived from the voice
+    lang_code = lang_code_for_voice(effective_voice)
+    pipeline = KPipeline(lang_code=lang_code)
     print(f"pipeline ready in {time.time() - t0:.1f}s", flush=True)
 
     if args.text:
-        dur = render(pipeline, args.text, args.voice, Path(args.out), args.speed, args.seed)
+        dur = render(pipeline, args.text, effective_voice, Path(args.out), args.speed, args.seed)
         print(f"wrote {args.out} ({dur:.2f}s)")
         return
 
@@ -84,7 +112,7 @@ def main():
     total = 0.0
     for scene in scenes:
         out = outdir / f"{scene['id']}.wav"
-        dur = render(pipeline, scene["narration"], args.voice, out, args.speed, args.seed)
+        dur = render(pipeline, scene["narration"], effective_voice, out, args.speed, args.seed)
         total += dur
         print(f"{scene['id']:<12} {dur:6.2f}s  target {scene['target_seconds']:.1f}s  {out}")
     print(f"TOTAL narration {total:.2f}s")
