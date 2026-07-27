@@ -26,22 +26,47 @@ REPO = ROOT.parent.parent
 
 WORD_MIN, WORD_MAX = 140, 160
 SCENE_MIN, SCENE_MAX = 6, 8
-REQUIRED_IMAGES = {
-    "static/images/posts/agent-system-ops-floor.jpg",
-    "static/images/posts/agent-eval-gates.jpg",
-}
 
 # Headings that are structurally boilerplate/meta for most posts in this
 # corpus (link tables, series navigation, "what this is not" disclaimers) —
-# skipped as scene material since they aren't narratable prose. Also skips
-# sections whose lead sentence is likely to carry an unattested numeric claim
-# (validate_scenes.py's claim-safety check only allows "twenty"/"20").
+# skipped as scene material since they aren't narratable prose.
 STOPLIST_HEADING_SUBSTRINGS = (
     "public artifact",
     "this series",
     "what this is",
     "xbox-scale",
 )
+
+# --- claim safety (mirrors validate_scenes.py's check_claims exactly) -------
+# A sentence carrying an unattested quantity or a banned phrase is dropped
+# from the candidate narration rather than handed back as a "draft" the
+# claim-safety gate will just reject — this pre-filters at the source
+# instead of weakening the gate itself, which stays un-waived (ADR 0012).
+ALLOWED_QUANTITIES = {"twenty", "20"}
+QUANTITY_RE = re.compile(
+    r"\b(\d[\d,.]*|one|two|three|four|five|six|seven|eight|nine|ten|dozen|hundred|"
+    r"thousand|million|billion|twenty|thirty|forty|fifty)\b",
+    re.I,
+)
+BANNED_PHRASE_RES = [
+    re.compile(r"\b(?:senior\s+)?(?:technical\s+)?program manager at\b", re.I),
+    re.compile(r"\bI\s+(?:built|created|authored|invented)\b", re.I),
+    re.compile(r"\b(?:terraform|kubernetes|k8s)\b", re.I),
+]
+SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
+
+
+def _is_claim_safe(sentence):
+    for m in QUANTITY_RE.finditer(sentence):
+        if m.group(0).lower() not in ALLOWED_QUANTITIES:
+            return False
+    return not any(p.search(sentence) for p in BANNED_PHRASE_RES)
+
+
+def _claim_safe_sentences(text):
+    """Split into sentences, keep only the ones that pass _is_claim_safe."""
+    sentences = [s.strip() for s in SENTENCE_SPLIT_RE.split(text) if s.strip()]
+    return [s for s in sentences if _is_claim_safe(s)]
 
 
 def parse_frontmatter(text):
@@ -158,34 +183,17 @@ def clean_bullet(item):
 
 
 def _clean_markdown(s):
+    s = re.sub(r"(?m)^>\s*", "", s)
     s = re.sub(r"\*\*([^*]+)\*\*", r"\1", s)
     s = re.sub(r"[*_`]", "", s)
     s = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", s)
     return re.sub(r"\s+", " ", s).strip()
 
 
-def lead_sentence(section_text, max_words):
-    """Build narration for a section by concatenating its usable text chunks
-    (prose paragraphs in full, or list items if the section is list-only) in
-    document order, up to max_words — not just the first sentence, so a
-    section's narration has enough substance to help the whole draft reach
-    the word-count target. Strips markdown emphasis/links/images. Trims the
+def _budget_join(chunks, max_words):
+    """Join already claim-safe-filtered chunks up to max_words, trimming the
     final included chunk to a sentence boundary where possible. Returns ""
-    if the section has no usable text at all."""
-    text = re.sub(r"!\[[^\]]*\]\([^)]+\)", "", section_text)
-    paras = [p.strip() for p in text.split("\n\n") if p.strip()]
-    is_list_marker = re.compile(r"^\s*(?:[-*]\s+|\d+\.\s+|\|)")
-    prose = [p for p in paras if not is_list_marker.match(p)]
-    if prose:
-        chunks = [_clean_markdown(p) for p in prose]
-    else:
-        list_paras = [p for p in paras if is_list_marker.match(p)]
-        items = [item for p in list_paras for item in p.split("\n") if item.strip()]
-        chunks = [_clean_markdown(clean_bullet(item)) for item in items]
-    chunks = [c for c in chunks if c]
-    if not chunks:
-        return ""
-
+    if chunks is empty."""
     words, used = [], 0
     for chunk in chunks:
         chunk_words = chunk.split(" ")
@@ -206,6 +214,43 @@ def lead_sentence(section_text, max_words):
     return result
 
 
+def _filtered_chunks(paragraphs):
+    """Clean markdown, drop claim-unsafe sentences, and drop chunks left empty."""
+    chunks = [_clean_markdown(p) for p in paragraphs]
+    chunks = [" ".join(_claim_safe_sentences(c)) for c in chunks]
+    return [c for c in chunks if c]
+
+
+def section_narrations(section_text, max_words):
+    """Build 1-2 narration candidates for a section, in document order, up to
+    max_words each. Strips markdown emphasis/links/images/blockquotes and
+    drops claim-unsafe sentences and stray horizontal rules. A section with
+    only prose (the common case) yields one narration, same as before. A
+    section with BOTH prose paragraphs and a bullet list yields two — one
+    from each — instead of silently discarding the list, since a section
+    substantial enough to have both is usually substantial enough for two
+    distinct beats. A section with only a bullet list yields one narration
+    built from the list. Returns [] if the section has no usable text."""
+    text = re.sub(r"!\[[^\]]*\]\([^)]+\)", "", section_text)
+    hrule_re = re.compile(r"^(-{3,}|\*{3,}|_{3,})$")
+    paras = [p.strip() for p in text.split("\n\n") if p.strip() and not hrule_re.match(p.strip())]
+    is_list_marker = re.compile(r"^\s*(?:[-*]\s+|\d+\.\s+|\|)")
+    prose_paras = [p for p in paras if not is_list_marker.match(p)]
+    list_paras = [p for p in paras if is_list_marker.match(p)]
+    list_items = [item for p in list_paras for item in p.split("\n") if item.strip()]
+
+    prose_chunks = _filtered_chunks(prose_paras)
+    list_chunks = _filtered_chunks(clean_bullet(item) for item in list_items)
+
+    if not prose_chunks and not list_chunks:
+        return []
+    if not prose_chunks:
+        return [n for n in [_budget_join(list_chunks, max_words)] if n]
+    if not list_chunks:
+        return [n for n in [_budget_join(prose_chunks, max_words)] if n]
+    return [n for n in [_budget_join(prose_chunks, max_words), _budget_join(list_chunks, max_words)] if n]
+
+
 def draft_scenes(post_slug):
     """Draft scenes from a post's actual markdown sections. Returns (scenes_list, narration_preview).
 
@@ -222,7 +267,7 @@ def draft_scenes(post_slug):
     text = post_path.read_text()
     fm, body = parse_frontmatter(text)
     post_images = extract_post_images(post_path)
-    available_required = sorted(REQUIRED_IMAGES & post_images)
+    available_required = sorted(post_images)
 
     # Pull generously per section — most sections have more usable content
     # than a tight per-scene share would capture — and let the trim-pass
@@ -232,9 +277,10 @@ def draft_scenes(post_slug):
     for heading, section_text in extract_sections(body, title=fm.get("title", "")):
         if any(s in heading.lower() for s in STOPLIST_HEADING_SUBSTRINGS):
             continue
-        sentence = lead_sentence(section_text, per_scene_budget)
-        if sentence:
-            candidates.append((heading, sentence))
+        for narration in section_narrations(section_text, per_scene_budget):
+            candidates.append((heading, narration))
+            if len(candidates) >= SCENE_MAX:
+                break
         if len(candidates) >= SCENE_MAX:
             break
 
