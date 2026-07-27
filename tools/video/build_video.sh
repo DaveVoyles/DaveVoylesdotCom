@@ -79,7 +79,11 @@ kenburns() {
   else
     zexpr="if(lte(on,1),${ZOOM_MAX},max(zoom-$(awk -v z="$ZOOM_MAX" -v f="$frames" 'BEGIN{printf "%.6f",(z-1)/f}'),1.0))"
   fi
-  ffmpeg -nostdin -y -v error -loop 1 -i "$src" \
+  # -framerate must match zoompan's own fps=, or the filter advances its zoom
+  # expression against a mismatched frame count (loop-1 images default to
+  # 25fps input) and the motion comes out juddery — the standard cause of a
+  # "shaky" ffmpeg zoompan Ken Burns effect.
+  ffmpeg -nostdin -y -v error -loop 1 -framerate "$FPS" -i "$src" \
     -vf "zoompan=z='${zexpr}':d=${frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=${W}x${H}:fps=${FPS},format=yuv420p" \
     -frames:v "$frames" -c:v libx264 -preset medium -crf 20 -r "$FPS" "$out"
 }

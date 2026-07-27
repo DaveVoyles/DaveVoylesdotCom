@@ -69,6 +69,19 @@ def _claim_safe_sentences(text):
     return [s for s in sentences if _is_claim_safe(s)]
 
 
+def card_snippet(narration, max_words=16):
+    """A short on-screen phrase for a card's body text — the scene's own
+    narration (already claim-safe by construction), not the section
+    heading. Two scenes that share a heading (a section split into a prose
+    beat and a list beat) end up with different card text since their
+    narration differs, instead of showing the identical card twice."""
+    first = SENTENCE_SPLIT_RE.split(narration, maxsplit=1)[0]
+    words = first.split()
+    if len(words) > max_words:
+        first = " ".join(words[:max_words]).rstrip(".,;: ") + "…"
+    return first
+
+
 def parse_frontmatter(text):
     """Extract TOML frontmatter (+++...+++) from markdown.
     Returns (frontmatter_dict, body_text).
@@ -233,7 +246,12 @@ def section_narrations(section_text, max_words):
     built from the list. Returns [] if the section has no usable text."""
     text = re.sub(r"!\[[^\]]*\]\([^)]+\)", "", section_text)
     hrule_re = re.compile(r"^(-{3,}|\*{3,}|_{3,})$")
-    paras = [p.strip() for p in text.split("\n\n") if p.strip() and not hrule_re.match(p.strip())]
+    table_re = re.compile(r"^\|.*\|\s*\n\|?[\s:|-]+\|?\s*(\n|$)")
+    paras = [
+        p.strip()
+        for p in text.split("\n\n")
+        if p.strip() and not hrule_re.match(p.strip()) and not table_re.match(p.strip() + "\n")
+    ]
     is_list_marker = re.compile(r"^\s*(?:[-*]\s+|\d+\.\s+|\|)")
     prose_paras = [p for p in paras if not is_list_marker.match(p)]
     list_paras = [p for p in paras if is_list_marker.match(p)]
@@ -294,7 +312,7 @@ def draft_scenes(post_slug):
         if images_to_place:
             visual = {"type": "image", "src": images_to_place.pop(0)}
         else:
-            visual = {"type": "card", "text": heading}
+            visual = {"type": "card", "text": card_snippet(narration)}
         scenes.append(
             {
                 "id": sid,
