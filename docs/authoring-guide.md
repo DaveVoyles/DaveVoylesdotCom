@@ -75,13 +75,15 @@ on the next daily rebuild after that time).
 
 **Want a video too?** It's opt-in per post, not automatic — ask for it in
 the same request, e.g. "draft a post about X, with a video." The agent then
-runs `make video POST=<slug>` against the finished post: drafts narration,
-renders the MP4, uploads it to YouTube as private, and inserts the
-`{{< youtube VIDEO_ID >}}` embed into the post — all in one pass, no
-mid-chain confirmation. You still flip the video to Public in YouTube Studio
-and review the post diff (now including the embed) before committing, same
-as any other post edit. Full detail, including the ~6-uploads/day quota
-ceiling and what happens on a claim-safety or probe failure:
+runs `make video POST=<slug>` against the finished post: drafts narration and
+renders the MP4, then **stops** — no upload yet. Watch the rendered video (or
+have the agent describe it) before it goes any further; if it's rough, edit
+`tools/video/scenes.json` and re-render, no quota spent. Once it's good, the
+agent runs `make video-publish POST=<slug> MP4=<path>` to upload as private
+and insert the `{{< youtube VIDEO_ID >}}` embed. You still flip the video to
+Public in YouTube Studio and review the post diff before committing, same as
+any other post edit. Full detail, including the ~6-uploads/day quota ceiling
+and what happens on a claim-safety or probe failure:
 [`video-guide.md`](video-guide.md).
 
 ## Option B: write it yourself

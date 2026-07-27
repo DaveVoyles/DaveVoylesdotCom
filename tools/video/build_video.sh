@@ -20,7 +20,21 @@ CARDS="$WORK/cards"
 AUDIO="$WORK/audio"
 CLIPS="$WORK/clips"
 SRC="$WORK/src"
-NAME="agent-production-system-60s"
+# Derived from scenes.json's own "post" field so each post's render lands at
+# its own out/<slug>-60s.mp4 instead of every post colliding on the same
+# hardcoded filename (2026-07-27: a second post's render silently overwrote
+# the first's local file — both had already uploaded fine, but there was no
+# way to tell the two local MP4s apart before that). Falls back to a fixed
+# name if scenes.json has no "post" field (e.g. a hand-authored file).
+SLUG="$("$PY" -c '
+import json, pathlib
+try:
+    post = json.loads(pathlib.Path("scenes.json").read_text()).get("post", "")
+    print(pathlib.Path(post).stem or "video")
+except Exception:
+    print("video")
+' 2>/dev/null || echo "video")"
+NAME="${SLUG}-60s"
 
 FPS=30
 W=1920

@@ -10,24 +10,33 @@ the decisions behind the design below.
 
 ## Quickstart (Dave)
 
-**One-shot (recommended for a normal run):**
+**Preview, then publish — always two steps, never one shot to upload:**
 
 ```bash
 make video POST=agent-production-system
 ```
-Chains draft → render → upload → embed with **no prompts** — draft's own
+Chains draft → render and **stops there**, no upload. Draft's own
 schema/claim-safety gate and render's mechanical acceptance probe are the
-safety net, not a human "continue?" in the middle. Uploads as **private** and
-inserts `{{< youtube VIDEO_ID >}}` into `content/posts/agent-production-system.md`
-for you. Stops on the first failing stage (e.g. a claim-safety violation, a
-failed probe, `quotaExceeded`) rather than pressing on with something broken.
-You still watch the video, flip it to Public in YouTube Studio, and review +
-commit the post diff yourself — see "Remaining manual steps" below.
+safety net for those two stages, but neither catches rough narration
+pacing or awkward phrasing — only actually watching the rendered MP4 does.
+(2026-07-27: the first fully-automatic run — draft/render/upload/embed with
+no pause — shipped a video that was rough on inspection, precisely because
+nothing stopped for a watch-before-upload. This two-step split replaced it.)
+Prints the rendered MP4's path when done.
 
-Runs under 6 uploads/day (the daily quota ceiling — see Known failure modes)
-per invocation, same as running the four stages by hand.
+**Watch it.** If it's rough, edit `tools/video/scenes.json` by hand (trim an
+awkward sentence, swap a card for an image, adjust `target_seconds`) and
+re-render with `make video-render SCENES=tools/video/scenes.json` — cheap
+and local, no quota spent. Repeat until it's actually good.
 
-**Or run the four stages individually** — useful for re-rendering after a
+```bash
+make video-publish POST=agent-production-system MP4=tools/video/out/agent-production-system-60s.mp4
+```
+Only once you're happy: uploads to YouTube as **private** and inserts
+`{{< youtube VIDEO_ID >}}` into the post. Runs under 6 uploads/day (the daily
+quota ceiling — see Known failure modes) per invocation.
+
+**Or run all five stages individually** — useful for re-rendering after a
 narration tweak without re-uploading, or for stopping to inspect between
 steps:
 
@@ -101,13 +110,13 @@ embed-vs-plain-link behavior.
 When drafting a post via the agent (see [`authoring-guide.md`](authoring-guide.md),
 "Option A"), a video is **never** generated automatically — only when you ask
 for one, e.g. "draft a post about X, with a video." When you do ask, the agent
-runs `make video POST=<slug>` against the freshly-drafted post: draft, render,
-upload, and embed all happen with no further confirmation (per your own
-call — see the plan history for why this differs from D6/D7's one-time
-manual gate). Same safety net as the manual one-shot above: a claim-safety
-violation or a failed probe stops the chain before anything gets uploaded. A
-`quotaExceeded` failure just means today's ~6-upload ceiling is used up —
-the agent will say so rather than retry.
+runs `make video POST=<slug>` (draft + render only) and stops — same
+preview-before-publish gate as the manual flow above, no exception for
+agent-triggered runs. The agent reports where the rendered MP4 landed; you
+(or the agent, describing what it sees) watch it before `make video-publish`
+ever runs. A claim-safety violation or a failed probe stops the chain even
+earlier. A `quotaExceeded` failure at publish time just means today's
+~6-upload ceiling is used up — say so rather than retry.
 
 ### One-time setup (already done for `agent-production-system`, needed once per machine)
 
@@ -197,7 +206,8 @@ in place.
 | `video-render` | `scenes.json` | `tools/video/out/*.mp4` (gitignored) | upload, touch the live site |
 | `video-upload` | a local MP4 path | nothing local — creates a **private** YouTube video | ever set visibility to public/unlisted |
 | `video-embed` | a post + a video ID | inserts `{{< youtube ID >}}` into `content/posts/<slug>.md` (won't overwrite without `--force`) | flip visibility, commit, push |
-| `video` (one-shot) | a post slug | chains all four stages above, no prompts | flip visibility, commit, push |
+| `video` (preview) | a post slug | chains draft + render, **stops before upload** | upload, embed, spend quota |
+| `video-publish` | a post slug + a rendered MP4 path | chains upload + embed | flip visibility, commit, push |
 
 Each stage validates its own inputs and stops on failure rather than
 proceeding with something unverified — `video-draft` runs the schema

@@ -1,16 +1,20 @@
 #!/usr/bin/env bash
-# One-shot post-to-video pipeline: draft -> render -> upload -> embed.
+# Post-to-video preview pipeline: draft -> render. Stops there, always.
 #
-# Fully automatic, no prompts — each stage's own validation is the safety
-# net (schema + claim-safety gate on draft, mechanical acceptance probe on
-# render, explicit API error surfacing on upload). Aborts on the first
-# failing stage. Never flips the upload to public — that stays a manual
-# step in YouTube Studio (ADR 0011).
+# No prompts through these two stages — each stage's own validation is the
+# safety net (schema + claim-safety gate on draft, mechanical acceptance
+# probe on render). Aborts on the first failing stage.
+#
+# Deliberately does NOT continue to upload. A human (or an agent on the
+# human's behalf) watches the rendered MP4 first — narration quality and
+# pacing only show up once it's actually rendered, not from the printed
+# narration text alone (2026-07-27: the first fully-automatic run shipped a
+# rough video because nothing paused here). Once approved, run
+# publish_video.sh (or `make video-publish`) to upload + embed.
 #
 # Always regenerates tools/video/scenes.json from scratch (FORCE=1) for the
-# requested post, since this path has no human pause to review/edit an
-# existing draft first. Prefer the four manual stages instead if you want to
-# keep a hand-edited scenes.json across a re-render.
+# requested post. Prefer the four manual stages instead if you want to keep
+# a hand-edited scenes.json across a re-render.
 #
 # Usage:
 #   tools/video/run_pipeline.sh <post-slug>
@@ -19,34 +23,18 @@ set -euo pipefail
 POST="${1:?post slug required (e.g. agent-production-system)}"
 cd "$(dirname "$0")/../.."
 
-echo "== 1/4 draft =="
+echo "== 1/2 draft =="
 make video-draft POST="$POST" FORCE=1
 
 echo
-echo "== 2/4 render =="
+echo "== 2/2 render =="
 make video-render SCENES=tools/video/scenes.json
 
 MP4="$(ls -t "$PWD/tools/video/out"/*.mp4 | head -1)"
+echo
 echo "Rendered: $MP4"
-
 echo
-echo "== 3/4 upload =="
-UPLOAD_LOG="$(mktemp)"
-trap 'rm -f "$UPLOAD_LOG"' EXIT
-make video-upload MP4="$MP4" | tee "$UPLOAD_LOG"
-VIDEO_ID="$(grep -o 'Video ID: .*' "$UPLOAD_LOG" | tail -1 | sed 's/Video ID: //')"
-
-if [[ -z "$VIDEO_ID" ]]; then
-  echo "error: could not parse video ID from upload output" >&2
-  exit 1
-fi
-
-echo
-echo "== 4/4 embed =="
-python3 tools/video/embed_video.py --post "$POST" --video-id "$VIDEO_ID"
-
-echo
-echo "Done. Video $VIDEO_ID is live as PRIVATE — remaining manual steps:"
-echo "  1. Watch it, then flip Private -> Public/Unlisted in YouTube Studio."
-echo "  2. Review the diff: git diff content/posts/$POST.md"
-echo "  3. Commit and push when ready."
+echo "Watch it before going further. If it's good:"
+echo "  tools/video/publish_video.sh $POST \"$MP4\""
+echo "If it's not, edit tools/video/scenes.json and re-run:"
+echo "  make video-render SCENES=tools/video/scenes.json"
