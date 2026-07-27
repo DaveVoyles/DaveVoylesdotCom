@@ -22,9 +22,8 @@ from pathlib import Path
 
 from check_auth import get_credentials
 from google.auth.exceptions import GoogleAuthError
-from google.auth.transport.requests import Request
-from google.errors import GoogleError
 from googleapiclient.discovery import build
+from googleapiclient.errors import Error as GoogleApiClientError
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
@@ -240,8 +239,9 @@ def _execute_resumable_upload(insert_request):
                 file=sys.stderr,
             )
             sys.exit(1)
-        except GoogleError as e:
-            # Other Google client library errors (unexpected).
+        except GoogleApiClientError as e:
+            # Other googleapiclient errors (e.g. ResumableUploadError,
+            # MediaUploadSizeError) not already handled by HttpError above.
             print(
                 f"\nerror: unexpected error during upload ({e})",
                 file=sys.stderr,
