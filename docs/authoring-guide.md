@@ -52,6 +52,31 @@ the post:
 > Rough tags: [a few words]. Keep it in my usual voice — [short/long,
 > casual/technical, whatever fits].
 
+### Writing standard (2026-07-28)
+
+Left to a short prompt, an agent-drafted post trends too brief and too
+bullet-point-terse — thin enough that the post-to-video pipeline
+([`video-guide.md`](video-guide.md)) has little narration material to draw
+from. Unless the post genuinely earns a short treatment, aim for:
+
+- **~800-1300 words**, not 400-600. Compare against the series' own posts
+  (`git grep -c '' content/posts/*.md` gives a rough per-file word count via
+  `wc -w`) rather than a fixed number — the goal is enough real detail to
+  support a full explanation, not padding to hit a target.
+- **Conversational, not deck-bullet.** Bullets are fine for scannable lists,
+  but the connective prose around them should read like explaining it to a
+  colleague — short anecdotes, a concrete example, a "picture this" beat —
+  not a compressed slide restated in sentence case.
+- **A markdown table wherever there's a real comparison** (before/after,
+  theater-vs-real, states/outcomes). Beyond readability, a table is also
+  what [`video-guide.md`](video-guide.md)'s pipeline renders as an actual
+  chart graphic if the post gets a video — prose comparisons get discarded
+  by that pipeline, tables become visuals.
+- **Only claim-safe numbers** ([`claim-safe-facts.md`](claim-safe-facts.md))
+  — more detail is not license to invent metrics. Ground concrete examples
+  in the allowed-metrics table there (Xbox SLA, homelab container count,
+  tenure, revenue) instead of a plausible-sounding made-up figure.
+
 The agent should:
 
 1. Pick a URL-safe slug and create `content/posts/<slug>.md`. Use
