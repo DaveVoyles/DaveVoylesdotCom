@@ -26,22 +26,81 @@ REPO = ROOT.parent.parent
 
 WORD_MIN, WORD_MAX = 140, 160
 SCENE_MIN, SCENE_MAX = 6, 8
-REQUIRED_IMAGES = {
-    "static/images/posts/agent-system-ops-floor.jpg",
-    "static/images/posts/agent-eval-gates.jpg",
-}
 
 # Headings that are structurally boilerplate/meta for most posts in this
 # corpus (link tables, series navigation, "what this is not" disclaimers) —
-# skipped as scene material since they aren't narratable prose. Also skips
-# sections whose lead sentence is likely to carry an unattested numeric claim
-# (validate_scenes.py's claim-safety check only allows "twenty"/"20").
+# skipped as scene material since they aren't narratable prose.
 STOPLIST_HEADING_SUBSTRINGS = (
     "public artifact",
     "this series",
     "what this is",
     "xbox-scale",
 )
+
+# --- claim safety (mirrors validate_scenes.py's check_claims exactly) -------
+# A sentence carrying an unattested quantity or a banned phrase is dropped
+# from the candidate narration rather than handed back as a "draft" the
+# claim-safety gate will just reject — this pre-filters at the source
+# instead of weakening the gate itself, which stays un-waived (ADR 0012).
+ALLOWED_QUANTITIES = {"twenty", "20"}
+QUANTITY_RE = re.compile(
+    r"\b(\d[\d,.]*|one|two|three|four|five|six|seven|eight|nine|ten|dozen|hundred|"
+    r"thousand|million|billion|twenty|thirty|forty|fifty)\b",
+    re.I,
+)
+BANNED_PHRASE_RES = [
+    re.compile(r"\b(?:senior\s+)?(?:technical\s+)?program manager at\b", re.I),
+    re.compile(r"\bI\s+(?:built|created|authored|invented)\b", re.I),
+    re.compile(r"\b(?:terraform|kubernetes|k8s)\b", re.I),
+]
+SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
+
+
+def _is_claim_safe(sentence):
+    for m in QUANTITY_RE.finditer(sentence):
+        if m.group(0).lower() not in ALLOWED_QUANTITIES:
+            return False
+    return not any(p.search(sentence) for p in BANNED_PHRASE_RES)
+
+
+def _claim_safe_sentences(text):
+    """Split into sentences, keep only the ones that pass _is_claim_safe."""
+    sentences = [s.strip() for s in SENTENCE_SPLIT_RE.split(text) if s.strip()]
+    return [s for s in sentences if _is_claim_safe(s)]
+
+
+def split_narration(narration):
+    """Split narration into two halves at the sentence boundary closest to
+    the midpoint by word count, for two-beat scenes (more frequent visual
+    changes — the screen shows what's being said in each half, not one
+    static visual for the whole scene). Returns (part_a, "") if there's
+    only one sentence — not meaningfully splittable."""
+    sentences = [s for s in SENTENCE_SPLIT_RE.split(narration) if s.strip()]
+    if len(sentences) < 2:
+        return narration, ""
+    half = sum(count_words(s) for s in sentences) / 2
+    running, split_at = 0, 1
+    for i, s in enumerate(sentences):
+        running += count_words(s)
+        if running >= half:
+            split_at = i + 1
+            break
+    part_a = " ".join(sentences[:split_at])
+    part_b = " ".join(sentences[split_at:])
+    return (narration, "") if not part_b.strip() else (part_a, part_b)
+
+
+def card_snippet(narration, max_words=16):
+    """A short on-screen phrase for a card's body text — the scene's own
+    narration (already claim-safe by construction), not the section
+    heading. Two scenes that share a heading (a section split into a prose
+    beat and a list beat) end up with different card text since their
+    narration differs, instead of showing the identical card twice."""
+    first = SENTENCE_SPLIT_RE.split(narration, maxsplit=1)[0]
+    words = first.split()
+    if len(words) > max_words:
+        first = " ".join(words[:max_words]).rstrip(".,;: ") + "…"
+    return first
 
 
 def parse_frontmatter(text):
@@ -158,34 +217,17 @@ def clean_bullet(item):
 
 
 def _clean_markdown(s):
+    s = re.sub(r"(?m)^>\s*", "", s)
     s = re.sub(r"\*\*([^*]+)\*\*", r"\1", s)
     s = re.sub(r"[*_`]", "", s)
     s = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", s)
     return re.sub(r"\s+", " ", s).strip()
 
 
-def lead_sentence(section_text, max_words):
-    """Build narration for a section by concatenating its usable text chunks
-    (prose paragraphs in full, or list items if the section is list-only) in
-    document order, up to max_words — not just the first sentence, so a
-    section's narration has enough substance to help the whole draft reach
-    the word-count target. Strips markdown emphasis/links/images. Trims the
+def _budget_join(chunks, max_words):
+    """Join already claim-safe-filtered chunks up to max_words, trimming the
     final included chunk to a sentence boundary where possible. Returns ""
-    if the section has no usable text at all."""
-    text = re.sub(r"!\[[^\]]*\]\([^)]+\)", "", section_text)
-    paras = [p.strip() for p in text.split("\n\n") if p.strip()]
-    is_list_marker = re.compile(r"^\s*(?:[-*]\s+|\d+\.\s+|\|)")
-    prose = [p for p in paras if not is_list_marker.match(p)]
-    if prose:
-        chunks = [_clean_markdown(p) for p in prose]
-    else:
-        list_paras = [p for p in paras if is_list_marker.match(p)]
-        items = [item for p in list_paras for item in p.split("\n") if item.strip()]
-        chunks = [_clean_markdown(clean_bullet(item)) for item in items]
-    chunks = [c for c in chunks if c]
-    if not chunks:
-        return ""
-
+    if chunks is empty."""
     words, used = [], 0
     for chunk in chunks:
         chunk_words = chunk.split(" ")
@@ -206,6 +248,90 @@ def lead_sentence(section_text, max_words):
     return result
 
 
+def _filtered_chunks(paragraphs):
+    """Clean markdown, drop claim-unsafe sentences, and drop chunks left empty."""
+    chunks = [_clean_markdown(p) for p in paragraphs]
+    chunks = [" ".join(_claim_safe_sentences(c)) for c in chunks]
+    return [c for c in chunks if c]
+
+
+def section_narrations(section_text, max_words):
+    """Build 1-2 narration candidates for a section, in document order, up to
+    max_words each. Strips markdown emphasis/links/images/blockquotes and
+    drops claim-unsafe sentences and stray horizontal rules. A section with
+    only prose (the common case) yields one narration, same as before. A
+    section with BOTH prose paragraphs and a bullet list yields two — one
+    from each — instead of silently discarding the list, since a section
+    substantial enough to have both is usually substantial enough for two
+    distinct beats. A section with only a bullet list yields one narration
+    built from the list. Returns [] if the section has no usable text."""
+    text = re.sub(r"!\[[^\]]*\]\([^)]+\)", "", section_text)
+    hrule_re = re.compile(r"^(-{3,}|\*{3,}|_{3,})$")
+    table_re = re.compile(r"^\|.*\|\s*\n\|?[\s:|-]+\|?\s*(\n|$)")
+    paras = [
+        p.strip()
+        for p in text.split("\n\n")
+        if p.strip() and not hrule_re.match(p.strip()) and not table_re.match(p.strip() + "\n")
+    ]
+    is_list_marker = re.compile(r"^\s*(?:[-*]\s+|\d+\.\s+|\|)")
+    prose_paras = [p for p in paras if not is_list_marker.match(p)]
+    list_paras = [p for p in paras if is_list_marker.match(p)]
+    list_items = [item for p in list_paras for item in p.split("\n") if item.strip()]
+
+    prose_chunks = _filtered_chunks(prose_paras)
+    list_chunks = _filtered_chunks(clean_bullet(item) for item in list_items)
+
+    if not prose_chunks and not list_chunks:
+        return []
+    if not prose_chunks:
+        return [n for n in [_budget_join(list_chunks, max_words)] if n]
+    if not list_chunks:
+        return [n for n in [_budget_join(prose_chunks, max_words)] if n]
+    return [n for n in [_budget_join(prose_chunks, max_words), _budget_join(list_chunks, max_words)] if n]
+
+
+TABLE_ROW_RE = re.compile(r"^\|.*\|\s*$")
+TABLE_SEP_RE = re.compile(r"^\|?[\s:|-]+\|?\s*$")
+MAX_TABLE_ROWS = 4
+
+
+def extract_table(section_text):
+    """Parse the first markdown table in a section into (headers, rows) —
+    both markdown-cleaned. Returns None if the section has no table."""
+    lines = section_text.split("\n")
+    for i, line in enumerate(lines[:-1]):
+        if TABLE_ROW_RE.match(line.strip()) and TABLE_SEP_RE.match(lines[i + 1].strip()):
+            headers = [_clean_markdown(c) for c in line.strip().strip("|").split("|")]
+            rows = []
+            for row_line in lines[i + 2 :]:
+                if not TABLE_ROW_RE.match(row_line.strip()):
+                    break
+                rows.append([_clean_markdown(c) for c in row_line.strip().strip("|").split("|")])
+            if headers and rows:
+                return headers, rows
+            return None
+    return None
+
+
+def table_narration(headers, rows, max_words):
+    """Extractive narration built from the table's own header labels and
+    cell text (e.g. "Theater: X. Real gate instead: Y.") — genuinely drawn
+    from the table's own words and lightly templated into sentences, same
+    spirit as clean_bullet() turning list items into narratable prose.
+    Returns "" if the table isn't a plain 2-column comparison."""
+    if len(headers) != 2:
+        return ""
+    h1, h2 = headers
+    chunks = []
+    for row in rows:
+        if len(row) != 2:
+            continue
+        c1, c2 = row
+        chunks.append(f"{h1}: {c1}.")
+        chunks.append(f"{h2} instead: {c2}.")
+    return _budget_join(_filtered_chunks(chunks), max_words)
+
+
 def draft_scenes(post_slug):
     """Draft scenes from a post's actual markdown sections. Returns (scenes_list, narration_preview).
 
@@ -222,7 +348,7 @@ def draft_scenes(post_slug):
     text = post_path.read_text()
     fm, body = parse_frontmatter(text)
     post_images = extract_post_images(post_path)
-    available_required = sorted(REQUIRED_IMAGES & post_images)
+    available_required = sorted(post_images)
 
     # Pull generously per section — most sections have more usable content
     # than a tight per-scene share would capture — and let the trim-pass
@@ -232,9 +358,18 @@ def draft_scenes(post_slug):
     for heading, section_text in extract_sections(body, title=fm.get("title", "")):
         if any(s in heading.lower() for s in STOPLIST_HEADING_SUBSTRINGS):
             continue
-        sentence = lead_sentence(section_text, per_scene_budget)
-        if sentence:
-            candidates.append((heading, sentence))
+        table = extract_table(section_text)
+        if table:
+            headers, rows = table[0], table[1][:MAX_TABLE_ROWS]
+            t_narration = table_narration(headers, rows, per_scene_budget)
+            if t_narration:
+                candidates.append((heading, t_narration, {"type": "table", "headers": headers, "rows": rows}))
+                if len(candidates) >= SCENE_MAX:
+                    break
+        for narration in section_narrations(section_text, per_scene_budget):
+            candidates.append((heading, narration, None))
+            if len(candidates) >= SCENE_MAX:
+                break
         if len(candidates) >= SCENE_MAX:
             break
 
@@ -243,12 +378,22 @@ def draft_scenes(post_slug):
 
     images_to_place = list(available_required)
     scenes = []
-    for i, (heading, narration) in enumerate(candidates):
+    for i, (heading, narration, visual_override) in enumerate(candidates):
         sid = f"s{i + 1}-" + (re.sub(r"[^a-z0-9]+", "-", heading.lower()).strip("-")[:24] or "scene")
-        if images_to_place:
-            visual = {"type": "image", "src": images_to_place.pop(0)}
+        part_a, part_b = split_narration(narration)
+        if visual_override:
+            # Table scenes stay single-beat — the chart already shows every
+            # row at once, splitting it wouldn't add anything.
+            visual = [visual_override]
+        elif images_to_place:
+            img = images_to_place.pop(0)
+            visual = [{"type": "image", "src": img}]
+            if part_b:
+                visual.append({"type": "card", "text": card_snippet(part_b)})
         else:
-            visual = {"type": "card", "text": heading}
+            visual = [{"type": "card", "text": card_snippet(part_a)}]
+            if part_b:
+                visual.append({"type": "card", "text": card_snippet(part_b)})
         scenes.append(
             {
                 "id": sid,

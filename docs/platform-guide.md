@@ -8,6 +8,17 @@ this is the doc.
 Writing an actual post? See [`authoring-guide.md`](authoring-guide.md)
 instead — this doc is about the platform underneath it.
 
+## 🗣️ Ask the agent to... (quick reference)
+
+The three things you'll actually ask for, in plain language, and what
+happens when you do:
+
+| You say something like... | What actually happens |
+|---|---|
+| "Draft a post about X" | Agent writes `content/posts/<slug>.md`, pushes to a **branch** (not `main`), opens it for your review. Nothing is live until you approve and it's merged. Detail: [`authoring-guide.md`](authoring-guide.md). |
+| "Add an image to this post" / "give it a cover image" | **The agent cannot generate original artwork** — no image-generation tool is wired into this repo. You supply the file (a photo, or an image you made with a separate tool like ChatGPT/Gemini image gen); the agent places it under `static/images/`, wires it into the post's `[cover]` front matter or an inline `![]()`, and can resize/compress it for you. See 🖼️ below. |
+| "Make a video for this post" | **Opt-in, never automatic.** Agent runs a preview step that drafts narration + renders an MP4, then **stops** — you watch it before anything uploads. Detail: [`video-guide.md`](video-guide.md). |
+
 ## 🏗️ What this actually is
 
 There's no server, no database, and no admin dashboard. The whole site is:
@@ -119,7 +130,8 @@ automatically — that already happened and doesn't need repeating.
 1. Drop the image file into `static/images/` (a subfolder is fine, e.g.
    `static/images/2026/my-photo.jpg`).
 2. Reference it in the post's Markdown like any other image:
-   `![description of the photo](/images/2026/my-photo.jpg)`.
+   `![description of the photo](/images/2026/my-photo.jpg)`, or as the
+   post's `[cover]` in front matter.
 3. That's it — Hugo serves whatever's in `static/` as-is.
 
 One thing worth doing yourself (or asking an agent to do) before adding a
@@ -127,6 +139,16 @@ large photo: resize/compress it first. Nothing automatically shrinks images
 for new posts the way the migration script did for old ones — an
 un-optimized multi-megabyte photo will just sit there at full size and slow
 the page down.
+
+**"Can the agent just create the image for me?" — not today.** There's no
+image-generation tool connected to this repo or this agent session, so
+asking for a cover image doesn't produce one out of thin air. The actual
+workflow, same as the existing covers in `static/images/posts/` (several of
+which — e.g. `Gemini_Img_Dvoyles_overview.png` — were made this way): you
+generate the image yourself in a separate tool (ChatGPT, Gemini, Midjourney,
+your own camera roll, whatever), then hand the file (or its path) to the
+agent to place, optimize, and wire into the post. If a generation tool ever
+gets connected to this repo, this paragraph is the one that needs updating.
 
 ## 🎥 Video — YouTube links do *not* auto-embed
 
@@ -151,6 +173,20 @@ This one's worth being precise about, because it's easy to assume otherwise:
 So: if you want a video visible on the page, use the shortcode. If a plain
 link is fine (visitor clicks through to YouTube), either works.
 
-**Generating a video from a post** (not just embedding an existing one) —
-see [`video-guide.md`](video-guide.md) for the `make video-draft` /
-`video-render` / `video-upload` pipeline.
+**Generating a video from a post** (not just embedding an existing one) is
+opt-in — never automatic just from asking for a post. Ask for it separately
+("make a video for this post") and it runs in two steps, never one shot to
+upload:
+
+1. **Preview.** The agent drafts narration from the post's own text and
+   renders an MP4 locally — then **stops**. You watch it. No YouTube
+   account, upload, or quota touched at this stage.
+2. **Publish** — only once you've said the render is good. Uploads to
+   YouTube as **private** and inserts the `{{< youtube VIDEO_ID >}}` embed
+   into the post. You still flip it to Public in
+   [YouTube Studio](https://studio.youtube.com/) yourself and review the
+   post diff before it's committed — the API can't do either of those,
+   deliberately (see [`video-guide.md`](video-guide.md), ADR 0011).
+
+Full pipeline detail, the scenes-file schema, and the current polish
+backlog: [`video-guide.md`](video-guide.md).

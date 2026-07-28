@@ -12,7 +12,20 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-NAME = "agent-production-system-60s"
+
+
+def _slug():
+    """Mirrors build_video.sh's own NAME derivation: the post slug from
+    scenes.json's "post" field, so the probe checks whichever file that
+    scenes.json actually built rather than a fixed name."""
+    try:
+        post = json.loads((ROOT / "scenes.json").read_text()).get("post", "")
+        return Path(post).stem or "video"
+    except Exception:
+        return "video"
+
+
+NAME = f"{_slug()}-60s"
 
 W, H, FPS = 1920, 1080, "30/1"
 CLIP_TOLERANCE = 0.5          # D3: +/- of target_seconds

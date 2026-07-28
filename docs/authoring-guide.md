@@ -52,6 +52,31 @@ the post:
 > Rough tags: [a few words]. Keep it in my usual voice — [short/long,
 > casual/technical, whatever fits].
 
+### Writing standard (2026-07-28)
+
+Left to a short prompt, an agent-drafted post trends too brief and too
+bullet-point-terse — thin enough that the post-to-video pipeline
+([`video-guide.md`](video-guide.md)) has little narration material to draw
+from. Unless the post genuinely earns a short treatment, aim for:
+
+- **~800-1300 words**, not 400-600. Compare against the series' own posts
+  (`git grep -c '' content/posts/*.md` gives a rough per-file word count via
+  `wc -w`) rather than a fixed number — the goal is enough real detail to
+  support a full explanation, not padding to hit a target.
+- **Conversational, not deck-bullet.** Bullets are fine for scannable lists,
+  but the connective prose around them should read like explaining it to a
+  colleague — short anecdotes, a concrete example, a "picture this" beat —
+  not a compressed slide restated in sentence case.
+- **A markdown table wherever there's a real comparison** (before/after,
+  theater-vs-real, states/outcomes). Beyond readability, a table is also
+  what [`video-guide.md`](video-guide.md)'s pipeline renders as an actual
+  chart graphic if the post gets a video — prose comparisons get discarded
+  by that pipeline, tables become visuals.
+- **Only claim-safe numbers** ([`claim-safe-facts.md`](claim-safe-facts.md))
+  — more detail is not license to invent metrics. Ground concrete examples
+  in the allowed-metrics table there (Xbox SLA, homelab container count,
+  tenure, revenue) instead of a plausible-sounding made-up figure.
+
 The agent should:
 
 1. Pick a URL-safe slug and create `content/posts/<slug>.md`. Use
@@ -72,6 +97,19 @@ and future-dated posts), ask for edits in plain language if anything's
 off, and once you're happy merge to `main` with either `draft = false`
 (live immediately if `date` is now/past) or a future `date` (auto-ships
 on the next daily rebuild after that time).
+
+**Want a video too?** It's opt-in per post, not automatic — ask for it in
+the same request, e.g. "draft a post about X, with a video." The agent then
+runs `make video POST=<slug>` against the finished post: drafts narration and
+renders the MP4, then **stops** — no upload yet. Watch the rendered video (or
+have the agent describe it) before it goes any further; if it's rough, edit
+`tools/video/scenes.json` and re-render, no quota spent. Once it's good, the
+agent runs `make video-publish POST=<slug> MP4=<path>` to upload as private
+and insert the `{{< youtube VIDEO_ID >}}` embed. You still flip the video to
+Public in YouTube Studio and review the post diff before committing, same as
+any other post edit. Full detail, including the ~6-uploads/day quota ceiling
+and what happens on a claim-safety or probe failure:
+[`video-guide.md`](video-guide.md).
 
 ## Option B: write it yourself
 

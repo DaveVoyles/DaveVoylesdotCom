@@ -10,8 +10,35 @@ the decisions behind the design below.
 
 ## Quickstart (Dave)
 
-Three independently re-runnable stages — a narration tweak doesn't force a
-re-upload:
+**Preview, then publish — always two steps, never one shot to upload:**
+
+```bash
+make video POST=agent-production-system
+```
+Chains draft → render and **stops there**, no upload. Draft's own
+schema/claim-safety gate and render's mechanical acceptance probe are the
+safety net for those two stages, but neither catches rough narration
+pacing or awkward phrasing — only actually watching the rendered MP4 does.
+(2026-07-27: the first fully-automatic run — draft/render/upload/embed with
+no pause — shipped a video that was rough on inspection, precisely because
+nothing stopped for a watch-before-upload. This two-step split replaced it.)
+Prints the rendered MP4's path when done.
+
+**Watch it.** If it's rough, edit `tools/video/scenes.json` by hand (trim an
+awkward sentence, swap a card for an image, adjust `target_seconds`) and
+re-render with `make video-render SCENES=tools/video/scenes.json` — cheap
+and local, no quota spent. Repeat until it's actually good.
+
+```bash
+make video-publish POST=agent-production-system MP4=tools/video/out/agent-production-system-60s.mp4
+```
+Only once you're happy: uploads to YouTube as **private** and inserts
+`{{< youtube VIDEO_ID >}}` into the post. Runs under 6 uploads/day (the daily
+quota ceiling — see Known failure modes) per invocation.
+
+**Or run all five stages individually** — useful for re-rendering after a
+narration tweak without re-uploading, or for stopping to inspect between
+steps:
 
 ```bash
 make video-draft POST=agent-production-system
@@ -39,12 +66,21 @@ API cannot make it public. **You** flip it to unlisted/public in
 [YouTube Studio](https://studio.youtube.com/) once you've watched it. This is
 deliberate, not unfinished — see ADR 0011.
 
-**Worked example, start to finish:**
+```bash
+make video-embed POST=agent-production-system VIDEO_ID=<id>
+```
+Inserts `{{< youtube VIDEO_ID >}}` into `content/posts/agent-production-system.md`,
+right after the front matter. Refuses to run twice on the same post unless you
+pass `--force` (via `python3 tools/video/embed_video.py --post <slug> --video-id <id> --force`)
+to replace an existing embed — safe to re-run by accident.
+
+**Worked example, start to finish** (either the one-shot above, or by hand):
 ```bash
 make video-draft POST=agent-production-system      # review narration, edit if needed
 make video-render SCENES=tools/video/scenes.json   # produces out/agent-production-system-60s.mp4
 make video-upload MP4=tools/video/out/agent-production-system-60s.mp4   # → private video ID
-# watch it in YouTube Studio, flip to Public when happy
+make video-embed POST=agent-production-system VIDEO_ID=<id-from-upload>
+# watch it in YouTube Studio, flip to Public when happy; then review + commit the post diff
 ```
 
 **Suggested first action:** if you haven't watched the current render, run
@@ -52,13 +88,35 @@ make video-upload MP4=tools/video/out/agent-production-system-60s.mp4   # → pr
 `tools/video/out/agent-production-system-60s.mp4` locally — no YouTube account
 or credentials needed for that step.
 
-**Embedding a published video** in a post — Hugo's built-in shortcode, already
-enabled with the privacy-enhanced (no-cookie) domain (plan 0006 D8):
+**Remaining manual steps, always** — none of the above ever does these, by
+design (ADR 0011):
+1. Watch the video, then flip it Private → Public/Unlisted in
+   [YouTube Studio](https://studio.youtube.com/).
+2. Review the post diff (`git diff content/posts/<slug>.md`) — the embed is
+   just an insertion, but check placement and that nothing else in the file
+   moved.
+3. Commit and push the post yourself, same as any other post edit.
+
+**Embedding** uses Hugo's built-in shortcode, already enabled with the
+privacy-enhanced (no-cookie) domain (plan 0006 D8):
 ```
 {{< youtube VIDEO_ID >}}
 ```
 See [`platform-guide.md`](platform-guide.md), §🎥 Video, for the full
 embed-vs-plain-link behavior.
+
+## Agent-triggered (opt-in per post)
+
+When drafting a post via the agent (see [`authoring-guide.md`](authoring-guide.md),
+"Option A"), a video is **never** generated automatically — only when you ask
+for one, e.g. "draft a post about X, with a video." When you do ask, the agent
+runs `make video POST=<slug>` (draft + render only) and stops — same
+preview-before-publish gate as the manual flow above, no exception for
+agent-triggered runs. The agent reports where the rendered MP4 landed; you
+(or the agent, describing what it sees) watch it before `make video-publish`
+ever runs. A claim-safety violation or a failed probe stops the chain even
+earlier. A `quotaExceeded` failure at publish time just means today's
+~6-upload ceiling is used up — say so rather than retry.
 
 ### One-time setup (already done for `agent-production-system`, needed once per machine)
 
@@ -90,12 +148,17 @@ this repo:
       "id": "s1-hook",
       "narration": "Spoken text — this is what gets rendered to audio.",
       "headline": "Short on-screen text",
-      "visual": {"type": "card", "text": "Card body text"},
+      "visual": [{"type": "card", "text": "First-half card body"}, {"type": "card", "text": "Second-half card body"}],
       "target_seconds": 9.0
     },
     {
       "id": "s2-example",
-      "visual": {"type": "image", "src": "static/images/posts/example.jpg"},
+      "visual": [{"type": "image", "src": "static/images/posts/example.jpg"}],
+      "narration": "...", "headline": "...", "target_seconds": 8.0
+    },
+    {
+      "id": "s3-comparison",
+      "visual": [{"type": "table", "headers": ["Theater", "Real gate"], "rows": [["A checkbox the agent ticks itself", "A check the agent cannot waive"]]}],
       "narration": "...", "headline": "...", "target_seconds": 8.0
     }
   ]
@@ -106,16 +169,23 @@ this repo:
   the **prefix** — `bm_`/`bf_` → British, `am_`/`af_` → American — so the
   voice key alone controls both. It's the only thing that needs changing to
   switch voices; nothing else in the pipeline hardcodes a language.
-- `visual.type`: `"card"` (text card, needs `text`) or `"image"` (needs `src`,
-  a repo-relative path that must exist on disk).
+- `visual`: a **list of 1–2 beats** shown in sequence within the scene's clip
+  (more frequent on-screen changes than one static visual held for the whole
+  scene). A bare single dict (no list) is still accepted for a hand-authored
+  one-beat scene. Each beat is one of:
+  - `"card"` — text card, needs `text`.
+  - `"image"` — needs `src`, a repo-relative path that must exist on disk.
+  - `"table"` — a 2-column comparison chart, needs `headers` (2 strings) and
+    `rows` (list of 2-item lists). Drafted automatically from a markdown
+    table in the post's own section, when one exists.
 - `target_seconds`: aspirational per-scene duration; TTS output naturally
   varies ±1–2s from this and that's fine — only the **final** render's total
   duration/resolution is mechanically gated (`probe.py final`), not per-scene
   timing.
 - Validated by [`tools/video/validate_scenes.py`](../tools/video/validate_scenes.py):
-  6–8 scenes, 140–160 total narration words, both of the post's required
-  illustrations used by at least one scene, no unattested authorship claims
-  or numbers.
+  6–8 scenes, 140–160 total narration words, every image the post's own
+  markdown references used by at least one scene, no unattested authorship
+  claims or numbers.
 
 ### Claim-safety rules
 
@@ -147,6 +217,9 @@ in place.
 | `video-draft` | post markdown, `claim-safe-facts.md` | `scenes.json` (won't overwrite without `--force`) | render, upload |
 | `video-render` | `scenes.json` | `tools/video/out/*.mp4` (gitignored) | upload, touch the live site |
 | `video-upload` | a local MP4 path | nothing local — creates a **private** YouTube video | ever set visibility to public/unlisted |
+| `video-embed` | a post + a video ID | inserts `{{< youtube ID >}}` into `content/posts/<slug>.md` (won't overwrite without `--force`) | flip visibility, commit, push |
+| `video` (preview) | a post slug | chains draft + render, **stops before upload** | upload, embed, spend quota |
+| `video-publish` | a post slug + a rendered MP4 path | chains upload + embed | flip visibility, commit, push |
 
 Each stage validates its own inputs and stops on failure rather than
 proceeding with something unverified — `video-draft` runs the schema
@@ -191,6 +264,44 @@ retrying blindly or silently producing a broken video ID.
   in D2/D11). If you ever see a build produce different output byte-for-byte
   on an unmodified `scenes.json`, that determinism has regressed — treat it
   as a real bug, not noise.
+
+## Known gaps — video polish backlog (2026-07-28)
+
+Fixed so far, per Dave's feedback on the first real render: shaky Ken Burns
+motion (framerate mismatch — fixed), repeated/stale slides (cards now show
+the scene's own narration instead of the section heading twice — fixed), no
+diagrams (markdown tables now render as a real comparison chart — fixed),
+too few visual changes (scenes now split into up to 2 beats — fixed).
+Still open:
+
+- **Voice/speed still undecided.** Four samples were rendered for comparison
+  — current (`bm_lewis` @ 1.06x), slower current (`bm_lewis` @ 0.92x), and
+  two alternates (`bm_daniel` @ 1.0x, `af_heart` @ 1.0x). Once Dave picks
+  one, wire it into `scenes.json`'s `"voice"` key (and `tts.py`'s
+  `DEFAULT_SPEED` if the speed should change too). Robotic-sounding
+  narration is partly a TTS-voice problem, distinct from the
+  thin-source-material problem the authoring-standard fix addresses.
+- **`eval-gates-not-theater`'s `scenes.json` draft is stale.** It was drafted
+  from the post's old, shorter text — needs `make video-draft
+  POST=eval-gates-not-theater FORCE=1` (then a re-render) before it reflects
+  the expanded post.
+- **No background music bed, no burned-in captions.** Narration-only audio;
+  on-screen card/table text is a short paraphrase, not a transcript of what's
+  spoken. Neither was asked for — flagging as a known gap, not a plan.
+- **Beat-to-beat transitions are hard cuts** (ffmpeg concat, no crossfade).
+  Fine at today's pace (up to 2 beats/scene); revisit if a future change
+  pushes more beats per scene and it starts reading as jumpy.
+- **Poster/thumbnail is just a frame grab** at 1.5s into the final render,
+  not a curated thumbnail. Nobody's asked for one yet.
+- **Older/shorter posts already in the series** may still produce thin
+  narration if a video is requested for them — the new authoring standard
+  ([`authoring-guide.md`](authoring-guide.md)) only guarantees enough source
+  material for posts written *after* 2026-07-28. Worth a quick word-count
+  check before requesting a video for an earlier post.
+- **Two already-uploaded private YouTube videos** (`uCeauS66__g`,
+  `iygil8r50ns`, from the rolled-back fully-automatic run) still need manual
+  deletion in [YouTube Studio](https://studio.youtube.com/) — the
+  upload-only credential can't delete via API (see Known failure modes).
 
 ## Related
 

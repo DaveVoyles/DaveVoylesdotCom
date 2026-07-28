@@ -1,6 +1,6 @@
 +++
 title = "GitHub tokens for agent fleets — safe automation without paste-a-PAT"
-date = "2026-09-11T09:00:00-04:00"
+date = "2026-08-18T09:00:00-04:00"
 draft = false
 author = "Dave Voyles"
 description = "How to give coding agents GitHub access without long-lived PATs in chat: short-lived App tokens, a deterministic credential broker, personal vs bot identity, and fail-closed landing."

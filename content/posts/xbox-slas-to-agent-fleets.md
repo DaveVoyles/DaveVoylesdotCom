@@ -1,6 +1,6 @@
 +++
 title = "From Xbox SLAs to agent fleets"
-date = "2026-08-21T09:00:00-04:00"
+date = "2026-08-07T09:00:00-04:00"
 draft = false
 author = "Dave Voyles"
 description = "Builder-first TPM craft transfers: critical path, multi-team programs, and SLA pressure map cleanly onto eval gates, orchestration, and human approval."

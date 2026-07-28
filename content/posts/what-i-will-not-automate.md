@@ -1,6 +1,6 @@
 +++
 title = "What I will not automate"
-date = "2026-09-04T09:00:00-04:00"
+date = "2026-08-14T09:00:00-04:00"
 draft = false
 author = "Dave Voyles"
 description = "Boundaries for an agent production system: judgment, relationships, irreversible risk, and the work that stays human on purpose."
