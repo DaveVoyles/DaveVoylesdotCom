@@ -6,7 +6,7 @@ help:
 	@echo "make preview         - hugo server -D -F (drafts + future)"
 	@echo "make build           - production hugo --minify"
 	@echo "make check           - content gates (topics, covers, claims, links)"
-	@echo "make test            - regression suites for scripts/check-content.sh"
+	@echo "make test            - regression suites for check-content.sh, topics_mapping.py, triage_stale_content.py"
 	@echo "make list-future     - posts waiting on publish date"
 	@echo "make list-tags       - unique tags in content/posts"
 	@echo "make video           - preview: draft -> render, stops there (POST=<slug>)"
@@ -31,6 +31,8 @@ check:
 test:
 	./scripts/tests/test-check-content-narration.sh
 	./scripts/tests/test-check-content-images.sh
+	python3 scripts/tests/test_topics_mapping.py
+	python3 scripts/tests/test_triage_stale_content.py
 
 list-future: submodules
 	hugo list future
