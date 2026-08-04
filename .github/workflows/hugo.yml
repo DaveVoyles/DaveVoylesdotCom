@@ -40,11 +40,16 @@ jobs:
           extended: true
 
       - name: Install ripgrep
-        # Pinned: this fix depends on the distro build's specific behavior
-        # (no PCRE2 support — see check-content.sh), so an unpinned install
-        # could silently drift to a different build. Update deliberately if
-        # this version leaves the jammy archive.
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ripgrep=13.0.0-2ubuntu0.1
+        # Unpinned: an exact-version pin (13.0.0-2ubuntu0.1, confirmed present
+        # in Canonical's own amd64 archive) still failed with "Version ... was
+        # not found" on the real runner — this repo's CI apparently resolves
+        # apt through a mirror (e.g. Azure's regional mirror for GH-hosted
+        # runners) that can lag or diverge from the primary archive, and that
+        # can't be fully verified from outside the runner. Unpinned trades a
+        # small amount of version-drift risk for actually working; if this
+        # regresses again, verify the exact mirror/version in a real Actions
+        # run (not a local container) before re-attempting a pin.
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ripgrep
 
       - name: Check content
         run: ./scripts/check-content.sh
