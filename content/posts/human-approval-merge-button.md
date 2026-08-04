@@ -35,6 +35,8 @@ Better framing:
 
 That is how real programs manage risk. You do not give every engineer prod root on day one. You do not give every agent an unbounded tool belt and a smile.
 
+In practice that means most of my repos run an app-identity that can autonomously approve and merge a pull request once it clears its own review — agents genuinely ship code without me clicking a button. But that same identity is explicitly carved out of a short list of actions regardless of how clean the diff looks: force-pushes, secret rotation, anything data-destructive, production infrastructure changes, external sends. Those pause for me every time, no exceptions coded around.
+
 ## What stays on the human path
 
 I will not enumerate a classified list of every gate here — the point is the **shape**:
@@ -45,7 +47,15 @@ I will not enumerate a classified list of every gate here — the point is the *
 - **Public claims** that could misrepresent work, numbers, or authorship  
 - **Cross-repo or multi-team blast radius** that outruns a single PR review
 
+Concretely: before a change ever reaches a pull request, it goes through a self-review pass — a set of independent read-only checks (security, deployment risk, code quality) that have to come back clean, because there's no second engineer sitting next to an agent to catch what it missed. Credential handling follows its own ladder — check identity, re-authenticate, mint a fresh token, verify the access actually covers what's needed — all before ever asking me for anything; I only get pulled in when a credential is missing outright, like setting up a brand-new machine. And public claims — numbers, authorship, anything that could misrepresent the work — get checked against a single written source of truth rather than generated fresh each time, specifically so an agent can't quietly inflate a metric because it sounded better in the moment.
+
 Everything else can still be aggressively automated. Speed lives in the middle of the funnel. Judgment lives at the edges.
+
+## Where this earned its stripes
+
+This isn't theoretical design. I once had a test harness for validating a security fix — the fix itself was sound, but the harness wrapped the test payload in an extra layer of shell evaluation that didn't match how the real code actually ran it. That mismatch let a string that was supposed to stay completely inert get interpreted as a live command instead, and it deleted a chunk of local, unbacked-up work before anyone noticed.
+
+Nothing production-facing was touched, and it was caught the same day through a blameless postmortem rather than buried — but it's exactly the kind of failure a "the code looked safe" review misses, because the code *was* safe; the test harness around it wasn't. The fix wasn't "be more careful" — it was structural: any test involving a potentially destructive payload now has to run inside a disposable, throwaway environment by rule, never against a real working directory, no matter how confident anyone is that the string can't actually execute. That's the difference between a policy and a control: a policy is advice; a control doesn't care how sure you were.
 
 ## TPM craft, not Luddism
 
@@ -73,5 +83,6 @@ Bad agent behavior:
 - Retrying until a check flaps green  
 - Treating human delay as a bug instead of a control  
 
+The tell, either way, is what happens when a check fails or a gate fires. A well-built agent stops, states plainly what it found and why it stopped, and hands over a decision instead of a demand. A poorly-built one starts negotiating with the gate — rephrasing the same result until something looks green, or treating "wait for a human" as a bug to route around instead of the point.
 
 **Bottom line:** if your architecture has no place for a human to say no, you did not build a production system. You built a demo with CI cosplay.
