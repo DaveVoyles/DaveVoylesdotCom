@@ -104,7 +104,11 @@ ok "inline body image references resolve to files"
 # certainly an unoptimized source dropped in directly (see process_images.py).
 MAX_IMAGE_BYTES=$((1024 * 1024))
 while IFS= read -r -d '' file; do
-  size="$(stat -f '%z' "$file" 2>/dev/null || stat -c '%s' "$file")"
+  # GNU (-c) first: GNU's -f means "filesystem status" (not a format flag) and
+  # will misparse '%z' as an extra file operand instead of erroring cleanly,
+  # so trying it first on Linux leaks garbage into $size. BSD/macOS -c fails
+  # cleanly with no stdout, making the fallback order below safe both ways.
+  size="$(stat -c '%s' "$file" 2>/dev/null || stat -f '%z' "$file" 2>/dev/null)"
   if [[ "$size" -gt "$MAX_IMAGE_BYTES" ]]; then
     err "oversized image $file (${size} bytes > ${MAX_IMAGE_BYTES} bytes) — run through process_images.py"
   fi
@@ -146,7 +150,11 @@ forbid_patterns=(
 for file in "${scan_files[@]}"; do
   [[ -f "$file" ]] || continue
   for pat in "${forbid_patterns[@]}"; do
-    if rg -qi --pcre2 "$pat" "$file"; then
+    # No --pcre2: forbid_patterns is plain alternation/grouping, which the
+    # default RE2 engine handles fine, and the distro ripgrep package (as
+    # installed in CI) isn't built with PCRE2 support — a --pcre2 flag there
+    # errors out and silently voids this check instead of running it.
+    if rg -qi "$pat" "$file"; then
       err "forbidden authorship claim in $file matching /$pat/"
     fi
   done
@@ -188,7 +196,9 @@ if [[ -f "$VIDEO_SCENES_FILE" ]]; then
       while IFS= read -r text_field; do
         [[ -z "$text_field" ]] && continue
         for pat in "${forbid_patterns[@]}"; do
-          if rg -qi --pcre2 "$pat" <<< "$text_field"; then
+          # No --pcre2: see the matching comment on the authorship-ban check
+          # above — the distro ripgrep in CI isn't built with PCRE2 support.
+          if rg -qi "$pat" <<< "$text_field"; then
             err "forbidden authorship claim in $VIDEO_SCENES_FILE matching /$pat/ in: $text_field"
           fi
         done
