@@ -79,6 +79,33 @@ done < <(find content/posts -name '*.md' -print0)
 
 ok "cover image paths"
 
+# --- inline body image references exist ---
+while IFS= read -r img; do
+  [[ -z "$img" ]] && continue
+  rel="${img#/}"
+  if [[ ! -f "static/$rel" ]]; then
+    err "inline image reference missing: $img (expected static/$rel)"
+  fi
+done < <(
+  rg -oN --no-filename '\]\(/images/posts/[^ )]+' content/posts 2>/dev/null \
+    | sed -E 's|^\]\(||' | sort -u
+)
+
+ok "inline body image references resolve to files"
+
+# --- image size regression (static/images/posts/) ---
+# Existing cover/inline images run ~80KB-260KB; anything past this is almost
+# certainly an unoptimized source dropped in directly (see process_images.py).
+MAX_IMAGE_BYTES=$((1024 * 1024))
+while IFS= read -r -d '' file; do
+  size="$(stat -f '%z' "$file" 2>/dev/null || stat -c '%s' "$file")"
+  if [[ "$size" -gt "$MAX_IMAGE_BYTES" ]]; then
+    warn "oversized image $file (${size} bytes > ${MAX_IMAGE_BYTES} bytes) — run through process_images.py"
+  fi
+done < <(find static/images/posts -type f -print0)
+
+ok "image size regression check"
+
 # --- series posts need weight ---
 while IFS= read -r -d '' file; do
   if rg -q '^series\s*=' "$file"; then
