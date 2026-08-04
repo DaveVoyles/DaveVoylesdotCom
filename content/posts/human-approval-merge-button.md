@@ -37,6 +37,18 @@ That is how real programs manage risk. You do not give every engineer prod root 
 
 In practice that means most of my repos run an app-identity that can autonomously approve and merge a pull request once it clears its own review — agents genuinely ship code without me clicking a button. But that same identity is explicitly carved out of a short list of actions regardless of how clean the diff looks: force-pushes, secret rotation, anything data-destructive, production infrastructure changes, external sends. Those pause for me every time, no exceptions coded around.
 
+## What's actually running (this isn't hypothetical)
+
+"Human approval" sounds like a philosophy until you see what actually enforces it day to day. A few of the mechanics doing real work in my system, for context:
+
+- **A self-review pass before any pull request exists** — independent read-only checks (security, deployment risk, code quality, test coverage) have to come back clean first. The security and deployment-risk checks are non-negotiable; there's no "skip this one, I'm confident" override, because there's no second engineer standing next to an agent to catch what it missed.
+- **A separate, deliberately narrow approval identity** — the credential that can approve and merge a reviewed PR is not the same credential used for day-to-day development, and it's walled off from the irreversible-action list above by design, not by convention.
+- **A credential-escalation ladder instead of a "just ask" habit** — before ever pinging me for access, an agent works through checking its current identity, re-authenticating, minting a fresh scoped token, and verifying that token actually covers what's needed. I only get asked when a credential is missing outright — a brand-new machine with nothing set up yet, not a broken or expired one.
+- **One written source of truth for public claims** — numbers, authorship, anything that could misrepresent the work gets checked against a single document instead of generated fresh each time. If the document and the code disagree, that's a stop-and-ask, not a coin flip.
+- **A "done" gate that outlives the merge** — for the work I track on a board, a task isn't closed just because the pull request merged. A status check has to run and actually move the tracking card before anything gets reported as finished — merged code and a "done" label are not the same claim.
+
+None of this is exotic tooling. It's the same shape any well-run engineering org already uses for humans — reviews that block merges, credentials that are minted and scoped instead of shared, a documented source of truth instead of institutional folklore, a definition of done that isn't just "the code shipped." The only thing that changed is who's operating inside the rails.
+
 ## What stays on the human path
 
 I will not enumerate a classified list of every gate here — the point is the **shape**:
@@ -46,8 +58,6 @@ I will not enumerate a classified list of every gate here — the point is the *
 - **Ambiguous validation** — when green would be a guess  
 - **Public claims** that could misrepresent work, numbers, or authorship  
 - **Cross-repo or multi-team blast radius** that outruns a single PR review
-
-Concretely: before a change ever reaches a pull request, it goes through a self-review pass — a set of independent read-only checks (security, deployment risk, code quality) that have to come back clean, because there's no second engineer sitting next to an agent to catch what it missed. Credential handling follows its own ladder — check identity, re-authenticate, mint a fresh token, verify the access actually covers what's needed — all before ever asking me for anything; I only get pulled in when a credential is missing outright, like setting up a brand-new machine. And public claims — numbers, authorship, anything that could misrepresent the work — get checked against a single written source of truth rather than generated fresh each time, specifically so an agent can't quietly inflate a metric because it sounded better in the moment.
 
 Everything else can still be aggressively automated. Speed lives in the middle of the funnel. Judgment lives at the edges.
 
