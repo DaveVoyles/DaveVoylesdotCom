@@ -10,9 +10,9 @@ topics = ["Tech"]
 series = ["Agent production system"]
 series_weight = 2
 [cover]
-image = "/images/posts/agent-eval-gates.jpg"
-alt = "Human-in-the-loop control at an approval console amid automated checkpoints"
-caption = "Autonomy is earned. The merge button is still a product decision."
+image = "/images/posts/approve-and-merge-to-prod.jpg"
+alt = "An engineer reviewing a deployment authorization screen showing Approve & Merge to Production and Reject Deployment options, awaiting human review"
+caption = "Awaiting human review: code review passed, security scan cleared — the merge button is still a human decision."
 +++
 
 This is **part 2** of the [Agent production system](/posts/agent-production-system/) series. Previous: [Eval gates are not optional theater](/posts/eval-gates-not-theater/). Constellation node: [Human approval](/about/?node=human).
@@ -40,6 +40,8 @@ In practice that means most of my repos run an app-identity that can autonomousl
 ## What's actually running (this isn't hypothetical)
 
 "Human approval" sounds like a philosophy until you see what actually enforces it day to day. A few of the mechanics doing real work in my system, for context:
+
+![A circular CI/CD pipeline diagram — planning, coding, build, security scanning, staging, integration testing, and production deployment — with a human gate icon at the center labeled "human gate: review & deployment approval"](/images/posts/human-approval-gating.jpg "Human approval gating inside a CI/CD pipeline")
 
 - **A self-review pass before any pull request exists** — independent read-only checks (security, deployment risk, code quality, test coverage) have to come back clean first. The security and deployment-risk checks are non-negotiable; there's no "skip this one, I'm confident" override, because there's no second engineer standing next to an agent to catch what it missed.
 - **A separate, deliberately narrow approval identity** — the credential that can approve and merge a reviewed PR is not the same credential used for day-to-day development, and it's walled off from the irreversible-action list above by design, not by convention.
