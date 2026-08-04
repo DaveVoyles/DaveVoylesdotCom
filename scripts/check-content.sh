@@ -13,6 +13,17 @@ err()  { echo "ERROR: $*" >&2; errors=$((errors + 1)); }
 warn() { echo "WARN:  $*" >&2; warns=$((warns + 1)); }
 ok()   { echo "OK:    $*"; }
 
+# Hard precondition, not a content finding: almost every check below is
+# rg-gated via `if rg ...; then err ...; fi`, which treats a missing/failing
+# rg the same as "no match" — a missing rg silently voids nearly the whole
+# script instead of failing loudly. That happened for real: rg was absent
+# from this repo's CI runner from inception with no signal until an unrelated
+# bug elsewhere finally crashed the script outright.
+if ! command -v rg &> /dev/null; then
+  echo "ERROR: rg (ripgrep) not found — required for every content-safety check in this script (apt-get install ripgrep / brew install ripgrep)." >&2
+  exit 1
+fi
+
 ALLOWED_TOPICS=(
   "Gaming"
   "Tech"
@@ -104,7 +115,11 @@ ok "inline body image references resolve to files"
 # certainly an unoptimized source dropped in directly (see process_images.py).
 MAX_IMAGE_BYTES=$((1024 * 1024))
 while IFS= read -r -d '' file; do
-  size="$(stat -f '%z' "$file" 2>/dev/null || stat -c '%s' "$file")"
+  # GNU (-c) first: GNU's -f means "filesystem status" (not a format flag) and
+  # will misparse '%z' as an extra file operand instead of erroring cleanly,
+  # so trying it first on Linux leaks garbage into $size. BSD/macOS -c fails
+  # cleanly with no stdout, making the fallback order below safe both ways.
+  size="$(stat -c '%s' "$file" 2>/dev/null || stat -f '%z' "$file" 2>/dev/null)"
   if [[ "$size" -gt "$MAX_IMAGE_BYTES" ]]; then
     err "oversized image $file (${size} bytes > ${MAX_IMAGE_BYTES} bytes) — run through process_images.py"
   fi
@@ -146,8 +161,18 @@ forbid_patterns=(
 for file in "${scan_files[@]}"; do
   [[ -f "$file" ]] || continue
   for pat in "${forbid_patterns[@]}"; do
-    if rg -qi --pcre2 "$pat" "$file"; then
+    # No --pcre2: forbid_patterns is plain alternation/grouping, which the
+    # default RE2 engine handles fine, and the distro ripgrep package (as
+    # installed in CI) isn't built with PCRE2 support — a --pcre2 flag there
+    # errors out and silently voids this check instead of running it.
+    # rg exit codes: 0=match 1=no-match 2=error (e.g. a future pattern using
+    # a PCRE2-only construct). Distinguish 2 explicitly so an unsupported
+    # pattern fails loudly instead of silently reading as "no match".
+    rg -qi "$pat" "$file" && rc=0 || rc=$?
+    if [[ "$rc" -eq 0 ]]; then
       err "forbidden authorship claim in $file matching /$pat/"
+    elif [[ "$rc" -ge 2 ]]; then
+      err "rg failed to evaluate pattern '$pat' against $file (exit $rc) — claim-safety check did not run for this pattern; if it uses a PCRE2-only construct (lookahead/backreference), rewrite it for RE2 or restore --pcre2 with a PCRE2-capable rg"
     fi
   done
   # Soft: Terraform/K8s as skill-ish claims in about skills blocks only
@@ -188,8 +213,13 @@ if [[ -f "$VIDEO_SCENES_FILE" ]]; then
       while IFS= read -r text_field; do
         [[ -z "$text_field" ]] && continue
         for pat in "${forbid_patterns[@]}"; do
-          if rg -qi --pcre2 "$pat" <<< "$text_field"; then
+          # No --pcre2, and exit-code handling: see the matching comments on
+          # the authorship-ban check above.
+          rg -qi "$pat" <<< "$text_field" && rc=0 || rc=$?
+          if [[ "$rc" -eq 0 ]]; then
             err "forbidden authorship claim in $VIDEO_SCENES_FILE matching /$pat/ in: $text_field"
+          elif [[ "$rc" -ge 2 ]]; then
+            err "rg failed to evaluate pattern '$pat' against $VIDEO_SCENES_FILE (exit $rc) — claim-safety check did not run for this pattern"
           fi
         done
       done <<< "$scenes_fields"

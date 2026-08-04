@@ -11,10 +11,14 @@ on:
     - cron: "0 14 * * *"
   workflow_dispatch:
 
+# Least-privilege default: only the deploy job actually needs pages/id-token
+# write access. A job-level `permissions:` block fully replaces (not merges
+# with) this default for that job, so `deploy` declares its own below —
+# review-lenses `security` flagged the build job's unpinned `apt-get install`
+# step running with deploy-capable tokens it never uses (issue: PR fixing
+# check-content.sh CI portability).
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: "pages"
@@ -35,6 +39,13 @@ jobs:
           hugo-version: '0.164.0'
           extended: true
 
+      - name: Install ripgrep
+        # Pinned: this fix depends on the distro build's specific behavior
+        # (no PCRE2 support — see check-content.sh), so an unpinned install
+        # could silently drift to a different build. Update deliberately if
+        # this version leaves the jammy archive.
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ripgrep=13.0.0-2ubuntu0.1
+
       - name: Check content
         run: ./scripts/check-content.sh
 
@@ -47,6 +58,9 @@ jobs:
           path: ./public
 
   deploy:
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
