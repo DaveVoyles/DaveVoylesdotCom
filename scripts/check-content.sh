@@ -13,6 +13,17 @@ err()  { echo "ERROR: $*" >&2; errors=$((errors + 1)); }
 warn() { echo "WARN:  $*" >&2; warns=$((warns + 1)); }
 ok()   { echo "OK:    $*"; }
 
+# Hard precondition, not a content finding: almost every check below is
+# rg-gated via `if rg ...; then err ...; fi`, which treats a missing/failing
+# rg the same as "no match" — a missing rg silently voids nearly the whole
+# script instead of failing loudly. That happened for real: rg was absent
+# from this repo's CI runner from inception with no signal until an unrelated
+# bug elsewhere finally crashed the script outright.
+if ! command -v rg &> /dev/null; then
+  echo "ERROR: rg (ripgrep) not found — required for every content-safety check in this script (apt-get install ripgrep / brew install ripgrep)." >&2
+  exit 1
+fi
+
 ALLOWED_TOPICS=(
   "Gaming"
   "Tech"
@@ -154,8 +165,14 @@ for file in "${scan_files[@]}"; do
     # default RE2 engine handles fine, and the distro ripgrep package (as
     # installed in CI) isn't built with PCRE2 support — a --pcre2 flag there
     # errors out and silently voids this check instead of running it.
-    if rg -qi "$pat" "$file"; then
+    # rg exit codes: 0=match 1=no-match 2=error (e.g. a future pattern using
+    # a PCRE2-only construct). Distinguish 2 explicitly so an unsupported
+    # pattern fails loudly instead of silently reading as "no match".
+    rg -qi "$pat" "$file" && rc=0 || rc=$?
+    if [[ "$rc" -eq 0 ]]; then
       err "forbidden authorship claim in $file matching /$pat/"
+    elif [[ "$rc" -ge 2 ]]; then
+      err "rg failed to evaluate pattern '$pat' against $file (exit $rc) — claim-safety check did not run for this pattern; if it uses a PCRE2-only construct (lookahead/backreference), rewrite it for RE2 or restore --pcre2 with a PCRE2-capable rg"
     fi
   done
   # Soft: Terraform/K8s as skill-ish claims in about skills blocks only
@@ -196,10 +213,13 @@ if [[ -f "$VIDEO_SCENES_FILE" ]]; then
       while IFS= read -r text_field; do
         [[ -z "$text_field" ]] && continue
         for pat in "${forbid_patterns[@]}"; do
-          # No --pcre2: see the matching comment on the authorship-ban check
-          # above — the distro ripgrep in CI isn't built with PCRE2 support.
-          if rg -qi "$pat" <<< "$text_field"; then
+          # No --pcre2, and exit-code handling: see the matching comments on
+          # the authorship-ban check above.
+          rg -qi "$pat" <<< "$text_field" && rc=0 || rc=$?
+          if [[ "$rc" -eq 0 ]]; then
             err "forbidden authorship claim in $VIDEO_SCENES_FILE matching /$pat/ in: $text_field"
+          elif [[ "$rc" -ge 2 ]]; then
+            err "rg failed to evaluate pattern '$pat' against $VIDEO_SCENES_FILE (exit $rc) — claim-safety check did not run for this pattern"
           fi
         done
       done <<< "$scenes_fields"
