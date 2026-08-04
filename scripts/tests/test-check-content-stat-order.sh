@@ -67,6 +67,23 @@ assert_output() {
   fi
 }
 
+# Absence counterpart to assert_output(): passes when $pattern does NOT
+# appear in $file.
+assert_output_absent() {
+  local name="$1"
+  local pattern="$2"
+  local file="$3"
+  test_count=$((test_count + 1))
+
+  if rg -q "$pattern" "$file"; then
+    echo "  ✗ $name"
+    fail_count=$((fail_count + 1))
+  else
+    echo "  ✓ $name"
+    pass_count=$((pass_count + 1))
+  fi
+}
+
 # Runs check-content.sh (or a variant of it) against a fresh POSTS_DIR/
 # IMAGES_POSTS_DIR fixture pair with the fake GNU stat on PATH, given a
 # fixture-file byte size. Writes captured output to $1 and returns the exit
@@ -97,10 +114,13 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# Defensive self-heal: remove any stray swapped-script copy a prior run left
-# behind (e.g. killed before its own EXIT trap could fire) so it never lingers
-# in the tracked scripts/ directory.
-rm -f scripts/.check-content-stat-order-test-*.sh 2>/dev/null || true
+# Defensive self-heal: remove swapped-script copies older than an hour, left
+# behind by a prior run killed before its own EXIT trap could fire, so they
+# don't linger indefinitely in the tracked scripts/ directory. Age-gated
+# rather than a blanket glob-delete — an unconditional delete here would
+# race a concurrently-running instance of this same test, which uses the
+# same glob shape and differs only by PID.
+find scripts -maxdepth 1 -name '.check-content-stat-order-test-*.sh' -mmin +60 -delete 2>/dev/null || true
 
 # --- fake `stat` reproducing real GNU coreutils -c/-f semantics ---
 cat > "$FIXTURE_DIR/fake-bin/stat" <<'FAKESTAT'
@@ -180,15 +200,8 @@ run_check "t3" 2097152 "./$SWAPPED_SCRIPT" "$FIXTURE_DIR/output3.txt"
 test_result "Swapped order under simulated GNU stat crashes rather than exiting cleanly" $run_check_exit 1
 assert_output "crash carries the real PR #135 signature (unbound variable), not a clean report" \
   'unbound variable' "$FIXTURE_DIR/output3.txt"
-if rg -q 'oversized image' "$FIXTURE_DIR/output3.txt"; then
-  echo "  ✗ swapped copy unexpectedly still reported the oversized image cleanly — fixture or fake stat is wrong"
-  fail_count=$((fail_count + 1))
-  test_count=$((test_count + 1))
-else
-  echo "  ✓ confirmed: swapped copy never reaches the normal 'oversized image' report"
-  pass_count=$((pass_count + 1))
-  test_count=$((test_count + 1))
-fi
+assert_output_absent "swapped copy never reaches the normal 'oversized image' report" \
+  'oversized image' "$FIXTURE_DIR/output3.txt"
 
 echo ""
 echo "=== Test Summary ==="
