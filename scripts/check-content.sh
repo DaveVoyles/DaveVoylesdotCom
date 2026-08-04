@@ -80,16 +80,22 @@ done < <(find content/posts -name '*.md' -print0)
 ok "cover image paths"
 
 # --- inline body image references exist ---
-while IFS= read -r img; do
-  [[ -z "$img" ]] && continue
-  rel="${img#/}"
-  if [[ ! -f "static/$rel" ]]; then
-    err "inline image reference missing: $img (expected static/$rel)"
-  fi
-done < <(
-  rg -oN --no-filename '\]\(/images/posts/[^ )]+' content/posts 2>/dev/null \
-    | sed -E 's|^\]\(||' | sort -u
-)
+# Overridable so tests can point at fixtures without mutating tracked content
+# (same convention as VIDEO_SCENES_FILE below).
+POSTS_DIR="${POSTS_DIR:-content/posts}"
+IMAGES_POSTS_DIR="${IMAGES_POSTS_DIR:-static/images/posts}"
+while IFS= read -r -d '' file; do
+  while IFS= read -r img; do
+    [[ -z "$img" ]] && continue
+    relpath="${img#/images/posts/}"
+    if [[ ! -f "$IMAGES_POSTS_DIR/$relpath" ]]; then
+      err "inline image reference missing in $file: $img (expected $IMAGES_POSTS_DIR/$relpath)"
+    fi
+  done < <(
+    rg -oN --no-filename '\]\(/images/posts/[^ )]+' "$file" 2>/dev/null \
+      | sed -E 's|^\]\(||' | sort -u
+  )
+done < <(find "$POSTS_DIR" -name '*.md' -print0)
 
 ok "inline body image references resolve to files"
 
@@ -100,9 +106,9 @@ MAX_IMAGE_BYTES=$((1024 * 1024))
 while IFS= read -r -d '' file; do
   size="$(stat -f '%z' "$file" 2>/dev/null || stat -c '%s' "$file")"
   if [[ "$size" -gt "$MAX_IMAGE_BYTES" ]]; then
-    warn "oversized image $file (${size} bytes > ${MAX_IMAGE_BYTES} bytes) — run through process_images.py"
+    err "oversized image $file (${size} bytes > ${MAX_IMAGE_BYTES} bytes) — run through process_images.py"
   fi
-done < <(find static/images/posts -type f -print0)
+done < <(find "$IMAGES_POSTS_DIR" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.avif' -o -iname '*.svg' \) -print0)
 
 ok "image size regression check"
 
