@@ -54,6 +54,9 @@ jobs:
       - name: Check content
         run: ./scripts/check-content.sh
 
+      - name: Test content checks
+        run: make test
+
       - name: Build
         run: hugo --minify
 
