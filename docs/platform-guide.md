@@ -143,12 +143,12 @@ the page down.
 **"Can the agent just create the image for me?" — not today.** There's no
 image-generation tool connected to this repo or this agent session, so
 asking for a cover image doesn't produce one out of thin air. The actual
-workflow, same as the existing covers in `static/images/posts/` (several of
-which — e.g. `Gemini_Img_Dvoyles_overview.png` — were made this way): you
-generate the image yourself in a separate tool (ChatGPT, Gemini, Midjourney,
-your own camera roll, whatever), then hand the file (or its path) to the
-agent to place, optimize, and wire into the post. If a generation tool ever
-gets connected to this repo, this paragraph is the one that needs updating.
+workflow, same as several of the existing covers in `static/images/posts/`:
+you generate the image yourself in a separate tool (ChatGPT, Gemini,
+Midjourney, your own camera roll, whatever), then hand the file (or its
+path) to the agent to place, optimize, and wire into the post. If a
+generation tool ever gets connected to this repo, this paragraph is the one
+that needs updating.
 
 ## 🎥 Video — YouTube links do *not* auto-embed
 
