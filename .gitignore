@@ -27,3 +27,7 @@ public/
 /scripts/board-seed.sh
 /scripts/gh-app-token.sh
 /scripts/gh-auth-doctor.sh
+/scripts/hot-path-land-lease.sh
+/scripts/lib/privileged-automation-root.sh
+/scripts/lib/agent-work-board-move.sh
+/scripts/lib/github-user-token.sh
