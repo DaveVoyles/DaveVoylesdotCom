@@ -65,6 +65,8 @@ Everything else can still be aggressively automated. Speed lives in the middle o
 
 ## Where this earned its stripes
 
+![Mac Mini Runner Visibility dashboard — host load, idle/busy runners, and 24h history of jobs, load average, and agent sessions](/images/posts/mac-runner-vis.jpg "Real fleet visibility: runners and agent sessions on the Mac Mini, not a slide-deck diagram")
+
 This isn't theoretical design. I once had a test harness for validating a security fix — the fix itself was sound, but the harness wrapped the test payload in an extra layer of shell evaluation that didn't match how the real code actually ran it. That mismatch let a string that was supposed to stay completely inert get interpreted as a live command instead, and it deleted a chunk of local, unbacked-up work before anyone noticed.
 
 Nothing production-facing was touched, and it was caught the same day through a blameless postmortem rather than buried — but it's exactly the kind of failure a "the code looked safe" review misses, because the code *was* safe; the test harness around it wasn't. The fix wasn't "be more careful" — it was structural: any test involving a potentially destructive payload now has to run inside a disposable, throwaway environment by rule, never against a real working directory, no matter how confident anyone is that the string can't actually execute. That's the difference between a policy and a control: a policy is advice; a control doesn't care how sure you were.
