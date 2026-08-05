@@ -41,6 +41,8 @@ With a host story, you get:
 
 None of that is abstract to me. Isolation means a container that starts misbehaving doesn't take down Plex while someone's mid-episode. Repeatability means when I moved my download automation off the Mac Mini and onto the NAS behind a VPN tunnel, the move was "point a new host at the same compose file and secrets" instead of re-learning three months of manual settings by hand. Surfaces for control means I have a dashboard sitting behind a reverse proxy, so "is anything actually broken right now" is a glance instead of SSH-ing into two machines to check.
 
+![Plex media library on the Mac mini — TV shows grid under the Library view](/images/posts/Plex.jpg "Plex running as a real household service on the same host layer as the agents")
+
 On the constellation, Docker sits under the fleet; Azure is where work meets cloud and pipeline reality; dashboards are the web control surface — supporting identity, not replacing it.
 
 ## What's actually running (this isn't hypothetical)
@@ -52,6 +54,8 @@ Twenty-plus containers is an abstract number until you know what's behind it. A 
 - **A media-automation stack** (Sonarr, Radarr, Prowlarr) that keeps the Plex library organized without me babysitting it, paired with **Recyclarr** syncing community-maintained quality profiles so I'm not hand-tuning dropdown settings across three different apps.
 - **A reverse proxy in front of a dashboard**, so the whole stack has one door in and one place to see health at a glance instead of a pile of bookmarked `:port` URLs.
 - **Watchtower**, which auto-updates container images on a fixed nightly schedule — but only for services I've explicitly opted in with a label, so nothing I want pinned drifts out from under me overnight.
+
+![Docker Desktop Activity Monitor listing production containers — media stack, GitHub runner, OpenClaw, and monitoring services](/images/posts/docker-containers.jpg "Twenty-plus containers on the Mac Mini host: media automation, runners, agents, and health dashboards")
 
 The point isn't the list — it's that this stack earns its keep on ordinary nights before it ever does anything agent-related. That's what makes the "hardened defaults" section below more than theory.
 
