@@ -1,24 +1,23 @@
 # Handoff
 
-**2026-08-05 — docker-homelab-agent-ops screenshots, closed out.**
+**2026-08-05 — series post screenshots (docker-homelab + human-approval), closed out.**
 
 ## What shipped this pass
 
 | Work | Notes |
 |------|--------|
-| Images on post | `content/posts/docker-homelab-agent-ops.md` embeds `Plex.jpg` after the isolation/repeatability paragraph and `docker-containers.jpg` after the Watchtower bullet. |
-| Plex size fix | `static/images/posts/Plex.jpg` resized/compressed (1600px long edge, ~399KB) — was 1.4MB and failing `make check`'s 1MB gate on main before this change. |
-| Push | Commit `65386ad` on `main` → `origin/main`. |
+| docker-homelab-agent-ops | `Plex.jpg` + `docker-containers.jpg` embedded; Plex resized under 1MB gate. |
+| human-approval-merge-button | `mac-runner-vis.jpg` under **Where this earned its stripes**. |
+| All three Aug 5 images | Now wired into series posts. |
 
 ## Local-only (not committed)
 
-- `.gitignore` has a few extra landing-floor script ignore lines vs origin (empty-findings, claim-holder-state, default-branch). Untracked local scripts under `scripts/lib/` / `review-lens-empty-findings.sh` may still be present from enable-landing-floor.
+- `.gitignore` may still have extra landing-floor ignore lines vs origin.
 
 ## Where to start next session
 
 1. Read **`AGENTS.md`**, then the doc for your task.
-2. Remaining unused image from the Aug 5 drop: `static/images/posts/mac-runner-vis.jpg` (Mac Mini Runner Visibility dashboard) — not wired into a post yet.
-3. `make check` / `make preview` for content work.
+2. `make check` / `make preview` for content work.
 
 ## Do not
 
