@@ -1,5 +1,6 @@
 # History
 
+- 2026-08-07: Wired uploaded series post images into `xbox-slas-to-agent-fleets` (live), `claim-safety-evidence-before-metrics`, and `what-i-will-not-automate` — renamed to URL-safe slugs under `static/images/posts/`, compressed under 1MB gate, dropped exact-duplicate Partner Center/gamesetup pair and root-level upload paths.
 - 2026-08-07: Expanded series posts to authoring-guide writing standard (~800–1300w conversational): `xbox-slas-to-agent-fleets` (~488→~1418), `claim-safety-evidence-before-metrics` (~497→~1286), `what-i-will-not-automate` (~461→~1138). Claim-safe metrics only; `make check` clean; Xbox post pushed to republish live for image scouting.
 - 2026-07-24: Agent-platform pass — `AGENTS.md` router, `docs/claim-safe-facts.md`, `scripts/check-content.sh` (CI gate), series scaffold + auto series nav partial, `Makefile`, HANDOFF/README/authoring updates. Builds on same-day auto-publish (Approach A: future dates + daily Hugo rebuild).
 - 2026-07-24: Portfolio surfaces pass — About portfolio + WebGL constellation (#86–#87), home dashboard/magazine + hero WebGL (#88), projects grid including Harriton head coach (#89). Documented for agents in docs/portfolio-surfaces.md, ADR 0010, README/platform-guide/CONTEXT/HANDOFF/learnings updates.

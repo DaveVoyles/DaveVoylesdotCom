@@ -10,8 +10,8 @@ topics = ["Tech"]
 series = ["Agent production system"]
 series_weight = 5
 [cover]
-image = "/images/posts/agent-eval-gates.jpg"
-alt = "Checkpoint gates for automated and human review"
+image = "/images/posts/claim-safety-validation-workflow.jpg"
+alt = "Claim safety validation workflow from agent draft through eval gate to publish or human escalation"
 caption = "If a number cannot point at evidence, it does not ship."
 +++
 
@@ -56,9 +56,13 @@ That sentence is fluent. It is also a claim bomb if you cannot defend every clau
 
 In my system that draft does not get to “sounds good, ship it.” It hits a source-of-truth check. If the number is not on the allowlist, or the authorship verb overclaims, the path is **amber or red** — stop for a human, or rewrite inside evidence. Same muscle as Xbox publish windows: confidence is not a gate; checks are.
 
+![Draft metric highlighted with a red “no evidence found” flag instead of a ship-ready number](/images/posts/claim-safety-no-evidence-found.jpg "Unsupported metric: fail closed, do not invent a confident percentage")
+
 ## Rules I actually use
 
 These are the same rules that bound [About](/about/) and this series. They live as a single public source of truth in the site repo (`docs/claim-safe-facts.md`) so agents and humans argue with a document, not with folklore:
+
+![Editor view of a claim-safe facts allowlist — verified figures the agent may use, nothing invented](/images/posts/claim-safety-source-of-truth-file.jpg "One allowlist: agents and humans argue with a document, not folklore")
 
 1. **Verified figures only** — e.g. **10+** years at Microsoft, **~$50M** commerce program, **12h → 30m** publish target, **20+** containers. No vanity counters without a source.  
 2. **Authorship humility** — prefer “**extended and operate**” (or “integrated and operates”) for agent platforms; do not claim original invention of upstream open-source systems.  
@@ -91,6 +95,8 @@ Claim safety is not a single checkbox at the end. It is a job at every layer tha
 
 On the map: start at [Eval gates](/about/?node=eval) and [Search](/about/?node=search). Public claims also sit under [Human approval](/about/?node=human) for a reason — when the model is sure and the evidence is thin, a person owns the go/no-go.
 
+![Claim safety validation workflow: agent draft and source of truth enter an eval gate, then publish or block and escalate to a human](/images/posts/claim-safety-validation-workflow.jpg "Draft meets allowlist at the gate — publish only when evidence holds")
+
 ## Theater vs real claim safety
 
 | Theater | Real claim safety |
@@ -100,6 +106,8 @@ On the map: start at [Eval gates](/about/?node=eval) and [Search](/about/?node=s
 | “I built X” for every integrated tool | “Extended and operates” / “integrated and operates” when true |
 | Always-impressive résumé drafts | Drafts that fail closed when evidence is missing |
 | Fixing one bad sentence after publish | Gates that catch the pattern before merge |
+
+![Theater versus real gates: prompt-only “don’t invent” under a spotlight on the left; allowlist, eval gate, and evidence-backed resume path on the right](/images/posts/claim-safety-theater-vs-real.jpg "A prompt is not a gate — an allowlist that can block is")
 
 If your claim check never fails, you do not have claim safety — you have decoration. The tell is what happens when a draft wants a metric that is not on the list. A real system stops. A theatrical one rephrases until it sounds softer and ships anyway.
 

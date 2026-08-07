@@ -10,9 +10,9 @@ topics = ["Tech", "Career and Students"]
 series = ["Agent production system"]
 series_weight = 4
 [cover]
-image = "/images/posts/agent-system-ops-floor.jpg"
-alt = "Orchestrator-centered agent production system illustration"
-caption = "Same muscle: critical path, risk, and delivery under pressure."
+image = "/images/posts/xbox-monolithic-slas-to-agent-fleets.jpg"
+alt = "Diagram comparing static monolithic SLA provisioning to demand-driven dynamic agent fleets"
+caption = "Same pressure, different nouns: fixed SLAs vs gated, right-sized agent work."
 +++
 
 This is **part 4** of the [Agent production system](/posts/agent-production-system/) series. Previous: [Docker homelab ops](/posts/docker-homelab-agent-ops/). Constellation: the whole [agent production map](/about/?cluster=agents) — especially [Orchestrator](/about/?node=orchestrator), [Eval gates](/about/?node=eval), and [Human approval](/about/?node=human).
@@ -24,6 +24,8 @@ I am a **former** Senior Technical Program Manager at Xbox/Microsoft. That sente
 People hear “TPM” and picture a calendar full of status meetings. At its best, platform TPM work is the opposite of that caricature: **critical path, risk, multi-team alignment, and SLA performance** under real blast radius. Someone has to know what is actually on the path to “done,” what can kill the ship window, which teams are blocked on which contract, and when a green dashboard is lying. That is the job.
 
 Agent fleets inherit that muscle. They do not replace it. A clever model can write a patch in thirty seconds. It cannot, by itself, own the program that decides whether the patch is allowed to touch production — and it should not be asked to.
+
+![Anatomy of a governance-first agent fleet: task intake, orchestration with guardrails, managed execution, then observability and human-in-the-loop audit](/images/posts/xbox-governance-first-agent-fleet.jpg "Governance sits above the conveyor — intake, orchestrate, execute, audit")
 
 ## Verified platform stakes (not mythology)
 
@@ -39,6 +41,8 @@ Those are not agent metrics. They are **why my agent defaults look like a progra
 The commerce program is the clearest example. Retiring a legacy transaction path that still carried real revenue is not a “migrate when convenient” story. Every cutover step either had a hard, automatable pass/fail check, or it stopped and waited for a human with the authority to say go. Nobody shipped on “looks fine to me.” The SLA was the scoreboard; the gates were the product.
 
 Publishing had the same shape at a different tempo. Getting a game package from “ready” to “live” was a **12h → 30m** problem: long tails, multi-team handoffs, and a publish window that did not care how confident the submitter felt. The work was not “make engineers type faster.” It was “remove every step that is not a real check, and make every real check automatic or explicitly owned.”
+
+![Xbox Partner Center game setup — device family availability, Xbox Live options, and sandbox configuration for a store product](/images/posts/xbox-partner-center-game-setup.jpg "Publishing is a real surface: product setup, device families, sandboxes — not a vibes checklist")
 
 That is the transfer. Agents make the *typing* cheap. They do not make the *judgment* free.
 
@@ -62,6 +66,8 @@ On an agent production day, the shape is the same with different nouns:
 
 If you only copy the **tools** of agents and not the **governance** of platform delivery, you get novelty without reliability. Cool demos. Fragile production.
 
+![Conceptual diagram: static monolithic SLA over-provisioning on the left versus demand-driven dynamic agent fleets on the right](/images/posts/xbox-monolithic-slas-to-agent-fleets.jpg "Fixed capacity vs right-sized work — the SLA lesson applied to agent fleets")
+
 ## The transfer table
 
 | Xbox / platform TPM | Agent production system |
@@ -82,6 +88,8 @@ A few rows deserve more than a cell:
 **SLA and publish windows.** A publish window does not accept “the workflow started.” It accepts “the workflow completed and the checks that matter passed.” That is why [part 1](/posts/eval-gates-not-theater/) treats CI completion as a first-class gate: green means watched to completion, not “kicked off and walked away.” Agents are especially good at the second version of green unless you forbid it.
 
 **Go/no-go.** Executives do not reward “we moved fast” when the outage was preventable. The merge button — and its cousins: force-push, secrets, prod infra, public claims — is the same craft as a ship review. Autonomy is earned **per action class**, not as a global boolean. That is the whole thesis of [part 2](/posts/human-approval-merge-button/).
+
+![Conceptual lifecycle for agent fleets: discovery, telemetry, control-plane decisions, scaling, and operational optimization under a control plane](/images/posts/xbox-agent-fleet-lifecycle.jpg "Fleets need a control plane and feedback loops — the same critical-path discipline as platform shipping")
 
 ## Builder-first is the point
 

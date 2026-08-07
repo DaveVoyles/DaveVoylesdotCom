@@ -1,28 +1,27 @@
 # Handoff
 
-**2026-08-07 — expanded three series posts to writing standard; Xbox republished.**
+**2026-08-07 — series post images wired (Xbox live + two scheduled).**
 
 ## What shipped this pass
 
 | Work | Notes |
 |------|--------|
-| xbox-slas-to-agent-fleets | Expanded ~488 → ~1418w; pushed so live `/posts/xbox-slas-to-agent-fleets/` updates for image scouting. |
-| claim-safety-evidence-before-metrics | Expanded ~497 → ~1286w (scheduled 2026-08-11). |
-| what-i-will-not-automate | Expanded ~461 → ~1138w (scheduled 2026-08-14). |
-| make check | PASSED |
+| Image normalize | Spacey/root uploads → `static/images/posts/<slug>.jpg`, all &lt;1MB |
+| xbox-slas-to-agent-fleets | 4 images + new cover (monolithic→fleets). Partner Center UI + 3 conceptual diagrams |
+| claim-safety-evidence-before-metrics | 4 images + workflow cover |
+| what-i-will-not-automate | 3 images + irreversible-gate cover |
+| Dropped | Exact duplicate `gamesetup_devicefamilies_xboxlive.png` (== Partner Center shot) |
 
-## Local-only (not committed)
+## Note for next session
 
-- `.gitignore` may still have extra landing-floor ignore lines vs origin (left out of this commit on purpose).
+- Claim-safety image `claim-safety-source-of-truth-file.jpg` is AI-generated and has garbled lower lines after the real allowlist bullets — concept still clear; regenerate if Dave wants pixel-perfect accuracy.
+- Conceptual Xbox diagrams invent fleet/autoscaling narrative beyond claim-safe metrics; captions treat them as illustrations of transfer, not Xbox production proof.
 
-## Where to start next session
+## Local-only
 
-1. Dave adding body images once scouting live Xbox post text — drop under `static/images/posts/`, keep &lt;1MB, wire with `![alt](/images/posts/…)`.
-2. Optional same image pass for claim-safety / what-i-will-not-automate when those dates approach.
-3. `make check` / `make preview` for content work.
+- `.gitignore` may still differ from origin (landing-floor lines) — left uncommitted.
 
 ## Do not
 
-- Edit `themes/PaperMod/` for features — overrides live in `layouts/` / `assets/`.
-- Invent compound tags; reuse vocabulary via `make list-tags`.
-- Claim metrics outside `docs/claim-safe-facts.md`.
+- Edit `themes/PaperMod/` for features.
+- Invent compound tags or metrics outside `docs/claim-safe-facts.md`.

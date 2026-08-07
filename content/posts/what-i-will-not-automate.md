@@ -10,9 +10,9 @@ topics = ["Tech"]
 series = ["Agent production system"]
 series_weight = 6
 [cover]
-image = "/images/posts/agent-system-ops-floor.jpg"
-alt = "Agent production floor with a human approval station"
-caption = "The point of a good system is knowing what never enters the conveyor."
+image = "/images/posts/boundaries-irreversible-action-gate.jpg"
+alt = "Hand on a red irreversible-action gate control, with force-push, prod-destroying ops, and legal/compliance locked out"
+caption = "The system declares the limits; human judgment seals the truth."
 +++
 
 This is **part 6** of the [Agent production system](/posts/agent-production-system/) series (boundaries, not “series over” — later posts dig into [GitHub tokens](/posts/github-tokens-for-agent-fleets/) and the [landing floor](/posts/landing-floor-without-a-github-app/)). Previous: [Claim safety](/posts/claim-safety-evidence-before-metrics/). Constellation: [Human approval](/about/?node=human), [Eval gates](/about/?node=eval), [Orchestrator](/about/?node=orchestrator).
@@ -43,17 +43,23 @@ Most of the funnel can still be aggressive: plans, implementation in isolation, 
 
 Force-push to shared history, secret materialization, prod-destroying ops, public legal/compliance commitments — these stay on a **human approval** path. See [part 2](/posts/human-approval-merge-button/) and [About → Human approval](/about/?node=human).
 
+![Hand on a red irreversible-action gate; force-push, prod-destroying ops, and public legal/compliance locked until human approval](/images/posts/boundaries-irreversible-action-gate.jpg "The system declares the limits; human judgment seals the truth")
+
 “Irreversible” is not a vibe. It is a short list of action classes where undo is expensive, incomplete, or impossible: history rewritten, credentials exposed, data gone, a public commitment that binds more than a git revert can fix. Agents can prepare the change, package the blast radius, and wait. They do not get to decide that waiting is a bug.
 
 ### 2. Truth about people and work
 
 Performance narratives, hiring decisions, and public credit for others’ work are not “content generation tasks.” Agents can draft a self-review bullet list or summarize a thread; humans own the relationship and the fairness.
 
+![Agent drafting an accomplishment list on one side; two people reviewing a final performance narrative behind a relationship-and-fairness gate on the other](/images/posts/boundaries-agent-leverage-human-judgment.jpg "Agents draft; humans own the relationship and the fairness")
+
 This is the line that separates leverage from cruelty. A model that writes a confident performance story about someone else is not “saving time.” It is laundering judgment through fluency. Same for assigning credit on a public post or internal note: if a person did the work, a person owns how that work is described when stakes are real.
 
 ### 3. Claim invention of others’ platforms
 
 I **extend and operate** multi-agent systems and skill fleets. I will not automate — or manually write — a story that steals original authorship from upstream maintainers. Claim safety is a boundary, not a style guide ([part 5](/posts/claim-safety-evidence-before-metrics/)).
+
+![Robot arm rewriting a README from “we built this” to “we extend and operate,” blocked by a claim-invention gate tied to verified figures](/images/posts/boundaries-claim-invention-gate.jpg "Upstream authors keep credit — operate and extend, don’t invent")
 
 The failure mode is flattering: you ran the stack hard, so the draft says “I built.” The honest sentence is usually longer and less glamorous. Public pages, résumés, and agent-written READMEs all get the same gate — verified figures only, past-tense where true, no logo soup.
 
