@@ -1,25 +1,17 @@
 # Handoff
 
-**2026-08-07 — series post images wired (Xbox live + two scheduled).**
+**2026-08-07 — claim-safety source-of-truth image fixed.**
 
 ## What shipped this pass
 
 | Work | Notes |
 |------|--------|
-| Image normalize | Spacey/root uploads → `static/images/posts/<slug>.jpg`, all &lt;1MB |
-| xbox-slas-to-agent-fleets | 4 images + new cover (monolithic→fleets). Partner Center UI + 3 conceptual diagrams |
-| claim-safety-evidence-before-metrics | 4 images + workflow cover |
-| what-i-will-not-automate | 3 images + irreversible-gate cover |
-| Dropped | Exact duplicate `gamesetup_devicefamilies_xboxlive.png` (== Partner Center shot) |
-
-## Note for next session
-
-- Claim-safety image `claim-safety-source-of-truth-file.jpg` is AI-generated and has garbled lower lines after the real allowlist bullets — concept still clear; regenerate if Dave wants pixel-perfect accuracy.
-- Conceptual Xbox diagrams invent fleet/autoscaling narrative beyond claim-safe metrics; captions treat them as illustrations of transfer, not Xbox production proof.
+| claim-safety-source-of-truth-file.jpg | Replaced garbled AI text with Dave’s fixed allowlist shot (10+, ~$50M, 20+ containers, Azure/Docker, human approval, past-tense roles). |
+| Cleanup | Removed spacey `Claim safety - evidence before metrics 2.jpeg` after normalize. |
 
 ## Local-only
 
-- `.gitignore` may still differ from origin (landing-floor lines) — left uncommitted.
+- `.gitignore` may still differ from origin — left uncommitted.
 
 ## Do not
 
