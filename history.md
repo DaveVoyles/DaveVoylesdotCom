@@ -1,5 +1,6 @@
 # History
 
+- 2026-08-07: Session close-out — series writing-standard expansion (Xbox live + claim-safety + boundaries), image wire-up/normalize under 1MB, claim-safety body image #2 fully removed. main deployed green across the day.
 - 2026-08-07: Removed claim-safety body image #2 (source-of-truth allowlist) entirely — dropped markdown embed and deleted `claim-safety-source-of-truth-file.jpg` (garbled original + fixed re-upload).
 - 2026-08-07: Replaced garbled claim-safety source-of-truth image with Dave’s fixed upload; removed spacey `Claim safety - evidence before metrics 2.jpeg` path after normalizing to `claim-safety-source-of-truth-file.jpg`.
 - 2026-08-07: Wired uploaded series post images into `xbox-slas-to-agent-fleets` (live), `claim-safety-evidence-before-metrics`, and `what-i-will-not-automate` — renamed to URL-safe slugs under `static/images/posts/`, compressed under 1MB gate, dropped exact-duplicate Partner Center/gamesetup pair and root-level upload paths.
