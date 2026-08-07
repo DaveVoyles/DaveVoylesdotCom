@@ -62,8 +62,6 @@ In my system that draft does not get to “sounds good, ship it.” It hits a so
 
 These are the same rules that bound [About](/about/) and this series. They live as a single public source of truth in the site repo (`docs/claim-safe-facts.md`) so agents and humans argue with a document, not with folklore:
 
-![Editor view of a claim-safe facts allowlist — verified figures the agent may use, nothing invented](/images/posts/claim-safety-source-of-truth-file.jpg "One allowlist: agents and humans argue with a document, not folklore")
-
 1. **Verified figures only** — e.g. **10+** years at Microsoft, **~$50M** commerce program, **12h → 30m** publish target, **20+** containers. No vanity counters without a source.  
 2. **Authorship humility** — prefer “**extended and operate**” (or “integrated and operates”) for agent platforms; do not claim original invention of upstream open-source systems.  
 3. **Past-tense where true** — former Xbox/Microsoft TPM, not a fictional current employer claim.  

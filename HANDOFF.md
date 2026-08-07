@@ -1,13 +1,14 @@
 # Handoff
 
-**2026-08-07 — claim-safety source-of-truth image fixed.**
+**2026-08-07 — claim-safety image #2 removed entirely.**
 
 ## What shipped this pass
 
 | Work | Notes |
 |------|--------|
-| claim-safety-source-of-truth-file.jpg | Replaced garbled AI text with Dave’s fixed allowlist shot (10+, ~$50M, 20+ containers, Azure/Docker, human approval, past-tense roles). |
-| Cleanup | Removed spacey `Claim safety - evidence before metrics 2.jpeg` after normalize. |
+| claim-safety-evidence-before-metrics | Removed body embed for source-of-truth allowlist image. |
+| Files deleted | `claim-safety-source-of-truth-file.jpg` (and any spacey re-upload of metrics 2). |
+| Remaining claim-safety images | no-evidence-found, validation-workflow (cover), theater-vs-real. |
 
 ## Local-only
 
