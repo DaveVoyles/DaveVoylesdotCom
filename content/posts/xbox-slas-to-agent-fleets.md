@@ -89,8 +89,6 @@ A few rows deserve more than a cell:
 
 **Go/no-go.** Executives do not reward “we moved fast” when the outage was preventable. The merge button — and its cousins: force-push, secrets, prod infra, public claims — is the same craft as a ship review. Autonomy is earned **per action class**, not as a global boolean. That is the whole thesis of [part 2](/posts/human-approval-merge-button/).
 
-![Conceptual lifecycle for agent fleets: discovery, telemetry, control-plane decisions, scaling, and operational optimization under a control plane](/images/posts/xbox-agent-fleet-lifecycle.jpg "Fleets need a control plane and feedback loops — the same critical-path discipline as platform shipping")
-
 ## Builder-first is the point
 
 I still build: homelab, agents, sports tech, coaching tools. TPM craft without builder hands goes abstract — pure process theater that engineers correctly ignore. Builder hands without program craft go fragile — clever systems that cannot survive a bad Tuesday.
