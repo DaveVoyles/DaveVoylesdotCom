@@ -13,6 +13,8 @@ Wondering how the platform itself works — styling, images, video, what it
 can't do? See [`docs/platform-guide.md`](docs/platform-guide.md).
 Changing the homepage, About page, projects grid, or WebGL surfaces?
 See [`docs/portfolio-surfaces.md`](docs/portfolio-surfaces.md) first.
+Want a snapshot of the current design system (colors, type, layout,
+components)? See [`docs/DESIGN.md`](docs/DESIGN.md).
 
 Status: site live at [davevoyles.com](https://davevoyles.com) — historical
 content migration from the old WordPress blog is complete (76 recovered
