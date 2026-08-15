@@ -71,9 +71,13 @@ hosting bill, no plugin security patching, and a full backup that's just
 
 ## 🎨 Changing colors and styling
 
-The site uses a **console theme** (green accent, monospace chrome) defined
-in `assets/css/extended/custom.css`. That file already exists and loads
-*after* PaperMod's CSS — edit it rather than the theme submodule.
+The site uses a **console theme** (green accent, monospace chrome). Shared
+`--ds-*` tokens live in `assets/css/extended/00-tokens.css` (loads first —
+Hugo concatenates `extended/*.css` alphabetically). Component overrides
+live in `assets/css/extended/custom.css`, which loads *after* PaperMod's
+CSS — edit those files rather than the theme submodule. See
+[`DESIGN.md`](DESIGN.md) and the shared standard at
+`~/.claude/skills/web-design-standards/SKILL.md`.
 
 ### Do you need to ask an agent?
 
@@ -86,21 +90,22 @@ in `assets/css/extended/custom.css`. That file already exists and loads
 
 ### How the color system actually works
 
-PaperMod exposes named CSS variables for light and dark mode. The console
-theme redefines them (and adds `--accent`) in `custom.css`:
+Canonical roles are `--ds-*` tokens in `00-tokens.css` (light on `:root`,
+dark via `prefers-color-scheme` and `:root[data-theme="dark"]`). PaperMod
+legacy names (`--theme`, `--entry`, `--accent`, …) still appear in
+`custom.css` during migration; new CSS should use `var(--ds-accent)` (etc.).
 
-| Name | What it controls |
+| Token | What it controls |
 |---|---|
-| `--theme` | Page background |
-| `--entry` | Card / panel background |
-| `--primary` | Main headings / strong text |
-| `--secondary` | Muted meta text |
-| `--content` | Body copy |
-| `--border` | Dividers |
-| `--accent` | Console green — links, chips, CTAs |
-| `--tertiary` | Soft fill behind badges |
-
-Prefer `var(--accent)` (etc.) in new CSS so light/dark stay consistent.
+| `--ds-bg` | Page background |
+| `--ds-surface` / `--ds-bg-elevated` | Card / panel background |
+| `--ds-text` | Main headings / strong text |
+| `--ds-text-muted` | Muted meta text |
+| `--ds-content` | Body copy |
+| `--ds-border` | Dividers |
+| `--ds-accent` / `--ds-link` | Console green — links, chips, CTAs |
+| `--ds-tertiary` | Soft fill behind badges |
+| `--ds-code-bg` / `--ds-code-block-bg` | Inline / fenced code |
 
 ### Portfolio pages (home + About)
 

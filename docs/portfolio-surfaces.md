@@ -39,7 +39,8 @@ posts = calm reading. Don’t put About-level WebGL noise on every post page.
 | [`layouts/about.html`](../layouts/about.html) | About portfolio layout |
 | [`layouts/partials/about-constellation.html`](../layouts/partials/about-constellation.html) | SVG constellation + JSON blob for WebGL |
 | [`layouts/partials/sidebar.html`](../layouts/partials/sidebar.html) | Persistent bio rail |
-| [`assets/css/extended/custom.css`](../assets/css/extended/custom.css) | Console theme + home + About styles |
+| [`assets/css/extended/00-tokens.css`](../assets/css/extended/00-tokens.css) | Shared `--ds-*` color/type/space/motion tokens |
+| [`assets/css/extended/custom.css`](../assets/css/extended/custom.css) | Console theme + home + About styles (PaperMod aliases) |
 | [`assets/js/home-hero-webgl.js`](../assets/js/home-hero-webgl.js) | Home hero particle field |
 | [`assets/js/about-constellation.js`](../assets/js/about-constellation.js) | About cluster highlight + Three.js constellation |
 | [`layouts/graph.html`](../layouts/graph.html) | Post graph page (separate stack: force-graph CDN) |

@@ -3,34 +3,77 @@
  * Loads after PaperMod's own CSS (see docs/platform-guide.md's styling
  * section) — everything here only touches variables/selectors already
  * defined by the theme, never the theme's own files.
+ *
+ * Color/type/space primitives live in 00-tokens.css (--ds-*). This file
+ * aliases PaperMod's --theme/--entry/--primary/etc. to those tokens and
+ * keeps look-preserving component CSS.
  */
 
-:root {
-  /* light / "day console" */
-  --theme: rgb(250, 249, 244);
-  --entry: rgb(255, 255, 255);
-  --primary: rgb(24, 26, 22);
-  --secondary: rgb(90, 95, 83);
-  --tertiary: rgb(210, 224, 200);
-  --content: rgb(32, 35, 28);
-  --code-block-bg: rgb(24, 26, 22);
-  --code-bg: rgb(234, 238, 226);
-  --border: rgb(214, 220, 202);
-  --accent: rgb(34, 99, 60);
-}
+/* ==========================================================================
+   1. Token aliases (PaperMod consumes --theme / --entry / --primary / …)
+   Dark values live on :root[data-theme="dark"] in 00-tokens.css.
+   ========================================================================== */
 
-:root[data-theme="dark"] {
-  /* dark / "night console" */
-  --theme: rgb(13, 15, 13);
-  --entry: rgb(18, 22, 17);
-  --primary: rgb(239, 236, 224);
-  --secondary: rgb(138, 143, 125);
-  --tertiary: rgb(38, 48, 38);
-  --content: rgb(195, 192, 179);
-  --code-block-bg: rgb(18, 22, 17);
-  --code-bg: rgb(26, 32, 24);
-  --border: rgb(38, 48, 38);
-  --accent: rgb(95, 184, 122);
+/* ds-alias-allow-begin */
+/* Re-declare on dark selectors: PaperMod theme-vars.css :root[data-theme="dark"]
+   is more specific than bare :root and would otherwise restore stock grays. */
+:root,
+:root[data-theme="dark"],
+:root[data-theme="auto"] {
+  --theme: var(--ds-bg);
+  --entry: var(--ds-surface);
+  --primary: var(--ds-text);
+  --secondary: var(--ds-text-muted);
+  --tertiary: var(--ds-tertiary);
+  --content: var(--ds-content);
+  --code-block-bg: var(--ds-code-block-bg);
+  --code-bg: var(--ds-code-bg);
+  --border: var(--ds-border);
+  --accent: var(--ds-accent);
+  --gap: var(--ds-space-5);
+  --radius: var(--ds-radius-md);
+  --content-gap: 20px;
+  --main-width: 900px;
+  --nav-width: 1440px;
+  --sidebar-width: 240px;
+  --toc-rail-width: 280px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --theme: var(--ds-bg);
+    --entry: var(--ds-surface);
+    --primary: var(--ds-text);
+    --secondary: var(--ds-text-muted);
+    --tertiary: var(--ds-tertiary);
+    --content: var(--ds-content);
+    --code-block-bg: var(--ds-code-block-bg);
+    --code-bg: var(--ds-code-bg);
+    --border: var(--ds-border);
+    --accent: var(--ds-accent);
+  }
+}
+/* ds-alias-allow-end */
+
+/* ==========================================================================
+   2. Global chrome (logo, nav, links, tag pills, list-entry hover rule)
+   ========================================================================== */
+
+.skip-link {
+  position: absolute;
+  left: var(--ds-space-2);
+  top: var(--ds-space-2);
+  z-index: 1000;
+  padding: var(--ds-space-2) var(--ds-space-3);
+  background: var(--ds-accent);
+  color: var(--ds-accent-fg);
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  font-size: var(--ds-fs-2);
+  text-decoration: none;
+  border-radius: var(--ds-radius-sm);
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 /* Monospace for structural/meta text; body copy stays the readable sans
@@ -101,6 +144,10 @@
   border-color: var(--accent);
 }
 
+/* ==========================================================================
+   3. Post widgets (series nav, related posts, backlinks)
+   ========================================================================== */
+
 /* Series nav (auto from series + series_weight front matter) */
 .series-nav {
   margin-top: var(--gap, 24px);
@@ -109,26 +156,26 @@
 }
 
 .series-nav-title {
-  font-size: 1rem;
+  font-size: var(--ds-fs-3);
   color: var(--secondary);
-  margin: 0 0 0.25rem;
+  margin: 0 0 var(--ds-space-1);
 }
 
 .series-nav-name {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.85rem;
+  font-size: var(--ds-fs-2);
   color: var(--accent);
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--ds-space-3);
 }
 
 .series-nav-list {
   list-style: none;
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--ds-space-3);
   padding: 0;
 }
 
 .series-nav-entry {
-  padding: 0.25rem 0;
+  padding: var(--ds-space-1) 0;
   color: var(--content);
 }
 
@@ -136,7 +183,7 @@
   display: inline-block;
   min-width: 6.5rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.8rem;
+  font-size: var(--ds-fs-1);
   color: var(--secondary);
 }
 
@@ -152,7 +199,7 @@
 .series-nav-index {
   margin: 0;
   padding-left: 1.25rem;
-  font-size: 0.9rem;
+  font-size: var(--ds-fs-2);
   color: var(--secondary);
 }
 
@@ -180,9 +227,9 @@
 }
 
 .related-posts-title {
-  font-size: 1rem;
+  font-size: var(--ds-fs-3);
   color: var(--secondary);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--ds-space-2);
 }
 
 .related-posts-list {
@@ -193,7 +240,7 @@
 
 .related-posts-entry {
   border-left: 2px solid transparent;
-  padding: 0.4rem 0.75rem;
+  padding: 0.4rem var(--ds-space-3);
 }
 
 .related-posts-entry:hover,
@@ -210,6 +257,62 @@
   color: var(--accent);
 }
 
+/* Backlinks section (plan 0004 / D6, vault notes only): same
+   left-rule-lights-up-on-hover list treatment as Related Posts (plan
+   0002 / D4) above, so it reads as part of the same list-style family. */
+.backlinks {
+  margin-top: var(--gap);
+  padding-top: var(--gap);
+  border-top: 1px solid var(--border);
+}
+
+.backlinks-title {
+  font-size: var(--ds-fs-3);
+  color: var(--secondary);
+  margin-bottom: var(--ds-space-2);
+}
+
+.backlinks-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.backlinks-list li {
+  border-left: 2px solid transparent;
+  padding: 0.4rem var(--ds-space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+}
+
+.backlinks-list li:hover,
+.backlinks-list li:focus-within {
+  border-left-color: var(--accent);
+}
+
+.backlinks-list a {
+  color: var(--content);
+  text-decoration: none;
+}
+
+.backlinks-list a:hover {
+  color: var(--accent);
+}
+
+.backlink-kind {
+  font-size: var(--ds-fs-1);
+  color: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.1rem 0.4rem;
+}
+
+.backlinks-empty {
+  font-size: var(--ds-fs-2);
+  color: var(--secondary);
+}
+
 /* Site-wide sidebar shell (plan 0004 / D1, ADR 0006): every page renders
    inside a persistent two-column grid (bio rail + content), replacing the
    theme's single centered `.main` column. `.main`'s own max-width (set by
@@ -218,13 +321,13 @@
    layouts/_default/baseof.html now wraps every page in it.
 
    Widths: PaperMod defaults --main-width 720 / --nav-width 1024 are too
-   narrow once bio + TOC rails exist; content was squeezing into ~480px. */
-:root {
-  --main-width: 900px;
-  --nav-width: 1440px;
-  --sidebar-width: 240px;
-  --toc-rail-width: 280px;
-}
+   narrow once bio + TOC rails exist; content was squeezing into ~480px.
+   --main-width / --nav-width / --sidebar-width / --toc-rail-width are
+   defined in the alias block above. */
+
+/* ==========================================================================
+   4. Shell / sidebar / TOC
+   ========================================================================== */
 
 .main {
   /* Room for left bio + reading column + right TOC (even on non-post pages
@@ -242,7 +345,7 @@
 
 .page-shell {
   display: grid;
-  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  grid-template-columns: 1fr;
   gap: calc(var(--gap) * 2);
   align-items: start;
 }
@@ -252,8 +355,7 @@
 }
 
 .site-sidebar {
-  position: sticky;
-  top: var(--gap);
+  position: static;
 }
 
 .sidebar-bio {
@@ -272,12 +374,12 @@
 }
 
 .sidebar-title {
-  font-size: 1.1rem;
-  margin: 0 0 0.5rem;
+  font-size: var(--ds-fs-4);
+  margin: 0 0 var(--ds-space-2);
 }
 
 .sidebar-content {
-  font-size: 0.95rem;
+  font-size: var(--ds-fs-3);
   color: var(--content);
 }
 
@@ -289,16 +391,16 @@
   margin-top: var(--content-gap);
 }
 
-/* Below ~1024px both rails collapse via CSS reflow only -- no separate
-   mobile markup/partial, per ADR 0006's responsive framing. The sidebar
-   becomes a stacked card above the page content. */
-@media (max-width: 1024px) {
+/* Desktop: bio rail + content. Mobile-first default above is stacked
+   (ADR 0006). Canonical cut is 1024 — no overlapping max-width query. */
+@media (min-width: 1024px) {
   .page-shell {
-    grid-template-columns: 1fr;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
   }
 
   .site-sidebar {
-    position: static;
+    position: sticky;
+    top: var(--gap);
   }
 }
 
@@ -307,8 +409,10 @@
    (title top-aligned with TOC) so the TOC never stacks above the post. */
 .post-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--toc-rail-width);
-  grid-template-areas: "article toc";
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "article"
+    "toc";
   column-gap: calc(var(--gap) * 1.5);
   row-gap: var(--gap);
   align-items: start;
@@ -328,12 +432,11 @@
 
 .post-toc-rail {
   grid-area: toc;
-  position: sticky;
+  position: static;
   top: var(--gap);
-  max-height: calc(100vh - var(--gap) * 2);
-  overflow-y: auto;
+  max-height: none;
+  overflow-y: visible;
   align-self: start;
-  /* Match sticky bio rail vertical start inside .main padding */
   margin-top: 0;
 }
 
@@ -350,7 +453,7 @@
 .post-toc-rail details.toc summary {
   padding: 0.55rem 0.85rem;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.72rem;
+  font-size: var(--ds-fs-1);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--accent);
@@ -366,7 +469,7 @@
 }
 
 .post-toc-rail details.toc .inner {
-  padding: 0.15rem 0.85rem 0.75rem;
+  padding: 0.15rem 0.85rem var(--ds-space-3);
 }
 
 .post-toc-rail details.toc .inner ul {
@@ -381,12 +484,12 @@
 
 .post-toc-rail details.toc .inner a {
   display: block;
-  font-size: 0.82rem;
+  font-size: var(--ds-fs-2);
   line-height: 1.35;
   color: var(--secondary);
   text-decoration: none;
   padding: 0.2rem 0.35rem;
-  border-radius: 4px;
+  border-radius: var(--ds-radius-sm);
   border-left: 2px solid transparent;
 }
 
@@ -404,8 +507,19 @@
   background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
-/* Desktop: keep TOC permanently expanded — no click-to-open, no layout jump. */
-@media (min-width: 1025px) {
+/* Desktop: article + sticky TOC, permanently expanded. */
+@media (min-width: 1024px) {
+  .post-shell {
+    grid-template-columns: minmax(0, 1fr) var(--toc-rail-width);
+    grid-template-areas: "article toc";
+  }
+
+  .post-toc-rail {
+    position: sticky;
+    max-height: calc(100vh - var(--gap) * 2);
+    overflow-y: auto;
+  }
+
   .post-toc-rail details.toc summary {
     pointer-events: none;
     cursor: default;
@@ -427,85 +541,9 @@
   grid-template-areas: "article";
 }
 
-/* Narrow: single column — article (title) first, TOC below. */
-@media (max-width: 1024px) {
-  .post-shell {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      "article"
-      "toc";
-  }
-
-  .post-toc-rail {
-    position: static;
-    max-height: none;
-    overflow-y: visible;
-  }
-
-  .post-toc-rail details.toc summary {
-    pointer-events: auto;
-    cursor: pointer;
-  }
-}
-
-/* Backlinks section (plan 0004 / D6, vault notes only): same
-   left-rule-lights-up-on-hover list treatment as Related Posts (plan
-   0002 / D4) above, so it reads as part of the same list-style family. */
-.backlinks {
-  margin-top: var(--gap);
-  padding-top: var(--gap);
-  border-top: 1px solid var(--border);
-}
-
-.backlinks-title {
-  font-size: 1rem;
-  color: var(--secondary);
-  margin-bottom: 0.5rem;
-}
-
-.backlinks-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.backlinks-list li {
-  border-left: 2px solid transparent;
-  padding: 0.4rem 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.backlinks-list li:hover,
-.backlinks-list li:focus-within {
-  border-left-color: var(--accent);
-}
-
-.backlinks-list a {
-  color: var(--content);
-  text-decoration: none;
-}
-
-.backlinks-list a:hover {
-  color: var(--accent);
-}
-
-.backlink-kind {
-  font-size: 0.75rem;
-  color: var(--secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 0.1rem 0.4rem;
-}
-
-.backlinks-empty {
-  font-size: 0.9rem;
-  color: var(--secondary);
-}
-
 /* ==========================================================================
-   About page — portfolio layout (3.jpg-inspired, console theme)
+   5. About (hero, stats, constellation, skills, impact, approach)
+   Portfolio layout (3.jpg-inspired, console theme).
    Data-driven from content/about.md; constellation interactivity in
    assets/js/about-constellation.js. WebGL can replace the SVG later using
    the same data-node-id / data-cluster contract.
@@ -523,7 +561,7 @@
 
 .about-section-head h2 {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 1.15rem;
+  font-size: var(--ds-fs-4);
   margin: 0 0 0.35rem;
   letter-spacing: 0.02em;
 }
@@ -531,7 +569,7 @@
 .about-section-sub,
 .about-section-label {
   color: var(--secondary);
-  font-size: 0.9rem;
+  font-size: var(--ds-fs-2);
   margin: 0;
 }
 
@@ -540,7 +578,7 @@
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 0.72rem;
+  font-size: var(--ds-fs-1);
   margin-bottom: 0.6rem;
 }
 
@@ -585,21 +623,21 @@
 .about-badge {
   display: inline-block;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.75rem;
+  font-size: var(--ds-fs-1);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--accent);
   background: var(--tertiary);
   border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 0.25rem 0.7rem;
-  margin: 0 0 1rem;
+  border-radius: var(--ds-radius-full);
+  padding: var(--ds-space-1) 0.7rem;
+  margin: 0 0 var(--ds-space-4);
 }
 
 .about-headline {
-  font-size: clamp(1.75rem, 4vw, 2.4rem);
+  font-size: clamp(var(--ds-fs-6), 4vw, var(--ds-fs-7));
   line-height: 1.15;
-  margin: 0 0 1rem;
+  margin: 0 0 var(--ds-space-4);
   font-weight: 700;
 }
 
@@ -615,16 +653,16 @@
 }
 
 .about-lede {
-  font-size: 1.05rem;
+  font-size: var(--ds-fs-3);
   line-height: 1.55;
   color: var(--content);
   max-width: 40rem;
-  margin: 0 0 0.5rem;
+  margin: 0 0 var(--ds-space-2);
 }
 
 .about-location {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.85rem;
+  font-size: var(--ds-fs-2);
   color: var(--secondary);
   margin: 0;
 }
@@ -633,7 +671,7 @@
   display: grid;
   gap: 0.65rem;
   margin: 0 0 1.25rem;
-  padding: 0.85rem 1rem;
+  padding: 0.85rem var(--ds-space-4);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background:
@@ -651,7 +689,7 @@
 
 .about-status-label {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.68rem;
+  font-size: var(--ds-fs-1);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent);
@@ -659,13 +697,13 @@
 
 .about-status-text {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: var(--ds-fs-3);
   line-height: 1.45;
   color: var(--content);
   max-width: 42rem;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 640px) {
   .about-hero-main {
     flex-direction: column;
     align-items: center;
@@ -688,21 +726,21 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--ds-space-5);
 }
 
 .about-cta {
   display: inline-flex;
   align-items: center;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.88rem;
-  padding: 0.55rem 1rem;
-  border-radius: 999px;
+  font-size: var(--ds-fs-2);
+  padding: 0.55rem var(--ds-space-4);
+  border-radius: var(--ds-radius-full);
   border: 1px solid var(--border);
   background: var(--entry);
   color: var(--primary);
   text-decoration: none;
-  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  transition: border-color var(--ds-dur-fast) var(--ds-ease-out), color var(--ds-dur-fast) var(--ds-ease-out), background var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .about-cta:hover,
@@ -734,7 +772,7 @@
 
 .about-tech-item {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.8rem;
+  font-size: var(--ds-fs-1);
   padding: 0.3rem 0.65rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -746,7 +784,7 @@
 .about-stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: var(--ds-space-3);
   margin-bottom: calc(var(--gap) * 2);
 }
 
@@ -754,13 +792,13 @@
   background: var(--entry);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1rem 0.85rem;
+  padding: var(--ds-space-4) 0.85rem;
   border-top: 2px solid var(--accent);
 }
 
 .about-stat-value {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 1.35rem;
+  font-size: var(--ds-fs-5);
   font-weight: 700;
   color: var(--accent);
   line-height: 1.2;
@@ -768,19 +806,19 @@
 }
 
 .about-stat-label {
-  font-size: 0.88rem;
+  font-size: var(--ds-fs-2);
   font-weight: 600;
   color: var(--primary);
-  margin-bottom: 0.25rem;
+  margin-bottom: var(--ds-space-1);
 }
 
 .about-stat-detail {
-  font-size: 0.78rem;
+  font-size: var(--ds-fs-1);
   color: var(--secondary);
   line-height: 1.35;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 640px) {
   .about-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -796,7 +834,7 @@
   background: var(--entry);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 0.75rem 0.75rem 0.5rem;
+  padding: var(--ds-space-3) var(--ds-space-3) var(--ds-space-2);
   overflow: hidden;
 }
 
@@ -815,7 +853,7 @@
 .about-constellation-edge {
   stroke: var(--border);
   stroke-width: 0.35;
-  transition: stroke 0.18s ease, stroke-opacity 0.18s ease, stroke-width 0.18s ease;
+  transition: stroke var(--ds-dur-fast) var(--ds-ease-out), stroke-opacity var(--ds-dur-fast) var(--ds-ease-out), stroke-width var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .about-constellation-edge.is-active {
@@ -837,12 +875,12 @@
   fill: var(--accent);
   stroke: var(--theme);
   stroke-width: 0.35;
-  transition: r 0.15s ease, fill 0.15s ease;
+  transition: r var(--ds-dur-fast) var(--ds-ease-out), fill var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .about-constellation-halo {
   opacity: 0.35;
-  transition: opacity 0.15s ease;
+  transition: opacity var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .about-constellation-label {
@@ -850,7 +888,7 @@
   font-size: 2.4px;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
   pointer-events: none;
-  transition: fill 0.15s ease;
+  transition: fill var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .about-constellation-node:hover .about-constellation-dot,
@@ -893,7 +931,7 @@
 .about-constellation-stage {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(14rem, 1fr);
-  gap: 1rem;
+  gap: var(--ds-space-4);
   align-items: start;
 }
 
@@ -901,7 +939,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--entry);
-  padding: 1rem 1.05rem 1.1rem;
+  padding: var(--ds-space-4) 1.05rem 1.1rem;
   min-height: 11rem;
   position: sticky;
   top: 1rem;
@@ -915,7 +953,7 @@
 .about-node-detail-kicker {
   margin: 0 0 0.35rem;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.68rem;
+  font-size: var(--ds-fs-1);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--secondary);
@@ -923,28 +961,28 @@
 
 .about-node-detail-title {
   margin: 0 0 0.4rem;
-  font-size: 1.15rem;
+  font-size: var(--ds-fs-4);
   line-height: 1.25;
   color: var(--primary);
 }
 
 .about-node-detail-cluster {
   display: inline-block;
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--ds-space-3);
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.72rem;
+  font-size: var(--ds-fs-1);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--accent);
   border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
-  border-radius: 999px;
+  border-radius: var(--ds-radius-full);
   padding: 0.15rem 0.55rem;
   background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .about-node-detail-body {
   margin: 0;
-  font-size: 0.92rem;
+  font-size: var(--ds-fs-2);
   line-height: 1.55;
   color: var(--content);
 }
@@ -957,9 +995,9 @@
 .about-node-detail-clear {
   margin-top: 0.9rem;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.78rem;
+  font-size: var(--ds-fs-1);
   padding: 0.4rem 0.7rem;
-  border-radius: 999px;
+  border-radius: var(--ds-radius-full);
   border: 1px solid var(--border);
   background: var(--theme);
   color: var(--secondary);
@@ -978,7 +1016,7 @@
   font-weight: 600;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 640px) {
   .about-constellation-stage {
     grid-template-columns: 1fr;
   }
@@ -990,9 +1028,9 @@
 }
 
 .about-constellation-caption {
-  font-size: 0.78rem;
+  font-size: var(--ds-fs-1);
   color: var(--secondary);
-  margin: 0.55rem 0.25rem 0.15rem;
+  margin: 0.55rem var(--ds-space-1) 0.15rem;
   line-height: 1.4;
 }
 
@@ -1005,10 +1043,10 @@
   background: var(--entry);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.15rem 1.15rem 1rem;
-  margin-bottom: 0.75rem;
+  padding: 1.15rem 1.15rem var(--ds-space-4);
+  margin-bottom: var(--ds-space-3);
   border-left: 3px solid var(--accent);
-  transition: opacity 0.15s ease, border-color 0.15s ease;
+  transition: opacity var(--ds-dur-fast) var(--ds-ease-out), border-color var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .about-skills-primary-head,
@@ -1017,26 +1055,26 @@
   align-items: center;
   gap: 0.6rem;
   flex-wrap: wrap;
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--ds-space-3);
 }
 
 .about-skills-primary h3,
 .about-skills-web h3,
 .about-skills-card h3 {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.95rem;
+  font-size: var(--ds-fs-3);
   margin: 0;
 }
 
 .about-skills-flag {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.68rem;
+  font-size: var(--ds-fs-1);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--theme);
   background: var(--accent);
-  border-radius: 999px;
-  padding: 0.15rem 0.5rem;
+  border-radius: var(--ds-radius-full);
+  padding: 0.15rem var(--ds-space-2);
 }
 
 .about-skills-flag--muted {
@@ -1049,23 +1087,23 @@
   background: color-mix(in srgb, var(--entry) 70%, transparent);
   border: 1px dashed var(--border);
   border-radius: var(--radius);
-  padding: 0.7rem 1rem;
-  margin-bottom: 0.75rem;
-  transition: opacity 0.15s ease;
+  padding: 0.7rem var(--ds-space-4);
+  margin-bottom: var(--ds-space-3);
+  transition: opacity var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .about-skills-secondary {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: var(--ds-space-3);
 }
 
 .about-skills-card {
   background: var(--entry);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1rem;
-  transition: opacity 0.15s ease, border-color 0.15s ease;
+  padding: var(--ds-space-4);
+  transition: opacity var(--ds-dur-fast) var(--ds-ease-out), border-color var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .about-skills-card.is-active,
@@ -1080,7 +1118,7 @@
   opacity: 0.45;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 640px) {
   .about-skills-secondary {
     grid-template-columns: 1fr;
   }
@@ -1097,14 +1135,14 @@
 
 .about-pill {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.78rem;
+  font-size: var(--ds-fs-1);
   padding: 0.35rem 0.65rem;
-  border-radius: 999px;
+  border-radius: var(--ds-radius-full);
   border: 1px solid var(--border);
   background: var(--theme);
   color: var(--content);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+  transition: background var(--ds-dur-fast) var(--ds-ease-out), border-color var(--ds-dur-fast) var(--ds-ease-out), color var(--ds-dur-fast) var(--ds-ease-out), opacity var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .about-pill:hover,
@@ -1121,13 +1159,13 @@
 }
 
 .about-pills--primary .about-pill {
-  font-size: 0.82rem;
-  padding: 0.4rem 0.75rem;
+  font-size: var(--ds-fs-2);
+  padding: 0.4rem var(--ds-space-3);
 }
 
 .about-pill--strip {
-  font-size: 0.72rem;
-  padding: 0.25rem 0.55rem;
+  font-size: var(--ds-fs-1);
+  padding: var(--ds-space-1) 0.55rem;
 }
 
 /* --- Impact --- */
@@ -1138,29 +1176,29 @@
 .about-impact-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: var(--ds-space-3);
 }
 
 .about-impact-card {
   background: var(--entry);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.1rem 1rem;
-  transition: opacity 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  padding: 1.1rem var(--ds-space-4);
+  transition: opacity var(--ds-dur-fast) var(--ds-ease-out), border-color var(--ds-dur-fast) var(--ds-ease-out), transform var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .about-impact-card h3 {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.95rem;
+  font-size: var(--ds-fs-3);
   margin: 0 0 0.55rem;
   color: var(--primary);
 }
 
 .about-impact-card p {
-  font-size: 0.9rem;
+  font-size: var(--ds-fs-2);
   line-height: 1.5;
   color: var(--content);
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--ds-space-3);
 }
 
 .about-impact-tags {
@@ -1174,10 +1212,10 @@
 
 .about-impact-tags li {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.7rem;
+  font-size: var(--ds-fs-1);
   color: var(--accent);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--ds-radius-full);
   padding: 0.12rem 0.45rem;
 }
 
@@ -1190,7 +1228,7 @@
   opacity: 0.45;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .about-impact-grid {
     grid-template-columns: 1fr;
   }
@@ -1208,12 +1246,12 @@
 .about-approach-tagline {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
   color: var(--accent);
-  font-size: 0.95rem;
-  margin: 0.25rem 0 0;
+  font-size: var(--ds-fs-3);
+  margin: var(--ds-space-1) 0 0;
 }
 
 .about-approach-steps {
-  margin: 1rem 0 0;
+  margin: var(--ds-space-4) 0 0;
   padding-left: 1.2rem;
   color: var(--content);
 }
@@ -1231,24 +1269,14 @@
 }
 
 .about-footer-line {
-  font-size: 1.05rem;
-  margin: 0 0 1rem;
+  font-size: var(--ds-fs-3);
+  margin: 0 0 var(--ds-space-4);
   color: var(--primary);
 }
 
 .about-footer .about-ctas {
   justify-content: center;
   margin-bottom: 0;
-}
-
-/* color-mix fallback for older browsers: ignore fancy gradients */
-@supports not (background: color-mix(in srgb, white 50%, black)) {
-  .about-skills-web {
-    background: var(--entry);
-  }
-  .about-constellation-svg {
-    background: var(--entry);
-  }
 }
 
 /* --- Constellation WebGL layer --- */
@@ -1287,13 +1315,13 @@
   left: 0;
   top: 0;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.68rem;
+  font-size: var(--ds-fs-1);
   color: var(--secondary);
   white-space: nowrap;
   text-shadow:
     0 0 6px var(--entry),
     0 0 10px var(--entry);
-  transition: color 0.15s ease, opacity 0.15s ease;
+  transition: color var(--ds-dur-fast) var(--ds-ease-out), opacity var(--ds-dur-fast) var(--ds-ease-out);
   opacity: 0.9;
 }
 
@@ -1320,23 +1348,9 @@
   border: 0;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .about-constellation-webgl {
-    display: none !important;
-  }
-  .about-constellation-figure--webgl .about-constellation-svg {
-    position: static;
-    width: auto;
-    height: auto;
-    margin: 0;
-    clip: auto;
-    overflow: visible;
-    white-space: normal;
-  }
-}
-
 /* ==========================================================================
-   Homepage — ops dashboard (A) + magazine desk (B)
+   6. Home (hero, featured, panels, building, graph, recent, archives, projects)
+   Ops dashboard (A) + magazine desk (B).
    Full archive intentionally NOT listed here; see /archives/.
    ========================================================================== */
 
@@ -1351,14 +1365,14 @@
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 0.35rem 1rem;
+  gap: 0.35rem var(--ds-space-4);
   margin-bottom: 0.85rem;
 }
 
 .home-section-head h2,
 .home-panel-title {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.95rem;
+  font-size: var(--ds-fs-3);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   margin: 0;
@@ -1367,8 +1381,8 @@
 
 .home-section-sub,
 .home-panel-sub {
-  margin: 0.25rem 0 0;
-  font-size: 0.85rem;
+  margin: var(--ds-space-1) 0 0;
+  font-size: var(--ds-fs-2);
   color: var(--secondary);
 }
 
@@ -1400,16 +1414,16 @@
 .home-hero-inner {
   position: relative;
   z-index: 1;
-  padding: 1.5rem 1.35rem 1.35rem;
+  padding: var(--ds-space-5) 1.35rem 1.35rem;
 }
 
 .home-status-label {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.72rem;
+  font-size: var(--ds-fs-1);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--accent);
-  margin: 0 0 0.5rem;
+  margin: 0 0 var(--ds-space-2);
 }
 
 .home-status-label::before {
@@ -1419,7 +1433,7 @@
 
 .home-hero-title {
   margin: 0 0 1.1rem;
-  font-size: clamp(1.25rem, 2.8vw, 1.65rem);
+  font-size: clamp(var(--ds-fs-4), 2.8vw, var(--ds-fs-6));
   line-height: 1.35;
   font-weight: 600;
 }
@@ -1427,7 +1441,7 @@
 .home-hero-kicker {
   display: block;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.85rem;
+  font-size: var(--ds-fs-2);
   color: var(--accent);
   font-weight: 500;
   margin-bottom: 0.35rem;
@@ -1442,21 +1456,21 @@
 .home-hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--ds-space-2);
 }
 
 .home-btn {
   display: inline-flex;
   align-items: center;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.82rem;
+  font-size: var(--ds-fs-2);
   padding: 0.45rem 0.85rem;
-  border-radius: 999px;
+  border-radius: var(--ds-radius-full);
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--theme) 70%, transparent);
   color: var(--primary);
   text-decoration: none;
-  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  transition: border-color var(--ds-dur-fast) var(--ds-ease-out), color var(--ds-dur-fast) var(--ds-ease-out), background var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .home-btn:hover,
@@ -1490,7 +1504,7 @@
   border-radius: var(--radius);
   background: var(--entry);
   overflow: hidden;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition: border-color var(--ds-dur-fast) var(--ds-ease-out), transform var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .home-feature-card:hover {
@@ -1520,13 +1534,13 @@
 
 .home-meta {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.75rem;
+  font-size: var(--ds-fs-1);
   color: var(--secondary);
-  margin: 0 0 0.5rem;
+  margin: 0 0 var(--ds-space-2);
 }
 
 .home-meta-sep {
-  margin: 0 0.25rem;
+  margin: 0 var(--ds-space-1);
 }
 
 .home-topic-inline {
@@ -1539,7 +1553,7 @@
 }
 
 .home-feature-title {
-  font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+  font-size: clamp(var(--ds-fs-4), 2.5vw, var(--ds-fs-6));
   margin: 0 0 0.65rem;
   line-height: 1.25;
 }
@@ -1557,12 +1571,12 @@
   margin: 0 0 0.9rem;
   color: var(--content);
   line-height: 1.5;
-  font-size: 0.95rem;
+  font-size: var(--ds-fs-3);
 }
 
 .home-read-more {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.85rem;
+  font-size: var(--ds-fs-2);
   color: var(--accent);
   text-decoration: none;
   margin-top: auto;
@@ -1572,7 +1586,7 @@
   text-decoration: underline;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 640px) {
   .home-feature-card {
     grid-template-columns: 1fr;
   }
@@ -1586,7 +1600,7 @@
 .home-panels {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: var(--ds-space-3);
   margin-bottom: calc(var(--gap) * 1.5);
 }
 
@@ -1594,7 +1608,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--entry);
-  padding: 1rem 0.95rem;
+  padding: var(--ds-space-4) 0.95rem;
 }
 
 .home-panel-title {
@@ -1603,7 +1617,7 @@
 
 .home-topic-chips {
   list-style: none;
-  margin: 0.75rem 0 0;
+  margin: var(--ds-space-3) 0 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
@@ -1615,14 +1629,14 @@
   align-items: center;
   gap: 0.35rem;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.75rem;
+  font-size: var(--ds-fs-1);
   padding: 0.3rem 0.55rem;
-  border-radius: 999px;
+  border-radius: var(--ds-radius-full);
   border: 1px solid var(--border);
   color: var(--content);
   text-decoration: none;
   background: var(--theme);
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: border-color var(--ds-dur-fast) var(--ds-ease-out), color var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .home-chip:hover,
@@ -1633,7 +1647,7 @@
 
 .home-chip-count {
   color: var(--secondary);
-  font-size: 0.7rem;
+  font-size: var(--ds-fs-1);
 }
 
 .home-building {
@@ -1676,7 +1690,7 @@
   background: var(--entry);
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color var(--ds-dur-fast) var(--ds-ease-out), box-shadow var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 a.home-building-card:hover,
@@ -1687,18 +1701,18 @@ a.home-building-card:focus-visible {
 
 .home-building-label {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.88rem;
+  font-size: var(--ds-fs-2);
   font-weight: 600;
   color: var(--primary);
 }
 
 .home-building-note {
-  font-size: 0.85rem;
+  font-size: var(--ds-fs-2);
   line-height: 1.4;
   color: var(--secondary);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 640px) {
   .home-building-list--cards {
     grid-template-columns: 1fr;
   }
@@ -1711,7 +1725,7 @@ a.home-building-card:focus-visible {
   border-radius: 2px;
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition: border-color var(--ds-dur-fast) var(--ds-ease-out), background var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .home-building-item:hover,
@@ -1723,27 +1737,27 @@ a.home-building-card:focus-visible {
 .home-building-title {
   display: block;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.82rem;
+  font-size: var(--ds-fs-2);
   color: var(--primary);
   margin-bottom: 0.15rem;
 }
 
 .home-building-blurb {
   display: block;
-  font-size: 0.78rem;
+  font-size: var(--ds-fs-1);
   color: var(--secondary);
   line-height: 1.35;
 }
 
 .home-graph-card {
   display: block;
-  margin-top: 0.75rem;
+  margin-top: var(--ds-space-3);
   text-decoration: none;
   color: inherit;
   border: 1px dashed var(--border);
   border-radius: var(--radius);
-  padding: 0.75rem;
-  transition: border-color 0.15s ease;
+  padding: var(--ds-space-3);
+  transition: border-color var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .home-graph-card:hover {
@@ -1791,11 +1805,11 @@ a.home-building-card:focus-visible {
 
 .home-graph-cta {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.8rem;
+  font-size: var(--ds-fs-1);
   color: var(--accent);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .home-panels {
     grid-template-columns: 1fr;
   }
@@ -1809,7 +1823,7 @@ a.home-building-card:focus-visible {
 .home-recent-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: var(--ds-space-3);
 }
 
 .home-card {
@@ -1818,7 +1832,7 @@ a.home-building-card:focus-visible {
   background: var(--entry);
   overflow: hidden;
   border-left: 2px solid transparent;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition: border-color var(--ds-dur-fast) var(--ds-ease-out), transform var(--ds-dur-fast) var(--ds-ease-out);
   display: flex;
   flex-direction: column;
 }
@@ -1845,14 +1859,14 @@ a.home-building-card:focus-visible {
 }
 
 .home-card-body {
-  padding: 0.85rem 0.9rem 1rem;
+  padding: 0.85rem 0.9rem var(--ds-space-4);
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .home-card-title {
-  font-size: 1.05rem;
+  font-size: var(--ds-fs-3);
   margin: 0 0 0.4rem;
   line-height: 1.3;
 }
@@ -1868,7 +1882,7 @@ a.home-building-card:focus-visible {
 
 .home-card-summary {
   margin: 0 0 0.65rem;
-  font-size: 0.88rem;
+  font-size: var(--ds-fs-2);
   color: var(--content);
   line-height: 1.45;
   flex: 1;
@@ -1885,10 +1899,10 @@ a.home-building-card:focus-visible {
 
 .home-card-topics a {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.68rem;
+  font-size: var(--ds-fs-1);
   color: var(--accent);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--ds-radius-full);
   padding: 0.1rem 0.4rem;
   text-decoration: none;
 }
@@ -1911,20 +1925,20 @@ a.home-building-card:focus-visible {
 
 .home-archive-list {
   list-style: none;
-  margin: 0 0 1rem;
+  margin: 0 0 var(--ds-space-4);
   padding: 0;
 }
 
 .home-archive-row {
   display: grid;
   grid-template-columns: 3.5rem 1fr;
-  gap: 0.75rem;
+  gap: var(--ds-space-3);
   align-items: baseline;
   padding: 0.55rem 0.35rem;
   border-left: 2px solid transparent;
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s ease;
+  transition: border-color var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .home-archive-row:hover,
@@ -1934,13 +1948,13 @@ a.home-building-card:focus-visible {
 
 .home-archive-row time {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.8rem;
+  font-size: var(--ds-fs-1);
   color: var(--secondary);
 }
 
 .home-archive-row-title {
   color: var(--primary);
-  font-size: 0.95rem;
+  font-size: var(--ds-fs-3);
 }
 
 .home-archive-row:hover .home-archive-row-title {
@@ -1948,30 +1962,7 @@ a.home-building-card:focus-visible {
 }
 
 .home-archives-cta {
-  margin: 0.5rem 0 0;
-}
-
-@supports not (background: color-mix(in srgb, white 50%, black)) {
-  .home-btn {
-    background: var(--entry);
-  }
-  .home-building-item:hover {
-    background: var(--tertiary);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-feature-card,
-  .home-card {
-    transition: none;
-  }
-  .home-feature-card:hover,
-  .home-card:hover {
-    transform: none;
-  }
-  .home-hero-webgl {
-    display: none;
-  }
+  margin: var(--ds-space-2) 0 0;
 }
 
 /* --- Projects grid --- */
@@ -1982,18 +1973,18 @@ a.home-building-card:focus-visible {
 .home-projects-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: var(--ds-space-3);
 }
 
 .home-project-card {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--entry);
-  padding: 1.1rem 1rem 1rem;
+  padding: 1.1rem var(--ds-space-4) var(--ds-space-4);
   border-top: 2px solid var(--accent);
   display: flex;
   flex-direction: column;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition: border-color var(--ds-dur-fast) var(--ds-ease-out), transform var(--ds-dur-fast) var(--ds-ease-out);
 }
 
 .home-project-card:hover {
@@ -2005,20 +1996,20 @@ a.home-building-card:focus-visible {
   display: inline-block;
   align-self: flex-start;
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.68rem;
+  font-size: var(--ds-fs-1);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--accent);
   background: var(--tertiary);
   border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 0.15rem 0.5rem;
+  border-radius: var(--ds-radius-full);
+  padding: 0.15rem var(--ds-space-2);
   margin: 0 0 0.55rem;
 }
 
 .home-project-title {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 1.05rem;
+  font-size: var(--ds-fs-3);
   margin: 0 0 0.45rem;
   color: var(--primary);
   line-height: 1.3;
@@ -2026,7 +2017,7 @@ a.home-building-card:focus-visible {
 
 .home-project-blurb {
   margin: 0 0 0.85rem;
-  font-size: 0.88rem;
+  font-size: var(--ds-fs-2);
   line-height: 1.45;
   color: var(--content);
   flex: 1;
@@ -2035,13 +2026,13 @@ a.home-building-card:focus-visible {
 .home-project-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 0.85rem;
+  gap: var(--ds-space-2) 0.85rem;
   margin-top: auto;
 }
 
 .home-project-link {
   font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  font-size: 0.8rem;
+  font-size: var(--ds-fs-1);
   color: var(--secondary);
   text-decoration: none;
 }
@@ -2059,19 +2050,62 @@ a.home-building-card:focus-visible {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-@media (max-width: 720px) {
+@media (max-width: 640px) {
   .home-projects-grid {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .home-panels--two {
     grid-template-columns: 1fr;
   }
 }
 
+/* ==========================================================================
+   7. Shared @supports + prefers-reduced-motion
+   ========================================================================== */
+
+@supports not (background: color-mix(in srgb, white 50%, black)) {
+  .about-skills-web {
+    background: var(--entry);
+  }
+  .about-constellation-svg {
+    background: var(--entry);
+  }
+  .home-btn {
+    background: var(--entry);
+  }
+  .home-building-item:hover {
+    background: var(--tertiary);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .about-constellation-webgl {
+    display: none !important;
+  }
+  .about-constellation-figure--webgl .about-constellation-svg {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    clip: auto;
+    overflow: visible;
+    white-space: normal;
+  }
+
+  .home-hero-webgl {
+    display: none !important;
+  }
+
+  .home-feature-card,
+  .home-card {
+    transition: none;
+  }
+
+  .home-feature-card:hover,
+  .home-card:hover,
   .home-project-card:hover {
     transform: none;
   }

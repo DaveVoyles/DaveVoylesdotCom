@@ -5,7 +5,7 @@ help:
 	@echo "make submodules      - init PaperMod theme"
 	@echo "make preview         - hugo server -D -F (drafts + future)"
 	@echo "make build           - production hugo --minify"
-	@echo "make check           - content gates (topics, covers, claims, links)"
+	@echo "make check           - content gates + --ds-* token checker"
 	@echo "make test            - regression suites for check-content.sh, topics_mapping.py, triage_stale_content.py"
 	@echo "make list-future     - posts waiting on publish date"
 	@echo "make list-tags       - unique tags in content/posts"
@@ -27,6 +27,7 @@ build: submodules
 
 check:
 	./scripts/check-content.sh
+	./scripts/check-ds-tokens.sh --token-file assets/css/extended/00-tokens.css assets/css/extended/
 
 test:
 	./scripts/tests/test-check-content-narration.sh

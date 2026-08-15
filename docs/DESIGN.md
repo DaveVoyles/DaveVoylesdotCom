@@ -1,70 +1,76 @@
 # Design System — davevoyles.com
 
-> Snapshot of this site's **current** design as implemented, documented so a designer or agent can understand the visual system without reading source. Generated 2026-08-14 as part of a cross-site design inventory; source of truth is always the files listed in §Source Files.
+> Snapshot of this site's **current** design as implemented, documented so a designer or agent can understand the visual system without reading source. Updated 2026-08-14 for web-design-standards adoption (plan 0084 D12, issue #141). Shared structural rules: `~/.claude/skills/web-design-standards/SKILL.md`. Source of truth is always the files listed in §Source Files.
 
 ## At a Glance
 | | |
 |---|---|
 | Live URL | https://davevoyles.com |
 | Stack / framework | Hugo static site generator, theme [PaperMod](https://github.com/adityatelange/hugo-PaperMod) (git submodule under `themes/PaperMod/`) |
-| Styling approach | CSS custom properties. Theme ships base tokens in `themes/PaperMod/assets/css/core/theme-vars.css`; the site overrides/extends them in `assets/css/extended/custom.css`, which Hugo Pipes loads after the theme's own CSS |
+| Styling approach | CSS custom properties under `--ds-*` in `assets/css/extended/00-tokens.css` (loads first via Hugo `resources.Match` alpha concat). Component CSS in `assets/css/extended/custom.css` aliases PaperMod names onto those tokens. PaperMod base vars in `themes/PaperMod/assets/css/core/theme-vars.css` |
 | Theme modes | Both light and dark, toggled via `data-theme="light"` / `data-theme="dark"` on `<html>` (PaperMod's built-in toggle button + `localStorage`, `themes/PaperMod/layouts/baseof.html`) |
 | Overall vibe | A "console" theme layered on PaperMod's clean blog chrome: warm off-white/near-black backgrounds, a single green accent, and monospace type used deliberately for structural/meta text (nav, titles, post meta, TOC) so the site reads like a terminal/directory listing, while body copy stays a readable system sans-serif |
 
 ## Color Palette
-Real values from code — never approximate. The site redefines PaperMod's base tokens; PaperMod's own defaults are shown for reference but are overridden and not what renders.
+Real values from code — never approximate. Canonical definitions live in `assets/css/extended/00-tokens.css` on `:root` (light / day console). Dark overrides exist twice and must stay in sync: `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }` and `:root[data-theme="dark"]`. PaperMod/legacy names (`--theme`, `--entry`, `--accent`, …) still exist in `custom.css` as the migration alias layer.
 
 ### Light mode ("day console")
 | Token / usage | Hex / RGB | Where defined | Notes |
 |---|---|---|---|
-| Background (`--theme`) | `rgb(250, 249, 244)` → `#faf9f4` | `assets/css/extended/custom.css:11` | Warm off-white, not pure white |
-| Surface / card (`--entry`) | `rgb(255, 255, 255)` → `#ffffff` | `assets/css/extended/custom.css:12` | Cards, sidebar bio, TOC panel |
-| Text primary (`--primary`) | `rgb(24, 26, 22)` → `#181a16` | `assets/css/extended/custom.css:13` | Near-black, slight green cast |
-| Text secondary (`--secondary`) | `rgb(90, 95, 83)` → `#5a5f53` | `assets/css/extended/custom.css:14` | Meta text, labels |
-| Tertiary (`--tertiary`) | `rgb(210, 224, 200)` → `#d2e0c8` | `assets/css/extended/custom.css:15` | Tag pill background |
-| Content text (`--content`) | `rgb(32, 35, 28)` → `#20231c` | `assets/css/extended/custom.css:16` | Body copy color |
-| Code block bg (`--code-block-bg`) | `rgb(24, 26, 22)` → `#181a16` | `assets/css/extended/custom.css:17` | Fenced code blocks stay dark even in light mode |
-| Inline code bg (`--code-bg`) | `rgb(234, 238, 226)` → `#eaeee2` | `assets/css/extended/custom.css:18` | |
-| Border (`--border`) | `rgb(214, 220, 202)` → `#d6dcca` | `assets/css/extended/custom.css:19` | |
-| Accent (`--accent`) | `rgb(34, 99, 60)` → `#22633c` | `assets/css/extended/custom.css:20` | Green; links, active states, focus rings |
+| Background (`--ds-bg`) | `rgb(250, 249, 244)` → `#faf9f4` | `00-tokens.css` | Warm off-white, not pure white |
+| Elevated / surface (`--ds-bg-elevated`, `--ds-surface`) | `rgb(255, 255, 255)` → `#ffffff` | `00-tokens.css` | Cards, sidebar bio, TOC panel |
+| Text primary (`--ds-text`) | `rgb(24, 26, 22)` → `#181a16` | `00-tokens.css` | Near-black, slight green cast |
+| Text muted (`--ds-text-muted`) | `rgb(90, 95, 83)` → `#5a5f53` | `00-tokens.css` | Meta text, labels |
+| Content text (`--ds-content`) | `rgb(32, 35, 28)` → `#20231c` | `00-tokens.css` | Body copy |
+| Tertiary (`--ds-tertiary`) | `rgb(210, 224, 200)` → `#d2e0c8` | `00-tokens.css` | Tag pill background |
+| Border (`--ds-border`) | `rgb(214, 220, 202)` → `#d6dcca` | `00-tokens.css` | |
+| Accent / link / success (`--ds-accent`, `--ds-link`, `--ds-success`) | `rgb(34, 99, 60)` → `#22633c` | `00-tokens.css` | Console green |
+| Text on accent (`--ds-accent-fg`) | `rgb(250, 249, 244)` → `#faf9f4` | `00-tokens.css` | |
+| Warn (`--ds-warn`) | `rgb(176, 128, 40)` → `#b08028` | `00-tokens.css` | |
+| Error (`--ds-error`) | `rgb(160, 64, 56)` → `#a04038` | `00-tokens.css` | |
+| Inline code (`--ds-code-bg`) | `rgb(234, 238, 226)` → `#eaeee2` | `00-tokens.css` | |
+| Code block (`--ds-code-block-bg`) | `rgb(24, 26, 22)` → `#181a16` | `00-tokens.css` | Fenced blocks stay dark in light mode |
 
 ### Dark mode ("night console")
 | Token / usage | Hex / RGB | Where defined | Notes |
 |---|---|---|---|
-| Background (`--theme`) | `rgb(13, 15, 13)` → `#0d0f0d` | `assets/css/extended/custom.css:26` | |
-| Surface / card (`--entry`) | `rgb(18, 22, 17)` → `#121611` | `assets/css/extended/custom.css:27` | |
-| Text primary (`--primary`) | `rgb(239, 236, 224)` → `#efece0` | `assets/css/extended/custom.css:28` | |
-| Text secondary (`--secondary`) | `rgb(138, 143, 125)` → `#8a8f7d` | `assets/css/extended/custom.css:29` | |
-| Tertiary (`--tertiary`) | `rgb(38, 48, 38)` → `#263026` | `assets/css/extended/custom.css:30` | |
-| Content text (`--content`) | `rgb(195, 192, 179)` → `#c3c0b3` | `assets/css/extended/custom.css:31` | |
-| Code block bg (`--code-block-bg`) | `rgb(18, 22, 17)` → `#121611` | `assets/css/extended/custom.css:32` | |
-| Inline code bg (`--code-bg`) | `rgb(26, 32, 24)` → `#1a2018` | `assets/css/extended/custom.css:33` | |
-| Border (`--border`) | `rgb(38, 48, 38)` → `#263026` | `assets/css/extended/custom.css:34` | |
-| Accent (`--accent`) | `rgb(95, 184, 122)` → `#5fb87a` | `assets/css/extended/custom.css:35` | Brighter green for dark backgrounds |
+| Background (`--ds-bg`) | `rgb(13, 15, 13)` → `#0d0f0d` | `00-tokens.css` dark blocks | |
+| Elevated / surface (`--ds-bg-elevated`, `--ds-surface`) | `rgb(18, 22, 17)` → `#121611` | `00-tokens.css` dark blocks | |
+| Text primary (`--ds-text`) | `rgb(239, 236, 224)` → `#efece0` | `00-tokens.css` dark blocks | |
+| Text muted (`--ds-text-muted`) | `rgb(138, 143, 125)` → `#8a8f7d` | `00-tokens.css` dark blocks | |
+| Content text (`--ds-content`) | `rgb(195, 192, 179)` → `#c3c0b3` | `00-tokens.css` dark blocks | |
+| Tertiary (`--ds-tertiary`) | `rgb(38, 48, 38)` → `#263026` | `00-tokens.css` dark blocks | |
+| Border (`--ds-border`) | `rgb(38, 48, 38)` → `#263026` | `00-tokens.css` dark blocks | |
+| Accent / link / success (`--ds-accent`, `--ds-link`, `--ds-success`) | `rgb(95, 184, 122)` → `#5fb87a` | `00-tokens.css` dark blocks | Brighter green for dark backgrounds |
+| Text on accent (`--ds-accent-fg`) | `rgb(13, 15, 13)` → `#0d0f0d` | `00-tokens.css` dark blocks | |
+| Warn (`--ds-warn`) | `rgb(214, 168, 72)` → `#d6a848` | `00-tokens.css` dark blocks | |
+| Error (`--ds-error`) | `rgb(214, 104, 96)` → `#d66860` | `00-tokens.css` dark blocks | |
+| Inline code (`--ds-code-bg`) | `rgb(26, 32, 24)` → `#1a2018` | `00-tokens.css` dark blocks | |
+| Code block (`--ds-code-block-bg`) | `rgb(18, 22, 17)` → `#121611` | `00-tokens.css` dark blocks | |
 
-PaperMod's own unthemed defaults (not used, shown for contrast) live in `themes/PaperMod/assets/css/core/theme-vars.css` — light `--theme: rgb(255,255,255)`, `--primary: rgb(30,30,30)`; dark `--theme: rgb(29,30,32)`, `--primary: rgb(218,218,219)`. The site's palette fully replaces these.
+PaperMod's own unthemed defaults (not used, shown for contrast) live in `themes/PaperMod/assets/css/core/theme-vars.css` — light `--theme: rgb(255,255,255)`, `--primary: rgb(30,30,30)`; dark `--theme: rgb(29,30,32)`, `--primary: rgb(218,218,219)`. The site's `--ds-*` palette replaces these.
 
 ## Typography
 | Role | Family | Size / scale | Weight | Where defined |
 |---|---|---|---|---|
 | Body copy | System sans stack: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif` | Browser default (~16px base), theme default line-height | Regular | `themes/PaperMod/assets/css/core/reset.css:27` (inherited, not overridden) |
-| Structural / meta (logo, nav, post titles, post meta, breadcrumbs, archive headers, TOC, search results) | Monospace stack: `ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace` | Varies by element (e.g. TOC entries `0.82rem`, TOC summary `0.72rem` uppercase w/ `0.06em` tracking) | 400–600 | `assets/css/extended/custom.css:38-54` (selector list applying mono font to `.logo a`, `.menu a`, `.post-title`, `.entry-header h2`, `.post-meta`, `.entry-footer`, `.terms-tags a`, `.breadcrumbs`, `.page-header h1`, archive/search classes, `.related-posts-title`) |
-| Series/TOC labels | Same monospace stack | `0.8rem`–`0.85rem` | 400 | `assets/css/extended/custom.css:138-144` |
+| Structural / meta (logo, nav, post titles, post meta, breadcrumbs, archive headers, TOC, search results) | Monospace stack: `ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace` | Type-scale tokens (`--ds-fs-1`–`--ds-fs-4` for chrome; display clamps on hero/About) | 400–600 | `assets/css/extended/custom.css` section 2 (selector list applying mono font to `.logo a`, `.menu a`, `.post-title`, `.entry-header h2`, `.post-meta`, `.entry-footer`, `.terms-tags a`, `.breadcrumbs`, `.page-header h1`, archive/search classes, `.related-posts-title`) |
+| Series/TOC labels | Same monospace stack | `--ds-fs-1` / `--ds-fs-2` | 400 | `assets/css/extended/custom.css` section 3 |
 
-Type scale is not formalized into a documented rem-based system — sizes are set ad hoc per component in rem (`0.72rem`–`1.1rem` range observed) rather than drawn from a shared scale. No custom `@font-face` / web fonts are loaded; everything is a system font stack for performance.
+Shared 8-step type scale lives on `:root` in `00-tokens.css` (do not change values): `--ds-fs-1` 0.75rem (12) through `--ds-fs-8` 3rem (48). Body floor for content is `--ds-fs-3` (16). Off-grid rem leftovers remain only for padding/positioning that is not an exact scale step. No custom `@font-face` / web fonts; system stacks only.
 
 ## Spacing & Layout
-- **Grid / container:** PaperMod's base `--gap: 24px` (`themes/PaperMod/assets/css/core/theme-vars.css:2`). The site widens the content column with its own tokens (`assets/css/extended/custom.css:229-234`):
+- **Grid / container:** `--gap` is aliased to `--ds-space-5` (24px) in the `custom.css` alias block. The site widens the content column with layout tokens in that same block:
   - `--main-width: 900px`
   - `--nav-width: 1440px`
   - `--sidebar-width: 240px`
   - `--toc-rail-width: 280px`
   - `.main` and `.footer` max-width = `main-width + sidebar-width + toc-rail-width + gap*4`
-- **Page shell:** every page renders in a persistent two-column CSS grid (`.page-shell`: `sidebar-width` + `minmax(0,1fr)`) — a sticky bio sidebar plus content, defined in `assets/css/extended/custom.css:236-260` and applied via `layouts/_default/baseof.html`.
-- **Post shell:** post pages use a further grid (`.post-shell`: `minmax(0,1fr) toc-rail-width`) putting a sticky TOC rail beside the article (`assets/css/extended/custom.css:302-320`).
-- **Breakpoints:** single collapse point at `max-width: 1024px` where both the sidebar and TOC rail stack to a single column (`assets/css/extended/custom.css:295`, `:431`). Secondary narrower breakpoints appear ad hoc per component: `800px`, `720px`, `700px`, `520px` (e.g. `assets/css/extended/custom.css:668`, `:783`, `:981`, `:1083`, `:1575`).
-- **Spacing scale:** not a formal 4px/8px system — spacing is a mix of the `--gap` token (24px, and derived `calc()` multiples like `--gap * 1.5`, `--gap * 2`) and hand-picked rem values (`0.25rem`, `0.4rem`, `0.5rem`, `0.75rem`, etc.) inside components.
-- **Border radius:** single shared token `--radius: 8px` (`themes/PaperMod/assets/css/core/theme-vars.css:8`), used throughout for cards, panels, and buttons. Fully round elements (avatars, pills/badges) use `border-radius: 50%` or `999px` directly rather than the token.
+- **Page shell:** every page renders in a persistent CSS grid (`.page-shell`) — stacked by default, two columns (`sidebar-width` + `minmax(0,1fr)`) from `min-width: 1024px`. Applied via `layouts/_default/baseof.html`.
+- **Post shell:** post pages use a further grid (`.post-shell`) — article then TOC stacked by default, article + sticky TOC rail from `min-width: 1024px`.
+- **Breakpoints:** canonical set is **640 / 1024 / 1440**. Shells are mobile-first at 1024; remaining component queries use those three values (mostly `max-width`, look-preserving).
+- **Spacing scale:** `--ds-space-1`–`--ds-space-8` = 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64px in `00-tokens.css`. PaperMod `--gap` aliases `--ds-space-5`. Exact-match rem paddings use the scale; off-grid leftovers stay literal.
+- **Border radius:** identity tokens `--ds-radius-sm: 4px`, `--ds-radius-md: 8px`, `--ds-radius-full: 999px`. PaperMod `--radius: 8px` matches `--ds-radius-md`.
 - **Shadow / elevation:** minimal and accent-tinted, not a neutral drop-shadow system — e.g. `box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 6%, transparent)` on the TOC panel (`assets/css/extended/custom.css:347`), and a focus-ring-style shadow on the avatar (`assets/css/extended/custom.css:568`). No large soft shadows/elevation levels anywhere.
 
 ## Components
@@ -72,9 +78,9 @@ Type scale is not formalized into a documented rem-based system — sizes are se
 - **Post list / archive entries:** `.post-entry`, `.archive-entry` get a 2px transparent left rule that lights up in `--accent` on hover/focus — the site's recurring "directory listing" hover pattern, reused identically for Related Posts and Backlinks lists (`assets/css/extended/custom.css:88-100`, `:170-178`, `:459-467`).
 - **Tag pills:** background `--tertiary`, text `--accent`, 1px `--border` border (`assets/css/extended/custom.css:79-83`).
 - **Sidebar bio card:** persistent left rail, `1px solid var(--border)` panel with `--radius`, avatar image, title, bio content, social icons (`assets/css/extended/custom.css:249-283`); collapses to a stacked card below 1024px.
-- **Post TOC rail:** sticky right-hand panel styled as a distinct bordered "side panel" (uppercase monospace header, active-link highlight driven by `assets/js/toc-active.js` via IntersectionObserver) — permanently expanded on desktop (≥1025px), click-to-expand `<details>` on narrower viewports (`assets/css/extended/custom.css:339-435`).
+- **Post TOC rail:** sticky right-hand panel styled as a distinct bordered "side panel" (uppercase monospace header, active-link highlight driven by `assets/js/toc-active.js` via IntersectionObserver) — permanently expanded on desktop (`min-width: 1024px`), click-to-expand `<details>` on narrower viewports.
 - **Series nav / Related Posts / Backlinks:** three near-identical bottom-of-post widgets sharing the border-top + left-rule-hover-list pattern (`assets/css/extended/custom.css:105-207`, `:459-497`).
-- **Buttons/pills (general):** repeated pattern of `border-radius: 999px` pill buttons with a fast `border-color/color/background` transition (~0.15s ease), seen at multiple points in the file (e.g. `assets/css/extended/custom.css:700-707`, `:1102-1108`).
+- **Buttons/pills (general):** `border-radius: var(--ds-radius-full)` pills with `var(--ds-dur-fast)` / `var(--ds-ease-out)` transitions.
 - **Homepage-specific widgets** (not itemized individually here — see `docs/portfolio-surfaces.md`): featured/recent post cards, "currently building" strip, projects grid, topic rails, and a WebGL hero, all driven by `hugo.toml`'s `[params.home]` block and `layouts/index.html`.
 - **About page:** interactive "agent constellation" graphic (`assets/js/about-constellation.js`) with an SVG fallback and WebGL variant, hidden under `prefers-reduced-motion`.
 
@@ -84,8 +90,9 @@ Type scale is not formalized into a documented rem-based system — sizes are se
   - About-page "agent constellation" (`assets/js/about-constellation.js`), SVG + WebGL variants with per-element `transition` on stroke/fill/opacity/radius (e.g. `assets/css/extended/custom.css:818-853`).
   - Live TOC active-section highlighting via IntersectionObserver (`assets/js/toc-active.js`).
   - Instant client-side search (`assets/js/fastsearch.js`, PaperMod's fuse.js-based search).
-- Most interactive-state transitions are short and consistent: `0.15s ease` / `0.18s ease` on color, border-color, background, opacity, and occasionally `transform` — no long or bouncy easing anywhere observed.
-- `@media (prefers-reduced-motion: reduce)` is explicitly honored for the About constellation: the WebGL canvas is hidden and the SVG fallback reverts to normal static layout (`assets/css/extended/custom.css:1323-1335`).
+- Shared motion tokens: `--ds-dur-fast` 120ms, `--ds-dur-base` 200ms, `--ds-dur-slow` 350ms; `--ds-ease-out` / `--ds-ease-in-out`. The mandatory blanket `@media (prefers-reduced-motion: reduce)` block lives in `00-tokens.css` (zeroes animation/transition duration sitewide).
+- **Home hero reduced-motion:** `assets/js/home-hero-webgl.js` bails out when `matchMedia("(prefers-reduced-motion: reduce)")` matches; `custom.css` hides `.home-hero-webgl` (`display: none !important`) and disables card hover transforms under the same query, on top of the token-file floor.
+- About constellation: WebGL canvas hidden and SVG fallback restored under `prefers-reduced-motion` (`custom.css` + `assets/js/about-constellation.js`).
 
 ## Imagery & Iconography
 - **Icons:** PaperMod's built-in social icon set (`themes/PaperMod/assets/`) — the site currently wires up `linkedin` and `github` via `[[params.socialIcons]]` in `hugo.toml`.
@@ -95,25 +102,26 @@ Type scale is not formalized into a documented rem-based system — sizes are se
 - **Illustration style:** none beyond the generative SVG/WebGL "constellation" graphic on the About page — no custom illustration set.
 
 ## Accessibility Notes
-- Reduced motion is explicitly handled for the About-page constellation (see Motion & Interaction) — no equivalent `prefers-reduced-motion` guard was found for the homepage WebGL hero in `custom.css`.
-- Focus states rely mostly on the browser/theme default plus the accent-tinted `box-shadow` ring pattern on select elements (e.g. avatar `assets/css/extended/custom.css:568`) rather than a single, sitewide `:focus-visible` treatment; hover and `:focus-within` are paired consistently on list-style components (post entries, related posts, backlinks), which is a good pattern for keyboard users.
+- Reduced motion: sitewide floor in `00-tokens.css`; home hero already guarded in both JS (`home-hero-webgl.js` early return) and CSS (`.home-hero-webgl { display: none }`); About constellation likewise.
+- `:focus-visible` is defined in `00-tokens.css` as a 2px `--ds-accent` outline with 2px offset. A skip-link (`.skip-link` → `#main-content`) sits at the top of `layouts/_default/baseof.html`. Component CSS still has extra accent-tinted `box-shadow` rings on select elements (e.g. avatar). Hover and `:focus-within` stay paired on list-style components.
 - Color contrast was not measured numerically in this pass, but the palette is high-contrast by construction (near-black text on off-white in light mode, light text on near-black in dark mode); the green accent (`#22633c` light / `#5fb87a` dark) is used for both text and interactive affordances, which is worth a contrast check if it's ever used for small text on the tertiary tag-pill background.
 - Body copy intentionally stays in the readable system sans font while only structural/meta text goes monospace — a good readability call for long-form posts (documented rationale in the CSS comment at `assets/css/extended/custom.css:36-38`).
 
 ## Known Inconsistencies / Design Debt
-- **No formal type scale:** font sizes for non-body text are hand-picked per component (`0.72rem`, `0.75rem`, `0.8rem`, `0.82rem`, `0.85rem`, `0.9rem`, `0.95rem`, `1rem`, `1.1rem`, ...) rather than drawn from a documented scale — makes it easy to introduce a slightly-off size for a new component.
-- **No formal spacing scale:** beyond the single `--gap` token, spacing values are ad hoc rem numbers chosen per component rather than a 4px/8px-based system.
-- **Breakpoints are ad hoc, not a shared list:** `1024px`, `900px`, `800px`, `720px`, `700px`, `520px` all appear as one-off `@media` queries scattered through `custom.css` rather than named/shared breakpoint tokens.
-- **Border radius mostly consistent but not universal:** `--radius` (8px) is used broadly, but several components hardcode `999px` (pills) or `50%` (avatars) directly instead of deriving from a documented radius scale — reasonable in isolation, but not centrally documented.
-- **Large single CSS file:** `assets/css/extended/custom.css` is 2078 lines covering console theming, page shell, TOC, series nav, related posts, backlinks, homepage widgets, and About constellation styling all in one file with no internal sectioning beyond comments — harder to navigate than split partials would be.
-- **Legacy image filenames:** many images under `static/images/` retain their original WordPress-export filenames (e.g. `www.davevoyles.com_wp-content_uploads_2014_09_podcast-logo.jpg.jpg`, including a stray double extension), which is functional but not a clean naming convention.
-- **No documented favicon/logo asset:** the site relies on PaperMod/Hugo defaults for favicon-equivalent branding; no dedicated brand-mark file was found alongside the CSS-injected `~/` text logo.
-- **Homepage WebGL hero has no confirmed reduced-motion guard** in `custom.css`, unlike the About-page constellation which explicitly disables its WebGL canvas under `prefers-reduced-motion: reduce`.
+- **PaperMod aliases remain:** `custom.css` still defines `--theme` / `--entry` / `--accent` / etc. inside a `ds-alias-allow` block so the theme stylesheet keeps working. New CSS should use `--ds-*`.
+- **Off-grid spacing leftovers:** exact scale steps (0.25/0.5/0.75/1/1.5rem) were remapped; other rem paddings stay literal so the look does not jump.
+- **Component queries still mostly `max-width`:** shells are mobile-first at 1024; About/home grids still use look-preserving `max-width: 640px` / `1024px`.
+- **Large single CSS file:** `custom.css` is now sectioned (alias / chrome / widgets / shell / About / home / shared a11y) but not split into partials.
+- **Legacy image filenames:** many images under `static/images/` retain WordPress-export names (including stray double extensions).
+- **No documented favicon/logo asset:** PaperMod/Hugo defaults plus the CSS-injected `~/` text logo.
 
 ## Source Files
 - `hugo.toml` — site config, theme selection (`PaperMod`), homepage/menu/social params
-- `assets/css/extended/custom.css` — site's full design override layer (colors, typography selectors, layout shell, components, motion) — the primary source of truth
+- `assets/css/extended/00-tokens.css` — canonical `--ds-*` tokens (color, type, spacing, radius, motion) + mandatory reduce / `:focus-visible` floor
+- `assets/css/extended/custom.css` — site override layer (console chrome, layout shell, components) + PaperMod aliases
+- `scripts/check-ds-tokens.sh` — CI checker (`make check`); token file is the only place raw colors may live
 - `themes/PaperMod/assets/css/core/theme-vars.css` — PaperMod's base CSS custom properties (`--gap`, `--radius`, default light/dark tokens), overridden by the site
+- `~/.claude/skills/web-design-standards/SKILL.md` — shared structural standard (token roles, scales, breakpoints, theming, motion, a11y floor)
 - `themes/PaperMod/assets/css/core/reset.css` — base reset and default body font stack
 - `themes/PaperMod/layouts/baseof.html` — theme's `data-theme` attribute + dark/light toggle wiring
 - `layouts/_default/baseof.html` — site's page-shell wrapper (sidebar + content grid) around PaperMod's base layout
