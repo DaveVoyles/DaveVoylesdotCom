@@ -6,7 +6,7 @@
   if (!tocRail) return;
 
   var details = tocRail.querySelector("details.toc");
-  var desktopQuery = window.matchMedia("(min-width: 1025px)");
+  var desktopQuery = window.matchMedia("(min-width: 1024px)");
 
   function syncDesktopOpen() {
     if (!details) return;

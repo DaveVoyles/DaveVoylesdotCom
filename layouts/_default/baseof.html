@@ -32,8 +32,9 @@
 {{- else }}
 <body id="top">
 {{- end }}
+    <a class="skip-link" href="#main-content">Skip to content</a>
     {{ partialCached "header.html" . .Page -}}
-    <main class="main">
+    <main class="main" id="main-content">
         <div class="page-shell">
             <aside class="site-sidebar">
                 {{- partial "sidebar.html" . }}

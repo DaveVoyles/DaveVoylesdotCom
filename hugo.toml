@@ -60,6 +60,11 @@ description = 'Blog by Dave Voyles'
 # opt out individually with `ShowToc = false` in its own frontmatter.
 ShowToc = true
 
+# Manifest / browser chrome — must match --ds-bg light (web-design-standards).
+[params.assets]
+theme_color = "#faf9f4"
+msapplication_TileColor = "#faf9f4"
+
 # Homepage "ops dashboard + magazine" shell (A+B hybrid). Home no longer
 # paginates the full 76-post archive — featured + a short recent desk +
 # archive CTA. Full history lives at /archives/.

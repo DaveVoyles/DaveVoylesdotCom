@@ -1,5 +1,10 @@
 # Learnings
 
+## 2026-08-14 — web-design-standards adoption (#141)
+
+- **PaperMod aliases must be re-declared on `:root[data-theme="dark"]`.** A `:root { --theme: var(--ds-bg) }` alias loses to `theme-vars.css` `:root[data-theme="dark"]` (higher specificity). After the blocking theme script flips `data-theme` to `dark`, the site snaps back to stock PaperMod grays while `--accent` (site-only) stays green. Same-specificity or higher dark selectors are required, not just a light `:root` map.
+- **`check-ds-tokens.sh` treats BEM `--primary:hover` as a custom-property definition.** Upstream `grep` for `--name:` false-positives `.about-cta--primary:hover`. Tighten the matcher to require start / whitespace / `{` / `;` before `--`; do not rename BEM modifiers to paper over the checker.
+
 ## 2026-07-24 — Agent platform affordances
 
 - **In-repo claim-safe facts beat “see resume-builder” alone** — agents invent metrics when the allowlist is outside the site repo. Keep `docs/claim-safe-facts.md` as the floor; resume-builder remains deeper evidence when present.
