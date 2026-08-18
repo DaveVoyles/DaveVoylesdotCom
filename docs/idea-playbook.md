@@ -39,8 +39,9 @@ Voice and claim rules for when Dave later asks you to draft:
    table (slugs + titles) and scan `content/posts/` titles from 2026. Already
    covered: system map, eval gates, human approval, Docker homelab, Xbox
    SLAs → fleets, claim safety, boundaries, GitHub tokens, landing floor
-   (scheduled). `landing-floor-without-a-github-app` is future-dated — do
-   not treat it as unpublished, and do not change its date.
+   (scheduled). `landing-floor-without-a-github-app` is already on the
+   schedule (2026-08-21). Do not re-pitch it as a new idea, and do not
+   change its date.
 
 4. **Hand Dave a pick-list.** Eight to twelve rows. Each row is a **title +
    one-line angle**, grounded in something you actually saw in steps 1–3.

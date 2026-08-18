@@ -86,9 +86,9 @@ Reviewed the 2026-07-28 → 2026-08-18 series posts
 `docker-homelab-agent-ops`, `xbox-slas-to-agent-fleets`,
 `claim-safety-evidence-before-metrics`, `what-i-will-not-automate`,
 `github-tokens-for-agent-fleets`). Read
-`landing-floor-without-a-github-app` for series continuity only — it is
-dated 2026-08-21; do not treat it as already-published voice, and do not
-change its date.
+`landing-floor-without-a-github-app` only so the series stays continuous.
+It is scheduled for 2026-08-21 — do not mine it as published voice, and
+do not change its date.
 
 Do **not** copy the 2011–2014 Wayback-recovered gaming / Unity / GDC posts
 as “how Dave writes now.” Those are a different era.
@@ -107,7 +107,7 @@ The posts that already sound like him:
   Xbox TPM habit vs agent-system habit, automate vs keep-human).
 - **Claim-safe and past-tense where true.** **Former** Xbox TPM; **10+**
   years / **~$50M** / **12h → 30m** / **20+** containers only from the
-  allowlist; “**extended and operate**,” not “I built OpenClaw.”
+  allowlist; “**extended and operates**,” not “I built OpenClaw.”
 - **A bottom line.** One sentence that could be the whole post.
 
 ### Where agent drafts drift
