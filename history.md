@@ -1,5 +1,6 @@
 # History
 
+- 2026-08-18: Track remaining landing-floor symlink ignores in `.gitignore` so Chat-Agents helper scripts stay machine-local.
 - 2026-08-18: Post pipeline map — `docs/post-pipeline.md` + `docs/diagrams/post-pipeline.html` (Dave vs agent vs site). Linked from AGENTS.md.
 - 2026-08-18: Series table Live/Scheduled computed at Hugo build time from front matter (no hand-maintained Status). Unique Docker cover; scaffold no longer copies the overview hero; `make check` fails on reused series covers or stale schedule yaml.
 - 2026-08-18: Boundaries post — drop duplicate cover-as-body image; link Harriton lacrosse to https://harritonlacrosse.com/.
