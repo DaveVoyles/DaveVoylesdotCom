@@ -34,13 +34,69 @@ supplies the file; you only place, compress, and wire it (see
    | 4 | Factory floor (how the work actually looks) |
    | 5 | Comparison only if the draft already compares two sides |
 
-3. **Hand Dave a pick-list.** Each row is a thumbnail + one line: what
-   beat it is, and which sentence in the post it comes from.
+3. **Hand Dave a pick-list.** Each row is a file + one line: what beat
+   it is, and which sentence in the post it comes from.
+
+   **TUI / terminal sessions cannot show session `images/N.jpg`
+   links.** Copy the five files to
+   `~/Desktop/<slug>-image-picks/` with numbered names (`1-…jpg`)
+   and `open` the folder (Preview + Finder on macOS). Tell him that
+   path. Do not ask him to decode a URL-encoded session directory.
 
 4. **Stop.** Do not set `[cover]`, do not add `![]()`, do not commit
    candidates. Rejects stay out of git. Dave picks; a later turn
-   compresses the winner under 1MB into `static/images/posts/`, wires
-   the post, and runs `make check`.
+   wires only what he named.
+
+---
+
+## How to prompt (what actually worked)
+
+Use the session image tool (`image_gen` in Grok / Imagine). One call
+per option. Distinct prompts, not `n=5` on one idea.
+
+Write 2–5 sentences, **subject first**, then setting, then style:
+
+- One physical object that stands in for the rule (locked hatch,
+  crumpled note beside a free switch, stamp that fits block A and
+  not block B, hand on a keyboard in an empty ops room).
+- Photoreal / cinematic industrial. Night-console palette. Warm
+  work light + one green lamp is enough.
+- Almost **no readable type**. Models garble words and invent
+  numbers. If the beat needs labels, that beat is an export
+  (archify / HTML / SVG), not this tool.
+- No people faces unless Dave gave a photo (`image_edit` +
+  reference). Hands or a silhouette are fine.
+- No “AI command center,” purple SaaS, HUD overlays, or logos.
+
+Landing-floor example (thesis cover): *A heavy steel hatch set into
+a dark factory floor, locked shut… one small console-green status
+lamp… no robots, no people, no readable text.*
+
+Dave’s “these are fantastic” bar was that recipe — one idea per
+frame, grounded in a sentence he already wrote — not a labeled
+infographic.
+
+---
+
+## Where to put the picks (after he chooses)
+
+He may pick **more than one**. Typical shape: **one cover** + the
+rest as body images. Do not force a single winner.
+
+| Pick | Placement |
+|------|-----------|
+| Thesis / Cover A | `[cover]` in front matter. Replace a borrowed cover from another post. |
+| Other picks | Inline `![]()` **immediately under the H2 they illustrate**, after the paragraph that states the beat. Same pattern as the boundaries post. |
+| Rejects | Leave on the Desktop folder. Do not copy into `static/`. |
+
+Naming: `static/images/posts/<slug>-<role>.jpg` (e.g.
+`landing-floor-locked-hatch.jpg`). Alt text describes the object;
+the title/caption is the rule in Dave’s voice, not “AI-generated
+illustration.”
+
+Do **not** change `date` or `draft` when wiring art. `make check`
+fails if a file is missing or over 1MB (these 16:9 JPEGs have been
+~200–280KB at 1280×720 — leave them unless a file is huge).
 
 ---
 
@@ -48,20 +104,18 @@ supplies the file; you only place, compress, and wire it (see
 
 - Ground every candidate in a sentence that is actually in the post.
 - No invented metrics, board counts, or “N agents” on the image.
-- No fake Dave face unless he handed you a photo (`image_edit` +
-  reference). Silhouette or hands are fine.
+- No fake Dave face unless he handed you a photo.
 - **Labeled architecture, permission lists, and exact numbers** are
-  not image-gen jobs. Export those (archify / HTML / SVG). Image
-  models garble type and invent arrows.
+  not image-gen jobs.
 - Missing image-gen is not a prompt-engineering problem. Tell Dave
   and wait for a file.
 
 ---
 
-## After he picks (not this workflow)
+## After he picks (wiring pass)
 
-1. Copy the winner to `static/images/posts/<slug>-<role>.jpg`.
-2. Compress if needed (`process_images.py` / `sips`) so `make check`
-   stays under 1MB.
-3. Set `[cover]` and/or an inline `![]()` with honest alt text.
+1. Copy only the named files to `static/images/posts/<slug>-<role>.jpg`.
+2. Compress if needed (`sips` / `process_images.py`) so each file is
+   under 1MB.
+3. Set `[cover]` and/or inline `![]()` with honest alt + caption.
 4. Branch, `make check`, PR. Do not change the post `date` or `draft`.

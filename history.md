@@ -1,5 +1,6 @@
 # History
 
+- 2026-08-18: Wired landing-floor picks 1–4 (cover + three body images); expanded image-playbook + AGENTS.md §7 with prompt craft, TUI Desktop/`open` viewing, and H2 placement. Date still 2026-08-21.
 - 2026-08-18: Image playbook (`docs/image-playbook.md`) — 4–5 candidates from the post, then stop. Platform-guide no longer says agents cannot generate art. First pick-list is for landing-floor (not wired).
 - 2026-08-18: Voice pass on three live series posts (tokens, boundaries, claim safety) — thesis-first openings, one factory-floor beat, authorship verb aligned; no date/draft changes.
 - 2026-08-18: Docs-only voice report + do/don't in `docs/authoring-guide.md` writing standard; short idea-generating playbook at `docs/idea-playbook.md`, linked from AGENTS.md and the authoring path. No new posts; no date/draft changes.

@@ -1,5 +1,12 @@
 # Learnings
 
+## 2026-08-18 — post image pick-lists
+
+- **Terminal sessions cannot display Imagine `images/N.jpg` links.** Copy the pick-list to `~/Desktop/<slug>-image-picks/` and `open` the folder. Do not send Dave into a URL-encoded `~/.grok/sessions/…` path.
+- **One object per frame beats a labeled infographic.** Landing-floor covers that Dave called “fantastic” had almost no type, night-console metal, and a sentence already in the post. Theater-vs-real claim-safety art (lots of labels, a “90%”) is the failure mode to avoid with `image_gen`.
+- **Cover = thesis; body images sit under the matching H2.** Do not dump four figures after the lede. Do not reuse another series post’s cover once a dedicated pack exists.
+- **He may pick more than one.** Wire all named files; leave rejects on the Desktop, not in `static/`.
+
 ## 2026-08-14 — web-design-standards adoption (#141)
 
 - **PaperMod aliases must be re-declared on `:root[data-theme="dark"]`.** A `:root { --theme: var(--ds-bg) }` alias loses to `theme-vars.css` `:root[data-theme="dark"]` (higher specificity). After the blocking theme script flips `data-theme` to `dark`, the site snaps back to stock PaperMod grays while `--accent` (site-only) stays green. Same-specificity or higher dark selectors are required, not just a light `:root` map.

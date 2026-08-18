@@ -34,6 +34,7 @@ Without the submodule, Hugo fails looking for theme partials.
 4. **Home is not a full archive** — caps under `[params.home]` in `hugo.toml` ([ADR 0010](docs/decisions/0010-home-dashboard-not-full-archive.md)).
 5. **Topics** are a controlled vocabulary (6 buckets). Reuse existing **tags**; never invent compound tags like `"Javascript / HTML5"`.
 6. **Auto-publish** — scheduled posts use `draft = false` + future `date`. Daily CI rebuild ships them. Hold unfinished work with `draft = true`. Preview with `hugo server -D -F` or `make preview`.
+7. **Post images** — follow [`docs/image-playbook.md`](docs/image-playbook.md). Generate a 4–5 pick-list from the post, then **stop**. After Dave picks: thesis image → `[cover]`; each other pick sits under the **H2 it illustrates**. One idea per 16:9 frame, night-console (`#0d0f0d` / `#5fb87a`), almost no readable type, no fake Dave face, no invented metrics. Labeled architecture is an export, not image-gen. In a TUI, copy candidates to `~/Desktop/<slug>-image-picks/` and `open` the folder — session `images/N.jpg` links do not render in the terminal. Do not commit rejects. Do not change `date` / `draft` when wiring art.
 
 ## Common commands
 
