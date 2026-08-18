@@ -10,9 +10,9 @@ topics = ["Tech"]
 series = ["Agent production system"]
 series_weight = 5
 [cover]
-image = "/images/posts/claim-safety-validation-workflow.jpg"
-alt = "Claim safety validation workflow from agent draft through eval gate to publish or human escalation"
-caption = "If a number cannot point at evidence, it does not ship."
+image = "/images/posts/claim-safety-fluent-not-true.jpg"
+alt = "Two steel plates on a bench — one honestly stamped, one only shiny"
+caption = "Agents are fluent. Fluency is not the same as true."
 +++
 
 This is **part 5** of the [Agent production system](/posts/agent-production-system/) series. Previous: [From Xbox SLAs to agent fleets](/posts/xbox-slas-to-agent-fleets/). Constellation nodes: [Eval gates](/about/?node=eval), [Search](/about/?node=search), [Human approval](/about/?node=human).
@@ -47,6 +47,8 @@ An agent drafts a line for a public page:
 
 That sentence is fluent. It is also a claim bomb if you cannot defend every clause:
 
+![A polished document case on a podium with demolition wiring just visible underneath](/images/posts/claim-safety-claim-bomb.jpg "Fluent is easy. Defensible is the product.")
+
 | Fragment | What evidence would need to exist |
 |----------|-----------------------------------|
 | “I built” | Original authorship of the framework, not integration work |
@@ -70,6 +72,8 @@ These are the same rules that bound [About](/about/) and this series. They live 
 6. **Stop and ask on disagreement** — if two evidence sources conflict, do not silently pick the more impressive one.
 
 The allowlist is deliberately short. A short list is a feature: it forces soft language (“high-stakes platform work,” “cross-team delivery”) where a hard number does not exist yet.
+
+![A nearly empty drawer of allowed inspection stamps — the short list is the point](/images/posts/claim-safety-short-allowlist.jpg "If the number is not on the list, it does not ship")
 
 ## Evidence-backed tooling
 

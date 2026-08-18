@@ -67,11 +67,15 @@ I am **head coach** at Harriton High School lacrosse. Athlete trust, parent comm
 
 Picture a Thursday night: lineups, playing time, a hard conversation with a parent after a loss. No agent should own that path. Tools can chart stats and organize playbooks. The human still stands in the huddle.
 
+![Night field after a game — two adult silhouettes at the edge of the lights. Tools do not own this conversation.](/images/posts/boundaries-thursday-night.jpg "I will not automate a Thursday-night conversation after a loss")
+
 ### 5. Ambiguity that only a stakeholder can resolve
 
 When two executives want different outcomes, a model should not pick a winner in the dark. Escalation is the feature.
 
 This is pure TPM craft. Agents are excellent at producing a decision brief: options, risks, what each path costs, what evidence exists. They are terrible as silent tie-breakers for stakeholder conflict. The right answer is often political. A model cannot sit in that room. Fail closed into a human, the same way [eval gates](/posts/eval-gates-not-theater/) treat amber as “I don’t know,” not “round up to green.”
+
+![Two chairs across a closed folder; a third stool empty in the dark](/images/posts/boundaries-stakeholder-room.jpg "A model cannot sit in that room")
 
 ## What I *will* keep automating
 

@@ -2,6 +2,8 @@
 
 ## 2026-08-18 — post image pick-lists
 
+- **Imagine rate-limits a parallel burst.** Eight `image_gen` calls at once 429’d. Generate two or three, then the rest.
+
 - **Terminal sessions cannot display Imagine `images/N.jpg` links.** Copy the pick-list to `~/Desktop/<slug>-image-picks/` and `open` the folder. Do not send Dave into a URL-encoded `~/.grok/sessions/…` path.
 - **One object per frame beats a labeled infographic.** Landing-floor covers that Dave called “fantastic” had almost no type, night-console metal, and a sentence already in the post. Theater-vs-real claim-safety art (lots of labels, a “90%”) is the failure mode to avoid with `image_gen`.
 - **Cover = thesis; body images sit under the matching H2.** Do not dump four figures after the lede. Do not reuse another series post’s cover once a dedicated pack exists.
