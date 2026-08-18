@@ -1,25 +1,23 @@
 # Handoff
 
-**2026-08-18 — post pipeline map (Dave / agent / site).**
+**2026-08-18 — landing-floor `.gitignore` extras now tracked.**
 
 ## What shipped this session
 
 | Work | Notes |
 |------|--------|
-| Pipeline doc | [`docs/post-pipeline.md`](docs/post-pipeline.md) — who does what, what to say, what not to do. |
-| Diagram | [`docs/diagrams/post-pipeline.html`](docs/diagrams/post-pipeline.html) — open in a browser (not on the live site). Source: `post-pipeline.workflow.json`. |
-| Router | AGENTS.md, README, platform-guide, series operator card point at it. |
+| `.gitignore` | Added the extra Chat-Agents landing-floor symlink paths that were sitting uncommitted. Those scripts stay machine-local. Working tree should be clean of that leftover. |
 
 ## Local-only (not committed)
 
-- `.gitignore` extra landing-floor ignore lines. Leave them.
+- None from this session.
 
 ## Where to start next session
 
-1. New session: `AGENTS.md` → if the ask is “how do we make a post?”, `docs/post-pipeline.md`.
-2. Ideas / draft / images still stop for Dave’s pick.
+1. `AGENTS.md` → [`docs/post-pipeline.md`](docs/post-pipeline.md) if the ask is how a post gets made.
+2. Do not commit `scripts/*.sh` landing-floor symlinks.
 
 ## Do not
 
-- Do not invent a second pipeline. This doc is the map; playbooks are the steps.
-- Do not put the HTML on the public site unless Dave asks.
+- Do not commit Chat-Agents landing-floor helpers into this repo.
+- Do not change series dates unless Dave asks.
