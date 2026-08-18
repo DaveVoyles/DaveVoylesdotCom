@@ -84,11 +84,11 @@ Or tell the agent: **“Publish series part N now”** — it should bump `date`
 
 | Kind | How |
 |------|-----|
-| Conceptual covers / mood | Agent generates (console green / dark ops aesthetic) → `static/images/posts/` |
+| Conceptual covers / mood | Follow [`../image-playbook.md`](../image-playbook.md): 4–5 options from the post, Dave picks, then `static/images/posts/` |
 | Exact architecture labels | Export archify/HTML (or SVG); avoid pure image-gen for dense labeled diagrams |
 | Real photo | You provide file; agent wires path (e.g. sidebar `homeInfoParams.Avatar`) |
 
-Ask: *“Add a 16:9 cover matching the site theme; set `[cover]` in front matter.”*
+Ask: *“Propose 4–5 covers for this post, then stop.”* After you pick: *“Wire option N as the cover.”*
 
 ---
 

@@ -17,7 +17,7 @@ happens when you do:
 |---|---|
 | "Draft a post about X" | Agent writes `content/posts/<slug>.md`, pushes to a **branch** (not `main`), opens it for your review. Nothing is live until you approve and it's merged. Detail: [`authoring-guide.md`](authoring-guide.md). |
 | "Propose some blog ideas" | Agent follows [`idea-playbook.md`](idea-playbook.md): Chat-Agents mission dashboard → recent `docs/` → existing series slugs. You get a title + one-line-angle list. **No full posts** in that pass. |
-| "Add an image to this post" / "give it a cover image" | **The agent cannot generate original artwork** — no image-generation tool is wired into this repo. You supply the file (a photo, or an image you made with a separate tool like ChatGPT/Gemini image gen); the agent places it under `static/images/`, wires it into the post's `[cover]` front matter or an inline `![]()`, and can resize/compress it for you. See 🖼️ below. |
+| "Add an image to this post" / "give it a cover image" | Agent follows [`image-playbook.md`](image-playbook.md): reads the post, generates **four or five** distinct candidates, then **stops**. You pick. Then it compresses the winner under 1MB into `static/images/posts/` and wires `[cover]` or `![]()`. If this session has no image-generation tool, it says so — you supply the file and it only places/compresses. Labeled architecture stays an export, not image-gen. |
 | "Make a video for this post" | **Opt-in, never automatic.** Agent runs a preview step that drafts narration + renders an MP4, then **stops** — you watch it before anything uploads. Detail: [`video-guide.md`](video-guide.md). |
 
 ## 🏗️ What this actually is
@@ -146,15 +146,18 @@ for new posts the way the migration script did for old ones — an
 un-optimized multi-megabyte photo will just sit there at full size and slow
 the page down.
 
-**"Can the agent just create the image for me?" — not today.** There's no
-image-generation tool connected to this repo or this agent session, so
-asking for a cover image doesn't produce one out of thin air. The actual
-workflow, same as several of the existing covers in `static/images/posts/`:
-you generate the image yourself in a separate tool (ChatGPT, Gemini,
-Midjourney, your own camera roll, whatever), then hand the file (or its
-path) to the agent to place, optimize, and wire into the post. If a
-generation tool ever gets connected to this repo, this paragraph is the one
-that needs updating.
+**"Can the agent just create the image for me?"** If the session has an
+image-generation tool (Grok Imagine, or whatever is wired that day), yes —
+but as a **pick-list**, not an auto-wired cover. Follow
+[`image-playbook.md`](image-playbook.md): four or five options grounded in
+the post, then stop. You choose; the agent compresses and commits only the
+winner. If this session has no generator, the agent says so. You still can
+hand it a file from ChatGPT, Gemini, a camera, or an older cover, and it
+will place, optimize, and wire it.
+
+Labeled diagrams (architecture, permissions, exact numbers) are still
+**not** an image-gen job. Export those. Image models invent arrows and
+garble type.
 
 ## 🎥 Video — YouTube links do *not* auto-embed
 

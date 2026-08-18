@@ -46,6 +46,7 @@ what each top-level folder is for and when you'd touch it.
 | [`docs/claim-safe-facts.md`](docs/claim-safe-facts.md) | Allowed metrics, banned claims, constellation node ids. | Any post/About copy with numbers or product claims. |
 | [`docs/authoring-guide.md`](docs/authoring-guide.md) | Write → preview → publish a post (includes voice do/don't). | Every new post. |
 | [`docs/idea-playbook.md`](docs/idea-playbook.md) | Propose titles + one-line angles from Chat-Agents, then stop. | Idea-generating agent — not a drafting session. |
+| [`docs/image-playbook.md`](docs/image-playbook.md) | Propose 4–5 covers/body images from the post text, then stop. | Image pick-list — do not wire `[cover]` until Dave picks. |
 | [`docs/series/README.md`](docs/series/README.md) | Series operator card (auto-publish, scaffold). | Agent production series. |
 | [`docs/platform-guide.md`](docs/platform-guide.md) | Human-facing platform explainer. | "Can I do X on this site?" |
 | [`docs/learnings.md`](docs/learnings.md) | Session gotchas. | Before non-trivial work. |
