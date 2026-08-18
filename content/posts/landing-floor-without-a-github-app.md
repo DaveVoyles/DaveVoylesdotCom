@@ -10,9 +10,9 @@ topics = ["Tech"]
 series = ["Agent production system"]
 series_weight = 8
 [cover]
-image = "/images/posts/agent-eval-gates.jpg"
-alt = "Checkpoint gates and human console — automation with a human seat"
-caption = "Bot mode is optional. Unskippable gates are not."
+image = "/images/posts/landing-floor-locked-hatch.jpg"
+alt = "Locked steel hatch in a dark factory floor — the landing gate that will not lift without a receipt"
+caption = "If the rule matters, it lives in the floor, not in the prompt."
 +++
 
 Companion to [GitHub tokens for agent fleets](/posts/github-tokens-for-agent-fleets/) and the [agent production system](/posts/agent-production-system/) series.
@@ -32,6 +32,8 @@ That sentence is not a control. Under time pressure, a truncated context window,
 If a rule matters, **it cannot live only in prose.** It has to live in code that **refuses** when the rule is broken — code the session cannot talk its way around.
 
 That is the landing floor. A GitHub App is an *optional accelerator* for approve+merge after the same gates pass. It is not the floor.
+
+![A crumpled note beside an unguarded switch — a written “review first” is not a control](/images/posts/landing-floor-instruction-not-a-control.jpg "A sentence in the prompt is not a gate")
 
 ## What human mode actually does
 
@@ -56,6 +58,8 @@ When App credentials are **absent**:
 
 Missing App credentials is **not an error.** It is the supported path for first-time adopters and anyone who wants judgment on the final click.
 
+![Empty night-ops desk — the wrapper prints the merge command; a human still makes the click](/images/posts/landing-floor-human-merge.jpg "Human mode is success, not a half-installed bot")
+
 ## The receipt that expires by construction
 
 A review is a claim about a **specific** code state: “I looked at *this* and found no blockers.”
@@ -73,6 +77,8 @@ Review B → receipt on B → wrapper may proceed (or print human merge)
 ```
 
 Nobody has to *remember* that B invalidates A. The data model does it.
+
+![Two machined blocks on an inspection bench — the stamp that fits commit A does not fit commit B](/images/posts/landing-floor-receipt-expires.jpg "A receipt is a claim about one SHA")
 
 ## What the agent is allowed to do
 
