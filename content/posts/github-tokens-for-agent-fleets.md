@@ -15,11 +15,11 @@ alt = "Architecture diagram: agent session through Gatekeeper and gh-app-token t
 caption = "Two lanes: automation (short-lived App tokens) vs interactive (personal OAuth). PR author stays human."
 +++
 
-This post sits with the [Agent production system](/posts/agent-production-system/) series — same thesis as [eval gates](/posts/eval-gates-not-theater/) and [human approval](/posts/human-approval-merge-button/), applied to **how agents authenticate to GitHub**. Prefer the floor **without** an App first? See [Landing floor without a GitHub App](/posts/landing-floor-without-a-github-app/).
+Most agent demos treat GitHub as “paste a PAT in the env and hope.” That works until the token shows up in a transcript, the rate limit collides with the work you are doing by hand, or the bot opens a PR and GitHub refuses to let it approve its own change.
 
-Most agent demos treat GitHub as “put a PAT in the env and hope.” That works until the token leaks into a transcript, the rate limit collides with your interactive work, or an agent tries to approve its own PR and the platform says no.
+I use two identities on purpose: you for creating the PR, a short-lived App token for approve/merge after the gates. Agents call a broker. They do not each own a secret.
 
-Here is the shape I use in production: **two identities, short-lived bot tokens, a deterministic broker, and a landing path that cannot rubber-stamp itself.**
+This sits with the [Agent production system](/posts/agent-production-system/) series — same thesis as [eval gates](/posts/eval-gates-not-theater/) and [human approval](/posts/human-approval-merge-button/), applied to **how agents authenticate to GitHub**. Prefer the floor **without** an App first? See [Landing floor without a GitHub App](/posts/landing-floor-without-a-github-app/).
 
 ![GitHub tokens in the agentic system — agent → Gatekeeper → gh-app-token → GitHub App API → bot approve/merge; separate personal OAuth path authors the PR](/images/posts/github-tokens-agent-system.png)
 
@@ -41,6 +41,8 @@ Think of two lanes:
 |------|----------|----------|----------|
 | **Interactive** | Your personal GitHub user (OAuth / `gh auth login`) | Long-lived session | Work *you* are doing in the terminal: `gh pr create`, exploratory `gh`, normal `git push` as yourself |
 | **Automation** | A **GitHub App** installation (bot) | **~1 hour** installation tokens | Scheduled jobs, approve/merge after gates, CI-shaped automation that must not share your personal quota story |
+
+Look at the board on a normal afternoon. Work is in Todo or In Progress. In Review is empty on purpose — nothing sits there waiting for a vibe check. Land means CI plus a receipt on the exact SHA, then either the bot merges or the script prints the human merge command. Empty In Review is not a stall. It is the gate doing its job.
 
 Agents do **not** each own an App. They call a single mint path that talks to **one App install**, gets a **time-limited** token, and throws it away when done.
 
@@ -67,8 +69,6 @@ I do not let the agent reason its way into credentials. I use a **broker** — p
 4. **Audit line** — metadata only (who/what/when/outcome), **never the token value**
 
 The *caller* can be an LLM agent. The *decision* cannot. That is the same philosophy as [eval gates](/posts/eval-gates-not-theater/): security boundaries are not free-form prose.
-
-Public write-up of the pattern (implementation-agnostic): credential broker as schema → policy code → grant or escalate, with append-only audit.
 
 ### What “self-heal” means before bothering a human
 
@@ -139,4 +139,4 @@ Tokens are not a side quest. They are part of the **control plane**.
 - Permission to skip review because “the bot said so”
 
 
-**Bottom line:** give agents **paths** to mint **short-lived, scoped** GitHub access through **code-defined policy**, keep **human and bot identities separate**, and make **land fail closed** on missing receipts. That is how token automation stays useful without becoming a slower way to leak `ghp_…` into a chat log.
+**Bottom line:** agents get a path to mint a short-lived token. They do not get a PAT in chat, and they do not land without a receipt.

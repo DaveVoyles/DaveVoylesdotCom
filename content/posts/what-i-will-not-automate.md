@@ -15,13 +15,11 @@ alt = "Hand on a red irreversible-action gate control, with force-push, prod-des
 caption = "The system declares the limits; human judgment seals the truth."
 +++
 
-This is **part 6** of the [Agent production system](/posts/agent-production-system/) series (boundaries, not “series over” — later posts dig into [GitHub tokens](/posts/github-tokens-for-agent-fleets/) and the [landing floor](/posts/landing-floor-without-a-github-app/)). Previous: [Claim safety](/posts/claim-safety-evidence-before-metrics/). Constellation: [Human approval](/about/?node=human), [Eval gates](/about/?node=eval), [Orchestrator](/about/?node=orchestrator).
-
----
-
 A series about agents should spend real time on **boundaries**. Not because automation is bad — because **production systems are defined by what they refuse**.
 
-I will automate aggressively inside the funnel. I will not pretend every human act is a waste waiting for a model. The goal was never maximum automation. The goal is a system that moves work fast **and** still has a place for a human to say no.
+I will automate the middle of the funnel. I will not automate a Thursday-night conversation with a parent after a loss. The goal was never maximum automation. The goal is a system that moves work fast **and** still has a place for a human to say no.
+
+This is **part 6** of the [Agent production system](/posts/agent-production-system/) series (later: [GitHub tokens](/posts/github-tokens-for-agent-fleets/) and the [landing floor](/posts/landing-floor-without-a-github-app/)). Previous: [Claim safety](/posts/claim-safety-evidence-before-metrics/).
 
 That is the same craft as [Xbox SLAs → agent fleets](/posts/xbox-slas-to-agent-fleets/): critical path, risk, and judgment under blast radius. Models change. The need for a hard edge does not.
 
@@ -35,7 +33,7 @@ Better framing:
 
 > For **this class of action**, under **these checks**, may an agent proceed without me — and if not, what decision brief does a human need?
 
-Most of the funnel can still be aggressive: plans, implementation in isolation, tests, lint, routine hygiene, drafts inside evidence. Speed lives in the middle. Dignity, fairness, and irreversible risk live at the edges. That is the thesis of [human approval](/posts/human-approval-merge-button/) applied beyond the merge button.
+Most of the funnel can still be aggressive: plans, implementation in isolation, tests, lint, routine hygiene, drafts inside evidence. Speed lives in the middle. The edges are where someone can get hurt, or you cannot undo it. That is the thesis of [human approval](/posts/human-approval-merge-button/) applied beyond the merge button.
 
 ## Non-negotiables
 
@@ -73,7 +71,7 @@ Picture a Thursday night: lineups, playing time, a hard conversation with a pare
 
 When two executives want different outcomes, a model should not pick a winner in the dark. Escalation is the feature.
 
-This is pure TPM craft. Agents are excellent at producing a decision brief: options, risks, what each path costs, what evidence exists. They are terrible as silent tie-breakers for stakeholder conflict, because the “right” answer is often political, contractual, or relational — not a higher BLEU score. Fail closed into a human, the same way [eval gates](/posts/eval-gates-not-theater/) treat amber as “I don’t know,” not “round up to green.”
+This is pure TPM craft. Agents are excellent at producing a decision brief: options, risks, what each path costs, what evidence exists. They are terrible as silent tie-breakers for stakeholder conflict. The right answer is often political. A model cannot sit in that room. Fail closed into a human, the same way [eval gates](/posts/eval-gates-not-theater/) treat amber as “I don’t know,” not “round up to green.”
 
 ## What I *will* keep automating
 
@@ -98,7 +96,7 @@ If you only remember one walk through [About](/about/):
 3. [Human approval](/about/?node=human) — human no  
 4. [Docker](/about/?node=docker) / [Azure](/about/?node=azure) — where it runs  
 
-The map is the product thesis. This post is the moral of the map: agents move work; **controls and people** decide what never enters the conveyor.
+The map is the system. This post is the part the map cannot do for you: agents move work; **controls and people** decide what never enters the conveyor.
 
 Later in the series, the same boundary thinking shows up as concrete auth and landing floors — short-lived tokens, no paste-a-PAT culture, landing paths that cannot rubber-stamp themselves. Boundaries are not only ethics essays. They are implementation details that keep a fleet from eating its own trust.
 

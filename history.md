@@ -1,5 +1,6 @@
 # History
 
+- 2026-08-18: Voice pass on three live series posts (tokens, boundaries, claim safety) — thesis-first openings, one factory-floor beat, authorship verb aligned; no date/draft changes.
 - 2026-08-18: Docs-only voice report + do/don't in `docs/authoring-guide.md` writing standard; short idea-generating playbook at `docs/idea-playbook.md`, linked from AGENTS.md and the authoring path. No new posts; no date/draft changes.
 - 2026-08-18: #143 wording nits — “extended and operates” aligned with claim-safe; landing-floor “already scheduled / do not re-pitch” vs “do not mine as published voice.”
 - 2026-08-14: Adopted web-design-standards structural layer (plan 0084 D12 / #141) — `--ds-*` tokens, type/spacing scales, canonical 640/1024/1440 breakpoints, sectioned `custom.css`, home-hero reduced-motion confirmed, checker wired into `make check`.
