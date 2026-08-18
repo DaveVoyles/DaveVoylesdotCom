@@ -43,6 +43,7 @@ what each top-level folder is for and when you'd touch it.
 | [`docs/design/`](docs/design/) | Design plans for major initiatives. | Understanding scope of large work. |
 | [`docs/decisions/`](docs/decisions/) | ADRs (including [0010](docs/decisions/0010-home-dashboard-not-full-archive.md) home dashboard). | Before reversing a deliberate choice. |
 | [`AGENTS.md`](AGENTS.md) | Thin router for coding agents. | First file to open in a new session. |
+| [`docs/post-pipeline.md`](docs/post-pipeline.md) | Who does what: Dave, agent, site. Diagram: [`docs/diagrams/post-pipeline.html`](docs/diagrams/post-pipeline.html). | “How do we make a post?” |
 | [`docs/claim-safe-facts.md`](docs/claim-safe-facts.md) | Allowed metrics, banned claims, constellation node ids. | Any post/About copy with numbers or product claims. |
 | [`docs/authoring-guide.md`](docs/authoring-guide.md) | Write → preview → publish a post (includes voice do/don't). | Every new post. |
 | [`docs/idea-playbook.md`](docs/idea-playbook.md) | Propose titles + one-line angles from Chat-Agents, then stop. | Idea-generating agent — not a drafting session. |

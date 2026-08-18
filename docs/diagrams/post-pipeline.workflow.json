@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "How a davevoyles.com post gets made",
+    "subtitle": "Dave asks → agent follows AGENTS.md → Dave picks → merge → Pages",
+    "output": "docs/diagrams/post-pipeline.html"
+  },
+  "lanes": [
+    { "id": "dave", "label": "Dave" },
+    { "id": "agent", "label": "Agent" },
+    { "id": "site", "label": "Site / CI" }
+  ],
+  "phases": [
+    { "id": "ask", "label": "Ask", "fromCol": 0, "toCol": 0 },
+    { "id": "playbook", "label": "Playbook", "fromCol": 2, "toCol": 2, "variant": "emphasis" },
+    { "id": "gate", "label": "You pick", "fromCol": 3, "toCol": 3, "variant": "security" },
+    { "id": "ship", "label": "Ship", "fromCol": 5, "toCol": 5 }
+  ],
+  "groups": [
+    { "id": "together", "label": "Together — stop until Dave names a pick", "lane": "dave", "fromCol": 3, "toCol": 3, "variant": "security" }
+  ],
+  "mainPath": ["ask", "router", "pick", "pr", "live"],
+  "nodes": [
+    { "id": "ask", "lane": "dave", "col": 0, "type": "external", "label": "Ask", "sublabel": "ideas / draft / images" },
+    { "id": "pick", "lane": "dave", "col": 3, "type": "security", "label": "Pick", "sublabel": "title, art, merge", "tag": "human gate" },
+    { "id": "router", "lane": "agent", "col": 2, "type": "backend", "label": "AGENTS.md", "sublabel": "open the right doc" },
+    { "id": "pr", "lane": "agent", "col": 5, "type": "backend", "label": "PR + check", "sublabel": "make check, no date flip" },
+    { "id": "live", "lane": "site", "col": 5, "type": "cloud", "label": "Pages", "sublabel": "push or daily cron" }
+  ],
+  "edges": [
+    { "from": "ask", "to": "router", "label": "read first", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "route": "drop", "labelSegment": 1 },
+    { "from": "router", "to": "pick", "label": "then stop", "variant": "security", "fromSide": "right", "toSide": "left", "labelDy": 14 },
+    { "from": "pick", "to": "pr", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "route": "drop" },
+    { "from": "pr", "to": "live", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "route": "drop" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "AGENTS.md is the router",
+      "items": [
+        "Not the playbook — it points at the playbook",
+        "Ideas → idea-playbook.md (list, stop)",
+        "Draft → authoring-guide.md + claim-safe-facts.md",
+        "Images → image-playbook.md (4–5 options, stop)"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Dave always owns the gate",
+      "items": [
+        "Pick the title / angle — do not draft from the list",
+        "Pick cover + body images — do not auto-wire",
+        "Merge the PR — nothing is live until main",
+        "Optional: watch a video preview before upload"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Site does the last mile",
+      "items": [
+        "Push to main rebuilds Pages (~1 min)",
+        "draft=false + future date waits for the daily cron",
+        "Live vs Scheduled is computed at build time",
+        "No flip on ship day"
+      ]
+    }
+  ]
+}
