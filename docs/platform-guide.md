@@ -16,6 +16,7 @@ happens when you do:
 | You say something like... | What actually happens |
 |---|---|
 | "Draft a post about X" | Agent writes `content/posts/<slug>.md`, pushes to a **branch** (not `main`), opens it for your review. Nothing is live until you approve and it's merged. Detail: [`authoring-guide.md`](authoring-guide.md). |
+| "Propose some blog ideas" | Agent follows [`idea-playbook.md`](idea-playbook.md): Chat-Agents mission dashboard → recent `docs/` → existing series slugs. You get a title + one-line-angle list. **No full posts** in that pass. |
 | "Add an image to this post" / "give it a cover image" | **The agent cannot generate original artwork** — no image-generation tool is wired into this repo. You supply the file (a photo, or an image you made with a separate tool like ChatGPT/Gemini image gen); the agent places it under `static/images/`, wires it into the post's `[cover]` front matter or an inline `![]()`, and can resize/compress it for you. See 🖼️ below. |
 | "Make a video for this post" | **Opt-in, never automatic.** Agent runs a preview step that drafts narration + renders an MP4, then **stops** — you watch it before anything uploads. Detail: [`video-guide.md`](video-guide.md). |
 

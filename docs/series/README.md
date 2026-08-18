@@ -2,7 +2,8 @@
 
 Short playbook for Dave + agents working on davevoyles.com **series posts**.  
 Full agent production schedule: [`agent-production-system.md`](agent-production-system.md).  
-Writing conventions: [`../authoring-guide.md`](../authoring-guide.md).
+Writing conventions: [`../authoring-guide.md`](../authoring-guide.md).  
+New topic ideas (do not draft the post): [`../idea-playbook.md`](../idea-playbook.md).
 
 ---
 

@@ -1,5 +1,6 @@
 # History
 
+- 2026-08-18: Docs-only voice report + do/don't in `docs/authoring-guide.md` writing standard; short idea-generating playbook at `docs/idea-playbook.md`, linked from AGENTS.md and the authoring path. No new posts; no date/draft changes.
 - 2026-08-14: Adopted web-design-standards structural layer (plan 0084 D12 / #141) — `--ds-*` tokens, type/spacing scales, canonical 640/1024/1440 breakpoints, sectioned `custom.css`, home-hero reduced-motion confirmed, checker wired into `make check`.
 - 2026-08-10: Removed body image `xbox-agent-fleet-lifecycle.jpg` from live post `xbox-slas-to-agent-fleets` (markdown + static file).
 - 2026-08-07: Session close-out — series writing-standard expansion (Xbox live + claim-safety + boundaries), image wire-up/normalize under 1MB, claim-safety body image #2 fully removed. main deployed green across the day.
