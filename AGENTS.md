@@ -17,6 +17,7 @@ Without the submodule, Hugo fails looking for theme partials.
 |------|------------|
 | New / edit **blog post** | [`docs/authoring-guide.md`](docs/authoring-guide.md) (voice do/don't is in the writing standard) |
 | **Propose blog ideas** (list only — do not draft) | [`docs/idea-playbook.md`](docs/idea-playbook.md) |
+| **Propose post images** (4–5 options, then stop) | [`docs/image-playbook.md`](docs/image-playbook.md) |
 | **Series** post (Agent production system) | [`docs/series/README.md`](docs/series/README.md) |
 | Home, About, projects, WebGL | [`docs/portfolio-surfaces.md`](docs/portfolio-surfaces.md) |
 | Numbers, titles, banned claims | [`docs/claim-safe-facts.md`](docs/claim-safe-facts.md) |

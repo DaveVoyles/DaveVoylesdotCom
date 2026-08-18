@@ -16,6 +16,7 @@ GitHub Actions rebuild ships them automatically (see
 **Claim-safe facts** (metrics, bans, node ids): [`claim-safe-facts.md`](claim-safe-facts.md).  
 **Voice (do/don't):** [Writing standard](#writing-standard-2026-07-28) below.  
 **Propose ideas, don't draft:** [`idea-playbook.md`](idea-playbook.md).  
+**Propose covers / body images, don't wire them:** [`image-playbook.md`](image-playbook.md).  
 **Agent router:** [`../AGENTS.md`](../AGENTS.md).  
 **Turning a post into a video:** [`video-guide.md`](video-guide.md).
 
