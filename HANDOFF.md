@@ -1,28 +1,29 @@
 # Handoff
 
-**2026-08-18 — landing-floor images 1–4 wired; image playbook taught.**
+**2026-08-18 — image pass on the three live series posts.**
 
 ## What shipped this session
 
 | Work | Notes |
 |------|--------|
-| Landing-floor art | Cover `landing-floor-locked-hatch.jpg`. Body: instruction-not-a-control, human-merge, receipt-expires. Option 5 (unused robot) not used. Date still 2026-08-21. Stopped borrowing `agent-eval-gates.jpg`. |
-| Agent instructions | AGENTS.md hard rule 7 + `docs/image-playbook.md` now include prompt craft, TUI viewing (`~/Desktop/<slug>-image-picks/` + `open`), and place-under-matching-H2. |
+| Tokens | New cover `github-tokens-pat-in-chat.jpg`. Body: two-lanes + empty-review. Kept labeled `github-tokens-agent-system.png`. |
+| Boundaries | Kept red-gate cover + three existing figures. Added Thursday-night huddle and stakeholder room (the two H2s that had no art). |
+| Claim safety | New cover `claim-safety-fluent-not-true.jpg`. Body: claim-bomb + short-allowlist. Kept existing workflow / no-evidence / theater figures. |
+| Dates | Unchanged (8/18, 8/14, 8/11). |
 
 ## Local-only (not committed)
 
-- `.gitignore` extra landing-floor ignore lines vs origin. Leave them.
-- Desktop folder `~/Desktop/landing-floor-image-picks/` including unused option 5. Safe to delete after merge.
+- `.gitignore` extra landing-floor ignore lines. Leave them.
+- Desktop: `~/Desktop/live-posts-image-pass/` (same eight files). Safe to delete after you have looked.
 
 ## Where to start next session
 
-1. After Pages rebuild, hard-refresh `/posts/landing-floor-without-a-github-app/` (future-dated — `make preview` / `-F` locally).
-2. Next images: `docs/image-playbook.md`. Do not remine this post as published voice before 2026-08-21.
-3. Next draft → authoring-guide. Next ideas → idea-playbook.
+1. Hard-refresh the three live posts after Pages rebuild.
+2. Next images: `docs/image-playbook.md`. Generate 2–3 at a time (Imagine 429).
+3. Landing-floor still 2026-08-21 — do not remine as published voice.
 
 ## Do not
 
-- Do not commit rejected image candidates.
-- Do not use image-gen for labeled architecture or invented metrics.
-- Do not change the landing-floor date unless Dave asks.
-- Do not edit `themes/PaperMod/` for site features.
+- Do not replace labeled architecture with image-gen.
+- Do not invent metrics on images.
+- Do not change series dates unless Dave asks.

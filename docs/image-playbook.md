@@ -52,7 +52,9 @@ supplies the file; you only place, compress, and wire it (see
 ## How to prompt (what actually worked)
 
 Use the session image tool (`image_gen` in Grok / Imagine). One call
-per option. Distinct prompts, not `n=5` on one idea.
+per option. Distinct prompts, not `n=5` on one idea. Do not fire a
+whole post’s worth of calls in one burst — Imagine 429s. Two or three
+at a time, then continue.
 
 Write 2–5 sentences, **subject first**, then setting, then style:
 

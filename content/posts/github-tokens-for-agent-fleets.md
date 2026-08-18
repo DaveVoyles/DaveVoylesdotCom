@@ -10,9 +10,9 @@ topics = ["Tech"]
 series = ["Agent production system"]
 series_weight = 7
 [cover]
-image = "/images/posts/github-tokens-agent-system.png"
-alt = "Architecture diagram: agent session through Gatekeeper and gh-app-token to a GitHub App bot for approve/merge, with a separate personal OAuth path for PR creation"
-caption = "Two lanes: automation (short-lived App tokens) vs interactive (personal OAuth). PR author stays human."
+image = "/images/posts/github-tokens-pat-in-chat.jpg"
+alt = "A long-lived access key left exposed on an open laptop in a dark ops room"
+caption = "Agents do not get a PAT in chat."
 +++
 
 Most agent demos treat GitHub as “paste a PAT in the env and hope.” That works until the token shows up in a transcript, the rate limit collides with the work you are doing by hand, or the bot opens a PR and GitHub refuses to let it approve its own change.
@@ -42,7 +42,11 @@ Think of two lanes:
 | **Interactive** | Your personal GitHub user (OAuth / `gh auth login`) | Long-lived session | Work *you* are doing in the terminal: `gh pr create`, exploratory `gh`, normal `git push` as yourself |
 | **Automation** | A **GitHub App** installation (bot) | **~1 hour** installation tokens | Scheduled jobs, approve/merge after gates, CI-shaped automation that must not share your personal quota story |
 
+![Two industrial lanes — a worn personal key on one track, a short-lived fuse on the other](/images/posts/github-tokens-two-lanes.jpg "You create the PR. The bot only lands after the gates.")
+
 Look at the board on a normal afternoon. Work is in Todo or In Progress. In Review is empty on purpose — nothing sits there waiting for a vibe check. Land means CI plus a receipt on the exact SHA, then either the bot merges or the script prints the human merge command. Empty In Review is not a stall. It is the gate doing its job.
+
+![A factory board whose middle slot is empty on purpose — nothing waits there for a vibe check](/images/posts/github-tokens-empty-review.jpg "Empty In Review is the gate doing its job")
 
 Agents do **not** each own an App. They call a single mint path that talks to **one App install**, gets a **time-limited** token, and throws it away when done.
 
