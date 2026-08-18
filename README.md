@@ -44,7 +44,8 @@ what each top-level folder is for and when you'd touch it.
 | [`docs/decisions/`](docs/decisions/) | ADRs (including [0010](docs/decisions/0010-home-dashboard-not-full-archive.md) home dashboard). | Before reversing a deliberate choice. |
 | [`AGENTS.md`](AGENTS.md) | Thin router for coding agents. | First file to open in a new session. |
 | [`docs/claim-safe-facts.md`](docs/claim-safe-facts.md) | Allowed metrics, banned claims, constellation node ids. | Any post/About copy with numbers or product claims. |
-| [`docs/authoring-guide.md`](docs/authoring-guide.md) | Write → preview → publish a post. | Every new post. |
+| [`docs/authoring-guide.md`](docs/authoring-guide.md) | Write → preview → publish a post (includes voice do/don't). | Every new post. |
+| [`docs/idea-playbook.md`](docs/idea-playbook.md) | Propose titles + one-line angles from Chat-Agents, then stop. | Idea-generating agent — not a drafting session. |
 | [`docs/series/README.md`](docs/series/README.md) | Series operator card (auto-publish, scaffold). | Agent production series. |
 | [`docs/platform-guide.md`](docs/platform-guide.md) | Human-facing platform explainer. | "Can I do X on this site?" |
 | [`docs/learnings.md`](docs/learnings.md) | Session gotchas. | Before non-trivial work. |

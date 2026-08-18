@@ -1,25 +1,29 @@
 # Handoff
 
-**2026-08-14 — plan 0084 D12 / #141 web-design-standards adoption.**
+**2026-08-18 — docs-only voice guidance + idea playbook (#143).**
 
 ## What shipped this session
 
 | Work | Notes |
 |------|--------|
-| #141 Adopt web-design-standards | `--ds-*` tokens in `assets/css/extended/00-tokens.css`; PaperMod aliases in `custom.css` (including dark selectors); type/spacing/radius/motion scales; breakpoints snapped to 640/1024/1440; shells mobile-first at 1024; sectioned CSS; skip-link; theme-color `#faf9f4`; `scripts/check-ds-tokens.sh` in `make check` + CI. Identity kept (terminal-green console). |
+| Voice report + do/don't | Extended `docs/authoring-guide.md` writing standard (2026-07-28). Reviewed series posts 2026-07-28 → 2026-08-18. No parallel voice file. |
+| Idea-generating playbook | New short numbered workflow: `docs/idea-playbook.md`. Chat-Agents mission dashboard → `docs/` → existing series slugs. Output is title + one-line angle; do not draft posts. No second tracker. |
+| Router links | `AGENTS.md` task table, authoring-guide, series operator card, README repo map, platform-guide “ask the agent” row. |
+| #143 wording nits | Authorship verb is now “extended and operates.” Landing-floor: already scheduled / do not re-pitch (ideas); do not mine as published voice (authoring). |
 
 ## Local-only (not committed)
 
-- `.gitignore` may still have extra landing-floor ignore lines vs origin — leave it; not part of this PR.
+- `.gitignore` still has extra landing-floor ignore lines vs origin. Leave them; not part of #143.
 
 ## Where to start next session
 
-1. After merge, hard-refresh live site and check light/dark toggle + reduced-motion hero (`/` and `/about/`).
-2. Plan 0084 siblings (not this repo): Harriton #20, CFB26 #1, Philly #3, etc.
-3. Remaining #141-adjacent debt: off-grid rem paddings, leftover `max-width` component queries, PaperMod noscript still injects stock RGB (our aliases out-specify it).
+1. If Dave wants a draft, use `docs/authoring-guide.md` (voice + claim-safe). If he wants a pick-list, use `docs/idea-playbook.md` and stop.
+2. Do not flip series dates/drafts unless he asks. `landing-floor-without-a-github-app` stays 2026-08-21.
+3. Remaining #141-adjacent CSS debt from the prior handoff still stands if someone is on design tokens.
 
 ## Do not
 
-- Do not edit `themes/PaperMod/` for site features — overrides live in `layouts/` and `assets/`.
+- Do not write new blog posts from the idea playbook.
 - Do not invent claim-unsafe metrics — see `docs/claim-safe-facts.md`.
-- Do not declare PaperMod color aliases only on bare `:root` — dark theme-vars will win.
+- Do not create a second ideas board / backlog file; the series table in `docs/series/agent-production-system.md` is the series tracker.
+- Do not edit `themes/PaperMod/` for site features — overrides live in `layouts/` and `assets/`.

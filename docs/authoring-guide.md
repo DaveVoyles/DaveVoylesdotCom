@@ -14,6 +14,8 @@ GitHub Actions rebuild ships them automatically (see
 `draft = true`. Ship early by setting `date` to now and pushing `main`.
 
 **Claim-safe facts** (metrics, bans, node ids): [`claim-safe-facts.md`](claim-safe-facts.md).  
+**Voice (do/don't):** [Writing standard](#writing-standard-2026-07-28) below.  
+**Propose ideas, don't draft:** [`idea-playbook.md`](idea-playbook.md).  
 **Agent router:** [`../AGENTS.md`](../AGENTS.md).  
 **Turning a post into a video:** [`video-guide.md`](video-guide.md).
 
@@ -76,6 +78,76 @@ from. Unless the post genuinely earns a short treatment, aim for:
   — more detail is not license to invent metrics. Ground concrete examples
   in the allowed-metrics table there (Xbox SLA, homelab container count,
   tenure, revenue) instead of a plausible-sounding made-up figure.
+
+### What already sounds like Dave
+
+Reviewed the 2026-07-28 → 2026-08-18 series posts
+(`eval-gates-not-theater`, `human-approval-merge-button`,
+`docker-homelab-agent-ops`, `xbox-slas-to-agent-fleets`,
+`claim-safety-evidence-before-metrics`, `what-i-will-not-automate`,
+`github-tokens-for-agent-fleets`). Read
+`landing-floor-without-a-github-app` only so the series stays continuous.
+It is scheduled for 2026-08-21 — do not mine it as published voice, and
+do not change its date.
+
+Do **not** copy the 2011–2014 Wayback-recovered gaming / Unity / GDC posts
+as “how Dave writes now.” Those are a different era.
+
+The posts that already sound like him:
+
+- **Plain and short at the top.** Two sentences land the thesis
+  (“Agents are fluent. Fluency is not the same as **true**.”) before any
+  heading stack.
+- **Contractions and first person.** “I don’t,” “it’s,” “that’s the job.”
+  Colleague in the room, not a whitepaper.
+- **One real beat, not a résumé dump.** A test harness that deleted local
+  work; Plex as the household reason the homelab exists; a Thursday-night
+  coaching conversation the model does not own.
+- **Tables only when two sides actually compare** (theater vs real gate,
+  Xbox TPM habit vs agent-system habit, automate vs keep-human).
+- **Claim-safe and past-tense where true.** **Former** Xbox TPM; **10+**
+  years / **~$50M** / **12h → 30m** / **20+** containers only from the
+  allowlist; “**extended and operates**,” not “I built OpenClaw.”
+- **A bottom line.** One sentence that could be the whole post.
+
+### Where agent drafts drift
+
+The 2026-07-28 note above still holds: left to a short prompt, drafts trend
+**too brief** and **too bullet-point-terse**. That already happened on this
+series — first passes sat around 400–600 words (outline with sentence-case
+bullets) and had to be expanded to ~800–1300 so the video pipeline had
+narration to draw from.
+
+Typical drift, in practice:
+
+- **Outline-as-a-post** — H2s and bullets, no connective “picture this”
+  or why the rule exists.
+- **Corporate filler** — “unlock value,” “best-in-class,” “leverage the
+  platform,” “executives will delight.” Dave will say “busy is not the
+  same as on the critical path.” He will not say “synergy.”
+- **Invented precision** — fake agent counts, dollar figures, latency,
+  or board column names that are not in
+  [`claim-safe-facts.md`](claim-safe-facts.md) or a source you can open.
+- **Authorship inflation** — “I built / created” for stacks he extends
+  and operates.
+- **Wrong corpus** — matching the recovered 2011–2014 newsletter / GDC
+  voice instead of the 2026 factory-floor posts.
+
+### Voice do / don't
+
+| Do | Don't |
+|----|--------|
+| Contractions, short sentences, first person | Formal “one must,” brochure tone, no-I corporate we |
+| Explain it like a colleague — anecdote, then the rule | Ship a bullet outline and call it a post |
+| Use a markdown table for a real comparison | Turn the whole post into a slide deck in Markdown |
+| Numbers and titles only from [`claim-safe-facts.md`](claim-safe-facts.md) | Invent metrics, headcount, “N agents in production,” or board columns |
+| “Extended and operates” / “integrated and operates” | “I built / authored” OpenClaw, Hermes, or firstmate |
+| **Former** Xbox / Microsoft TPM (past tense) | Present-tense “Senior TPM at Xbox” |
+| Azure, Docker, GitHub, evals, MCP as ops familiarity | Terraform / K8s as confidence / logo-soup claims |
+| ~800–1300 words unless the piece honestly earns short | 400–600 words of terse bullets |
+
+Need a list of *topics* rather than a draft? Follow
+[`idea-playbook.md`](idea-playbook.md) — title + one-line angle, then stop.
 
 The agent should:
 
