@@ -6,7 +6,8 @@ change the color myself?" or "will my YouTube link show up as a video?" —
 this is the doc.
 
 Writing an actual post? See [`authoring-guide.md`](authoring-guide.md)
-instead — this doc is about the platform underneath it.
+instead — this doc is about the platform underneath it. Who does what
+(you vs the agent vs Pages): [`post-pipeline.md`](post-pipeline.md).
 
 ## 🗣️ Ask the agent to... (quick reference)
 

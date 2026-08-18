@@ -15,6 +15,7 @@ Without the submodule, Hugo fails looking for theme partials.
 
 | Task | Read first |
 |------|------------|
+| **How we make a post** (Dave vs agent vs site) | [`docs/post-pipeline.md`](docs/post-pipeline.md) |
 | New / edit **blog post** | [`docs/authoring-guide.md`](docs/authoring-guide.md) (voice do/don't is in the writing standard) |
 | **Propose blog ideas** (list only — do not draft) | [`docs/idea-playbook.md`](docs/idea-playbook.md) |
 | **Propose post images** (4–5 options, then stop) | [`docs/image-playbook.md`](docs/image-playbook.md) |
