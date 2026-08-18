@@ -10,8 +10,8 @@ topics = ["Tech"]
 series = ["Agent production system"]
 series_weight = 3
 [cover]
-image = "/images/posts/agent-system-ops-floor.jpg"
-alt = "Multi-agent production system illustration with host and cloud elements"
+image = "/images/posts/docker-homelab-hosts.jpg"
+alt = "Mac Mini and NAS on a dark rack with container canisters — the homelab host layer"
 caption = "Hosts are part of the product: agents without a place to run are just prompts."
 +++
 

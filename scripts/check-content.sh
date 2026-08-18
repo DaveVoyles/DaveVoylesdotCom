@@ -138,6 +138,31 @@ done < <(find content/posts -name '*.md' -print0)
 
 ok "series_weight present when series set"
 
+# --- series covers must be unique (do not reuse another part's hero) ---
+cover_owners=""
+while IFS= read -r -d '' file; do
+  rg -q '^series\s*=' "$file" || continue
+  cover="$(awk '
+    /^\[cover\]/ { in_c=1; next }
+    in_c && /^image[[:space:]]*=/ {
+      gsub(/"/, "", $3); print $3; exit
+    }
+    in_c && /^\[/ { exit }
+  ' "$file")"
+  [[ -n "$cover" ]] || continue
+  prev="$(printf '%s\n' "$cover_owners" | awk -F '\t' -v c="$cover" '$1==c {print $2; exit}')"
+  if [[ -n "$prev" ]]; then
+    err "series cover reused: $cover ($prev and $file) — each part needs its own [cover]"
+  else
+    cover_owners="${cover_owners}${cover}	${file}
+"
+  fi
+done < <(find content/posts -name '*.md' -print0)
+ok "series covers unique"
+
+# --- series schedule data matches post front matter ---
+python3 scripts/sync-series-schedule.py --check
+
 # --- claim-safety: about + modern/series posts ---
 scan_files=(content/about.md)
 while IFS= read -r -d '' file; do

@@ -1,11 +1,12 @@
 # davevoyles.com — common agent/human tasks
-.PHONY: submodules preview build check test list-future list-tags help video-draft video-render video-upload video-embed video video-publish
+.PHONY: submodules preview build check test list-future list-tags help series-schedule video-draft video-render video-upload video-embed video video-publish
 
 help:
 	@echo "make submodules      - init PaperMod theme"
 	@echo "make preview         - hugo server -D -F (drafts + future)"
 	@echo "make build           - production hugo --minify"
 	@echo "make check           - content gates + --ds-* token checker"
+	@echo "make series-schedule - regenerate data/series/*.yaml from post front matter"
 	@echo "make test            - regression suites for check-content.sh, topics_mapping.py, triage_stale_content.py"
 	@echo "make list-future     - posts waiting on publish date"
 	@echo "make list-tags       - unique tags in content/posts"
@@ -29,9 +30,13 @@ check:
 	./scripts/check-content.sh
 	./scripts/check-ds-tokens.sh --token-file assets/css/extended/00-tokens.css assets/css/extended/
 
+series-schedule:
+	python3 scripts/sync-series-schedule.py
+
 test:
 	./scripts/tests/test-check-content-narration.sh
 	./scripts/tests/test-check-content-images.sh
+	./scripts/tests/test-sync-series-schedule.sh
 	python3 scripts/tests/test_topics_mapping.py
 	python3 scripts/tests/test_triage_stale_content.py
 

@@ -10,19 +10,32 @@ A claim-safe series that expands the [case study post](/posts/agent-production-s
 Changed from weekly-Fridays-only on 2026-07-27 — doubled cadence going
 forward compresses the remaining backlog into half the calendar time.
 
-| # | Planned date | Day | Slug | Status |
-|---|--------------|-----|------|--------|
-| 0 | 2026-07-24 | Fri | `agent-production-system` | **Published** — series overview |
-| 1 | 2026-07-28 | Tue | `eval-gates-not-theater` | Scheduled — `draft=false`, future `date` |
-| 2 | 2026-07-31 | Fri | `human-approval-merge-button` | Scheduled |
-| 3 | 2026-08-04 | Tue | `docker-homelab-agent-ops` | Scheduled |
-| 4 | 2026-08-07 | Fri | `xbox-slas-to-agent-fleets` | Scheduled |
-| 5 | 2026-08-11 | Tue | `claim-safety-evidence-before-metrics` | Scheduled |
-| 6 | 2026-08-14 | Fri | `what-i-will-not-automate` | Scheduled |
-| 7 | 2026-08-18 | Tue | `github-tokens-for-agent-fleets` | Scheduled — tokens / App / broker + diagram |
-| 8 | 2026-08-21 | Fri | `landing-floor-without-a-github-app` | Scheduled — human mode only |
+| # | Planned date | Day | Slug |
+|---|--------------|-----|------|
+| 0 | 2026-07-24 | Fri | `agent-production-system` |
+| 1 | 2026-07-28 | Tue | `eval-gates-not-theater` |
+| 2 | 2026-07-31 | Fri | `human-approval-merge-button` |
+| 3 | 2026-08-04 | Tue | `docker-homelab-agent-ops` |
+| 4 | 2026-08-07 | Fri | `xbox-slas-to-agent-fleets` |
+| 5 | 2026-08-11 | Tue | `claim-safety-evidence-before-metrics` |
+| 6 | 2026-08-14 | Fri | `what-i-will-not-automate` |
+| 7 | 2026-08-18 | Tue | `github-tokens-for-agent-fleets` |
+| 8 | 2026-08-21 | Fri | `landing-floor-without-a-github-app` |
 
-Dates are in front matter (`date`). Parts 1–8 use **`draft = false`** with future dates. Hugo excludes future content; a **daily** GitHub Actions rebuild (≈10:00 ET) ships each post after its `date` without a manual flip. Use `draft = true` only to hold a post that is not ready to auto-ship. See the [operator card](README.md).
+**Do not put Live / Scheduled in this table.** That label rots the day a
+post ships. Dates live in each post’s `date`. The public table on
+[How I run an agent production system](/posts/agent-production-system/)
+computes Live vs Scheduled at Hugo build time from those dates, so the
+daily Pages rebuild flips a row without anyone editing markdown.
+
+Machine copy of the same rows: `data/series/agent-production-system.yaml`
+(regenerate with `python3 scripts/sync-series-schedule.py`; `make check`
+fails if it drifts from `content/posts/`).
+
+Parts use **`draft = false`** + the planned `date`. Hugo excludes future
+content; a **daily** GitHub Actions rebuild (≈10:00 ET) ships each post
+after its `date`. Use `draft = true` only to hold a post that is not
+ready. See the [operator card](README.md).
 
 ### Companion sources (private → public)
 
