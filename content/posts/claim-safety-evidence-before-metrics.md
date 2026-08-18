@@ -63,7 +63,7 @@ In my system that draft does not get to “sounds good, ship it.” It hits a so
 These are the same rules that bound [About](/about/) and this series. They live as a single public source of truth in the site repo (`docs/claim-safe-facts.md`) so agents and humans argue with a document, not with folklore:
 
 1. **Verified figures only** — e.g. **10+** years at Microsoft, **~$50M** commerce program, **12h → 30m** publish target, **20+** containers. No vanity counters without a source.  
-2. **Authorship humility** — prefer “**extended and operate**” (or “integrated and operates”) for agent platforms; do not claim original invention of upstream open-source systems.  
+2. **Authorship humility** — prefer “**extended and operates**” (or “integrated and operates”) for agent platforms; do not claim original invention of upstream open-source systems.  
 3. **Past-tense where true** — former Xbox/Microsoft TPM, not a fictional current employer claim.  
 4. **No logo soup** — stack claims match confidence (Azure and Docker yes; fashion-statement K8s/Terraform as confidence claims no).  
 5. **Public = stricter** — if it is on davevoyles.com or a résumé, the bar is higher than a private scratch note.  
@@ -73,9 +73,9 @@ The allowlist is deliberately short. A short list is a feature: it forces soft l
 
 ## Evidence-backed tooling
 
-[Resume Builder](https://github.com/DaveVoyles/resume-builder) exists because job search is a **claim surface**. AI-assisted editing without evidence discipline just industrializes exaggeration — faster bullet points, weaker truth.
+[Resume Builder](https://github.com/DaveVoyles/resume-builder) exists because job search is a **claim surface**. AI-assisted editing without evidence discipline is just faster bullets, weaker truth.
 
-The product idea is simple: **role matching and language generation stay attached to what you can defend.** Same philosophy as eval gates on code — different artifact. A tailored résumé that invents impact is not “optimized for ATS.” It is a future integrity problem wearing a productivity costume.
+The product idea is simple: **role matching and language generation stay attached to what you can defend.** Same philosophy as eval gates on code — different artifact. A tailored résumé that invents impact is not “optimized for ATS.” It is a lie that looks like productivity.
 
 That tooling also makes the site series honest. The About metrics, the Xbox transfer post, and this post all pull from the same discipline: if a number is not allowed, it does not appear as a hard claim. Soft paraphrase is fine; inflation is not.
 
