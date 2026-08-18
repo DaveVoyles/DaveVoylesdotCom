@@ -1,0 +1,49 @@
+{{- /*
+  Series table for the Agent production system overview.
+
+  Rows come from data/series/agent-production-system.yaml (generated from
+  front matter). Live vs Scheduled vs Held is computed here from date +
+  draft vs now, so the daily Pages rebuild flips a row without a commit.
+  Future parts are listed but not linked (those URLs 404 until their date).
+*/ -}}
+{{- $data := index .Site.Data.series "agent-production-system" -}}
+{{- if not $data -}}
+{{- errorf "series-schedule: missing data/series/agent-production-system.yaml — run scripts/sync-series-schedule.py" -}}
+{{- end -}}
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Post</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{- range $data.parts }}
+    {{- $when := time.AsTime .date -}}
+    {{- $held := .draft -}}
+    {{- $live := and (not $held) (le $when now) -}}
+    {{- $href := printf "/posts/%s/" .slug -}}
+    <tr>
+      <td>{{ .weight }}</td>
+      <td>
+        {{- if $live -}}
+          {{- if eq .weight 0 -}}
+          <strong>{{ .title }}</strong> (this post)
+          {{- else -}}
+          <a href="{{ $href }}">{{ .title }}</a>
+          {{- end -}}
+        {{- else -}}
+          {{ .title }}
+        {{- end -}}
+      </td>
+      <td>
+        {{- if $held -}}Held
+        {{- else if $live -}}Live
+        {{- else -}}Scheduled
+        {{- end -}}
+      </td>
+    </tr>
+    {{- end }}
+  </tbody>
+</table>

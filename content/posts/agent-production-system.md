@@ -97,18 +97,10 @@ If you only click one thing after this post, open the [agent production system m
 
 ## This series
 
-Weekly deep-dives that expand this map. Full schedule: [`docs/series/agent-production-system.md`](https://github.com/DaveVoyles/DaveVoylesdotCom/blob/main/docs/series/agent-production-system.md) in the site repo.
+Twice-weekly deep-dives that expand this map. Status is computed at
+build time from each post’s `date` — Live once that day has passed,
+Scheduled until then. No hand-maintained labels.
 
-| # | Post | Status |
-|---|------|--------|
-| 0 | **How I run an agent production system** (this post) | Live |
-| 1 | [Eval gates are not optional theater](/posts/eval-gates-not-theater/) | Scheduled |
-| 2 | [Human approval: the merge button still matters](/posts/human-approval-merge-button/) | Scheduled |
-| 3 | [Twenty-plus containers and agent-operated ops](/posts/docker-homelab-agent-ops/) | Scheduled |
-| 4 | [From Xbox SLAs to agent fleets](/posts/xbox-slas-to-agent-fleets/) | Scheduled |
-| 5 | [Claim safety: evidence before metrics](/posts/claim-safety-evidence-before-metrics/) | Scheduled |
-| 6 | [What I will not automate](/posts/what-i-will-not-automate/) | Scheduled |
-| 7 | [GitHub tokens for agent fleets](/posts/github-tokens-for-agent-fleets/) | Scheduled |
-| 8 | [Landing floor without a GitHub App](/posts/landing-floor-without-a-github-app/) | Scheduled |
+{{< series-schedule >}}
 
-Parts ship on their scheduled `date` (auto-publish: `draft = false` + daily rebuild). Series prev/next at the bottom of each part is generated from front matter once siblings are live.
+Parts ship on their scheduled `date` (auto-publish: `draft = false` + daily rebuild). Series prev/next at the bottom of each part is generated from front matter once siblings are live. Operator schedule (slugs + dates): [`docs/series/agent-production-system.md`](https://github.com/DaveVoyles/DaveVoylesdotCom/blob/main/docs/series/agent-production-system.md).

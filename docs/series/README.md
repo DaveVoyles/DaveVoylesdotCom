@@ -107,7 +107,7 @@ Ask: *“Propose 4–5 covers for this post, then stop.”* After you pick: *“
 |------|--------|
 | Preview scheduled | `make preview` |
 | New post (scaffold) | `./scripts/new-series-post.sh <slug> <weight> <date>` |
-| New post (manual) | `draft=false` + future `date` + series doc row |
+| New post (manual) | `draft=false` + future `date` + series doc row (slug/date only — no Status) + `make series-schedule` |
 | Validate | `make check` |
 | Hold a post | `draft=true` until ready |
 | Ship early | bump `date` to now → commit → push |

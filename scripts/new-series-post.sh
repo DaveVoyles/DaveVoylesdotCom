@@ -38,8 +38,8 @@ topics = ["Tech"]
 series = ["Agent production system"]
 series_weight = ${weight}
 [cover]
-image = "/images/posts/agent-system-ops-floor.jpg"
-alt = "TODO: cover alt text"
+image = "/images/posts/${slug}.jpg"
+alt = "TODO: cover alt text — unique to this post, do not reuse another part's cover"
 caption = "TODO: cover caption"
 +++
 
@@ -57,6 +57,8 @@ EOF
 echo "Created: $file"
 echo "Next:"
 echo "  1. Edit title/description/body (claim-safe)."
-echo "  2. Add a row to docs/series/agent-production-system.md"
-echo "  3. make check && make preview"
-echo "  4. Commit when ready (auto-publishes after date via daily rebuild)."
+echo "  2. Add a unique [cover] — do not copy another part's image."
+echo "  3. Add a slug/date row to docs/series/agent-production-system.md (no Status column)."
+echo "  4. python3 scripts/sync-series-schedule.py"
+echo "  5. make check && make preview"
+echo "  6. Commit when ready (auto-publishes after date via daily rebuild)."

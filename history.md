@@ -1,5 +1,6 @@
 # History
 
+- 2026-08-18: Series table Live/Scheduled computed at Hugo build time from front matter (no hand-maintained Status). Unique Docker cover; scaffold no longer copies the overview hero; `make check` fails on reused series covers or stale schedule yaml.
 - 2026-08-18: Boundaries post — drop duplicate cover-as-body image; link Harriton lacrosse to https://harritonlacrosse.com/.
 - 2026-08-18: Image pass on three live series posts — new thesis covers on tokens + claim-safety; body figures for two-lanes / empty-review, Thursday-night + stakeholder room, claim-bomb + short allowlist. Architecture diagram kept. Dates unchanged.
 - 2026-08-18: Wired landing-floor picks 1–4 (cover + three body images); expanded image-playbook + AGENTS.md §7 with prompt craft, TUI Desktop/`open` viewing, and H2 placement. Date still 2026-08-21.
