@@ -87,7 +87,7 @@ rest as body images. Do not force a single winner.
 
 | Pick | Placement |
 |------|-----------|
-| Thesis / Cover A | `[cover]` in front matter. Replace a borrowed cover from another post. |
+| Thesis / Cover A | `[cover]` in front matter. Replace a borrowed cover from another post. Do **not** also inline the same file — PaperMod already shows the cover at the top. |
 | Other picks | Inline `![]()` **immediately under the H2 they illustrate**, after the paragraph that states the beat. Same pattern as the boundaries post. |
 | Rejects | Leave on the Desktop folder. Do not copy into `static/`. |
 

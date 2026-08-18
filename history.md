@@ -1,5 +1,6 @@
 # History
 
+- 2026-08-18: Boundaries post — drop duplicate cover-as-body image; link Harriton lacrosse to https://harritonlacrosse.com/.
 - 2026-08-18: Image pass on three live series posts — new thesis covers on tokens + claim-safety; body figures for two-lanes / empty-review, Thursday-night + stakeholder room, claim-bomb + short allowlist. Architecture diagram kept. Dates unchanged.
 - 2026-08-18: Wired landing-floor picks 1–4 (cover + three body images); expanded image-playbook + AGENTS.md §7 with prompt craft, TUI Desktop/`open` viewing, and H2 placement. Date still 2026-08-21.
 - 2026-08-18: Image playbook (`docs/image-playbook.md`) — 4–5 candidates from the post, then stop. Platform-guide no longer says agents cannot generate art. First pick-list is for landing-floor (not wired).

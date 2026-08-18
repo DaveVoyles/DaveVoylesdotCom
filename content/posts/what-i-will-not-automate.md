@@ -41,8 +41,6 @@ Most of the funnel can still be aggressive: plans, implementation in isolation, 
 
 Force-push to shared history, secret materialization, prod-destroying ops, public legal/compliance commitments — these stay on a **human approval** path. See [part 2](/posts/human-approval-merge-button/) and [About → Human approval](/about/?node=human).
 
-![Hand on a red irreversible-action gate; force-push, prod-destroying ops, and public legal/compliance locked until human approval](/images/posts/boundaries-irreversible-action-gate.jpg "The system declares the limits; human judgment seals the truth")
-
 “Irreversible” is not a vibe. It is a short list of action classes where undo is expensive, incomplete, or impossible: history rewritten, credentials exposed, data gone, a public commitment that binds more than a git revert can fix. Agents can prepare the change, package the blast radius, and wait. They do not get to decide that waiting is a bug.
 
 ### 2. Truth about people and work
@@ -63,7 +61,7 @@ The failure mode is flattering: you ran the stack hard, so the draft says “I b
 
 ### 4. Coaching and community obligations
 
-I am **head coach** at Harriton High School lacrosse. Athlete trust, parent communication, and competitive judgment are not batch jobs. Sports tech ([Philly Lax](https://phillylaxstats.com/), [CFB playbooks](https://davevoyles.github.io/College-Football-26-Playbooks-site)) can support the work; it does not replace the coach.
+I am **head coach** at [Harriton High School lacrosse](https://harritonlacrosse.com/). Athlete trust, parent communication, and competitive judgment are not batch jobs. Sports tech ([Philly Lax](https://phillylaxstats.com/), [CFB playbooks](https://davevoyles.github.io/College-Football-26-Playbooks-site)) can support the work; it does not replace the coach.
 
 Picture a Thursday night: lineups, playing time, a hard conversation with a parent after a loss. No agent should own that path. Tools can chart stats and organize playbooks. The human still stands in the huddle.
 
