@@ -1,0 +1,4 @@
+{
+  "name": "DaveVoylesdotCom portable cloud",
+  "install": "bash scripts/setup-cursor-cloud.sh"
+}

@@ -49,6 +49,10 @@ make list-tags    # existing tag vocabulary
 ./scripts/new-series-post.sh <slug> <weight> <ISO-date>
 ```
 
+## Cursor Cloud
+
+See [`docs/cursor-cloud.md`](docs/cursor-cloud.md). Cloud setup runs `make test` only — no Pages deploy, no required MainVault.
+
 ## Close-out
 
 - Append one line to `history.md`.
