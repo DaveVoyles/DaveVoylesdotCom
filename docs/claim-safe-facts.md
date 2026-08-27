@@ -60,6 +60,16 @@ Do not invent new dollar amounts, headcount, latency, or “N agents in producti
 
 ---
 
+## Public links
+
+Public davevoyles.com posts must not link to private GitHub — especially
+DaveVoyles/Chat-Agents blob, ADR, or doc URLs. Use public site paths only
+(`/posts/...`, `/about/?node=...`). Describe ADRs and repo files in prose.
+Do not mention plan IDs that only exist in the private repo unless Dave
+asks.
+
+---
+
 ## About constellation node ids
 
 Deep links: `/about/?node=<id>` and `/about/?cluster=<cluster>`.
