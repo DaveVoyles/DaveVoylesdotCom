@@ -101,6 +101,10 @@ The posts that already sound like him:
   heading stack.
 - **Contractions and first person.** “I don’t,” “it’s,” “that’s the job.”
   Colleague in the room, not a whitepaper.
+- **Longer sentences, more commas, dry humor.** Cadence like
+  `eval-gates-not-theater` — a colleague explaining, not a robot brief.
+  Clipped, staccato, deck-bullet prose is the miss. Dave flagged this
+  after a clipped draft on 2026-08-26.
 - **One real beat, not a résumé dump.** A test harness that deleted local
   work; Plex as the household reason the homelab exists; a Thursday-night
   coaching conversation the model does not own.
@@ -138,10 +142,12 @@ Typical drift, in practice:
 
 | Do | Don't |
 |----|--------|
-| Contractions, short sentences, first person | Formal “one must,” brochure tone, no-I corporate we |
+| Contractions, first person, longer sentences with more commas, dry humor | Clipped, staccato, robot-brief, deck-bullet prose (“sounds like a robot”) |
+| Colleague-explaining cadence like `eval-gates-not-theater` | Formal “one must,” brochure tone, no-I corporate we |
 | Explain it like a colleague — anecdote, then the rule | Ship a bullet outline and call it a post |
 | Use a markdown table for a real comparison | Turn the whole post into a slide deck in Markdown |
 | Numbers and titles only from [`claim-safe-facts.md`](claim-safe-facts.md) | Invent metrics, headcount, “N agents in production,” or board columns |
+| Public site paths only (`/posts/...`, `/about/?node=...`) | Link public davevoyles.com posts to private GitHub (especially DaveVoyles/Chat-Agents blob / ADR / doc URLs) — see [Public links](claim-safe-facts.md#public-links) |
 | “Extended and operates” / “integrated and operates” | “I built / authored” OpenClaw, Hermes, or firstmate |
 | **Former** Xbox / Microsoft TPM (past tense) | Present-tense “Senior TPM at Xbox” |
 | Azure, Docker, GitHub, evals, MCP as ops familiarity | Terraform / K8s as confidence / logo-soup claims |
