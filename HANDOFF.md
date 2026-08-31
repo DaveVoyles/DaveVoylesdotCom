@@ -1,12 +1,13 @@
 # Handoff
 
-**2026-08-31 — plan 0007 persisted. Landing-floor post not rewritten yet.**
+**2026-08-31 — plan 0007 executed. True-zero landing-floor post on `main`.**
 
 ## What shipped this session
 
 | Work | Notes |
 |------|--------|
-| Plan 0007 | True-zero primer then argument. D1 writing rule #155, D2 post #156. |
+| D1 writing rule | Define every noun before use. Teaching posts may go to 1800 words. |
+| D2 true-zero post | Seven-noun primer, then the lock-vs-robot story. Date/draft/cover path frozen. |
 
 ## Local-only (not committed)
 
@@ -14,12 +15,10 @@
 
 ## Where to start next session
 
-1. Execute plan 0007: https://github.com/DaveVoyles/DaveVoylesdotCom/blob/main/docs/design/0007-landing-floor-true-zero.md
-2. Claim #155 first, then #156.
-3. Live post still the ELI10 draft: https://davevoyles.com/posts/landing-floor-without-a-github-app/
+1. Live post: https://davevoyles.com/posts/landing-floor-without-a-github-app/
+2. Rest of the series is not true-zero yet.
 
 ## Do not
 
-- Do not implement in the planning session (already handed off).
-- Do not change that post’s date / draft / cover path unless Dave asks.
-- Do not invent claim-unsafe metrics.
+- Do not change that post’s `date` / `draft` / cover path unless Dave asks.
+- Do not invent claim-unsafe metrics — `docs/claim-safe-facts.md`.

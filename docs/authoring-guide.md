@@ -63,7 +63,8 @@ bullet-point-terse — thin enough that the post-to-video pipeline
 from. Unless the post genuinely earns a short treatment, aim for:
 
 - **ELI10.** Write for a smart 10-year-old. Short sentences. Name the thing in plain words before any jargon. If a 10-year-old can’t follow the thesis, the post isn’t done.
-- **~800-1300 words**, not 400-600. Compare against the series' own posts
+- **Define every noun before you use it.** Pull request, merge, GitHub App, lock, stamp — if the sentence needs the word, the word already has a one-line meaning above it. Never open with a thesis that only works if the reader already lives in GitHub.
+- **~800-1300 words**, not 400-600. **Teaching posts** (a primer of definitions, then the argument) may go to **1800**. Count: strip the TOML between the first two `+++` fences, then `str.split()`. Do not pad. Compare against the series' own posts
   (`git grep -c '' content/posts/*.md` gives a rough per-file word count via
   `wc -w`) rather than a fixed number — the goal is enough real detail to
   support a full explanation, not padding to hit a target.
@@ -141,13 +142,14 @@ Typical drift, in practice:
 |----|--------|
 | Contractions, short sentences, first person | Formal “one must,” brochure tone, no-I corporate we |
 | Explain it so a smart 10-year-old can follow | Assume the reader already lives in GitHub jargon |
+| Define every noun before you use it | Open with “lock merge” or “GitHub App” before saying what those are |
 | Explain it like a colleague — anecdote, then the rule | Ship a bullet outline and call it a post |
 | Use a markdown table for a real comparison | Turn the whole post into a slide deck in Markdown |
 | Numbers and titles only from [`claim-safe-facts.md`](claim-safe-facts.md) | Invent metrics, headcount, “N agents in production,” or board columns |
 | “Extended and operates” / “integrated and operates” | “I built / authored” OpenClaw, Hermes, or firstmate |
 | **Former** Xbox / Microsoft TPM (past tense) | Present-tense “Senior TPM at Xbox” |
 | Azure, Docker, GitHub, evals, MCP as ops familiarity | Terraform / K8s as confidence / logo-soup claims |
-| ~800–1300 words unless the piece honestly earns short | 400–600 words of terse bullets |
+| ~800–1300 words; teaching posts may go to 1800 | 400–600 words of terse bullets, or padding to hit a number |
 
 Need a list of *topics* rather than a draft? Follow
 [`idea-playbook.md`](idea-playbook.md) — title + one-line angle, then stop.
