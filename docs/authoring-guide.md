@@ -62,6 +62,7 @@ bullet-point-terse — thin enough that the post-to-video pipeline
 ([`video-guide.md`](video-guide.md)) has little narration material to draw
 from. Unless the post genuinely earns a short treatment, aim for:
 
+- **ELI10.** Write for a smart 10-year-old. Short sentences. Name the thing in plain words before any jargon. If a 10-year-old can’t follow the thesis, the post isn’t done.
 - **~800-1300 words**, not 400-600. Compare against the series' own posts
   (`git grep -c '' content/posts/*.md` gives a rough per-file word count via
   `wc -w`) rather than a fixed number — the goal is enough real detail to
@@ -139,6 +140,7 @@ Typical drift, in practice:
 | Do | Don't |
 |----|--------|
 | Contractions, short sentences, first person | Formal “one must,” brochure tone, no-I corporate we |
+| Explain it so a smart 10-year-old can follow | Assume the reader already lives in GitHub jargon |
 | Explain it like a colleague — anecdote, then the rule | Ship a bullet outline and call it a post |
 | Use a markdown table for a real comparison | Turn the whole post into a slide deck in Markdown |
 | Numbers and titles only from [`claim-safe-facts.md`](claim-safe-facts.md) | Invent metrics, headcount, “N agents in production,” or board columns |

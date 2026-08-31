@@ -3,7 +3,7 @@ title = "Landing floor without a GitHub App — gates still count"
 date = "2026-08-21T09:00:00-04:00"
 draft = false
 author = "Dave Voyles"
-description = "You do not need a GitHub App or bot merge to run a serious agent landing path. Human mode: Intent, CI, SHA-keyed review receipts, and a wrapper that refuses bare merges."
+description = "You can lock merge without a GitHub App. The agent still has to pass checks. You still click the last button."
 categories = ["Programming", "AI"]
 tags = ["AI agents", "GitHub", "code review", "automation", "TPM"]
 topics = ["Tech"]
@@ -11,125 +11,130 @@ series = ["Agent production system"]
 series_weight = 8
 [cover]
 image = "/images/posts/landing-floor-locked-hatch.jpg"
-alt = "Locked steel hatch in a dark factory floor — the landing gate that will not lift without a receipt"
-caption = "If the rule matters, it lives in the floor, not in the prompt."
+alt = "Locked steel hatch in a dark factory floor — the landing gate that will not lift without a stamp"
+caption = "If the rule matters, it lives in the lock, not in a sticky note."
 +++
 
 Companion to [GitHub tokens for agent fleets](/posts/github-tokens-for-agent-fleets/) and the [agent production system](/posts/agent-production-system/) series.
 
-A lot of people hear “receipt-gated landing” and “GitHub App bot” as one package. They are not. I kept hearing those two sold as one kit, because every demo that shows bot merge also shows the gates — so it looks like you cannot have the floor until the App exists. **Human mode is the default** — and it is enough to stop agents from treating “please review before merge” as optional prose.
+People mix two ideas. One is a lock on merge. The other is a robot that clicks merge for you. They are not the same thing. **You can keep the last click.** That is enough to stop an agent from treating “please review” as a nice wish.
 
 ---
 
-## The instruction that kept not working
+## The sticky note that didn’t work
 
-Every agent setup eventually writes some version of:
+Every agent setup writes some version of:
 
 > Before merging, run the review step.
 
-That sentence isn’t a control. Under time pressure, a truncated context window, or a session optimizing for “done,” the agent can skip it and still succeed.
+That sentence is a sticky note. It is not a lock. When the agent is in a hurry, or the chat got cut short, or it just wants to say “done,” it can skip the note. The merge still works.
 
-Picture the last slice of a session. Review was a line in the prompt. Bare `gh pr merge` would have worked. From the outside, that merge looks exactly like one that went through the floor — same green checks, same PR page. You only find out because you asked whether the wrapper ran, not because GitHub looked different.
+Picture the last minutes of a session. Review was a line in the prompt. The agent could still run the normal merge command. From the outside, GitHub looks the same — green checks, same page. You only find out if you ask “did the lock run?” GitHub will not tell you.
 
-If a rule matters, **it can’t live only in prose.** It has to live in code that **refuses** when the rule is broken — code the session cannot talk its way around.
+If a rule matters, **it can’t live only in words.** It has to live in a program that **says no** when the rule is broken. The agent cannot talk that program into a yes.
 
-That is the landing floor. A GitHub App is an *optional accelerator* for approve+merge after the same gates pass. It is not the floor.
+That program is the landing floor. A GitHub App is a helper that can click merge after the same checks pass. It is extra. It is not the floor.
 
 ![A crumpled note beside an unguarded switch — a written “review first” is not a control](/images/posts/landing-floor-instruction-not-a-control.jpg "A sentence in the prompt is not a gate")
 
-## What human mode actually does
+## What “you click merge” actually checks
+
+When you click merge, four checks run. Then the agent gets one door.
 
 | Check | Why it exists |
 |-------|----------------|
-| **Intent** on the PR | Why this change exists — not just a diff dump |
-| **CI** green | The change survived automation you already trust |
-| **Review receipt on the exact HEAD SHA** | “LGTM” on commit A must not bless commit B |
-| **Wrapper-only land path** | Bare `gh pr merge` is not the capability the agent has |
+| A **reason** on the pull request | So the change is not just a pile of diffs with no “why” |
+| Automatic tests are **green** | The change passed the checks you already trust |
+| A review **stamp on this exact version** | “Looks good” on version A must not bless version B |
+| **Only one merge door** | The agent does not get the normal merge command |
 
-**Example: the extra commit.** It’s the end of the session and the agent is optimizing for “done.” Intent is on the PR. CI is green. It already ran a review on commit A, and it even said so in chat. Then it pushed one more commit — a comment, a lockfile, something that felt too small to re-review — and HEAD is now B. From the outside, bare `gh pr merge` would look exactly like a landing that went through the floor. Chat even says it reviewed the change. That’s not a credential. The wrapper looks for a receipt on **this** SHA, doesn’t find one, and refuses. It names the gap. It does not invent a bot approval. It does not ask for a PAT. I didn’t catch it because the PR page looked ready. I caught it because merge isn’t a prompt instruction in this setup. It’s a path the agent doesn’t have.
+**Example: the extra commit.** It’s the end of the night. The agent wants to be done. The pull request has a reason. Tests are green. It already reviewed version A, and it said so in chat. Then it pushed one more tiny change — a comment, a lock file — and the latest version is now B. From the outside, a normal merge would look fine. Chat even says it reviewed the work. Chat is not a stamp. The lock looks for a stamp on **this** version. It does not find one. It says no. It does not pretend a robot approved it. It does not ask me for a secret key. I caught it because merge is not a wish in the prompt. It’s a door the agent does not have.
 
-When App credentials are **absent**:
+When you have not set up a GitHub App:
 
-1. The wrapper still runs the same validations.  
-2. It **does not** invent a bot approval.  
-3. It prints the **exact** safe merge (or status) command for **you** to run.  
-4. That is success — not a half-installed system.
+1. The lock still runs the same checks.  
+2. It **does not** pretend a robot approved the change.  
+3. It prints the **exact** command for **you** to run.  
+4. That is success. You did not skip a setup step.
 
-**Example: no App, still a floor.** There’s no App mint and no `config.env`. That used to feel like I’d skipped a setup step. It isn’t. The wrapper still checks Intent, still waits for CI, still wants a receipt on the exact HEAD SHA. When those are there, it does not invent a bot approval and it does not merge. It prints the exact command for me. I still make the click. That’s human mode succeeding — same gates as bot mode, no second principal. If the agent tries bare merge anyway, the harness doesn’t have that capability; the wrapper is the land path.
+**Example: no App, still a floor.** There’s no robot helper and no extra config file. That used to feel like I forgot something. I didn’t. The lock still wants a reason, green tests, and a stamp on this exact version. When those are there, it still does not merge. It prints the command. I click. Same checks as robot mode — no second “person” clicking for me.
 
 | Situation | Mode |
 |-----------|------|
-| No App mint / no `config.env` | **Human** (default) |
-| App wired and mint works | **Bot** (optional) after the same gates |
+| No robot helper / no extra config | **You click** (this is the default) |
+| Robot helper is set up and works | **Robot can click** after the same checks |
 
-Missing App credentials is **not an error.** It’s the supported path for a first run and for anyone who wants judgment on the final click.
+A missing GitHub App is **not a broken install.** It’s the path I want for a first run, and for anyone who wants a human on the last click.
 
-![Empty night-ops desk — the wrapper prints the merge command; a human still makes the click](/images/posts/landing-floor-human-merge.jpg "Human mode is success, not a half-installed bot")
+![Empty night-ops desk — the program prints the merge command; a human still makes the click](/images/posts/landing-floor-human-merge.jpg "You still click. That is success, not a half-installed robot")
 
-## The receipt that expires by construction
+## The stamp that only fits one version
 
-A review is a claim about a **specific** code state: “I looked at *this* and found no blockers.”
+A review means: “I looked at *this* pile of code and I didn’t see a blocker.”
 
-Receipt on commit A. Then a “just fix the comment” push to B. The old LGTM is still sitting on the PR. If the gate only asks whether a passing review exists *somewhere* on this branch, that helpful push lands under a stamp that was never about B. The fix:
+The failure is boring. Stamp on version A. Then a “just fix the comment” push makes version B. The old “looks good” is still on the page. If the lock only asks “is there a passing review *somewhere* on this branch?”, that helpful push rides an old stamp. The fix:
 
-- Post the verdict as platform metadata on the **commit SHA**, not the branch name.  
-- New commit → no receipt → **refuse** until review runs again.  
-- Prefer a **trusted poster** for that status (even in human mode you can post receipts carefully; bot mode just automates who stamps them).
+- Put the stamp on the **exact version id**, not the branch name.  
+- New version → no stamp → **say no** until review runs again.  
 
 ```
-Push commit A → review → receipt on A
-Push commit B → wrapper looks for receipt on B → none → REFUSE
-Review B → receipt on B → wrapper may proceed (or print human merge)
+Push version A → review → stamp on A
+Push version B → lock looks for stamp on B → none → NO
+Review B → stamp on B → lock may continue (or print the command for you)
 ```
 
-Nobody has to *remember* that B invalidates A. The data model does it.
+Nobody has to *remember* that B kills A’s stamp. The data does it.
 
-![Two machined blocks on an inspection bench — the stamp that fits commit A does not fit commit B](/images/posts/landing-floor-receipt-expires.jpg "A receipt is a claim about one SHA")
+![Two machined blocks on an inspection bench — the stamp that fits version A does not fit version B](/images/posts/landing-floor-receipt-expires.jpg "A stamp is a claim about one version")
 
-## What the agent is allowed to do
+## What the agent may do
 
-The wrapper is the capability. Chat is not. A session that reviewed the diff and then offered that review as the merge credential is the same session wearing a second hat. I don’t treat that as an approval identity.
+The merge door is the program. Chat is not. A session that reviewed the diff and then offered that review as the merge pass is the same session wearing two hats. I don’t treat that as a real approval.
 
 **Allowed**
 
-- Finish the change, push, open/update the PR as the **human-linked** identity  
-- Run a structured self-review pass  
-- Invoke the **landing wrapper**  
-- Relay a clear refuse reason and fix gaps (missing Intent, red CI, stale receipt)
+- Finish the change, push, open or update the pull request as you  
+- Run a careful self-review  
+- Use the **merge door**  
+- Say clearly why it said no, then fix the gap (no reason, red tests, old stamp)
 
-**Not allowed (by design)**
+**Not allowed**
 
-- Treat “I reviewed it in chat” as a merge credential  
-- Call bare merge when the harness denies it  
-- Skip re-review after a last-minute commit  
-- Demand a GitHub App before the floor is “real”
+- Treat “I reviewed it in chat” as a merge pass  
+- Use the normal merge command when the setup blocks it  
+- Skip a new review after a last-minute commit  
+- Demand a GitHub App before the lock is “real”
 
-## How this fits the series
+## Where this sits in the series
+
+This post is the lock *without* the robot. The [token post](/posts/github-tokens-for-agent-fleets/) is what you add when you *want* the robot to click.
 
 | Post | Role |
 |------|------|
-| [Eval gates](/posts/eval-gates-not-theater/) | Automated checks before trust |
-| [Human approval](/posts/human-approval-merge-button/) | Merge button still matters |
-| [GitHub tokens for agent fleets](/posts/github-tokens-for-agent-fleets/) | Personal vs bot credentials when you *do* add an App |
-| **This post** | Full discipline **without** requiring an App |
+| [Eval gates](/posts/eval-gates-not-theater/) | Automatic checks before you trust the change |
+| [Human approval](/posts/human-approval-merge-button/) | A person still hits merge |
+| [GitHub tokens for agent fleets](/posts/github-tokens-for-agent-fleets/) | Your login vs a robot login, if you add an App |
+| **This post** | The full lock **without** needing an App |
 
-On the constellation: [Eval gates](/about/?node=eval) and [Human approval](/about/?node=human) are the product thesis. Bot merge is a convenience layer on top.
+On the About picture: [Eval gates](/about/?node=eval) and [Human approval](/about/?node=human) are the idea. Robot merge is a convenience on top.
 
-## Minimal adoption checklist (no App)
+## How to start (no robot needed)
 
-1. One **wrapper** is the only land path the agent can invoke.  
-2. Wrapper requires **Intent + CI + SHA-keyed receipt** (or your equivalent triad).  
-3. On pass: print **human** merge instructions; do not soft-fail into merge.  
-4. On fail: name the gap; do not ask for a PAT.  
-5. Later — only if you want unattended approve+merge — add **your own** GitHub App ([token post](/posts/github-tokens-for-agent-fleets/)).
+The first time I had no App, it printed a merge command. I still had to click.
+
+1. The agent gets **one** merge door. That’s it.  
+2. That door needs a **reason + green tests + a stamp on this version**.  
+3. On pass: print **your** merge steps. Do not merge anyway.  
+4. On fail: name the gap. Do not ask for a secret key.  
+5. Later — only if you want a robot to click — add **your own** GitHub App ([token post](/posts/github-tokens-for-agent-fleets/)).
 
 ## What this is *not*
 
-- A claim you must open-source a specific script name  
-- A requirement to run unattended merges  
-- Permission to skip CI because “human mode is softer”  
+- A claim you must publish a specific script name  
+- A rule that you must let a robot merge  
+- Permission to skip tests because “you still click, so it’s softer”
 - A substitute for judgment on irreversible risk ([What I will not automate](/posts/what-i-will-not-automate/))
 
 ---
 
-**Bottom line:** start with a floor the agent **can’t skip**. Stay in human mode until you *want* bot approve+merge. The App does not make the floor real — **refusal on missing receipts** does.
+**Bottom line:** start with a lock the agent **can’t skip**. Keep the last click until you *want* a robot to click. The App does not make the lock real. **Saying no when the stamp is missing** does.
