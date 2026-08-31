@@ -19,3 +19,10 @@ code, comments, commit messages, and conversation. See AGENTS.md
 | Scene | One unit of a generated post video: a narration string, an on-screen headline card, and a target duration. The pipeline renders one Ken Burns clip per scene. | See [plan 0006](docs/design/0006-post-video-pipeline.md). Prototype: branch `prototype/post-video-pipeline`. |
 | `scenes.json` | The manifest of scenes for one post, plus a top-level `voice` key. The single input the render stage needs, and the artifact Dave approves before any render runs. | Schema-validated; gated for claim safety (see `narration`). The `voice` key was inert until plan 0006 D2 wired it up. |
 | Narration | The spoken script for a scene. Public, first-person content subject to the **same claim-safety gate as markdown posts** — it is not exempt for being audio. | See [plan 0006](docs/design/0006-post-video-pipeline.md) D4 and ADR 0012. Gate also covers on-screen headline text. |
+| Agent | A program that writes and lands code for you, in a chat session. | Primer noun — [plan 0007](docs/design/0007-landing-floor-true-zero.md). |
+| Automatic tests | Checks that run by themselves when code is proposed. | Alias: CI. Plan 0007. |
+| GitHub App | A robot you install on a GitHub repo so it can click buttons as itself, not as you. | Purpose only on the landing-floor post. Plan 0007. |
+| Landing floor | A lock on merge: a program that says no when a rule is broken. | Alias: the lock. Plan 0007. |
+| Merge | Accepting a proposed change so it becomes part of the main project. | Plan 0007. |
+| Pull request | A proposed change waiting for review. | Plan 0007. |
+| Stamp | A review that applies to one exact version of the code, not a chat message. | Plan 0007. |

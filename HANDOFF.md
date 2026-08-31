@@ -1,13 +1,12 @@
 # Handoff
 
-**2026-08-31 — landing-floor post rewritten ELI10 and on `main`.**
+**2026-08-31 — plan 0007 persisted. Landing-floor post not rewritten yet.**
 
 ## What shipped this session
 
 | Work | Notes |
 |------|--------|
-| Landing-floor ELI10 | `content/posts/landing-floor-without-a-github-app.md` rewritten for a smart 10-year-old. Two examples kept. Date/draft/cover path frozen. |
-| Writing standard | `docs/authoring-guide.md` — ELI10 is now a do, not a mode. |
+| Plan 0007 | True-zero primer then argument. D1 writing rule #155, D2 post #156. |
 
 ## Local-only (not committed)
 
@@ -15,11 +14,12 @@
 
 ## Where to start next session
 
-1. How a post gets made: [`docs/post-pipeline.md`](docs/post-pipeline.md). Router: [`AGENTS.md`](AGENTS.md).
-2. Live post: https://davevoyles.com/posts/landing-floor-without-a-github-app/
-3. Rest of the series is **not** ELI10 yet — only this post was rewritten.
+1. Execute plan 0007: https://github.com/DaveVoyles/DaveVoylesdotCom/blob/main/docs/design/0007-landing-floor-true-zero.md
+2. Claim #155 first, then #156.
+3. Live post still the ELI10 draft: https://davevoyles.com/posts/landing-floor-without-a-github-app/
 
 ## Do not
 
-- Do not change that post’s `date` / `draft` / cover path unless Dave asks.
-- Do not invent claim-unsafe metrics — `docs/claim-safe-facts.md`.
+- Do not implement in the planning session (already handed off).
+- Do not change that post’s date / draft / cover path unless Dave asks.
+- Do not invent claim-unsafe metrics.

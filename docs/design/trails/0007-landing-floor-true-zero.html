@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trail 0007 — landing-floor true-zero</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+    body { font: 16px/1.45 ui-sans-serif, system-ui, sans-serif; background: #0d0f0d; color: #e8eee9; max-width: 880px; margin: 0 auto; padding: 24px; }
+    h1 { font-size: 1.3rem; }
+    .muted { color: #8aa090; }
+    .ok { color: #5fb87a; }
+    table { width: 100%; border-collapse: collapse; }
+    td, th { border-bottom: 1px solid #2a332c; padding: 8px 6px; text-align: left; vertical-align: top; }
+    .mermaid { background: #111511; border-radius: 8px; padding: 12px; }
+  </style>
+</head>
+<body>
+  <h1>0007 trail — locked</h1>
+  <p class="muted">Grilling 2026-08-31. Archived at plan persist.</p>
+  <p>Locked <span class="ok">7</span> · Pending 0 · Facts 5</p>
+  <table>
+    <tr><th>ID</th><th>Lock</th></tr>
+    <tr><td>D1</td><td>True zero on this post’s words</td></tr>
+    <tr><td>D2</td><td>This post + writing rule; not the whole series</td></tr>
+    <tr><td>D3</td><td>Primer, then argument</td></tr>
+    <tr><td>D4</td><td>TeachingWordCap 1800</td></tr>
+    <tr><td>D5</td><td>GitHub App purpose, then optional; no setup</td></tr>
+    <tr><td>D6</td><td>Seven nouns in the primer</td></tr>
+    <tr><td>D7</td><td>Keep examples; freeze date/cover; rewrite undefined title words</td></tr>
+  </table>
+  <div class="mermaid">
+flowchart TD
+  F3[F3 opaque thesis] --> D1[D1 true zero]
+  F1[F1 App undefined] --> D5[D5 App purpose]
+  F2[F2 tokens defines App] --> D5
+  D1 --> D2[D2 post plus rule]
+  D1 --> D3[D3 primer then argument]
+  D1 --> D5
+  D3 --> D4[D4 cap 1800]
+  D3 --> D6[D6 seven nouns]
+  D5 --> D6
+  D4 --> D7[D7 freeze date cover]
+  </div>
+  <script>mermaid.initialize({ startOnLoad: true, theme: "dark" });</script>
+</body>
+</html>

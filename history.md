@@ -1,5 +1,6 @@
 # History
 
+- 2026-08-31: Plan 0007 — true-zero rewrite of the landing-floor post (primer of seven nouns, then argument). Writing-rule + post. Not executed this session.
 - 2026-08-31: ELI10 rewrite of `landing-floor-without-a-github-app` (lock vs robot-click; stamp on one version). Writing standard now requires ELI10. Date/draft/cover path unchanged. Pushed to main.
 - 2026-08-31: Expanded `landing-floor-without-a-github-app` ~30% with connective prose and two human-mode examples (extra commit B; no-App prints human merge). Date/draft/cover unchanged. Pushed to main.
 - 2026-08-18: Session close-out — voice/idea/image playbooks, live-post art, computed series status, post-pipeline map, landing-floor ignores. Landing-floor still 2026-08-21. Nothing left in this thread.
