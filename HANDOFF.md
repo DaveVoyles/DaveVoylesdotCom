@@ -1,13 +1,14 @@
 # Handoff
 
-**2026-08-31 — plan 0007 executed. True-zero landing-floor post on `main`.**
+**2026-08-31 — true-zero rewrites of three series posts on `main`.**
 
 ## What shipped this session
 
 | Work | Notes |
 |------|--------|
-| D1 writing rule | Define every noun before use. Teaching posts may go to 1800 words. |
-| D2 true-zero post | Seven-noun primer, then the lock-vs-robot story. Date/draft/cover path frozen. |
+| #157 claim-safety | Primer of seven nouns, then evidence-before-metrics. Date/draft/cover frozen. |
+| #158 boundaries | Primer of eight nouns, then five things I will not automate. Date/draft/cover frozen. |
+| #159 github-tokens | Primer then argument. Title is now "Don't paste your GitHub key in chat." Date/draft/cover frozen. |
 
 ## Local-only (not committed)
 
@@ -15,10 +16,10 @@
 
 ## Where to start next session
 
-1. Live post: https://davevoyles.com/posts/landing-floor-without-a-github-app/
-2. Rest of the series is not true-zero yet.
+1. Live posts: https://davevoyles.com/posts/claim-safety-evidence-before-metrics/ · https://davevoyles.com/posts/what-i-will-not-automate/ · https://davevoyles.com/posts/github-tokens-for-agent-fleets/
+2. Rest of the series is not all true-zero yet.
 
 ## Do not
 
-- Do not change that post’s `date` / `draft` / cover path unless Dave asks.
+- Do not change those posts’ `date` / `draft` / cover path unless Dave asks.
 - Do not invent claim-unsafe metrics — `docs/claim-safe-facts.md`.
