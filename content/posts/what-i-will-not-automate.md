@@ -33,7 +33,9 @@ This is **part 6** of the [Agent production system](/posts/agent-production-syst
 
 **Judgment.** A person deciding what is fair, true, or allowed when the rules do not pick for you.
 
-Those seven words are the whole toolkit. Now the point.
+**Stakeholder.** A person who owns the outcome and can say which path is right.
+
+Those eight words are the whole toolkit. Now the point.
 
 People mix two ideas. One is “the agent can do it.” The other is “the agent should do it.” They are not the same. I let the agent do the middle of the work path. I will not let it own a Thursday-night talk with a parent after a loss. The goal was never “automate everything.” The goal is a system that moves work fast **and** still has a place for a person to say no.
 
@@ -91,7 +93,7 @@ Picture a Thursday night. Lineups. Playing time. A hard talk with a parent after
 
 ### 5. A fight only a person in the room can settle
 
-A stakeholder is a person who owns the outcome and can say which path is right. When two of them want different things, a model should not pick a winner in the dark. Asking a person is the feature.
+When two stakeholders want different things, a model should not pick a winner in the dark. Asking a person is the feature.
 
 Agents are good at a decision brief: options, risks, what each path costs, what evidence exists. They are bad as silent tie-breakers. The right answer is often about people, not code. A model cannot sit in that room. When it is not sure, stop and ask a person. Same idea as [eval gates](/posts/eval-gates-not-theater/) — automatic checks that can say no. “I don’t know” is not “round up to yes.”
 
@@ -122,7 +124,7 @@ If you only remember one walk through the picture on [About](/about/):
 
 The picture is the system. This post is the part the picture cannot do for you: agents move work; **gates and people** decide what never gets on the belt.
 
-Later posts get concrete: how login works, and a lock that says no when a rule is broken. Short-lived keys. No paste-a-secret habit. Landing paths that cannot say yes to themselves. Boundaries are not only a talk about ethics. They are the details that keep a fleet from eating its own trust.
+Later posts get concrete: how login works, and a lock that says no when a rule is broken. Short-lived keys. No paste-a-secret habit. The last click cannot approve itself. Boundaries are not only a talk about ethics. They are the details that keep agents from eating their own trust.
 
 ## What this is not
 
