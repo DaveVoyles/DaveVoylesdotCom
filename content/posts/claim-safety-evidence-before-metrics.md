@@ -37,7 +37,7 @@ Those seven words are the whole toolkit. Now the point.
 
 Agents sound finished. Sounding finished is not the same as **true**.
 
-Claim safety is the habit of tying every public number, title, and authorship line to evidence. If an agent can write a blog post, open a change, or rewrite a résumé, it can also print a confident lie. The fix is not “please be careful” in the prompt. The fix is a gate: **block, or stop for a person**. Do not ship.
+Claim safety is the habit of tying every public number, title, and authorship line to evidence. If an agent can write a blog post, open a change, or rewrite a **résumé** (a one-page story of your work for a job), it can also print a confident lie. The fix is not “please be careful” in the instructions. The fix is a gate: **block, or stop for a person**. Do not ship.
 
 ---
 
@@ -51,7 +51,7 @@ The collision usually looks like this:
 - **Verb inflation** — “led” where the honest word was “helped,” “built” where the honest phrase was “extended and operates”
 - **Implied invention** — treating a tool other people wrote as if you authored it, because you run it hard
 - **Metrics with no date and no source** — numbers that die when someone says “show me”
-- **Present-tense title drift** — “Senior TPM at Xbox” as a current job when the true line is **former**
+- **Present-tense title drift** — “Senior Technical Program Manager (TPM) at Xbox” as a current job when the true line is **former**
 
 None of that needs a bad person. It needs a system that wants to sound done. If your agents can publish, claim safety has to be a **gate**, not a writing preference.
 
@@ -97,15 +97,13 @@ The allowlist is short on purpose. A short list forces soft language (“high-st
 
 ## Evidence-backed tooling
 
-A **résumé** is a one-page story of your work for a job. Every line is a claim.
-
 [Resume Builder](https://github.com/DaveVoyles/resume-builder) exists because job search is a claim surface. An agent that edits a résumé without evidence just writes faster bullets with weaker truth.
 
 The product idea is simple: matching a role, and writing the words, stay attached to what you can defend. Same idea as a gate on code — different artifact. A tailored résumé that invents impact is not “optimized.” It is a lie that looks like productivity.
 
 That tooling also keeps this site honest. The About numbers, the Xbox transfer post, and this post all pull from the same habit: if a number is not allowed, it does not appear as a hard claim. Soft paraphrase is fine. Inflation is not.
 
-The homelab line is the same test. I run **20+** containers. That is on the list. It is not Xbox. It does not become “enterprise scale” because the sentence would land harder. The résumé does not get a bigger number than the site. Public is public.
+The **homelab** — the computers I run at home — is the same test. I run **20+** containers. That is on the list. It is not Xbox. It does not become “enterprise scale” because the sentence would land harder. The résumé does not get a bigger number than the site. Public is public.
 
 ## Where the check lives
 
@@ -133,7 +131,7 @@ On the map: start at [Eval gates](/about/?node=eval) and [Search](/about/?node=s
 | Always-impressive résumé drafts | Drafts that stop when evidence is missing |
 | Fixing one bad sentence after publish | Gates that catch the pattern before it goes live |
 
-![Theater versus real gates: prompt-only “don’t invent” under a spotlight on the left; allowlist, eval gate, and evidence-backed resume path on the right](/images/posts/claim-safety-theater-vs-real.jpg "A prompt is not a gate — an allowlist that can block is")
+![Theater versus real gates: prompt-only “don’t invent” under a spotlight on the left; allowlist, eval gate, and evidence-backed resume path on the right](/images/posts/claim-safety-theater-vs-real.jpg "Instructions are not a gate — an allowlist that can block is")
 
 If your claim check never fails, you do not have claim safety. You have decoration. The tell is what happens when a draft wants a metric that is not on the list. A real system stops. A theatrical one rephrases until it sounds softer and ships anyway.
 
