@@ -19,7 +19,7 @@ Companion to [The last click is still yours](/posts/landing-floor-without-a-gith
 
 ## Words I use below
 
-**Agent.** A program that writes and lands code for you, in a chat session.
+**Agent.** A program that writes code for you in a chat session.
 
 **Pull request.** A proposed change waiting for review. On GitHub it has its own page, with a button to accept it.
 
@@ -35,7 +35,9 @@ Companion to [The last click is still yours](/posts/landing-floor-without-a-gith
 
 **Broker.** A small program that hands out a short-lived token when the rules say yes. The agent asks. The broker decides. The agent does not invent a key.
 
-Those eight words are the whole toolkit. Now the point.
+**Automatic tests.** Programs that run by themselves when you propose a change. Green means they passed.
+
+Those words are the whole toolkit. Now the point.
 
 People mix two keys. One is yours. The other is a short key for a robot. They are not the same thing. **Agents ask a broker for a short-lived token. They do not get a PAT in chat.**
 
@@ -64,9 +66,9 @@ Think of two lanes:
 | Lane | Who GitHub sees | How long the key lasts | Used for |
 |------|-----------------|------------------------|----------|
 | **You** | Your personal login | Until you sign out | Work *you* are doing: open a pull request, poke around, push as yourself |
-| **Robot** | A GitHub App | About one hour | Approve and merge after the checks pass |
+| **Robot** | A GitHub App | About one hour | Approve and merge after automatic tests pass |
 
-![Two industrial lanes — a worn personal key on one track, a short-lived fuse on the other](/images/posts/github-tokens-two-lanes.jpg "You open the pull request. The robot only merges after the checks.")
+![Two industrial lanes — a worn personal key on one track, a short-lived fuse on the other](/images/posts/github-tokens-two-lanes.jpg "You open the pull request. The robot only merges after automatic tests.")
 
 Look at a normal afternoon. Work is moving. Nothing sits in the middle waiting for someone to *feel* that a key was fine. The broker already said yes or no. Empty waiting is not a stall. It is the rule doing its job.
 
@@ -79,7 +81,7 @@ Agents do **not** each own a GitHub App. They call one broker. That broker talks
 ### Rule that saves pain
 
 **Opening a pull request stays on your personal login.**
-**Approve and merge after checks can use the robot.**
+**Approve and merge after automatic tests can use the robot.**
 
 **Example: the robot that cannot approve itself.** You were hitting a limit on your personal login. So you let the GitHub App *open* the pull request. GitHub now thinks the robot wrote the change. At the end of the night a script asks the same robot to approve it. GitHub says no. Same name cannot approve its own work. You find out when you wanted to be done. Keep create on your name. Wait out the limit if you have to. Do not “fix” a limit by handing the robot the first click.
 
@@ -109,16 +111,16 @@ When GitHub says no, the agent should not open with “please paste a new PAT.�
 
 Asking a human for a brand-new long-lived key is a last resort (new machine, missing robot key). It is not the default.
 
-## The robot is extra. The checks are not.
+## The robot is extra. Automatic tests are not.
 
 This post is the key. The other post is a **lock** — a program that says no when a rule is broken. I will not walk it here. Read [The last click is still yours](/posts/landing-floor-without-a-github-app/).
 
-One fact carries over: a missing GitHub App is **not a broken install.** The checks still run. If the robot is there, it may click after they pass. If not, you click.
+One fact carries over: a missing GitHub App is **not a broken install.** Automatic tests still run. If the robot is there, it may click after they pass. If not, you click.
 
 | Mode | GitHub App set up? | What happens |
 |------|--------------------|--------------|
-| **You click** (default) | No | Checks run; print the merge steps for you |
-| **Robot can click** | Yes | Same checks; then the robot can approve and merge |
+| **You click** (default) | No | Automatic tests run; print the merge steps for you |
+| **Robot can click** | Yes | Same automatic tests; then the robot can approve and merge |
 
 Automation should not mean “merge anything that compiled.” The robot is a **narrow** second name, not a second you with every button forever. That pairs with [human approval](/posts/human-approval-merge-button/): merge is still a product decision.
 
@@ -134,14 +136,7 @@ Give the GitHub App only the buttons it needs:
 
 The robot’s private key lives **outside any git repo**. Never commit it.
 
-When you check that the broker handed out a token, print the **length**, not the key:
-
-```bash
-# Length only — do not echo the token into chat or logs
-TOKEN="$(broker-or-mint …)"
-echo "mint ok, length=${#TOKEN}"
-unset TOKEN
-```
+When the broker hands out a token, print the length, not the key.
 
 ## Where this sits in the series
 
@@ -174,4 +169,4 @@ On the About picture: [Eval gates](/about/?node=eval) and [Human approval](/abou
 
 ---
 
-**Bottom line:** agents get a path to a short-lived token. They do not get a PAT in chat, and they do not merge without the checks.
+**Bottom line:** agents get a path to a short-lived token. They do not get a PAT in chat, and they do not merge without automatic tests.
