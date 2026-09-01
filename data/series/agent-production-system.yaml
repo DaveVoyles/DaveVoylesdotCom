@@ -39,7 +39,7 @@ parts:
     draft: false
   - weight: 7
     slug: github-tokens-for-agent-fleets
-    title: "GitHub tokens for agent fleets — safe automation without paste-a-PAT"
+    title: "Don't paste your GitHub key in chat"
     date: "2026-08-18T09:00:00-04:00"
     draft: false
   - weight: 8

@@ -1,9 +1,9 @@
 +++
-title = "GitHub tokens for agent fleets — safe automation without paste-a-PAT"
+title = "Don't paste your GitHub key in chat"
 date = "2026-08-18T09:00:00-04:00"
 draft = false
 author = "Dave Voyles"
-description = "How to give coding agents GitHub access without long-lived PATs in chat: short-lived App tokens, a deterministic credential broker, personal vs bot identity, and fail-closed landing."
+description = "An agent writes code in a chat. A pull request is a proposed change. A GitHub App is a robot that clicks as itself. Give it a short-lived key. Do not paste a long-lived key in the chat."
 categories = ["Programming", "AI"]
 tags = ["AI agents", "GitHub", "security", "automation", "TPM"]
 topics = ["Tech"]
@@ -12,135 +12,166 @@ series_weight = 7
 [cover]
 image = "/images/posts/github-tokens-pat-in-chat.jpg"
 alt = "A long-lived access key left exposed on an open laptop in a dark ops room"
-caption = "Agents do not get a PAT in chat."
+caption = "Agents do not get a long-lived key in chat."
 +++
 
-Most agent demos treat GitHub as “paste a PAT in the env and hope.” That works until the token shows up in a transcript, the rate limit collides with the work you are doing by hand, or the bot opens a PR and GitHub refuses to let it approve its own change.
+Companion to [The last click is still yours](/posts/landing-floor-without-a-github-app/) and the [agent production system](/posts/agent-production-system/) series.
 
-I use two identities on purpose: you for creating the PR, a short-lived App token for approve/merge after the gates. Agents call a broker. They do not each own a secret.
+## Words I use below
 
-This sits with the [Agent production system](/posts/agent-production-system/) series — same thesis as [eval gates](/posts/eval-gates-not-theater/) and [human approval](/posts/human-approval-merge-button/), applied to **how agents authenticate to GitHub**. Prefer the floor **without** an App first? See [Landing floor without a GitHub App](/posts/landing-floor-without-a-github-app/).
+**Agent.** A program that writes and lands code for you, in a chat session.
 
-![GitHub tokens in the agentic system — agent → Gatekeeper → gh-app-token → GitHub App API → bot approve/merge; separate personal OAuth path authors the PR](/images/posts/github-tokens-agent-system.png)
+**Pull request.** A proposed change waiting for review. On GitHub it has its own page, with a button to accept it.
 
-*One App install, many mints. Agents call the broker; they do not each own long-lived PATs. Machine secrets stay out of git.*
+**Merge.** Accepting that proposed change so it becomes part of the main project.
+
+**Personal login.** You, signed in as yourself. When you type commands, GitHub sees your name.
+
+**GitHub App.** A robot you install on a GitHub project so it can click buttons as itself — not as you. It can approve. It can merge.
+
+**Short-lived token.** A temporary key the robot gets to prove it may click. It dies in about an hour. After that it is junk.
+
+**PAT.** A personal access token. A long-lived key tied to *you*. If it leaks into a chat log, it keeps working until someone turns it off.
+
+**Broker.** A small program that hands out a short-lived token when the rules say yes. The agent asks. The broker decides. The agent does not invent a key.
+
+Those eight words are the whole toolkit. Now the point.
+
+People mix two keys. One is yours. The other is a short key for a robot. They are not the same thing. **Agents ask a broker for a short-lived token. They do not get a PAT in chat.**
 
 ---
 
-## The problem in one sentence
+## The paste that keeps working
 
-Agents need GitHub to open PRs, read checks, and sometimes merge — but **granting credentials is a security boundary**. That boundary should not depend on how persuasive the model feels today.
+Most demos treat GitHub as: paste a PAT into the chat and hope. That works until the key shows up in a transcript. Or until the robot opens a pull request and GitHub refuses to let it approve its own change.
 
-If the agent decides “I need admin, mint me something broad,” you have already lost least-privilege. If the human pastes a classic PAT into chat every time something 401s, you have lost auditability and safety.
+Picture the last minutes of a session. Something failed with “not allowed.” The agent asks you to paste a new key. You paste a PAT. Now the key lives in the chat forever. The chat is a file on disk. That is not a secret anymore.
 
-## Two identities on purpose
+If a key matters, **the agent does not get to see the long one.**
+
+**Example: the not-allowed paste.** It’s late. The robot’s short-lived token died. GitHub said no. The agent does not ask the broker for a new one. It asks you for a PAT. You paste it. Tomorrow that chat is in a log. The PAT still works. Nobody turned it off, because nobody thought of the log as a key ring.
+
+That is the failure this post is about. Not “agents cannot use GitHub.” They can. They just do not get *your* long key.
+
+![Agent asks a broker, the broker hands a short-lived token to a GitHub App, and a separate personal login opens the pull request](/images/posts/github-tokens-agent-system.png)
+
+*One GitHub App. Many short-lived tokens. Agents ask the broker. They do not each own a PAT. Machine secrets stay out of git.*
+
+## Two names on purpose
 
 Think of two lanes:
 
-| Lane | Identity | Lifetime | Used for |
-|------|----------|----------|----------|
-| **Interactive** | Your personal GitHub user (OAuth / `gh auth login`) | Long-lived session | Work *you* are doing in the terminal: `gh pr create`, exploratory `gh`, normal `git push` as yourself |
-| **Automation** | A **GitHub App** installation (bot) | **~1 hour** installation tokens | Scheduled jobs, approve/merge after gates, CI-shaped automation that must not share your personal quota story |
+| Lane | Who GitHub sees | How long the key lasts | Used for |
+|------|-----------------|------------------------|----------|
+| **You** | Your personal login | Until you sign out | Work *you* are doing: open a pull request, poke around, push as yourself |
+| **Robot** | A GitHub App | About one hour | Approve and merge after the checks pass |
 
-![Two industrial lanes — a worn personal key on one track, a short-lived fuse on the other](/images/posts/github-tokens-two-lanes.jpg "You create the PR. The bot only lands after the gates.")
+![Two industrial lanes — a worn personal key on one track, a short-lived fuse on the other](/images/posts/github-tokens-two-lanes.jpg "You open the pull request. The robot only merges after the checks.")
 
-Look at the board on a normal afternoon. Work is in Todo or In Progress. In Review is empty on purpose — nothing sits there waiting for a vibe check. Land means CI plus a receipt on the exact SHA, then either the bot merges or the script prints the human merge command. Empty In Review is not a stall. It is the gate doing its job.
+Look at a normal afternoon. Work is moving. Nothing sits in the middle waiting for someone to *feel* that a key was fine. The broker already said yes or no. Empty waiting is not a stall. It is the rule doing its job.
 
-![A factory board whose middle slot is empty on purpose — nothing waits there for a vibe check](/images/posts/github-tokens-empty-review.jpg "Empty In Review is the gate doing its job")
+![A factory board whose middle slot is empty on purpose — nothing waits there for a vibe check](/images/posts/github-tokens-empty-review.jpg "Nothing waits there for a vibe check")
 
-Agents do **not** each own an App. They call a single mint path that talks to **one App install**, gets a **time-limited** token, and throws it away when done.
+Agents do **not** each own a GitHub App. They call one broker. That broker talks to **one** App. It gets a short-lived token. It throws the token away when done.
 
-The diagram above is the map; in prose:
-
-**Interactive** stays on the personal OAuth path (`gh` / keychain). **Automation** stays on the App (Gatekeeper → mint → ~1h token → bot approve/merge after gates). Mixing them is how you get “the bot authored the PR and now cannot approve it” failures — GitHub correctly refuses self-approval.
+**You** stay on your personal login. **The robot** stays on the GitHub App. Mix them and you get a boring failure: the robot opened the pull request, so GitHub will not let that same robot approve it.
 
 ### Rule that saves pain
 
-**PR creation stays on the human (or human-linked) identity.**  
-**Approval and merge after gates can use the bot identity.**
+**Opening a pull request stays on your personal login.**
+**Approve and merge after checks can use the robot.**
 
-If you mint an App token to *create* the PR just to dodge a rate limit, you often poison the landing path: the App cannot approve its own PR, and your “unattended land” script fails late. Better to wait out the window or keep create on the personal lane.
+**Example: the robot that cannot approve itself.** You were hitting a limit on your personal login. So you let the GitHub App *open* the pull request. GitHub now thinks the robot wrote the change. At the end of the night a script asks the same robot to approve it. GitHub says no. Same name cannot approve its own work. You find out when you wanted to be done. Keep create on your name. Wait out the limit if you have to. Do not “fix” a limit by handing the robot the first click.
 
-## Pattern: deterministic credential broker
+## A program hands out the key
 
-I do not let the agent reason its way into credentials. I use a **broker** — plain code, fixed schema, fixed outcomes:
+I do not let the agent talk its way into a key. The broker is plain code with a fixed list of answers:
 
-1. **Request** — e.g. action, system (`github`), target (repo), optional scope/justification  
-2. **Policy in code** — least privilege by default; broad scope needs justification or is denied  
+1. **Request** — what it wants to do, which project.
+2. **Policy in code** — a small key by default. A wide key is a no.
 3. **One of:**
-   - **GRANT** — short-lived credential on stdout (never logged as the secret)  
-   - **DENY / ESCALATE** — structured message on stderr (blocker → recommendation → reasoning)  
-4. **Audit line** — metadata only (who/what/when/outcome), **never the token value**
+   - **GRANT** — a short-lived token on the way out (never written into a log as the secret).
+   - **DENY** — a structured no: what blocked it, what to try next.
+4. **Audit line** — who / what / when / yes-or-no. Never the token value.
 
-The *caller* can be an LLM agent. The *decision* cannot. That is the same philosophy as [eval gates](/posts/eval-gates-not-theater/): security boundaries are not free-form prose.
+The caller can be an agent. The decision cannot. That is the same idea as [eval gates](/posts/eval-gates-not-theater/): a security line is not a paragraph the model can rewrite.
 
-### What “self-heal” means before bothering a human
+If the agent decides “I need every button, hand me something wide,” you already lost. If you paste a PAT into chat every time something says no, you lost the log *and* the safety.
 
-When GitHub says 401/403, the agent should **not** open with “please paste a new PAT.” A useful ladder looks like:
+### What to try before asking a human for a PAT
 
-1. Is the **right identity** active for this kind of work?  
-2. For automation: **re-mint** — hourly tokens *look* like revocation when they are only expired.  
-3. Does the **App installation** cover this repo with the **permissions** you need? (Scope gaps are not fixed by minting harder.)  
-4. Escalate with a **structured** blocker only after the broker refuses or the install is actually broken.
+When GitHub says no, the agent should not open with “please paste a new PAT.”
 
-Asking a human for a brand-new long-lived token is a last resort (e.g. new machine, missing App private key) — not the default recovery path.
+1. Is the **right name** in use for this kind of work? Your personal login opens the pull request. The robot does the later clicks.
+2. For the robot: **ask the broker again.** An hourly token *looks* dead when it is only expired.
+3. Does the GitHub App even cover this project with the buttons you need? A missing permission is not fixed by asking harder.
+4. Only then bother a human — and still not with “paste a PAT.”
 
-## Landing floor: bot mode is optional, gates are not
+Asking a human for a brand-new long-lived key is a last resort (new machine, missing robot key). It is not the default.
 
-Automation should not mean “merge anything that compiled.”
+## The robot is extra. The checks are not.
 
-A sane **landing floor**:
+This post is the key. The other post is a **lock** — a program that says no when a rule is broken. I will not walk it here. Read [The last click is still yours](/posts/landing-floor-without-a-github-app/).
 
-1. **Intent** present on the PR (why this change exists)  
-2. **CI** green  
-3. **Review receipt** tied to the **exact commit SHA** being landed (so a new push invalidates the old “LGTM”)  
-4. **Then** — if bot credentials exist — App **approves and merges**; if not, print the exact human merge command  
+One fact carries over: a missing GitHub App is **not a broken install.** The checks still run. If the robot is there, it may click after they pass. If not, you click.
 
-| Mode | App configured? | Behavior |
-|------|-----------------|----------|
-| **Human** (default) | No | Validate gates; print safe merge instructions |
-| **Bot** | Yes | Same gates; then App approve + merge |
+| Mode | GitHub App set up? | What happens |
+|------|--------------------|--------------|
+| **You click** (default) | No | Checks run; print the merge steps for you |
+| **Robot can click** | Yes | Same checks; then the robot can approve and merge |
 
-Absent App credentials is **not** an error. It is the zero-config default for people who want the discipline without unattended merge.
+Automation should not mean “merge anything that compiled.” The robot is a **narrow** second name, not a second you with every button forever. That pairs with [human approval](/posts/human-approval-merge-button/): merge is still a product decision.
 
-That pairs with [human approval](/posts/human-approval-merge-button/): autonomy is earned per action class. Merge is still a product decision; the bot is a **narrow** second principal, not a second you with admin forever.
+## Small keys
 
-## Least privilege in practice
+Give the GitHub App only the buttons it needs:
 
-Minimum App permissions for bot land (illustrative — tighten further if you can):
+| Button | Why the robot has it |
+|--------|----------------------|
+| Pull requests: read and write | So it can approve |
+| Project files: read and write | So it can merge |
+| Status marks: read and write | So it can see that review happened |
 
-- Pull requests: read/write (approve)  
-- Contents: read/write (merge)  
-- Commit statuses: read/write (post/verify review receipts)  
+The robot’s private key lives **outside any git repo**. Never commit it.
 
-Private key and config live **outside any git repo** (e.g. under `~/.config/gh-app/`), mode `600` / directory `700`. Never commit `config.env` or the `.pem`.
-
-When verifying a mint in a session or log:
+When you check that the broker handed out a token, print the **length**, not the key:
 
 ```bash
-# Length only — do not echo the token into chat or CI logs
+# Length only — do not echo the token into chat or logs
 TOKEN="$(broker-or-mint …)"
 echo "mint ok, length=${#TOKEN}"
 unset TOKEN
 ```
 
-## How this maps to the agent production system
+## Where this sits in the series
 
-| Constellation idea | Token story |
-|--------------------|-------------|
-| [Eval gates](/about/?node=eval) | CI + SHA-keyed review receipt before land |
-| [Human approval](/about/?node=human) | Escalation when broker DENYs; human mode land |
-| [Orchestrator](/about/?node=orchestrator) | Calls broker; does not own long-lived PATs |
-| [Docker / production](/about/?node=docker) | Scheduled automation uses App lane, not laptop OAuth cosplay |
+This post is the key. The other post is the lock *without* needing the robot.
 
-Tokens are not a side quest. They are part of the **control plane**.
+| Post | Role |
+|------|------|
+| [Eval gates](/posts/eval-gates-not-theater/) | Automatic tests before you trust the change |
+| [Human approval](/posts/human-approval-merge-button/) | A person still hits merge |
+| **This post** | Your login vs a robot login, if you add a GitHub App |
+| [The last click is still yours](/posts/landing-floor-without-a-github-app/) | The lock **without** needing a GitHub App |
+
+On the About picture: [Eval gates](/about/?node=eval) and [Human approval](/about/?node=human) are the idea. A robot that merges is a convenience on top.
+
+## How to start
+
+1. Agents do **not** get a PAT in chat.
+2. Your **personal login** opens the pull request.
+3. A **broker** hands a short-lived token to the GitHub App when you want the robot to click.
+4. No GitHub App yet? That is fine. You still click. Read [The last click is still yours](/posts/landing-floor-without-a-github-app/).
+5. If GitHub says no: right name, ask the broker again, check the install. Do not ask for a PAT.
 
 ## What this is *not*
 
-- A recommendation to paste PATs into agent prompts  
-- A claim that unattended merge is required  
-- A dump of private runbook internals or live credentials  
-- Permission to skip review because “the bot said so”
+- A recommendation to paste PATs into agent chats
+- A claim that a robot must merge
+- A dump of private runbook internals or live keys
+- Permission to skip review because “the robot said so”
+- The lock story — that is the [other post](/posts/landing-floor-without-a-github-app/)
 
+---
 
-**Bottom line:** agents get a path to mint a short-lived token. They do not get a PAT in chat, and they do not land without a receipt.
+**Bottom line:** agents get a path to a short-lived token. They do not get a PAT in chat, and they do not merge without the checks.
