@@ -23,8 +23,8 @@ supplies the file; you only place, compress, and wire it (see
 
 2. **Generate five distinct options** — not five near-copies of one
    prompt. Use the slots below. Prefer 16:9 so any pick can be the
-   cover. Night-console look: near-black `#0d0f0d`, console green
-   `#5fb87a`, industrial / ops, not purple SaaS.
+   cover. Match the post’s mood (see How to prompt). Do not default
+   every set to night-console. Not purple SaaS.
 
    | # | Job |
    |---|-----|
@@ -61,18 +61,27 @@ Write 2–5 sentences, **subject first**, then setting, then style:
 - One physical object that stands in for the rule (locked hatch,
   crumpled note beside a free switch, stamp that fits block A and
   not block B, hand on a keyboard in an empty ops room).
-- Photoreal / cinematic industrial. Night-console palette. Warm
-  work light + one green lamp is enough.
+- Photoreal. Ground the picture in a sentence from the post.
+- **Palette follows the post, not a house default.** Night-console
+  (`#0d0f0d` / `#5fb87a`) is still valid for ops / agent / fail-closed
+  beats — not mandatory. Prefer lighter, brighter, happier palettes
+  when the piece is for exec adoption or optimism (daylight, warm
+  workshop, clean product photography, soft neutrals). Keep
+  night-console when the beat is the ops floor or fail-closed.
 - Almost **no readable type**. Models garble words and invent
   numbers. If the beat needs labels, that beat is an export
   (archify / HTML / SVG), not this tool.
 - No people faces unless Dave gave a photo (`image_edit` +
-  reference). Hands or a silhouette are fine.
+  reference). Hands or a silhouette are fine. No fake Dave face.
 - No “AI command center,” purple SaaS, HUD overlays, or logos.
 
-Landing-floor example (thesis cover): *A heavy steel hatch set into
-a dark factory floor, locked shut… one small console-green status
-lamp… no robots, no people, no readable text.*
+Ops-floor example (when the beat is fail-closed): *A heavy steel
+hatch set into a dark factory floor, locked shut… one small
+console-green status lamp… no robots, no people, no readable text.*
+
+Lighter example (when the beat is adoption / optimism): *Morning
+light across a real workbench, one physical object from the post
+in frame, warm wood and soft neutrals, no HUD, no readable text.*
 
 Dave’s “these are fantastic” bar was that recipe — one idea per
 frame, grounded in a sentence he already wrote — not a labeled
@@ -105,8 +114,12 @@ fails if a file is missing or over 1MB (these 16:9 JPEGs have been
 ## Hard rules
 
 - Ground every candidate in a sentence that is actually in the post.
+- Photoreal. Almost no readable type. No fake Dave face unless he
+  handed you a photo. No purple SaaS, HUD overlays, or logos.
+- Palette matches the post’s mood. Night-console is valid, not
+  required. Prefer lighter when the piece is exec adoption /
+  optimism; keep night-console for ops floor / fail-closed.
 - No invented metrics, board counts, or “N agents” on the image.
-- No fake Dave face unless he handed you a photo.
 - **Labeled architecture, permission lists, and exact numbers** are
   not image-gen jobs.
 - Missing image-gen is not a prompt-engineering problem. Tell Dave
