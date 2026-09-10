@@ -1,5 +1,6 @@
 # History
 
+- 2026-09-10: Image playbook — night-console stays valid, not mandatory; match post mood; prefer lighter for exec adoption / optimism. Docs-only; no site publish.
 - 2026-08-31: True-zero rewrites of claim-safety (#157), what-i-will-not-automate (#158), and github-tokens (#159). Primer then argument; TeachingWordCap 800–1800; date/draft/cover path unchanged. Pushed to main.
 - 2026-08-31: Executed plan 0007 — true-zero primer (seven nouns) then argument on the landing-floor post; writing standard define-first + teaching cap 1800. Date/draft/cover path unchanged. #155 #156.
 - 2026-08-31: Plan 0007 — true-zero rewrite of the landing-floor post (primer of seven nouns, then argument). Writing-rule + post. Not executed this session.
