@@ -45,6 +45,8 @@ Code that *looks* installed can still be hollow. It can be missing a piece, matc
 
 ## Prove it before you trust it everywhere
 
+![Self-test stamp that fits the prove block and misses the hollow one](/images/posts/prove-hook-before-floor-self-test-stamp.jpg "Green means the check ran — looks fine in the repo is not green")
+
 We used to be too trusting on install. A session could pull the latest guards and drop them onto every machine with no proof that the new copy actually worked. A file that was present, readable, and quietly broken would install cleanly. Then every other check that depended on it would fail open, machine-wide — which is a polite way of saying the org thought it had a control and did not.
 
 The fix is the one you want in a factory, not a demo. Before anything becomes the new standard, stage it and **run a self-test the guard cannot fake**. Fail or time out, and the whole install is refused. The previous good floor stays put. Green means the check ran and passed. "Looks fine in the repo" is not green. The install script does not get to waive the check by sounding sure — same shape as a real [eval](/about/?node=eval) gate.
@@ -52,6 +54,8 @@ The fix is the one you want in a factory, not a demo. Before anything becomes th
 That is the executive takeaway in one line: **do not replace a working control with an unproven one.**
 
 ## When one check goes red, keep the other receipts
+
+![Red gate down while prior check receipts stay on the clipboard](/images/posts/prove-hook-before-floor-red-gate-receipts.jpg "Red stops the line. It does not erase honest results you already have")
 
 Checks run as a set. One of them going red used to wipe the genuine results from the ones that already passed, so you lost the signal you needed and spent the next hour re-running work that had already told the truth.
 
