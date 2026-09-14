@@ -3,7 +3,7 @@ date = '2026-09-14T13:30:00-04:00'
 draft = true
 title = 'The second brain I own (and why chat memory is not enough)'
 author = 'Dave Voyles'
-description = 'How MainVault works day to day — git SoT, two-machine sync, read-first agents, and narrow write ownership — as a portable second brain beside chat memory.'
+description = 'How MainVault works day to day — git as the source of truth, two-machine sync, read-first agents, and narrow write ownership — as a portable second brain beside chat memory.'
 categories = ['Programming', 'AI']
 tags = ['AI agents', 'second brain', 'MainVault', 'Grok Bot', 'knowledge management']
 topics = ['Tech']
@@ -25,7 +25,7 @@ So I keep a **second brain** I own. Mine is called **MainVault**: a markdown vau
 
 **MainVault.** My instance of that idea: an ops-and-project hub in markdown, with Personal context for who I am, not only engineering tickets. Documentation and shared memory — not app code.
 
-**Source of truth (SoT).** The copy everyone must converge on. For MainVault, that is the git remote. A note that is not pushed does not exist to the rest of the roster.
+**Source of truth.** The copy everyone must converge on. For MainVault, that is the git remote. A note that is not pushed does not exist to the rest of the roster.
 
 **Standing lock.** A rule that should stay true across agents (who may write what, confirm-before-send, cover images must be unique, and so on). Those live on vault pages, not only in one chat profile.
 
@@ -106,7 +106,7 @@ Grok Bot is the loudest consumer on my desk, but it is not the only one. Agents 
 
 ![Agents, GitHub, and two machines](/images/posts/second-brain-agents-read-write.png)
 
-*Human and personal agents on one side, other platforms beside them, MainVault in the middle, GitHub as the source of truth, desk Mac + laptop as sync edges. False path: fact stuck in one chat or dirty clone. Fix: push to main, read-first, never force.*
+*Agents and platforms feed MainVault; GitHub is the source of truth; desk Mac and laptop are the sync edges. False path: fact stuck in one chat or dirty clone. Fix: push to main, read-first, never force.*
 
 Connected tools still matter. Gmail, browser sessions, research digests, site drafts — those are jobs. The second brain is the binder those jobs consult so they do not contradict each other.
 
@@ -132,7 +132,7 @@ And ownership rules exist because “everyone writes everywhere” turns a secon
 
 ## The stealable frame
 
-If you only take one thing: **treat agent chat memory like RAM and the second brain like an SSD — hot one-offs in the thread, durable facts in a vault you own, with git as SoT, clean-clone sync, read-first agents, and one default librarian for shared locks.**
+If you only take one thing: **treat agent chat memory like RAM and the second brain like an SSD — hot one-offs in the thread, durable facts in a vault you own, with git as the source of truth, clean-clone sync, read-first agents, and one default librarian for shared locks.**
 
 Short memory is still useful. It is just a terrible sole home for the facts that should survive the reboot.
 
