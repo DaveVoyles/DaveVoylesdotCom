@@ -37,9 +37,11 @@ Those five words are the toolkit. Now the why.
 
 Without an owned notebook, three failures show up fast:
 
-1. **Re-teaching.** Every new agent, every new platform, every wiped thread asks me who I am again.
-2. **Mixed layers.** Durable prefs sit next to throwaway chatter. Nobody knows what is still true.
-3. **Trapped knowledge.** Vendor memory does not travel cleanly when I want Claude on one job, Grok Bot on another, and a coding agent on a third.
+1. **Re-teaching.** Every new agent, every new platform, every wiped thread asks me who I am again. Spin up a fresh Blog or research bot and it does not know I preview drafts on the MacBook, or that cover images must stay unique — unless that lived somewhere outside the last chat. I end up pasting the same “how I work” paragraph into yet another empty context window.
+
+2. **Mixed layers.** Durable prefs sit next to throwaway chatter. Nobody knows what is still true. “Prefer lighter covers” is a standing lock; “try cover B for this one post” is a one-off. When both only live in chat memory, next week’s agent cannot tell which rule still applies, so it either re-asks or invents the wrong one.
+
+3. **Trapped knowledge.** Vendor memory does not travel cleanly when I want Claude on one job, Grok Bot on another, and a coding agent on a third. The bake-off with Muse made that obvious: if each product only remembers inside its own silo, I am not comparing agents — I am comparing two amnesias with different brand names.
 
 An owned second brain flips that. Facts live in files I control. Agents pull before they act. When something should still be true next month, it gets a page — not a hope that the model “remembers.”
 
