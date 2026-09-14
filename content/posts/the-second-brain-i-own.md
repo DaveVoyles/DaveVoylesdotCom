@@ -1,5 +1,5 @@
 +++
-date = '2026-09-14T13:30:00-04:00'
+date = '2026-09-16T10:00:00-04:00'
 draft = true
 title = 'The second brain I own (and why chat memory is not enough)'
 author = 'Dave Voyles'
