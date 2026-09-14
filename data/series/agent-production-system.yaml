@@ -16,7 +16,7 @@ parts:
     slug: human-approval-merge-button
     title: "Human approval: the merge button still matters"
     date: "2026-07-31T09:00:00-04:00"
-    draft: false
+    draft: true
   - weight: 3
     slug: docker-homelab-agent-ops
     title: "Twenty-plus containers and agent-operated ops"
