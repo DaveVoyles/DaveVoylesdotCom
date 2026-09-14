@@ -31,7 +31,7 @@ parts:
     slug: claim-safety-evidence-before-metrics
     title: "Claim safety: evidence before metrics"
     date: "2026-08-11T09:00:00-04:00"
-    draft: false
+    draft: true
   - weight: 6
     slug: what-i-will-not-automate
     title: "What I will not automate"
