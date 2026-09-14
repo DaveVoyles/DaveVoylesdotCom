@@ -74,6 +74,26 @@ backgrounds for adoption posts.
 
 ---
 
+## Visual grammar (Post Standard v1.1)
+
+Canonical role colors for mechanism diagrams. Vault:
+[Blog Post Standard](https://github.com/DaveVoyles/MainVault/blob/main/20-Areas/Personal/blog-post-standard-v1.md)
+(`ef4d637`). Pipeline locks in [`authoring-guide.md`](authoring-guide.md)
+still win. **Labels + patterns, not color alone.**
+
+| Color | Means |
+|-------|--------|
+| Blue | Human |
+| Teal | Verified |
+| Amber | Review |
+| Coral | Blocked |
+| Gray | Infra |
+| Purple | Agent |
+
+Pointer only — do not change theme/CSS or site chrome for this.
+
+---
+
 ## How to prompt (photoreal covers)
 
 When the beat is a photoreal cover (not a labeled diagram), use the
