@@ -45,6 +45,10 @@ Without an owned notebook, three failures show up fast:
 
 An owned second brain flips that. Facts live in files I control. Agents pull before they act. When something should still be true next month, it gets a page — not a hope that the model “remembers.”
 
+![Why a second brain beats chat memory alone](/images/posts/second-brain-three-failures.png)
+
+*Three failure modes when durable facts only live in chat — re-teaching, mixed layers, trapped knowledge — and the fix: an owned notebook agents can pull.*
+
 That does **not** mean chat memory is useless. It is just a different tier.
 
 ## RAM vs SSD (short memory vs the notebook)
@@ -55,7 +59,11 @@ Agents already have something like **RAM**: the current thread, a thin profile o
 
 The stealable split is simple: **hot and disposable stays in short memory; durable and reusable goes in the notebook.** Mixing them is how you get “the agent swore it remembered” and a vault that never grew.
 
-The cover picture for this post is the before/after: rented chat memory versus a notebook you own. I am not repeating that image in the body. Below are two different diagrams: how the folders are laid out, and how agents, GitHub, and two working machines connect.
+![RAM vs SSD — short memory vs the notebook](/images/posts/second-brain-ram-vs-ssd.png)
+
+*Chat/thread memory is like RAM — fast, local, fine if it evaporates. MainVault is like an SSD — shared, durable, still there next month.*
+
+The cover picture for this post is a different before/after (rented chat memory versus a notebook you own). I am not repeating that cover image in the body. Below are more mechanism diagrams: how the folders are laid out, and how agents, GitHub, and two working machines connect.
 
 ## How MainVault is organized
 
