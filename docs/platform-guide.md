@@ -150,7 +150,7 @@ the page down.
 **"Can the agent just create the image for me?"** If the session has an
 image-generation tool (Grok Imagine, or whatever is wired that day), yes —
 but as **3 design variants in Engineering**, not an auto-wired cover. Follow
-[`image-playbook.md`](image-playbook.md): three options grounded in the post, then stop. You choose; the agent compresses and commits only the
+[`image-playbook.md`](image-playbook.md): three options grounded in the post, then stop. Engineer+Roberto pick in-room (Dave can override); Blog wires only the
 winner. If this session has no generator, the agent says so. You still can
 hand it a file from ChatGPT, Gemini, a camera, or an older cover, and it
 will place, optimize, and wire it.
