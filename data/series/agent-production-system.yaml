@@ -16,12 +16,12 @@ parts:
     slug: human-approval-merge-button
     title: "Human approval: the merge button still matters"
     date: "2026-07-31T09:00:00-04:00"
-    draft: true
+    draft: false
   - weight: 3
     slug: docker-homelab-agent-ops
     title: "Twenty-plus containers and agent-operated ops"
     date: "2026-08-04T09:00:00-04:00"
-    draft: true
+    draft: false
   - weight: 4
     slug: xbox-slas-to-agent-fleets
     title: "From Xbox SLAs to agent fleets"
@@ -31,7 +31,7 @@ parts:
     slug: claim-safety-evidence-before-metrics
     title: "Claim safety: evidence before metrics"
     date: "2026-08-11T09:00:00-04:00"
-    draft: true
+    draft: false
   - weight: 6
     slug: what-i-will-not-automate
     title: "What I will not automate"
@@ -41,9 +41,9 @@ parts:
     slug: github-tokens-for-agent-fleets
     title: "Don't paste your GitHub key in chat"
     date: "2026-08-18T09:00:00-04:00"
-    draft: true
+    draft: false
   - weight: 8
     slug: landing-floor-without-a-github-app
     title: "The last click is still yours"
     date: "2026-08-21T09:00:00-04:00"
-    draft: true
+    draft: false
