@@ -70,6 +70,11 @@ I am not declaring a winner, and I am not pretending Muse and Grok Bot are the s
 
 I appreciate how simple Muse is. That is real.
 
+![Simplicity vs functionality — Muse pilot vs Grok Bot depth](/images/posts/muse-simplicity-vs-functionality.png)
+
+*Muse wins the easy front door. Grok Bot wins the workshop: local computer, browser depth, herding other coding agents.*
+
+
 Grok Bot can go much further, mostly because it can run against **your computer or server** and therefore reach your local environment. For me that is massive. I can have it drive my machine. I can have it call my other agentic coding subscriptions — Claude, Grok Build, ChatGPT — and let Grok Bot manage those agents while they do the implementation, with usage kept on those meters instead of melting into one pile. Because it can also use **my own browser**, I can grant far more permissions and far more things it is allowed to do than a sealed personal-agent VM usually invites.
 
 So the tradeoff is blunt: Muse is far simpler, faster, and easier to get started — which is exactly why it is a strong **pilot**. Grok Bot can offer far more functionality once you are willing to wire the deeper access — which is why my **mature multi-bot** desk still lives there. “Easier setup” is not a dunk on Grok Bot; it is the pilot advantage. Dad’s path correctly optimized for the first half of that sentence. My own desk still needs the second half.
@@ -81,10 +86,6 @@ Here is the non-negotiable.
 Whatever agent I open, I want it to inherit context about how I work — preferences, standing locks, project facts — without me re-explaining my life every Monday. Chat memory helps. It is not enough. Chat memory is rented. A **second brain** is owned.
 
 Mine is **MainVault**: a GitHub-backed vault that grows over time. Agents get access based on their jobs. They read. They write when they learn something durable or when I say “remember that.” The more I put in, the smarter *any* agent becomes when I point it at the same notebook.
-
-![Second brain hub across Grok Bot and Muse](/images/posts/muse-second-brain-hub.png)
-
-*One notebook you own in the middle. Grok Bot’s roster on one side, Muse on the other, both reading and writing. Gmail / X / YouTube as connected work, not as the memory store.*
 
 I will write a fuller MainVault post later. The claim for this piece is narrower: **portable context is how you compare personal agents without cheating**. If Muse only knows what is inside Muse, and Grok Bot only knows what is inside Grok Bot, you are not comparing agents. You are comparing two amnesias.
 
