@@ -106,7 +106,7 @@ Grok Bot is the loudest consumer on my desk, but it is not the only one. Agents 
 
 ![Agents, GitHub, and two machines](/images/posts/second-brain-agents-read-write.png)
 
-*Human and personal agents on one side, other platforms beside them, MainVault in the middle, GitHub as SoT, desk Mac + laptop as sync edges. False path: fact stuck in one chat or dirty clone. Fix: push to main, read-first, never force.*
+*Human and personal agents on one side, other platforms beside them, MainVault in the middle, GitHub as the source of truth, desk Mac + laptop as sync edges. False path: fact stuck in one chat or dirty clone. Fix: push to main, read-first, never force.*
 
 Connected tools still matter. Gmail, browser sessions, research digests, site drafts — those are jobs. The second brain is the binder those jobs consult so they do not contradict each other.
 
