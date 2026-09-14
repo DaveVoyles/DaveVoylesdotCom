@@ -3,7 +3,7 @@ date = '2026-09-14T11:00:00-04:00'
 draft = true
 title = 'Piloting Muse beside Grok Bot (and why Dad started on Muse)'
 author = 'Dave Voyles'
-description = 'A high-level comparison of Meta’s Muse and Grok Bot while I run both, with a second brain I own on GitHub, and a Dad pilot that chose the friendlier on-ramp.'
+description = 'Piloting Meta’s Muse beside a mature multi-bot Grok Bot desk — not a feature-parity scorecard — with a second brain I own, and a Dad pilot that chose the friendlier on-ramp.'
 categories = ['Programming', 'AI']
 tags = ['AI agents', 'Muse', 'Grok Bot', 'MainVault', 'second brain']
 topics = ['Tech']
@@ -15,9 +15,9 @@ caption = "One vault you own; two agents that read from it."
 
 I am running two personal agents at once right now: **Grok Bot** and Meta’s new **Muse**.
 
-That is not a brand loyalty bit. It is a bake-off. Both products promise the same basic thing — an agent that does real work in your tools, not just a chat box that vibes — and I want to feel where each one wins before I pretend there is a single winner.
+That is not a brand loyalty bit. It is a bake-off with an honest mismatch of maturity: I am **piloting Muse** next to a **mature multi-bot Grok Bot** desk I already run. This is not a feature-parity scorecard. Muse is new and simple. Grok Bot is a roster I have already wired. I want to feel where each one wins on its own terms before I pretend there is a single winner.
 
-This post is the high-level map: how I use Grok Bot day to day, why Muse’s setup story is currently winning for me and for my dad, and the one pattern I am forcing into both stacks so the experiment stays fair. That pattern is a **second brain** I own.
+This post is the high-level map: how that mature Grok Bot desk shows up day to day, why Muse’s setup story is currently winning as a pilot for me and for my dad, and the one pattern I am forcing into both stacks so the experiment stays fair. That pattern is a **second brain** I own.
 
 Official product write-ups if you want the vendor versions first: Meta’s Muse intro on [about.fb.com](https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/), Muse on the web at [muse.ai](https://muse.ai), and Grok Bot’s overview in the [xAI docs](https://docs.x.ai/grok-bot/overview) plus Cursor’s [getting started](https://cursor.com/help/grok-bot/getting-started.md) page.
 
@@ -64,7 +64,7 @@ So the high-level split in my head looks like this:
 | **My use** | Ops roster, routines, site drafts, research digests | Daily heavy use while I evaluate |
 | **Money so far** | Paid Cursor / SuperGrok path | $0 so far (considering a paid usage bump) |
 
-I am not declaring a winner. I am saying the products compete on different axes, and the honest tradeoff is **simplicity versus functionality**.
+I am not declaring a winner, and I am not pretending Muse and Grok Bot are the same product at the same maturity. They compete on different axes. The honest tradeoff inside this pilot is **simplicity versus functionality**.
 
 ## Simplicity vs functionality
 
@@ -72,7 +72,7 @@ I appreciate how simple Muse is. That is real.
 
 Grok Bot can go much further, mostly because it can run against **your computer or server** and therefore reach your local environment. For me that is massive. I can have it drive my machine. I can have it call my other agentic coding subscriptions — Claude, Grok Build, ChatGPT — and let Grok Bot manage those agents while they do the implementation, with usage kept on those meters instead of melting into one pile. Because it can also use **my own browser**, I can grant far more permissions and far more things it is allowed to do than a sealed personal-agent VM usually invites.
 
-So the tradeoff is blunt: Muse is far simpler, faster, and easier to get started. Grok Bot can offer far more functionality once you are willing to wire the deeper access. Dad’s path correctly optimized for the first half of that sentence. My own desk still needs the second half.
+So the tradeoff is blunt: Muse is far simpler, faster, and easier to get started — which is exactly why it is a strong **pilot**. Grok Bot can offer far more functionality once you are willing to wire the deeper access — which is why my **mature multi-bot** desk still lives there. “Easier setup” is not a dunk on Grok Bot; it is the pilot advantage. Dad’s path correctly optimized for the first half of that sentence. My own desk still needs the second half.
 
 ## The second brain both of them get
 
