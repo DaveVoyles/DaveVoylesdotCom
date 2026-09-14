@@ -1,7 +1,7 @@
 +++
 title = "Don't paste your GitHub key in chat"
 date = "2026-08-18T09:00:00-04:00"
-draft = true
+draft = false
 author = "Dave Voyles"
 description = "An agent writes code in a chat. A pull request is a proposed change. A GitHub App is a robot that clicks as itself. Give it a short-lived key. Do not paste a long-lived key in the chat."
 categories = ["Programming", "AI"]
