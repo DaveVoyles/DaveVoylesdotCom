@@ -1,12 +1,18 @@
 # Handoff
 
-**2026-09-10 — image playbook palette lock (docs only).**
+**2026-09-14 — Need-go publish (lightbox + five EXT-R posts). Held #165.**
 
 ## What this session did
 
 | Work | Notes |
 |------|--------|
-| `docs/image-playbook.md` | Night-console (`#0d0f0d` / `#5fb87a`) remains valid for ops / fail-closed. Not mandatory. Prefer lighter palettes when the post is exec adoption / optimism. Photoreal, grounded sentence, almost no type, no fake Dave face, no purple SaaS/HUD/logos unchanged. |
+| #169 | Squash-merged lightbox + visual cadence (`eb88388`) |
+| #168 | Undraft + squash-merge claim-safety (`ce43416`) |
+| #170 | Undraft + squash-merge human-approval (`7f761f3`) |
+| #171 | Undraft + squash-merge github-tokens (`a0d4529`) |
+| #172 | Undraft + squash-merge landing-floor (`181348a`) |
+| #173 | Undraft + squash-merge docker-homelab (`d9b1b38`) |
+| #165 | **HOLD** — left OPEN, draft PR, `draft = true`, date Wed 2026-09-16. Not flipped, not merged. |
 
 ## Local-only (not committed)
 
@@ -14,10 +20,10 @@
 
 ## Where to start next session
 
-1. Merge the image-playbook PR if Dave agrees.
-2. Next image pass: do not default every cover to night-console.
+1. Blog/Engineer: confirm GH Pages for the five live URLs.
+2. #165 Second Brain stays scheduled-as-draft until Dave says otherwise.
 
 ## Do not
 
-- Do not merge or publish the site from this session.
-- Do not treat AGENTS.md §7 “night-console” wording as a hard override of the playbook — the playbook is the image source of truth.
+- Do not merge #165 without a new Need-go.
+- Do not invent new posts in this thread.

@@ -1,5 +1,6 @@
 # History
 
+- 2026-09-14: Need-go publish — squash-merged #169 lightbox, then EXT-R #168 #170 #171 #172 #173 (`draft = false`). Held #165 Second Brain (still draft, Wed Sep 16).
 - 2026-09-10: Image playbook — night-console stays valid, not mandatory; match post mood; prefer lighter for exec adoption / optimism. Docs-only; no site publish.
 - 2026-08-31: True-zero rewrites of claim-safety (#157), what-i-will-not-automate (#158), and github-tokens (#159). Primer then argument; TeachingWordCap 800–1800; date/draft/cover path unchanged. Pushed to main.
 - 2026-08-31: Executed plan 0007 — true-zero primer (seven nouns) then argument on the landing-floor post; writing standard define-first + teaching cap 1800. Date/draft/cover path unchanged. #155 #156.
