@@ -1,7 +1,7 @@
 +++
 title = "Claim safety: evidence before metrics"
 date = "2026-08-11T09:00:00-04:00"
-draft = true
+draft = false
 author = "Dave Voyles"
 description = "An agent writes words that sound finished. A claim is a number, a title, or who made a thing. Evidence is the proof you can point at. If the proof is missing, the number does not ship."
 categories = ["Programming", "AI"]
