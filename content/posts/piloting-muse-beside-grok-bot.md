@@ -1,6 +1,6 @@
 +++
-date = '2026-09-14T11:00:00-04:00'
-draft = true
+date = '2026-09-14T12:18:27-04:00'
+draft = false
 title = 'Piloting Muse beside Grok Bot (and why Dad started on Muse)'
 author = 'Dave Voyles'
 description = 'Piloting Meta’s Muse beside a mature multi-bot Grok Bot desk — not a feature-parity scorecard — with a second brain I own, and a Dad pilot that chose the friendlier on-ramp.'
