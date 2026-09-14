@@ -1,7 +1,7 @@
 +++
 title = "Twenty-plus containers and agent-operated ops"
 date = "2026-08-04T09:00:00-04:00"
-draft = false
+draft = true
 author = "Dave Voyles"
 description = "A Dockerized homelab is not a toy rack — it is the host layer for an agent production system: runtimes, runners, dashboards, and hardened defaults."
 categories = ["Programming", "AI"]
@@ -16,6 +16,19 @@ caption = "Hosts are part of the product: agents without a place to run are just
 +++
 
 This is **part 3** of the [Agent production system](/posts/agent-production-system/) series. Previous: [Human approval](/posts/human-approval-merge-button/). Constellation nodes: [Docker host](/about/?node=docker), [Azure / ADO](/about/?node=azure), [Dashboards](/about/?node=dashboard).
+
+## Words I use below
+
+- **Homelab** — the small, always-on computer setup in my house that runs real services for the household and for agents, not a laptop demo that dies when I close the lid
+- **Container** — a boxed-up app (and its dependencies) that runs the same way on different machines; if one misbehaves, it fails in a smaller blast radius than “the whole computer”
+- **Compose** — a config file that says which containers to start, how they connect, and what secrets they get, so you recreate the world from files instead of folklore
+- **OrbStack** — the Docker runtime I use on the Mac Mini (think “Docker Desktop, but lighter on Apple silicon”) so containers actually run on that host
+- **Reverse proxy** — one front door for many services; you hit one place instead of a pile of bookmarked `:port` URLs
+- **VPN gateway** — a container that holds the download traffic behind a tunnel; if the tunnel drops, that traffic drops with it instead of leaking out the front door
+- **Watchtower** — a helper that updates container images on a schedule, but only for services I’ve labeled as allowed to drift
+- **Agent-operated ops** — agents can propose and run routine operations under the same gates as code — not root plus good intentions
+
+Those eight words are the toolkit. Now the point.
 
 ---
 
@@ -41,7 +54,9 @@ With a host story, you get:
 
 None of that is abstract to me. Isolation means a container that starts misbehaving doesn't take down Plex while someone's mid-episode. Repeatability means when I moved my download automation off the Mac Mini and onto the NAS behind a VPN tunnel, the move was "point a new host at the same compose file and secrets" instead of re-learning three months of manual settings by hand. Surfaces for control means I have a dashboard sitting behind a reverse proxy, so "is anything actually broken right now" is a glance instead of SSH-ing into two machines to check.
 
-![Plex media library on the Mac mini — TV shows grid under the Library view](/images/posts/Plex.jpg "Plex running as a real household service on the same host layer as the agents")
+![Mac Mini runs compute, agents, and runners; Synology NAS runs storage, VPN-gated downloads, and the reverse proxy](/images/posts/docker-homelab-mac-vs-nas.png "Two hosts, two jobs — not one folklore rack.")
+
+*ELI10: brainy work on the Mini; heavy disk and the public door on the NAS. Same homelab, different blast radii.*
 
 On the constellation, Docker sits under the fleet; Azure is where work meets cloud and pipeline reality; dashboards are the web control surface — supporting identity, not replacing it.
 
@@ -55,7 +70,9 @@ Twenty-plus containers is an abstract number until you know what's behind it. A 
 - **A reverse proxy in front of a dashboard**, so the whole stack has one door in and one place to see health at a glance instead of a pile of bookmarked `:port` URLs.
 - **Watchtower**, which auto-updates container images on a fixed nightly schedule — but only for services I've explicitly opted in with a label, so nothing I want pinned drifts out from under me overnight.
 
-![Docker Desktop Activity Monitor listing production containers — media stack, GitHub runner, OpenClaw, and monitoring services](/images/posts/docker-containers.jpg "Twenty-plus containers on the Mac Mini host: media automation, runners, agents, and health dashboards")
+![Plex media library on the Mac mini — TV shows grid under the Library view](/images/posts/Plex.jpg "Plex running as a real household service on the same host layer as the agents")
+
+*Proof of life, not a product shot: the host layer earns keep on ordinary nights before it ever does anything agent-related.*
 
 The point isn't the list — it's that this stack earns its keep on ordinary nights before it ever does anything agent-related. That's what makes the "hardened defaults" section below more than theory.
 
@@ -81,11 +98,31 @@ Agents that can operate containers are powerful. They should inherit the same pa
 3. **Pass eval / policy checks** — automated checks that gate the change the same way a test suite gates a pull request  
 4. **Escalate when the action is irreversible or ambiguous** — anything that can't be undone with a config restore or a simple restart stops and waits for a human, full stop
 
+![False path: restart a healthy stack because it “felt stuck”; fix path: plan → apply in isolation → eval/policy → escalate if irreversible](/images/posts/docker-homelab-agent-ops-ladder.png "Restart on vibes is not ops excellence. The ladder is.")
+
+*ELI10: left path answers “how do I look busy?”; right path answers “would I have approved this before it ran?”*
+
 If an agent restarts a healthy stack "because it felt stuck," that is not ops excellence — that is a missing gate. The bar isn't "did the agent do something useful," it's "would I have approved this if I'd seen it before it ran."
 
 ## Azure and delivery
 
 Cloud is not a logo strip on a résumé. In this system, **Azure** (and GitHub/ADO-style pipelines) is where personal production meets **SLA-shaped delivery**: builds, deploys, and the long tail of platform work. Homelab and cloud are complementary: local density for agents and tools; cloud for reach and durable delivery surfaces.
 
+## What this is *not*
 
-**Bottom line:** prompts do not host production. Containers, networks, pipelines, and dashboards do. If you cannot draw the host layer, you do not yet have an agent **production** system — you have a conversation.
+- **Not Xbox-scale infrastructure.** Twenty-plus containers on two household hosts is a real ops footprint, not a data-center résumé line.
+- **Not unattended root.** Agent-operated means gated routine ops — plan, isolate, check, escalate — not a robot with sudo and a smile.
+- **Not a logo-soup inventory.** The list above exists to show the stack earns keep on ordinary nights; the stealable part is host split + hardened defaults + the ops ladder.
+
+## How to start (stealable)
+
+1. **Draw the host split** — what runs on compute vs storage/edge before you bolt agents on.  
+2. **Compose the world** — recreate from files and secrets, not SSH folklore.  
+3. **Harden the defaults** — drop capabilities, scope networks, keep secrets per-service, put risky traffic behind a VPN gateway.  
+4. **Put routine ops on a ladder** — plan → isolate → eval/policy → escalate irreversible (same shape as [human approval](/posts/human-approval-merge-button/)).
+
+Later posts in this series lean on the same production shape: [Eval gates](/posts/eval-gates-not-theater/), [Human approval](/posts/human-approval-merge-button/), [Claim safety](/posts/claim-safety-evidence-before-metrics/), [GitHub tokens](/posts/github-tokens-for-agent-fleets/), [Landing floor](/posts/landing-floor-without-a-github-app/).
+
+**Steal this rule:** if you cannot draw the host layer, you do not yet have an agent **production** system — you have a conversation with nowhere to live.
+
+**Bottom line:** prompts do not host production. Containers, networks, pipelines, and dashboards do. Draw the hosts, harden the defaults, and put agent ops on the same gate stack as code — or admit you are still demoing.
