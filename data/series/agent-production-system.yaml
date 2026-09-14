@@ -21,7 +21,7 @@ parts:
     slug: docker-homelab-agent-ops
     title: "Twenty-plus containers and agent-operated ops"
     date: "2026-08-04T09:00:00-04:00"
-    draft: false
+    draft: true
   - weight: 4
     slug: xbox-slas-to-agent-fleets
     title: "From Xbox SLAs to agent fleets"
