@@ -77,6 +77,12 @@ from. Unless the post genuinely earns a short treatment, aim for:
   what [`video-guide.md`](video-guide.md)'s pipeline renders as an actual
   chart graphic if the post gets a video — prose comparisons get discarded
   by that pipeline, tables become visuals.
+- **A picture of the actual work in the mechanism section** — not only a
+  cover. Prefer an Archify export (or a real diagram / PNG of the system)
+  under the H2 that explains the rule. Covers are mood; they do not show
+  the path. Exec-friendly posts especially need the false path vs the
+  fix in one frame (labeled architecture is an export, not image-gen —
+  see [`image-playbook.md`](image-playbook.md)).
 - **Only claim-safe numbers** ([`claim-safe-facts.md`](claim-safe-facts.md))
   — more detail is not license to invent metrics. Ground concrete examples
   in the allowed-metrics table there (Xbox SLA, homelab container count,

@@ -54,6 +54,8 @@ Voice and claim rules for when Dave later asks you to draft:
    file. The series table in
    [`series/agent-production-system.md`](series/agent-production-system.md)
    is the only series tracker. Dave picks; a later session writes.
+   That draft pass should include **diagram options for the mechanism
+   section** (Archify or a real PNG of the work), not only cover picks.
 
 ---
 
