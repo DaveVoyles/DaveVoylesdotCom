@@ -19,19 +19,13 @@ This is **part 5** of the [Agent production system](/posts/agent-production-syst
 
 ## Words I use below
 
-**Agent.** A program that writes words or code for you, in a chat.
-
-**Claim.** A sentence that says a number, a job title, or who made a thing. It can be true or false.
-
-**Evidence.** The proof you can point at. A file. A date. A source.
-
-**Metric.** A number inside a claim.
-
-**Allowlist.** The short list of numbers I am allowed to print in public. If a number is not on that list, it does not ship.
-
-**Authorship.** Who made a thing. Running a tool someone else wrote is not the same as making it.
-
-**Gate.** A check that can say no. A wish in the instructions is not a gate.
+- **Agent** — a program that writes words or code for you, in a chat
+- **Claim** — a sentence that says a number, a job title, or who made a thing (true or false)
+- **Evidence** — the proof you can point at (a file, a date, a source)
+- **Metric** — a number inside a claim
+- **Allowlist** — the short list of numbers I may print in public; if it is not on the list, it does not ship
+- **Authorship** — who made a thing (running someone else’s tool is not the same as making it)
+- **Gate** — a check that can say no (a wish in the instructions is not a gate)
 
 Those seven words are the whole toolkit. Now the point.
 
@@ -55,6 +49,10 @@ The collision usually looks like this:
 
 None of that needs a bad person. It needs a system that wants to sound done. If your agents can publish, claim safety has to be a **gate**, not a writing preference, because preferences evaporate the first time a draft needs to look finished by Friday.
 
+![False path ships a confident lie; fix path runs the draft through an allowlist gate before publish](/images/posts/claim-safety-ship-vs-gate.png "Sounds finished is the false path. Evidence before metrics is the fix.")
+
+*ELI10: left path ships because it sounds done; right path asks the allowlist, then publish or block and escalate.*
+
 ## Picture this: the same sentence, two outcomes
 
 An agent drafts a line for a public page:
@@ -72,10 +70,6 @@ That sentence sounds finished. It is also a bomb if you cannot defend every clau
 
 In my system that draft does not get to “sounds good, ship it.” It hits the allowlist. If the number is not on the list, or the authorship verb overclaims, the path is **stop**. Rewrite inside evidence, or ask a person. Same muscle I used as a **former** Senior Technical Program Manager at Xbox: confidence is not a gate. Checks are.
 
-![False path ships a confident lie; fix path runs the draft through an allowlist gate before publish](/images/posts/claim-safety-ship-vs-gate.png "Sounds finished is the false path. Evidence before metrics is the fix.")
-
-*ELI10: left path ships because it sounds done; right path asks the allowlist, then publish or block and escalate.*
-
 **Example: the 90% sentence.** The agent wanted a round win. “90% faster” sounds like a story, and stories travel well in a résumé. It has no before. It has no after. It has no scope. The honest Xbox line is already on the allowlist: publish went from **12h → 30m**. That is a before and an after. It can survive “show me.” The 90% line cannot. The gate does not soften 90% into “almost 90%.” It throws the number out, which is less romantic than a rewrite, and much more useful.
 
 **Example: the job that isn’t current.** The same draft wants a strong present-tense title: “Senior TPM at Xbox.” That used to be true. It is not true now. The allowlist says **former**. A gate that only hunts for fake dollars will miss this, which is how you end up with a polished lie about employment. A real gate also hunts for a job you do not have anymore. I caught it because the title is on the same short list as the numbers. Chat saying “it sounds better in the present tense” is not evidence, and neither is the model’s tone of polite certainty.
@@ -92,6 +86,8 @@ These are the same rules that bound [About](/about/) and this series. They live 
 6. **Stop and ask on disagreement** — if two sources conflict, do not silently pick the more impressive one.
 
 The allowlist is short on purpose. A short list forces soft language (“high-stakes platform work,” “cross-team delivery”) where a hard number does not exist yet, and that soft language is not a failure — it is the system refusing to invent precision it does not own.
+
+![Claim safety validation workflow: agent draft and source of truth enter an eval gate, then publish or block and escalate to a human](/images/posts/claim-safety-validation-workflow.jpg "Draft meets allowlist at the gate — publish only when evidence holds")
 
 ## Evidence-backed tooling
 
@@ -116,8 +112,6 @@ Claim safety is not one checkbox at the end. It is a job at every layer that tou
 | The live site | Publish only what survived the funnel. |
 
 On the map: start at [Eval gates](/about/?node=eval) and [Search](/about/?node=search). Public claims also sit under [Human approval](/about/?node=human) for a reason — when the model is sure and the evidence is thin, a person owns the last call, which is less exciting than full autonomy and much harder to fake.
-
-![Claim safety validation workflow: agent draft and source of truth enter an eval gate, then publish or block and escalate to a human](/images/posts/claim-safety-validation-workflow.jpg "Draft meets allowlist at the gate — publish only when evidence holds")
 
 ## Theater vs real claim safety
 
