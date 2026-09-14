@@ -24,6 +24,8 @@ Desktop pick-lists (`~/Desktop/<slug>-image-picks/`) are **optional scratch** on
 
 **Unique cover:** never reuse the cover file as a body image in the same post.
 
+**Visual cadence:** roughly one image/diagram/table per **~3 paragraphs** of body prose so the post does not read as a wall of text. Cover does not replace body beats.
+
 ---
 
 ## Do this, in order
