@@ -127,4 +127,10 @@
 <script src="{{ $tocActiveJS.RelPermalink }}" integrity="{{ $tocActiveJS.Data.Integrity }}" defer></script>
 {{- end }}
 
+{{- /* Click-to-enlarge for markdown images in the post body */ -}}
+{{- if .Content }}
+{{- $lb := resources.Get "js/post-image-lightbox.js" | resources.Minify | fingerprint }}
+<script src="{{ $lb.RelPermalink }}" integrity="{{ $lb.Data.Integrity }}" defer></script>
+{{- end }}
+
 {{- end }}{{/* end main */}}

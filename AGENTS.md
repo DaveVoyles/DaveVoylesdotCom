@@ -35,7 +35,7 @@ Without the submodule, Hugo fails looking for theme partials.
 4. **Home is not a full archive** — caps under `[params.home]` in `hugo.toml` ([ADR 0010](docs/decisions/0010-home-dashboard-not-full-archive.md)).
 5. **Topics** are a controlled vocabulary (6 buckets). Reuse existing **tags**; never invent compound tags like `"Javascript / HTML5"`.
 6. **Auto-publish** — scheduled posts use `draft = false` + future `date`. Daily CI rebuild ships them. Hold unfinished work with `draft = true`. Preview with `hugo server -D -F` or `make preview`.
-7. **Post images** — follow [`docs/image-playbook.md`](docs/image-playbook.md). Default (2026-09-14): Blog posts **3 design variants** in **Engineering**; **Engineer + Roberto** pick; Blog lands the winner (Dave can override). Unique cover — never also a body image. Prefer lighter palettes unless ops/fail-closed. Labeled architecture is Archify/HTML/SVG, not image-gen. Desktop pick folders are optional scratch only. Do not commit rejects. Do not change `date` / `draft` when wiring art.
+7. **Post images** — follow [`docs/image-playbook.md`](docs/image-playbook.md). **Visual cadence:** ~every 3 body paragraphs needs an image/diagram/table (no walls of text). Default (2026-09-14): Blog posts **3 design variants** in **Engineering**; **Engineer + Roberto** pick; Blog lands the winner (Dave can override). Unique cover — never also a body image. Prefer lighter palettes unless ops/fail-closed. Labeled architecture is Archify/HTML/SVG, not image-gen. Desktop pick folders are optional scratch only. Do not commit rejects. Do not change `date` / `draft` when wiring art.
 
 ## Common commands
 

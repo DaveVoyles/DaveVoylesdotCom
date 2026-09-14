@@ -17,6 +17,8 @@ GitHub Actions rebuild ships them automatically (see
 **Voice (do/don't):** [Writing standard](#writing-standard-2026-07-28) below.  
 **Propose ideas, don't draft:** [`idea-playbook.md`](idea-playbook.md).  
 **Covers / mechanism images:** 3 variants in Engineering → Engineer+Roberto pick → wire winner ([`image-playbook.md`](image-playbook.md)).  
+**Visual cadence (2026-09-14):** about every **3 paragraphs** of body prose, include an image, diagram, or table that earns the scroll — no long walls of text. Cover counts for the top; body still needs beats. Glossary/`Words I use` bullets are fine condensed lists.
+  
 **Agent router:** [`../AGENTS.md`](../AGENTS.md).  
 **Turning a post into a video:** [`video-guide.md`](video-guide.md).
 
@@ -72,6 +74,7 @@ from. Unless the post genuinely earns a short treatment, aim for:
   but the connective prose around them should read like explaining it to a
   colleague — short anecdotes, a concrete example, a "picture this" beat —
   not a compressed slide restated in sentence case.
+- **A visual about every 3 paragraphs** — image, Archify/HTML diagram, or table. Prefer mechanism diagrams for how-it-works beats. Cover alone is not enough for a long post.
 - **A markdown table wherever there's a real comparison** (before/after,
   theater-vs-real, states/outcomes). Beyond readability, a table is also
   what [`video-guide.md`](video-guide.md)'s pipeline renders as an actual

@@ -1,0 +1,15 @@
+{{- /*
+  Wrap markdown images so readers can click to enlarge (dialog lightbox).
+*/ -}}
+{{- $u := .Destination | safeURL -}}
+{{- $alt := .Text | default "" -}}
+{{- $title := .Title | default "" -}}
+<figure class="post-figure">
+  <a class="post-figure-link" href="{{ $u }}" data-lightbox="post"
+     data-alt="{{ $alt | htmlEscape }}"
+     {{- with $title }} data-caption="{{ . | htmlEscape }}"{{ end }}
+     aria-label="{{ if $alt }}Enlarge: {{ $alt }}{{ else }}Enlarge image{{ end }}">
+    <img src="{{ $u }}" alt="{{ $alt }}" loading="lazy"
+      {{- with $title }} title="{{ . }}"{{ end -}} />
+  </a>
+</figure>
