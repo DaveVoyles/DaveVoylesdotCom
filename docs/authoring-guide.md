@@ -18,6 +18,7 @@ GitHub Actions rebuild ships them automatically (see
 **Propose ideas, don't draft:** [`idea-playbook.md`](idea-playbook.md).  
 **Covers / mechanism images:** 3 variants in Engineering → Engineer+Roberto pick → wire winner ([`image-playbook.md`](image-playbook.md)).  
 **Visual cadence (2026-09-14):** about every **3 paragraphs** of body prose, include an image, diagram, or table that earns the scroll — no long walls of text. Cover counts for the top; body still needs beats. Glossary/`Words I use` bullets are fine condensed lists.
+**Post Standard v1 (2026-09-14):** checklist spine (thesis-first, dual audience, claim ledger, primary diagram near top) — vault: [Blog Post Standard v1](https://github.com/DaveVoyles/MainVault/blob/main/20-Areas/Personal/blog-post-standard-v1.md) (`e442376`). Pipeline locks in this guide win over the template. Pilot = next *new* unused post only (not retrofits / not #165).
   
 **Agent router:** [`../AGENTS.md`](../AGENTS.md).  
 **Turning a post into a video:** [`video-guide.md`](video-guide.md).
