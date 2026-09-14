@@ -42,7 +42,7 @@ flowchart LR
 |------|------|-------|----------|
 | 1. Ask | Say what you want in plain language (“propose ideas”, “draft X”, “4–5 covers”, “ship it”) | Read [`AGENTS.md`](../AGENTS.md), then **only** the matching doc | — |
 | 2. Ideas | — | [`idea-playbook.md`](idea-playbook.md): Chat-Agents mission → recent docs → existing slugs. 8–12 titles + angles. **Stop.** | Dave picks a title |
-| 3. Draft | Voice notes if you have them | [`authoring-guide.md`](authoring-guide.md) + [`claim-safe-facts.md`](claim-safe-facts.md). Series: [`series/README.md`](series/README.md) + `./scripts/new-series-post.sh`. Unique cover path. `make series-schedule` | Dave edits voice in the PR |
+| 3. Draft | Voice notes if you have them | [`authoring-guide.md`](authoring-guide.md) + [`claim-safe-facts.md`](claim-safe-facts.md). Series: [`series/README.md`](series/README.md) + `./scripts/new-series-post.sh`. Unique cover path. Include diagram options for the mechanism section (Archify / real PNG), not only covers. `make series-schedule` | Dave edits voice in the PR |
 | 4. Images | Look at `~/Desktop/<slug>-image-picks/` (terminal cannot show Imagine links) | [`image-playbook.md`](image-playbook.md): 4–5 options from the post, one object per frame, then **stop** | Dave names cover + any body shots |
 | 5. Wire art | — | Thesis → `[cover]`. Other picks under the matching H2. Never inline the cover. `make check` | — |
 | 6. Review | Read the PR / `make preview` | `make check`, branch, open PR. Do not change `date`/`draft` unless asked | Merge is Dave’s (or “land it” in chat) |

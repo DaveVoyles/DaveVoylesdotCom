@@ -23,8 +23,10 @@ supplies the file; you only place, compress, and wire it (see
 
 2. **Generate five distinct options** — not five near-copies of one
    prompt. Use the slots below. Prefer 16:9 so any pick can be the
-   cover. Match the post’s mood (see How to prompt). Do not default
-   every set to night-console. Not purple SaaS.
+   cover. Match the post’s mood (see How to prompt). **Default toward
+   lighter / brighter / happier** unless the beat is the ops or
+   fail-closed night floor. Night-console is optional, not the house
+   default. Not purple SaaS.
 
    | # | Job |
    |---|-----|
@@ -33,6 +35,12 @@ supplies the file; you only place, compress, and wire it (see
    | 3 | The real object the post names |
    | 4 | Factory floor (how the work actually looks) |
    | 5 | Comparison only if the draft already compares two sides |
+
+   Covers are not the whole pass. If the post has a core mechanism
+   (especially exec-friendly: false path vs the fix), include at least
+   one **diagram option** for that section — Archify or a real PNG /
+   labeled export — not another photoreal mood shot. Labeled
+   architecture is still an export, not `image_gen`.
 
 3. **Hand Dave a pick-list.** Each row is a file + one line: what beat
    it is, and which sentence in the post it comes from.
@@ -64,10 +72,11 @@ Write 2–5 sentences, **subject first**, then setting, then style:
 - Photoreal. Ground the picture in a sentence from the post.
 - **Palette follows the post, not a house default.** Night-console
   (`#0d0f0d` / `#5fb87a`) is still valid for ops / agent / fail-closed
-  beats — not mandatory. Prefer lighter, brighter, happier palettes
-  when the piece is for exec adoption or optimism (daylight, warm
-  workshop, clean product photography, soft neutrals). Keep
-  night-console when the beat is the ops floor or fail-closed.
+  night-floor beats — **optional, not the default.** Default toward
+  lighter, brighter, happier palettes (daylight, warm workshop, clean
+  product photography, soft neutrals) unless that beat is the ops
+  floor or fail-closed. Do not paint every Blog pick dark “for the
+  brand.”
 - Almost **no readable type**. Models garble words and invent
   numbers. If the beat needs labels, that beat is an export
   (archify / HTML / SVG), not this tool.
@@ -117,8 +126,8 @@ fails if a file is missing or over 1MB (these 16:9 JPEGs have been
 - Photoreal. Almost no readable type. No fake Dave face unless he
   handed you a photo. No purple SaaS, HUD overlays, or logos.
 - Palette matches the post’s mood. Night-console is valid, not
-  required. Prefer lighter when the piece is exec adoption /
-  optimism; keep night-console for ops floor / fail-closed.
+  required, not the default. Default toward lighter / brighter /
+  happier unless the beat is ops floor / fail-closed night floor.
 - No invented metrics, board counts, or “N agents” on the image.
 - **Labeled architecture, permission lists, and exact numbers** are
   not image-gen jobs.
