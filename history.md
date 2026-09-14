@@ -1,5 +1,6 @@
 # History
 
+- 2026-09-14: Pointer in `docs/authoring-guide.md` to MainVault Post Standard v1 (`e442376`). Docs-only; no posts; held #165.
 - 2026-09-14: Synced `data/series/agent-production-system.yaml` after EXT-R publish (#174, `ec797bf`). Pages Hugo build/deploy succeeded; five live posts 200 with retrofit diagrams. Held #165.
 - 2026-09-14: Need-go publish — squash-merged #169 lightbox, then EXT-R #168 #170 #171 #172 #173 (`draft = false`). Held #165 Second Brain (still draft, Wed Sep 16).
 - 2026-09-10: Image playbook — night-console stays valid, not mandatory; match post mood; prefer lighter for exec adoption / optimism. Docs-only; no site publish.

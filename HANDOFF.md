@@ -1,15 +1,14 @@
 # Handoff
 
-**2026-09-14 — series schedule sync after EXT-R publish. Pages green.**
+**2026-09-14 — Post Standard v1 pointer in authoring-guide (docs only).**
 
 ## What this session did
 
 | Work | Notes |
 |------|--------|
-| #174 | Squash-merged `ec797bf` — regenerated `data/series/agent-production-system.yaml` (`draft: false` for five live EXT-R tips). |
-| Pages | [Hugo Build and Deploy](https://github.com/DaveVoyles/DaveVoylesdotCom/actions/runs/34909931462) **success** (build + deploy + smoke). Prior Need-go Pages run failed `make check` on stale YAML. |
-| Live URLs | All five return 200; retrofit diagram PNGs present in HTML and asset 200. |
-| #165 | **HOLD** — not touched. |
+| `docs/authoring-guide.md` | One-line pointer to locked MainVault Post Standard v1 (`e442376`). Pipeline locks in this guide win; pilot = next new unused post only. |
+| `docs/claim-safe-facts.md` | Left alone (no claim-ledger section to cross-link). |
+| #165 | **HOLD** — not touched. No post content. |
 
 ## Local-only (not committed)
 
@@ -17,10 +16,10 @@
 
 ## Where to start next session
 
-1. #165 Second Brain stays scheduled-as-draft until Dave says otherwise.
-2. Cursor Cloud setup on `main` still fails (pre-existing; not this YAML). Ignore unless Cloud env work is on the table.
+1. Engineer merge of the Post Standard pointer PR after inform (do not squash-merge from this thread unless CI is green and still docs-only).
+2. #165 Second Brain stays scheduled-as-draft until Dave says otherwise.
 
 ## Do not
 
-- Do not merge #165 without a new Need-go.
-- Do not invent new posts in this thread.
+- Do not retrofit existing posts or #165 to the new standard.
+- Do not paste the full vault checklist into site docs.
