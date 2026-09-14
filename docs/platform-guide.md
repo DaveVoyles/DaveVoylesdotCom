@@ -18,7 +18,7 @@ happens when you do:
 |---|---|
 | "Draft a post about X" | Agent writes `content/posts/<slug>.md`, pushes to a **branch** (not `main`), opens it for your review. Nothing is live until you approve and it's merged. Detail: [`authoring-guide.md`](authoring-guide.md). |
 | "Propose some blog ideas" | Agent follows [`idea-playbook.md`](idea-playbook.md): Chat-Agents mission dashboard → recent `docs/` → existing series slugs. You get a title + one-line-angle list. **No full posts** in that pass. |
-| "Add an image to this post" / "give it a cover image" | Agent follows [`image-playbook.md`](image-playbook.md): reads the post, generates **four or five** distinct candidates, then **stops**. You pick. Then it compresses the winner under 1MB into `static/images/posts/` and wires `[cover]` or `![]()`. If this session has no image-generation tool, it says so — you supply the file and it only places/compresses. Labeled architecture stays an export, not image-gen. |
+| "Add an image to this post" / "give it a cover image" | Agent follows [`image-playbook.md`](image-playbook.md): Blog posts **3 design variants** in **Engineering**; Engineer+Roberto pick; Blog wires the winner (you can override). Compress under 1MB into `static/images/posts/`. Unique cover — never also a body image. Labeled architecture stays Archify/HTML/SVG, not image-gen. |
 | "Make a video for this post" | **Opt-in, never automatic.** Agent runs a preview step that drafts narration + renders an MP4, then **stops** — you watch it before anything uploads. Detail: [`video-guide.md`](video-guide.md). |
 
 ## 🏗️ What this actually is
@@ -149,9 +149,8 @@ the page down.
 
 **"Can the agent just create the image for me?"** If the session has an
 image-generation tool (Grok Imagine, or whatever is wired that day), yes —
-but as a **pick-list**, not an auto-wired cover. Follow
-[`image-playbook.md`](image-playbook.md): four or five options grounded in
-the post, then stop. You choose; the agent compresses and commits only the
+but as **3 design variants in Engineering**, not an auto-wired cover. Follow
+[`image-playbook.md`](image-playbook.md): three options grounded in the post, then stop. You choose; the agent compresses and commits only the
 winner. If this session has no generator, the agent says so. You still can
 hand it a file from ChatGPT, Gemini, a camera, or an older cover, and it
 will place, optimize, and wire it.
