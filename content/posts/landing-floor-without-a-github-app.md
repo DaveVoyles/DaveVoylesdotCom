@@ -1,7 +1,7 @@
 +++
 title = "The last click is still yours"
 date = "2026-08-21T09:00:00-04:00"
-draft = true
+draft = false
 author = "Dave Voyles"
 description = "An agent writes code in a chat. A pull request is a proposed change. Merge means accepting it. A GitHub App is a robot that can click GitHub buttons for you. You can still require checks and click yourself."
 categories = ["Programming", "AI"]
