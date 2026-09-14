@@ -64,6 +64,10 @@ Think of two lanes — not as a mood board, as a rule you can steal into a runbo
 | **You** | Your personal login | Until you sign out | Work *you* are doing: open a pull request, poke around, push as yourself |
 | **Robot** | A GitHub App | About one hour | Approve and merge after automatic tests pass |
 
+![Two lanes: personal login opens the pull request; GitHub App approves and merges after automatic tests with a short-lived broker token](/images/posts/github-tokens-two-lanes.png "Create on your name. Later clicks on the App.")
+
+*ELI10: left lane is you — open the pull request on your personal login; right lane is the robot — approve and merge only after automatic tests, with a short-lived token from the broker.*
+
 Look at a normal afternoon. Work is moving. Nothing sits in the middle waiting for someone to *feel* that a key was fine. The broker already said yes or no. Empty waiting is not a stall. It is the rule doing its job, which is the boring kind of good news.
 
 Agents do **not** each own a GitHub App. They call one broker. That broker talks to **one** App. It gets a short-lived token. It throws the token away when done, which is the whole point of making the token die on a schedule instead of dying when someone remembers to revoke it.
@@ -78,6 +82,10 @@ Agents do **not** each own a GitHub App. They call one broker. That broker talks
 Steal that as a card: create on your name, later clicks on the App, and never “fix” a rate limit by handing the robot the first click.
 
 **Example: the robot that cannot approve itself.** You were hitting a limit on your personal login. So you let the GitHub App *open* the pull request, because that felt clever at 11pm. GitHub now thinks the robot wrote the change. At the end of the night a script asks the same robot to approve it. GitHub says no. Same name cannot approve its own work. You find out when you wanted to be done. Keep create on your name. Wait out the limit if you have to. Do not “fix” a limit by handing the robot the first click — that is not a fix, that is a costume change.
+
+![False path: GitHub App opens the pull request then cannot approve itself; fix path: personal login opens, automatic tests run, then the App may click](/images/posts/github-tokens-robot-cannot-self-approve.png "Same name cannot approve its own work. Tests are not optional.")
+
+*ELI10: if the robot opened the pull request, GitHub blocks that same robot from approving it; keep create on your name, let automatic tests run, and only then let the App click — or click yourself if there is no App.*
 
 ## A program hands out the key
 
