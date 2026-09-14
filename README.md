@@ -6,7 +6,7 @@ davevoyles.com is Dave's personal website — his blog and portfolio in one plac
 
 ## What it provides and why
 
-A static Hugo site with a hand-built home dashboard, an About page with an interactive agent constellation, and a writing pipeline (draft → gate → publish) that a human or an agent can run the same way. It exists so publishing a post never depends on a database, a server, or Dave being the only one who can touch it — plain Markdown in, static HTML out.
+A static Hugo site with a hand-built home dashboard, an About page with an interactive agent constellation, and a writing pipeline (draft → gate → publish) that a human or an agent can run the same way. It exists so publishing a post never depends on a server, or Dave being the only one who can touch it — plain Markdown in, static HTML out.
 
 ## The picture
 
