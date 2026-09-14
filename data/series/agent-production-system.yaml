@@ -41,7 +41,7 @@ parts:
     slug: github-tokens-for-agent-fleets
     title: "Don't paste your GitHub key in chat"
     date: "2026-08-18T09:00:00-04:00"
-    draft: false
+    draft: true
   - weight: 8
     slug: landing-floor-without-a-github-app
     title: "The last click is still yours"
