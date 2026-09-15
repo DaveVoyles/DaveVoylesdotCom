@@ -1,26 +1,31 @@
 # Handoff
 
-**2026-09-14 — Post Standard v1.1 pointers (docs only).**
+**2026-09-14 — Site chrome thin first PR (light-first + visual grammar tokens).**
 
 ## What this session did
 
 | Work | Notes |
 |------|--------|
-| `docs/authoring-guide.md` | Pointer bumped to MainVault Post Standard **v1.1** (`ef4d637`). Short delta: series-tax, subtitle, visual grammar → image-playbook, artifact menu, post-type tags. Pipeline locks in that guide still win. Pilot = next new unused post / P0-3 only. |
-| `docs/image-playbook.md` | Visual grammar table (blue=human, teal=verified, amber=review, coral=blocked, gray=infra, purple=agent) + labels/patterns. |
-| #165 / posts | **HOLD** — not touched. No site chrome. New PR (do not reopen #176). |
+| Light default | `hugo.toml` `defaultTheme = "light"`. First paint is light; OS dark does not win. PaperMod toggle still stores dark in `localStorage`. |
+| Tokens | `assets/css/extended/00-tokens.css` — `--ds-canvas` / `--ds-surface` / `--ds-ink` plus `--ds-human` `--ds-verified` `--ds-review` `--ds-blocked` `--ds-infra` `--ds-agent`. Ink is near-navy `#1a2744` on warm `#faf9f4`. Green accent kept. |
+| Grammar CSS | `assets/css/extended/10-visual-grammar.css` — labels + patterns (not color alone). `.ds-diagram-hook` / `[data-diagram-hook]` static; reduced-motion kills `[data-animate]`. |
+| PaperMod | Untouched. Overrides only. |
+| Docs | `docs/DESIGN.md`, `docs/platform-guide.md`, `CONTEXT.md`, `docs/image-playbook.md`. |
 
 ## Local-only (not committed)
 
-- None.
+- Homebrew Hugo 0.166 used for a local `--minify` smoke (CI pins 0.164). `public/` not committed.
 
 ## Where to start next session
 
-1. Engineer squash of the v1.1 docs PR after inform (do not merge from this thread unless CI is green and still docs-only).
-2. #165 Second Brain stays scheduled-as-draft until Dave says otherwise.
+1. Roberto critique of the chrome PR — do **not** squash-merge from this thread.
+2. Interactive system map is a follow-up (not this PR).
+3. #165 Second Brain stays scheduled-as-draft until Dave says otherwise.
+4. P0-3 blog pilot still unused.
 
 ## Do not
 
 - Do not reopen #176.
 - Do not retrofit existing posts or #165 to the new standard.
-- Do not implement theme/CSS/map/motion for visual grammar.
+- Do not make dark the default.
+- Do not edit `themes/PaperMod/`.

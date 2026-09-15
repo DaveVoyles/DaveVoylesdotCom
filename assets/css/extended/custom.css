@@ -1,12 +1,10 @@
 /*
- * "Console" theme override.
- * Loads after PaperMod's own CSS (see docs/platform-guide.md's styling
- * section) — everything here only touches variables/selectors already
- * defined by the theme, never the theme's own files.
- *
- * Color/type/space primitives live in 00-tokens.css (--ds-*). This file
- * aliases PaperMod's --theme/--entry/--primary/etc. to those tokens and
- * keeps look-preserving component CSS.
+ * Site chrome override on PaperMod (do not edit the theme submodule).
+ * Loads after PaperMod CSS. Color/type/space primitives live in
+ * 00-tokens.css (--ds-*). Visual grammar labels/patterns:
+ * 10-visual-grammar.css. This file aliases PaperMod's
+ * --theme/--entry/--primary/etc. to those tokens and keeps
+ * look-preserving component CSS (monospace chrome, green accent).
  */
 
 /* ==========================================================================

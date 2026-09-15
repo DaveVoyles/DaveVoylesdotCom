@@ -73,13 +73,14 @@ hosting bill, no plugin security patching, and a full backup that's just
 
 ## 🎨 Changing colors and styling
 
-The site uses a **console theme** (green accent, monospace chrome). Shared
-`--ds-*` tokens live in `assets/css/extended/00-tokens.css` (loads first —
-Hugo concatenates `extended/*.css` alphabetically). Component overrides
-live in `assets/css/extended/custom.css`, which loads *after* PaperMod's
-CSS — edit those files rather than the theme submodule. See
-[`DESIGN.md`](DESIGN.md) and the shared standard at
-`~/.claude/skills/web-design-standards/SKILL.md`.
+The site is **light-first** (warm off-white canvas, near-navy ink) with a
+console-green accent and monospace chrome. Shared `--ds-*` tokens live in
+`assets/css/extended/00-tokens.css` (loads first — Hugo concatenates
+`extended/*.css` alphabetically). Visual grammar labels/patterns:
+`assets/css/extended/10-visual-grammar.css`. Component overrides live in
+`assets/css/extended/custom.css`, which loads *after* PaperMod's CSS — edit
+those files rather than the theme submodule. See [`DESIGN.md`](DESIGN.md)
+and the shared standard at `~/.claude/skills/web-design-standards/SKILL.md`.
 
 ### Do you need to ask an agent?
 
@@ -93,19 +94,21 @@ CSS — edit those files rather than the theme submodule. See
 ### How the color system actually works
 
 Canonical roles are `--ds-*` tokens in `00-tokens.css` (light on `:root`,
-dark via `prefers-color-scheme` and `:root[data-theme="dark"]`). PaperMod
-legacy names (`--theme`, `--entry`, `--accent`, …) still appear in
-`custom.css` during migration; new CSS should use `var(--ds-accent)` (etc.).
+optional dark via the theme toggle: `:root[data-theme="dark"]`). First paint
+is light (`defaultTheme = "light"`). PaperMod legacy names (`--theme`,
+`--entry`, `--accent`, …) still appear in `custom.css` during migration;
+new CSS should use `var(--ds-accent)` / `var(--ds-ink)` (etc.).
 
 | Token | What it controls |
 |---|---|
-| `--ds-bg` | Page background |
+| `--ds-canvas` / `--ds-bg` | Page background (warm off-white) |
 | `--ds-surface` / `--ds-bg-elevated` | Card / panel background |
-| `--ds-text` | Main headings / strong text |
+| `--ds-ink` / `--ds-text` | Near-navy headings / strong text |
 | `--ds-text-muted` | Muted meta text |
 | `--ds-content` | Body copy |
 | `--ds-border` | Dividers |
 | `--ds-accent` / `--ds-link` | Console green — links, chips, CTAs |
+| `--ds-human` / `--ds-verified` / `--ds-review` / `--ds-blocked` / `--ds-infra` / `--ds-agent` | Post Standard v1.1 role colors (use with labels + patterns, not color alone) |
 | `--ds-tertiary` | Soft fill behind badges |
 | `--ds-code-bg` / `--ds-code-block-bg` | Inline / fenced code |
 
