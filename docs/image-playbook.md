@@ -90,7 +90,7 @@ still win. **Labels + patterns, not color alone.**
 | Gray | Infra |
 | Purple | Agent |
 
-Pointer only — do not change theme/CSS or site chrome for this.
+Site tokens: `--ds-human` / `--ds-verified` / `--ds-review` / `--ds-blocked` / `--ds-infra` / `--ds-agent` in `assets/css/extended/00-tokens.css`; labels + patterns in `10-visual-grammar.css`. Do not rely on color alone.
 
 ---
 

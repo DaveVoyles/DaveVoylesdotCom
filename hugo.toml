@@ -53,6 +53,10 @@ privacyEnhanced = true
 author = 'Dave Voyles'
 description = 'Blog by Dave Voyles'
 
+# Light is first paint. Dark stays on the PaperMod toggle (optional).
+# When this is "auto", OS dark preference becomes the default.
+defaultTheme = "light"
+
 # Site-wide TOC default (plan 0004 / D3): `.Param "ShowToc"` in
 # layouts/single.html checks page frontmatter first, falling back to this
 # site param -- so this activates the sticky/scroll-spy TOC rail (D2/D3)
