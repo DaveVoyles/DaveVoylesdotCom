@@ -1,14 +1,15 @@
 # Handoff
 
-**2026-09-14 — Post Standard v1.1 pointers (docs only).**
+**2026-09-16 — PUBLISH GO: #165 Second Brain live.**
 
 ## What this session did
 
 | Work | Notes |
 |------|--------|
-| `docs/authoring-guide.md` | Pointer bumped to MainVault Post Standard **v1.1** (`ef4d637`). Short delta: series-tax, subtitle, visual grammar → image-playbook, artifact menu, post-type tags. Pipeline locks in that guide still win. Pilot = next new unused post / P0-3 only. |
-| `docs/image-playbook.md` | Visual grammar table (blue=human, teal=verified, amber=review, coral=blocked, gray=infra, purple=agent) + labels/patterns. |
-| #165 / posts | **HOLD** — not touched. No site chrome. New PR (do not reopen #176). |
+| #165 | `draft = false` (date kept `2026-09-16T10:00:00-04:00`). Squash-merged to main. Head branch deleted. |
+| Pages | Hugo Build and Deploy **success** — run `35106994400`. |
+| Live | https://davevoyles.com/posts/the-second-brain-i-own/ — HTTP 200; HTML has Second Brain + MainVault. |
+| Series YAML | Not needed. `make check` / Pages Check content passed without `sync-series-schedule.py`. |
 
 ## Local-only (not committed)
 
@@ -16,11 +17,11 @@
 
 ## Where to start next session
 
-1. Engineer squash of the v1.1 docs PR after inform (do not merge from this thread unless CI is green and still docs-only).
-2. #165 Second Brain stays scheduled-as-draft until Dave says otherwise.
+1. Second Brain is live. Do not reopen #165.
+2. No LinkedIn/X from this publish unless Dave asks.
 
 ## Do not
 
 - Do not reopen #176.
-- Do not retrofit existing posts or #165 to the new standard.
-- Do not implement theme/CSS/map/motion for visual grammar.
+- Do not auto-post LinkedIn/X.
+- Do not retrofit #165 to Post Standard v1.1 unless Dave asks.
