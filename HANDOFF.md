@@ -1,20 +1,15 @@
 # Handoff
 
-**2026-09-16 — Site chrome thin first PR (light-first + visual grammar tokens) on main after #165 Second Brain live.**
+**2026-09-16 — #178 rebased onto main. Light-first chrome + v1.1 tokens. Ready to ship after CI.**
 
 ## What this session did
 
 | Work | Notes |
 |------|--------|
-| #165 | `draft = false` (date kept `2026-09-16T10:00:00-04:00`). Squash-merged to main. Head branch deleted. |
-| Pages | Hugo Build and Deploy **success** — run `35106994400`. |
-| Live | https://davevoyles.com/posts/the-second-brain-i-own/ — HTTP 200; HTML has Second Brain + MainVault. |
-| Series YAML | Not needed. `make check` / Pages Check content passed without `sync-series-schedule.py`. |
-| Light default | `hugo.toml` `defaultTheme = "light"`. First paint is light; OS dark does not win. PaperMod toggle still stores dark in `localStorage`. |
-| Tokens | `assets/css/extended/00-tokens.css` — `--ds-canvas` / `--ds-surface` / `--ds-ink` plus `--ds-human` `--ds-verified` `--ds-review` `--ds-blocked` `--ds-infra` `--ds-agent`. Ink is near-navy `#1a2744` on warm `#faf9f4`. Green accent kept. |
-| Grammar CSS | `assets/css/extended/10-visual-grammar.css` — labels + patterns (not color alone). `.ds-diagram-hook` / `[data-diagram-hook]` static; reduced-motion kills `[data-animate]`. |
-| PaperMod | Untouched. Overrides only. |
-| Docs | `docs/DESIGN.md`, `docs/platform-guide.md`, `CONTEXT.md`, `docs/image-playbook.md`. |
+| Rebase | `theme/light-first-visual-grammar` onto `origin/main` (`6254d19`, #165 live). Conflicts only in `HANDOFF.md` and `history.md`. |
+| Kept from #178 | Light default, `--ds-canvas` / `--ds-surface` / `--ds-ink`, role tokens, `10-visual-grammar.css`, PaperMod untouched. |
+| Kept from main | #165 Second Brain live; v1.1 docs pointers already on main (#177). |
+| Gates | `make check` passed. `make build` 428 pages. |
 
 ## Local-only (not committed)
 
@@ -22,10 +17,10 @@
 
 ## Where to start next session
 
-1. Roberto critique of the chrome PR — do **not** squash-merge from this thread.
-2. Interactive system map is a follow-up (not this PR).
-3. Second Brain is live. Do not reopen #165.
-4. No LinkedIn/X from this publish unless Dave asks.
+1. Wait for CI on #178. Ignore known cursor-cloud-setup / adapter flakes.
+2. Do **not** squash-merge unless mergeable and gitleaks is green.
+3. Interactive system map is a follow-up (not this PR).
+4. Second Brain is live. Do not reopen #165.
 5. P0-3 blog pilot still unused.
 
 ## Do not
@@ -33,6 +28,5 @@
 - Do not reopen #176.
 - Do not auto-post LinkedIn/X.
 - Do not retrofit #165 to Post Standard v1.1 unless Dave asks.
-- Do not retrofit existing posts or #165 to the new standard.
 - Do not make dark the default.
 - Do not edit `themes/PaperMod/`.
