@@ -1,6 +1,6 @@
 +++
 date = '2026-09-16T10:00:00-04:00'
-draft = true
+draft = false
 title = 'The second brain I own (and why chat memory is not enough)'
 author = 'Dave Voyles'
 description = 'How MainVault works day to day — git as the source of truth, two-machine sync, read-first agents, and narrow write ownership — as a portable second brain beside chat memory.'
