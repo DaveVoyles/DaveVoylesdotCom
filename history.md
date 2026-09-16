@@ -1,5 +1,6 @@
 # History
 
+- 2026-09-16: Opened draft PR for P0-3 Pattern pilot `per-checkout-isolation` (`draft = true`, date 2026-09-18). Not merged. #165 untouched.
 - 2026-09-16: PUBLISH GO — squash-merged #165 Second Brain (`draft = false`, date 2026-09-16T10:00:00-04:00). Merge `905695ee981571bf8f49de63e2b784fe10f87a1b`. Pages Hugo build/deploy succeeded (run 35106994400). Live https://davevoyles.com/posts/the-second-brain-i-own/ HTTP 200. No series YAML sync. No LinkedIn/X.
 - 2026-09-14: Post Standard v1.1 pointers — `docs/authoring-guide.md` (`ef4d637` delta) + visual grammar in `docs/image-playbook.md`. Docs-only; no posts; held #165; did not reopen #176.
 - 2026-09-14: Pointer in `docs/authoring-guide.md` to MainVault Post Standard v1 (`e442376`). Docs-only; no posts; held #165.

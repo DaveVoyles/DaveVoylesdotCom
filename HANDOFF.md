@@ -1,27 +1,25 @@
 # Handoff
 
-**2026-09-16 — PUBLISH GO: #165 Second Brain live.**
+**2026-09-16 — P0-3 Pattern pilot draft PR (not merged, not published).**
 
 ## What this session did
 
 | Work | Notes |
 |------|--------|
-| #165 | `draft = false` (date kept `2026-09-16T10:00:00-04:00`). Squash-merged to main. Head branch deleted. |
-| Pages | Hugo Build and Deploy **success** — run `35106994400`. |
-| Live | https://davevoyles.com/posts/the-second-brain-i-own/ — HTTP 200; HTML has Second Brain + MainVault. |
-| Series YAML | Not needed. `make check` / Pages Check content passed without `sync-series-schedule.py`. |
+| P0-3 | Wired `per-checkout-isolation` (`draft = true`, date `2026-09-18`). Branch `draft/per-checkout-isolation`. Cover + 4 body PNGs under `static/images/posts/`. |
+| #165 | Untouched. |
 
 ## Local-only (not committed)
 
-- None.
+- `.omp-handoff/` (gitignored). Pack extract at `.omp-handoff/p0-3/`.
 
 ## Where to start next session
 
-1. Second Brain is live. Do not reopen #165.
-2. No LinkedIn/X from this publish unless Dave asks.
+1. Dave: MacBook `make preview` → http://127.0.0.1:1313/posts/per-checkout-isolation/
+2. Do not merge or publish unless Dave asks.
 
 ## Do not
 
-- Do not reopen #176.
+- Do not reopen #165.
 - Do not auto-post LinkedIn/X.
 - Do not retrofit #165 to Post Standard v1.1 unless Dave asks.
