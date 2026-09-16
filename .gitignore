@@ -16,3 +16,5 @@ public/
 .env.development
 .env.test
 
+# Agent handoff packs — local extract only
+.omp-handoff/
