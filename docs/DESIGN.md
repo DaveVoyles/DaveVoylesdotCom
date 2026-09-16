@@ -1,6 +1,6 @@
 # Design System — davevoyles.com
 
-> Snapshot of this site's **current** design as implemented, documented so a designer or agent can understand the visual system without reading source. Updated 2026-08-14 for web-design-standards adoption (plan 0084 D12, issue #141). Shared structural rules: `~/.claude/skills/web-design-standards/SKILL.md`. Source of truth is always the files listed in §Source Files.
+> Snapshot of this site's **current** design as implemented, documented so a designer or agent can understand the visual system without reading source. Updated 2026-09-14 for light-first chrome + Post Standard v1.1 tokens. Shared structural rules: `~/.claude/skills/web-design-standards/SKILL.md`. Source of truth is always the files listed in §Source Files.
 
 ## At a Glance
 | | |
@@ -8,43 +8,49 @@
 | Live URL | https://davevoyles.com |
 | Stack / framework | Hugo static site generator, theme [PaperMod](https://github.com/adityatelange/hugo-PaperMod) (git submodule under `themes/PaperMod/`) |
 | Styling approach | CSS custom properties under `--ds-*` in `assets/css/extended/00-tokens.css` (loads first via Hugo `resources.Match` alpha concat). Component CSS in `assets/css/extended/custom.css` aliases PaperMod names onto those tokens. PaperMod base vars in `themes/PaperMod/assets/css/core/theme-vars.css` |
-| Theme modes | Both light and dark, toggled via `data-theme="light"` / `data-theme="dark"` on `<html>` (PaperMod's built-in toggle button + `localStorage`, `themes/PaperMod/layouts/baseof.html`) |
-| Overall vibe | A "console" theme layered on PaperMod's clean blog chrome: warm off-white/near-black backgrounds, a single green accent, and monospace type used deliberately for structural/meta text (nav, titles, post meta, TOC) so the site reads like a terminal/directory listing, while body copy stays a readable system sans-serif |
+| Theme modes | **Light is the default** (`defaultTheme = "light"` in `hugo.toml`). Dark remains optional via PaperMod's toggle + `localStorage`. OS `prefers-color-scheme: dark` does **not** become the first paint. |
+| Overall vibe | Light-first professional: warm off-white canvas, near-navy ink, console-green accent, monospace for structural/meta text (nav, titles, post meta, TOC). Body copy stays a readable system sans-serif. |
 
 ## Color Palette
-Real values from code — never approximate. Canonical definitions live in `assets/css/extended/00-tokens.css` on `:root` (light / day console). Dark overrides exist twice and must stay in sync: `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }` and `:root[data-theme="dark"]`. PaperMod/legacy names (`--theme`, `--entry`, `--accent`, …) still exist in `custom.css` as the migration alias layer.
+Real values from code — never approximate. Canonical definitions live in `assets/css/extended/00-tokens.css` on `:root` (light). Dark overrides exist twice and must stay in sync: `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }` and `:root[data-theme="dark"]`. PaperMod/legacy names (`--theme`, `--entry`, `--accent`, …) still exist in `custom.css` as the migration alias layer. Visual grammar labels/patterns: `assets/css/extended/10-visual-grammar.css`.
 
-### Light mode ("day console")
+### Light mode (default)
 | Token / usage | Hex / RGB | Where defined | Notes |
 |---|---|---|---|
-| Background (`--ds-bg`) | `rgb(250, 249, 244)` → `#faf9f4` | `00-tokens.css` | Warm off-white, not pure white |
-| Elevated / surface (`--ds-bg-elevated`, `--ds-surface`) | `rgb(255, 255, 255)` → `#ffffff` | `00-tokens.css` | Cards, sidebar bio, TOC panel |
-| Text primary (`--ds-text`) | `rgb(24, 26, 22)` → `#181a16` | `00-tokens.css` | Near-black, slight green cast |
-| Text muted (`--ds-text-muted`) | `rgb(90, 95, 83)` → `#5a5f53` | `00-tokens.css` | Meta text, labels |
-| Content text (`--ds-content`) | `rgb(32, 35, 28)` → `#20231c` | `00-tokens.css` | Body copy |
+| Canvas (`--ds-canvas`, `--ds-bg`) | `rgb(250, 249, 244)` → `#faf9f4` | `00-tokens.css` | Warm off-white, not pure white |
+| Surface (`--ds-surface`, `--ds-bg-elevated`) | `rgb(255, 255, 255)` → `#ffffff` | `00-tokens.css` | Cards, sidebar bio, TOC panel |
+| Ink (`--ds-ink`, `--ds-text`) | `rgb(26, 39, 68)` → `#1a2744` | `00-tokens.css` | Near-navy |
+| Text muted (`--ds-text-muted`) | `rgb(84, 96, 118)` → `#546076` | `00-tokens.css` | Meta text, labels |
+| Content text (`--ds-content`) | `rgb(36, 48, 72)` → `#243048` | `00-tokens.css` | Body copy |
 | Tertiary (`--ds-tertiary`) | `rgb(210, 224, 200)` → `#d2e0c8` | `00-tokens.css` | Tag pill background |
 | Border (`--ds-border`) | `rgb(214, 220, 202)` → `#d6dcca` | `00-tokens.css` | |
 | Accent / link / success (`--ds-accent`, `--ds-link`, `--ds-success`) | `rgb(34, 99, 60)` → `#22633c` | `00-tokens.css` | Console green |
 | Text on accent (`--ds-accent-fg`) | `rgb(250, 249, 244)` → `#faf9f4` | `00-tokens.css` | |
-| Warn (`--ds-warn`) | `rgb(176, 128, 40)` → `#b08028` | `00-tokens.css` | |
+| Warn / review (`--ds-warn`, `--ds-review`) | `rgb(148, 100, 24)` → `#946418` | `00-tokens.css` | Amber, AA on canvas |
 | Error (`--ds-error`) | `rgb(160, 64, 56)` → `#a04038` | `00-tokens.css` | |
+| Blocked (`--ds-blocked`) | `rgb(176, 64, 64)` → `#b04040` | `00-tokens.css` | Coral |
+| Human (`--ds-human`) | `rgb(37, 86, 156)` → `#25569c` | `00-tokens.css` | Blue |
+| Verified (`--ds-verified`) | `rgb(15, 118, 110)` → `#0f766e` | `00-tokens.css` | Teal |
+| Infra (`--ds-infra`) | `rgb(100, 108, 120)` → `#646c78` | `00-tokens.css` | Gray |
+| Agent (`--ds-agent`) | `rgb(109, 80, 160)` → `#6d50a0` | `00-tokens.css` | Purple |
 | Inline code (`--ds-code-bg`) | `rgb(234, 238, 226)` → `#eaeee2` | `00-tokens.css` | |
-| Code block (`--ds-code-block-bg`) | `rgb(24, 26, 22)` → `#181a16` | `00-tokens.css` | Fenced blocks stay dark in light mode |
+| Code block (`--ds-code-block-bg`) | `rgb(26, 39, 68)` → `#1a2744` | `00-tokens.css` | Fenced blocks stay dark in light mode |
 
-### Dark mode ("night console")
+### Dark mode (optional, toggle)
 | Token / usage | Hex / RGB | Where defined | Notes |
 |---|---|---|---|
-| Background (`--ds-bg`) | `rgb(13, 15, 13)` → `#0d0f0d` | `00-tokens.css` dark blocks | |
-| Elevated / surface (`--ds-bg-elevated`, `--ds-surface`) | `rgb(18, 22, 17)` → `#121611` | `00-tokens.css` dark blocks | |
-| Text primary (`--ds-text`) | `rgb(239, 236, 224)` → `#efece0` | `00-tokens.css` dark blocks | |
-| Text muted (`--ds-text-muted`) | `rgb(138, 143, 125)` → `#8a8f7d` | `00-tokens.css` dark blocks | |
-| Content text (`--ds-content`) | `rgb(195, 192, 179)` → `#c3c0b3` | `00-tokens.css` dark blocks | |
+| Canvas (`--ds-canvas`, `--ds-bg`) | `rgb(13, 15, 13)` → `#0d0f0d` | `00-tokens.css` dark blocks | |
+| Surface (`--ds-surface`, `--ds-bg-elevated`) | `rgb(18, 22, 17)` → `#121611` | `00-tokens.css` dark blocks | |
+| Ink (`--ds-ink`, `--ds-text`) | `rgb(230, 234, 242)` → `#e6eaf2` | `00-tokens.css` dark blocks | Cool off-white |
+| Text muted (`--ds-text-muted`) | `rgb(138, 148, 162)` → `#8a94a2` | `00-tokens.css` dark blocks | |
+| Content text (`--ds-content`) | `rgb(198, 206, 218)` → `#c6ceda` | `00-tokens.css` dark blocks | |
 | Tertiary (`--ds-tertiary`) | `rgb(38, 48, 38)` → `#263026` | `00-tokens.css` dark blocks | |
 | Border (`--ds-border`) | `rgb(38, 48, 38)` → `#263026` | `00-tokens.css` dark blocks | |
 | Accent / link / success (`--ds-accent`, `--ds-link`, `--ds-success`) | `rgb(95, 184, 122)` → `#5fb87a` | `00-tokens.css` dark blocks | Brighter green for dark backgrounds |
 | Text on accent (`--ds-accent-fg`) | `rgb(13, 15, 13)` → `#0d0f0d` | `00-tokens.css` dark blocks | |
-| Warn (`--ds-warn`) | `rgb(214, 168, 72)` → `#d6a848` | `00-tokens.css` dark blocks | |
+| Warn / review (`--ds-warn`, `--ds-review`) | `rgb(214, 168, 72)` / `rgb(232, 176, 80)` | `00-tokens.css` dark blocks | |
 | Error (`--ds-error`) | `rgb(214, 104, 96)` → `#d66860` | `00-tokens.css` dark blocks | |
+| Human / verified / blocked / infra / agent | brighter role hues | `00-tokens.css` dark blocks | Same grammar, dark-tuned |
 | Inline code (`--ds-code-bg`) | `rgb(26, 32, 24)` → `#1a2018` | `00-tokens.css` dark blocks | |
 | Code block (`--ds-code-block-bg`) | `rgb(18, 22, 17)` → `#121611` | `00-tokens.css` dark blocks | |
 
@@ -93,6 +99,7 @@ Shared 8-step type scale lives on `:root` in `00-tokens.css` (do not change valu
 - Shared motion tokens: `--ds-dur-fast` 120ms, `--ds-dur-base` 200ms, `--ds-dur-slow` 350ms; `--ds-ease-out` / `--ds-ease-in-out`. The mandatory blanket `@media (prefers-reduced-motion: reduce)` block lives in `00-tokens.css` (zeroes animation/transition duration sitewide).
 - **Home hero reduced-motion:** `assets/js/home-hero-webgl.js` bails out when `matchMedia("(prefers-reduced-motion: reduce)")` matches; `custom.css` hides `.home-hero-webgl` (`display: none !important`) and disables card hover transforms under the same query, on top of the token-file floor.
 - About constellation: WebGL canvas hidden and SVG fallback restored under `prefers-reduced-motion` (`custom.css` + `assets/js/about-constellation.js`).
+- **Diagram hooks:** `.ds-diagram-hook` / `[data-diagram-hook]` in `10-visual-grammar.css` are static (no autoplay). `[data-animate]` descendants stay un-animated; reduced-motion forces `animation: none`.
 
 ## Imagery & Iconography
 - **Icons:** PaperMod's built-in social icon set (`themes/PaperMod/assets/`) — the site currently wires up `linkedin` and `github` via `[[params.socialIcons]]` in `hugo.toml`.
@@ -102,9 +109,9 @@ Shared 8-step type scale lives on `:root` in `00-tokens.css` (do not change valu
 - **Illustration style:** none beyond the generative SVG/WebGL "constellation" graphic on the About page — no custom illustration set.
 
 ## Accessibility Notes
-- Reduced motion: sitewide floor in `00-tokens.css`; home hero already guarded in both JS (`home-hero-webgl.js` early return) and CSS (`.home-hero-webgl { display: none }`); About constellation likewise.
+- Reduced motion: sitewide floor in `00-tokens.css`; home hero already guarded in both JS (`home-hero-webgl.js` early return) and CSS (`.home-hero-webgl { display: none }`); About constellation likewise; diagram hooks static.
 - `:focus-visible` is defined in `00-tokens.css` as a 2px `--ds-accent` outline with 2px offset. A skip-link (`.skip-link` → `#main-content`) sits at the top of `layouts/_default/baseof.html`. Component CSS still has extra accent-tinted `box-shadow` rings on select elements (e.g. avatar). Hover and `:focus-within` stay paired on list-style components.
-- Color contrast was not measured numerically in this pass, but the palette is high-contrast by construction (near-black text on off-white in light mode, light text on near-black in dark mode); the green accent (`#22633c` light / `#5fb87a` dark) is used for both text and interactive affordances, which is worth a contrast check if it's ever used for small text on the tertiary tag-pill background.
+- Light ink (`#1a2744` on `#faf9f4`) is near-navy on warm paper. Green accent (`#22633c` light / `#5fb87a` dark) is still used for links and chips; tag-pill contrast on `--ds-tertiary` remains the pair to watch.
 - Body copy intentionally stays in the readable system sans font while only structural/meta text goes monospace — a good readability call for long-form posts (documented rationale in the CSS comment at `assets/css/extended/custom.css:36-38`).
 
 ## Known Inconsistencies / Design Debt
@@ -116,8 +123,9 @@ Shared 8-step type scale lives on `:root` in `00-tokens.css` (do not change valu
 - **No documented favicon/logo asset:** PaperMod/Hugo defaults plus the CSS-injected `~/` text logo.
 
 ## Source Files
-- `hugo.toml` — site config, theme selection (`PaperMod`), homepage/menu/social params
-- `assets/css/extended/00-tokens.css` — canonical `--ds-*` tokens (color, type, spacing, radius, motion) + mandatory reduce / `:focus-visible` floor
+- `hugo.toml` — site config, `defaultTheme = "light"`, theme selection (`PaperMod`), homepage/menu/social params
+- `assets/css/extended/00-tokens.css` — canonical `--ds-*` tokens (canvas/ink + role colors, type, spacing, radius, motion) + mandatory reduce / `:focus-visible` floor
+- `assets/css/extended/10-visual-grammar.css` — role labels, patterns, static diagram-hook
 - `assets/css/extended/custom.css` — site override layer (console chrome, layout shell, components) + PaperMod aliases
 - `scripts/check-ds-tokens.sh` — CI checker (`make check`); token file is the only place raw colors may live
 - `themes/PaperMod/assets/css/core/theme-vars.css` — PaperMod's base CSS custom properties (`--gap`, `--radius`, default light/dark tokens), overridden by the site

@@ -1,11 +1,17 @@
 /*
  * --ds-* design tokens (web-design-standards, plan 0084 D12, issue #141).
- * Identity: terminal-green "day/night console." Values are this site's;
- * names and scales are the shared standard.
+ * Identity: light-first professional (warm off-white canvas, near-navy ink)
+ * with console-green accent. Dark is optional via the theme toggle.
+ *
+ * Post Standard v1.1 visual grammar (MainVault ef4d637):
+ *   canvas / surface / ink
+ *   blue = human, teal = verified, amber = review,
+ *   coral = blocked, gray = infra, purple = agent
+ * Labels + patterns live in 10-visual-grammar.css — not color alone.
  *
  * Hugo Pipes concatenates assets/css/extended/*.css alphabetically
- * (PaperMod head.html resources.Match), so this 00- prefix loads before
- * custom.css. Breakpoints cannot be custom properties — use the literals
+ * (PaperMod head.html resources.Match), so this 00- prefix loads first.
+ * Breakpoints cannot be custom properties — use the literals
  * 640 / 1024 / 1440 (mobile-first min-width). See docs/DESIGN.md and
  * ~/.claude/skills/web-design-standards/SKILL.md.
  */
@@ -13,25 +19,35 @@
 :root {
   color-scheme: light;
 
-  /* color roles (required) */
-  --ds-bg: rgb(250, 249, 244);
-  --ds-bg-elevated: rgb(255, 255, 255);
+  /* canvas / surface / ink (Post Standard v1.1) */
+  --ds-canvas: rgb(250, 249, 244);
   --ds-surface: rgb(255, 255, 255);
+  --ds-ink: rgb(26, 39, 68);
+  --ds-bg: var(--ds-canvas);
+  --ds-bg-elevated: var(--ds-surface);
   --ds-border: rgb(214, 220, 202);
-  --ds-text: rgb(24, 26, 22);
-  --ds-text-muted: rgb(90, 95, 83);
+  --ds-text: var(--ds-ink);
+  --ds-text-muted: rgb(84, 96, 118);
   --ds-accent: rgb(34, 99, 60);
   --ds-accent-fg: rgb(250, 249, 244);
   --ds-success: rgb(34, 99, 60);
-  --ds-warn: rgb(176, 128, 40);
+  --ds-warn: rgb(148, 100, 24);
   --ds-error: rgb(160, 64, 56);
   --ds-link: rgb(34, 99, 60);
 
   /* extra identity roles (still --ds-* namespace) */
-  --ds-content: rgb(32, 35, 28);
+  --ds-content: rgb(36, 48, 72);
   --ds-tertiary: rgb(210, 224, 200);
   --ds-code-bg: rgb(234, 238, 226);
-  --ds-code-block-bg: rgb(24, 26, 22);
+  --ds-code-block-bg: rgb(26, 39, 68);
+
+  /* visual grammar roles — diagrams, labels, status chips */
+  --ds-human: rgb(37, 86, 156);
+  --ds-verified: rgb(15, 118, 110);
+  --ds-review: rgb(148, 100, 24);
+  --ds-blocked: rgb(176, 64, 64);
+  --ds-infra: rgb(100, 108, 120);
+  --ds-agent: rgb(109, 80, 160);
 
   /* type scale (shared — do not change values) */
   --ds-fs-1: 0.75rem;   /* 12 — fine print, badges */
@@ -66,48 +82,65 @@
   --ds-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* OS-preference mode — redeclare COLOR tokens only. */
+/* OS-preference mode — redeclare COLOR tokens only.
+   Does not apply when html[data-theme="light"] (the site default). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --ds-bg: rgb(13, 15, 13);
-    --ds-bg-elevated: rgb(18, 22, 17);
+    --ds-canvas: rgb(13, 15, 13);
     --ds-surface: rgb(18, 22, 17);
+    --ds-ink: rgb(230, 234, 242);
+    --ds-bg: var(--ds-canvas);
+    --ds-bg-elevated: var(--ds-surface);
     --ds-border: rgb(38, 48, 38);
-    --ds-text: rgb(239, 236, 224);
-    --ds-text-muted: rgb(138, 143, 125);
+    --ds-text: var(--ds-ink);
+    --ds-text-muted: rgb(138, 148, 162);
     --ds-accent: rgb(95, 184, 122);
     --ds-accent-fg: rgb(13, 15, 13);
     --ds-success: rgb(95, 184, 122);
     --ds-warn: rgb(214, 168, 72);
     --ds-error: rgb(214, 104, 96);
     --ds-link: rgb(95, 184, 122);
-    --ds-content: rgb(195, 192, 179);
+    --ds-content: rgb(198, 206, 218);
     --ds-tertiary: rgb(38, 48, 38);
     --ds-code-bg: rgb(26, 32, 24);
     --ds-code-block-bg: rgb(18, 22, 17);
+    --ds-human: rgb(110, 168, 230);
+    --ds-verified: rgb(80, 196, 184);
+    --ds-review: rgb(232, 176, 80);
+    --ds-blocked: rgb(232, 120, 112);
+    --ds-infra: rgb(160, 168, 176);
+    --ds-agent: rgb(176, 148, 220);
   }
 }
 
 /* Explicit user choice — must mirror the media block above. */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --ds-bg: rgb(13, 15, 13);
-  --ds-bg-elevated: rgb(18, 22, 17);
+  --ds-canvas: rgb(13, 15, 13);
   --ds-surface: rgb(18, 22, 17);
+  --ds-ink: rgb(230, 234, 242);
+  --ds-bg: var(--ds-canvas);
+  --ds-bg-elevated: var(--ds-surface);
   --ds-border: rgb(38, 48, 38);
-  --ds-text: rgb(239, 236, 224);
-  --ds-text-muted: rgb(138, 143, 125);
+  --ds-text: var(--ds-ink);
+  --ds-text-muted: rgb(138, 148, 162);
   --ds-accent: rgb(95, 184, 122);
   --ds-accent-fg: rgb(13, 15, 13);
   --ds-success: rgb(95, 184, 122);
   --ds-warn: rgb(214, 168, 72);
   --ds-error: rgb(214, 104, 96);
   --ds-link: rgb(95, 184, 122);
-  --ds-content: rgb(195, 192, 179);
+  --ds-content: rgb(198, 206, 218);
   --ds-tertiary: rgb(38, 48, 38);
   --ds-code-bg: rgb(26, 32, 24);
   --ds-code-block-bg: rgb(18, 22, 17);
+  --ds-human: rgb(110, 168, 230);
+  --ds-verified: rgb(80, 196, 184);
+  --ds-review: rgb(232, 176, 80);
+  --ds-blocked: rgb(232, 120, 112);
+  --ds-infra: rgb(160, 168, 176);
+  --ds-agent: rgb(176, 148, 220);
 }
 
 /* Accessibility + motion floor — MANDATORY, do not remove (standards rule 6/7). */
