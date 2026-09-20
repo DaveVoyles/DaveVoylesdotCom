@@ -1,32 +1,27 @@
 # Handoff
 
-**2026-09-16 — #178 rebased onto main. Light-first chrome + v1.1 tokens. Ready to ship after CI.**
+**2026-09-20 — P1-1 Build-log draft PR (not merged, not published).**
 
 ## What this session did
 
 | Work | Notes |
 |------|--------|
-| Rebase | `theme/light-first-visual-grammar` onto `origin/main` (`6254d19`, #165 live). Conflicts only in `HANDOFF.md` and `history.md`. |
-| Kept from #178 | Light default, `--ds-canvas` / `--ds-surface` / `--ds-ink`, role tokens, `10-visual-grammar.css`, PaperMod untouched. |
-| Kept from main | #165 Second Brain live; v1.1 docs pointers already on main (#177). |
-| Gates | `make check` passed. `make build` 428 pages. |
+| P1-1 | Wired `green-suites-that-hid-holes` (`draft = true`, date `2026-09-22T09:00:00-04:00`). Branch `draft/green-suites-that-hid-holes`. Cover A photoreal via local `agy` CLI + D1–D4 HTML→PNG under `static/images/posts/`. |
+| IMAGE OFFLOAD | Stamped lock in `docs/image-playbook.md`: Blog writes 3 briefs only; Engineer runs on Mini/Pro; labeled diagrams = HTML/SVG/Archify; pick packet → CoS; wire only named winner; unique cover; no Imagine. |
+| #165 | Untouched. |
 
 ## Local-only (not committed)
 
-- Homebrew Hugo 0.166 used for a local `--minify` smoke (CI pins 0.164). `public/` not committed.
+- `.omp-handoff/` (gitignored). Pack at `.omp-handoff/green-suites-that-hid-holes/`.
+- Hugo preview bound for Tailscale on port 1313.
 
 ## Where to start next session
 
-1. Wait for CI on #178. Ignore known cursor-cloud-setup / adapter flakes.
-2. Do **not** squash-merge unless mergeable and gitleaks is green.
-3. Interactive system map is a follow-up (not this PR).
-4. Second Brain is live. Do not reopen #165.
-5. P0-3 blog pilot still unused.
+1. Dave: Tailscale preview → http://mini-pro.tail86a7c7.ts.net:1313/posts/green-suites-that-hid-holes/
+2. Do not merge or publish unless Dave asks.
 
 ## Do not
 
-- Do not reopen #176.
+- Do not reopen #165.
 - Do not auto-post LinkedIn/X.
-- Do not retrofit #165 to Post Standard v1.1 unless Dave asks.
-- Do not make dark the default.
-- Do not edit `themes/PaperMod/`.
+- Do not merge this draft PR unless Dave says send/land.
