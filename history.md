@@ -1,5 +1,6 @@
 # History
 
+- 2026-09-21: Draft PR #181 tip — D2 RHS **Fixed: two doors** / split jobs; D1 badge same; indigo Bender ≠ magenta Maya on D1+D2 HTML→PNG. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #181 REVIEW-FIX-NONCE-IMAGES — Blog pack nonce ELI5 + “up” glossary; D1 computing desks HTML→PNG; D2 Process running / fail plain / Today’s code; photoreal cover C no solder. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #181 REVIEW-FIX — Blog pack smoke/nonce copy; D5 two-surfaces Archify PNG; removed dashboards.png. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #181 — defined smoke/smokes on first use + glossary; Archify teaching two-doors diagram (`two-brains-bender-maya-dashboards.png`). No real Maya/Hermes screenshot. Left `draft = true`. Did not merge.

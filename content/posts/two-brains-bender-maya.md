@@ -20,7 +20,7 @@ The stealable pattern is not “buy a bigger model.” It is **two brains, two j
 
 If you get this wrong, you buy a mega-agent that is busy and still incoherent. Executives hear “we have agents.” Implementers inherit a single process that cannot fail closed on the right job, because nobody agreed which job it was.
 
-<!-- figure: primary — two actors, two doors, smoke nonce; blue human · purple Bender · purple Maya · teal verified · coral conflation · gray hosts -->
+<!-- figure: primary — two actors, two doors, smoke nonce; blue human · indigo Bender · magenta Maya · teal verified · coral conflation · gray hosts -->
 
 ## In brief
 
@@ -77,7 +77,7 @@ The cost of wrong is folklore with a friendly chat UI. Busy is not the same as o
 
 <!-- figure: decision — amber “same brain?” → coral mega-agent vs teal Bender/Maya doors + nonce chip -->
 
-![Decision poster: noisy hallway with process-running lamp versus two quiet doors with today's-code tickets](/images/posts/two-brains-bender-maya-decision.png)
+![Decision poster: noisy hallway with process-running lamp versus Fixed: two doors — Today's code tickets echoed back](/images/posts/two-brains-bender-maya-decision.png)
 
 ![Bender engineering desk and door beside Maya PA desk and door — teaching illustration, not a product UI](/images/posts/two-brains-bender-maya-two-surfaces.png)
 
