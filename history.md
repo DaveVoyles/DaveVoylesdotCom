@@ -1,5 +1,6 @@
 # History
 
+- 2026-09-21: Draft PR #181 REVIEW-FIX-NONCE-IMAGES — Blog pack nonce ELI5 + “up” glossary; D1 computing desks HTML→PNG; D2 Process running / fail plain / Today’s code; photoreal cover C no solder. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #181 REVIEW-FIX — Blog pack smoke/nonce copy; D5 two-surfaces Archify PNG; removed dashboards.png. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #181 — defined smoke/smokes on first use + glossary; Archify teaching two-doors diagram (`two-brains-bender-maya-dashboards.png`). No real Maya/Hermes screenshot. Left `draft = true`. Did not merge.
 - 2026-09-16: Rebased #178 onto main after #165. Conflicts HANDOFF/history only. Kept light-first + v1.1 tokens. Do not squash-merge unless mergeable and gitleaks green.
