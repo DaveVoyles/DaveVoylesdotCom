@@ -1,13 +1,13 @@
 # Handoff
 
-**2026-09-21 — #181 draft still open. Tip `309cea8`. Soft Keep (Roberto). Publish = CoS Need-go hold. Do not merge.**
+**2026-09-21 — #181 draft still open. Tip `930c4e6`. Soft Keep (Roberto). Publish = CoS Need-go hold. Do not merge.**
 
 ## Current art state (READ THIS — D5 is gone, do not re-add)
 
 | Slot | State |
 |------|--------|
 | **Decision PNG** | Dave Desktop `two-brains.png` → `static/images/posts/two-brains-bender-maya-decision.png` (**keep**, ~502k). Wired after Situation so Decision is not two images. |
-| **Decision table** | Rich Archify HTML→PNG `two-brains-bender-maya-decision-table.png` (skip vs steal; indigo Bender / magenta Maya). Replaces the markdown Approach / optimizes / breaks table. |
+| **Decision table** | Rich Archify HTML→PNG `two-brains-bender-maya-decision-table.png` (skip vs steal; indigo Bender / magenta Maya). Stock External/Security/Cloud/Message bus/Backend/Frontend/Database legend **stripped** — legend is Human / Bender (indigo) / Maya (magenta) only. Source: `_inbox/p12-art/two-brains-bender-maya-decision-table.{architecture.json,html}` (untracked). |
 | **D1 / D3 / D4** | Restored from pre-exaggerated tip `f88dcc4` via revert `91bcd23` |
 | **D5** | **Deleted.** No `two-brains-bender-maya-two-surfaces.png`, no figure, no caption. Do not re-add. |
 | **Cover** | Unique photoreal desks — not Dave PNG |
