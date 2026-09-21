@@ -1,5 +1,6 @@
 # History
 
+- 2026-09-21: Draft PR #181 nit — strip stock Archify role legend on `two-brains-bender-maya-decision-table.png`; legend is Human / Bender (indigo) / Maya (magenta) only. Skip-vs-steal copy unchanged. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #181 tip — deleted D5 two-surfaces; kept Dave decision PNG; markdown comparison table → rich Archify `two-brains-bender-maya-decision-table.png`; cadence so Decision is not two images. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #181 IMAGE OFFLOAD exaggerated — Dave `two-brains` PNG as decision figure; regen D1/D3/D4 HTML→PNG (physical doors/conductor/STOP); dropped D5 two-surfaces. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #181 tip — purple-align: system-model copy indigo Bender ≠ magenta Maya; D3/D5 HTML→PNG recolor. Left `draft = true`. Did not merge.
