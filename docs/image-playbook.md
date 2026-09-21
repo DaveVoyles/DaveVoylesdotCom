@@ -164,4 +164,4 @@ over 1MB.
 
 ## IMAGE OFFLOAD note — `two-brains-bender-maya` (2026-09-21)
 
-Engineer local CLI path used for this slug: HTML/SVG → Chrome headless PNG on the agent box (D1–D4 Archify-style). Cover intended as C-house photoreal via Pro `agy`/`gemini`; this draft ships an HTML house-metaphor stand-in because Pro `machineId` Shell was unavailable on the executor. Redo cover on Pro when Computers Shell is bound.
+Engineer local CLI path for this slug: D1–D4 = HTML/SVG → PNG (Archify-style). Cover = C-house **photoreal** via Pro `agy` `generate_image` (not Grok Bot Imagine). Unique cover only.
