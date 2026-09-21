@@ -20,7 +20,7 @@ The stealable pattern is not “buy a bigger model.” It is **two brains, two j
 
 If you get this wrong, you buy a mega-agent that is busy and still incoherent. Executives hear “we have agents.” Implementers inherit a single process that cannot fail closed on the right job, because nobody agreed which job it was.
 
-<!-- figure: primary — two actors, two doors, smoke nonce; blue human · indigo Bender · magenta Maya · teal verified · coral conflation · gray hosts -->
+<!-- figure: primary — two actors, two doors, smoke; blue human · indigo Bender (coding) · magenta Maya (assist) — distinct agent hues · teal verified · coral conflation · gray hosts; computing desks not EE -->
 
 ## In brief
 
@@ -75,31 +75,31 @@ The cost of wrong is folklore with a friendly chat UI. Busy is not the same as o
 | Green when credential missing | Quiet dashboards | “Review passed” means “we never asked” |
 | **Two brains, direct doors, nonce smokes, fail-loud review (no merge)** | Clear jobs + trustworthy red/green | Slightly more naming — worth it |
 
-<!-- figure: decision — amber “same brain?” → coral mega-agent vs teal Bender/Maya doors + nonce chip -->
+<!-- figure: decision — amber “same brain?” → coral “Process running?” lamp vs teal “Fixed: two doors” + today’s-code tickets; indigo Bender ≠ magenta Maya -->
 
 ![Decision poster: noisy hallway with process-running lamp versus Fixed: two doors — Today's code tickets echoed back](/images/posts/two-brains-bender-maya-decision.png)
 
-![Bender engineering desk and door beside Maya PA desk and door — teaching illustration, not a product UI](/images/posts/two-brains-bender-maya-two-surfaces.png)
+![Indigo Bender coding desk and door beside magenta Maya PA desk and door — teaching illustration, not a product UI](/images/posts/two-brains-bender-maya-two-surfaces.png)
 
 *Same pattern as the doors — two surfaces, two jobs.*
 
 
-<!-- figure: doors surfaces — teaching illustration: Bender engineering surface + Maya PA surface as two labeled desks/doors; NOT fake product UI; NOT Mission Control -->
+<!-- figure: doors surfaces — teaching illustration: indigo Bender engineering desk + magenta Maya PA desk as two labeled doors; NOT fake product UI; NOT Mission Control -->
 
 ## System model
 
 1. **Human** (blue) assigns jobs, reads smokes, keeps merge authority.
-2. **Bender** (purple) — engineering orchestrator on its host — coding work and review CI for that world.
-3. **Maya** (purple) — PA on its host — does not own merge.
+2. **Bender** (indigo / deep purple) — engineering orchestrator on its host — coding work and review CI for that world.
+3. **Maya** (magenta / rose purple) — PA on its host — does not own merge. Same “agent” family, different hues so the two jobs read at a glance.
 4. **Doors** (gray → teal when healthy) — direct entries; parked gateways optional, not the default product.
 5. **Smokes** (amber → teal echo / coral silence) — fresh nonce from the brain you meant to ping.
 6. **Review path** (amber) — own runner; missing credential → coral fail-loud; approval does not merge; separate bot-run lands approved PRs.
 
 The interesting arrow is **separation**: coral when a request hits the wrong door, teal only when the smoke proves the intended door answered.
 
-<!-- figure: system model — blue human; purple Bender + Maya on separate gray hosts; doors; dashed gateway; nonce arrows; fail-loud / no-merge badges -->
+<!-- figure: system model — blue human; indigo Bender + magenta Maya on separate gray hosts; doors; dashed gateway; one-time-code arrows; fail-loud / no-merge badges -->
 
-![System model: human, Bender, Maya, doors, smokes, and fail-loud review path](/images/posts/two-brains-bender-maya-system-model.png)
+![System model: blue human, indigo Bender coding desk, magenta Maya assistant desk, doors, smokes, and fail-loud review](/images/posts/two-brains-bender-maya-system-model.png)
 
 
 ## Implementation detail
