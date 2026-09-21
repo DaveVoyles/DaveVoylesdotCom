@@ -1,5 +1,6 @@
 # History
 
+- 2026-09-21: Draft PR #180 REVIEW-FIX-ELI10 — Blog pack idea-first captions; In brief/glossary smoke-detector ELI10; kept CI/green/red early defs. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #180 REVIEW-FIX — Blog pack CI/green/red early defs (lede + glossary). Left `draft = true`. Did not merge.
 - 2026-09-20: Opened draft PR for P1-1 Build-log `green-suites-that-hid-holes` (`draft = true`, date 2026-09-22). IMAGE OFFLOAD lock in `docs/image-playbook.md`. Not merged. Not published.
 - 2026-09-16: Rebased #178 onto main after #165. Conflicts HANDOFF/history only. Kept light-first + v1.1 tokens. Do not squash-merge unless mergeable and gitleaks green.

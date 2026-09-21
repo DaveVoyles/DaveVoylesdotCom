@@ -3,7 +3,7 @@ date = '2026-09-22T09:00:00-04:00'
 draft = true
 title = 'Green suites that hid holes: fleet gates that plant failure'
 author = 'Dave Voyles'
-description = 'CI that stays green, runners that never start, and LaunchAgents aimed at deleted paths look like health — until you plant failure and watch which checks refuse to go red.'
+description = 'A green check can look like health while a real hole stays open — until you plant a failure on purpose and watch whether the alarm actually rings.'
 categories = ['Programming', 'AI']
 tags = ['Build-log', 'CI', 'fleet', 'fail-closed', 'LaunchAgents', 'self-hosted runners', 'ops']
 topics = ['Tech', 'AI and Agents']
@@ -17,36 +17,37 @@ I have shipped test suites that were **green** for the life of a repo and still 
 
 By **green** I mean the dashboard color everyone treats as “safe to ship” — the check passed, the badge is cheerful, nobody is paging. **CI** (continuous integration) is the automated check-runner that usually paints that color: on every push or pull request it runs a suite of tests and jobs, then reports pass or fail. Green CI is valuable when it asked the hard questions. It is dangerous when it only asked the easy ones, or never ran the suite that looked like coverage.
 
-Not because anyone was careless in a dramatic way. Because the suite asked the easy spelling of the question, CI never invoked the suite that looked like coverage, a workflow asked for a runner label no machine had registered, and a closeout treated a missing preflight as “gates okay, push to main.” The badges stayed cheerful. The machine disagreed.
+Not because anyone was careless in a dramatic way. Because the suite asked the easy version of the question, CI never ran the suite that *looked* like coverage, a job waited forever for a machine that was never online, and a “ship it” checklist treated a missing pre-check as “gates okay.” The badges stayed cheerful. The machine disagreed.
 
-The stealable pattern is not “write more tests.” It is **honest gates**: plant a failure that must go **red** (fail loudly) and name the phase, refuse missing-as-pass, and check pairings the operating system will never notice for you — bind addresses that mean all interfaces, LaunchAgents still pointed at deleted paths, runner labels that map to nothing online.
+The stealable pattern is not “write more tests.” It is **honest gates**: plant a failure that must go **red** (fail loudly) and say *which* step broke, refuse to treat “we skipped that check” as a pass, and verify the boring pairings your operating system will never notice for you — a service listening on the whole network when you thought it was local-only, a scheduled job still aimed at a folder you deleted, a CI job that never starts because no machine claims its tag.
 
 If you get this wrong, you buy false confidence. Teams stop looking. Executives read green CI as readiness and schedule the next feature. Implementers learn not to trust the dashboard. That is the cost of wrong: a system that looks operated while the hole stays open.
 
 ![Green badge beside an unchecked LAN bind hole](/images/posts/green-suites-that-hid-holes-green-vs-hole.png)
 
-*ELI10: left — a teal PASS sticker on a gray box while a coral LAN hatch sits open behind it; right — an amber planted-failure gate flips coral and names the phase that actually broke.*
+*Green can mean “we never asked.” Plant a failure that must go red and name the phase — if it stays green, the suite is theater.*
 
 ## In brief
 
-- **Green** suites (CI pass badges) can hide **bind-all** servers, **never-run** coverage, and receipts that only work when CI exports the right env.
-- Splitting a huge smoke into phases is good — until `return 1` becomes a no-op inside a helper and PASS still prints.
-- Workflows that ask for **runner labels no registered runner has** sit `queued` forever; GitHub does not fail them red for you.
-- Missing preflight is not a passed gate. WIP only with an explicit flag.
-- LaunchAgents keep aiming at **deleted or worktree paths**; launchd notices process death, not stale `ProgramArguments`.
-- Steal the rule: **plant failure**, **refuse missing-as-pass**, and **verify pairings** the OS will never check.
+- A **green** check (CI saying “all clear”) can hide a real hole — the suite never asked the hard question, or never ran at all.
+- A **smoke** here is a quick live health check, like tapping a smoke detector to prove the alarm still rings — not a full fire drill. Splitting a big smoke into steps is good until a step can fail silently and the report still says PASS.
+- Some CI jobs wait forever for a machine that is not online. Waiting is not the same as failing — and it is not the same as healthy.
+- A missing pre-check is not a passed gate. If you still need to ship unfinished work, say so with an explicit flag — do not pretend the gate cleared.
+- Scheduled jobs on a Mac can keep aiming at folders you already deleted. The system notices when a process dies; it does not notice a stale path in the job file.
+- Steal the rule: **plant a real failure** so you know the alarm works, **never treat missing as pass**, and **check the pairings** your OS will not check for you.
 
 ## Words I use below
 
 - **CI (continuous integration).** The automated check-runner on your repo — usually GitHub Actions or similar — that runs tests and jobs on push or pull request and reports pass or fail. It is the machine that paints the badge executives glance at.
 - **Green.** A passing CI result: the jobs that ran did not fail. Useful when those jobs asked the hard question; misleading when they skipped it, never started, or treated “missing” as “okay.”
 - **Red.** A failing CI result — the gate refused to pass. Honest systems can go red on purpose (a planted failure) so you trust them when they stay green.
-- **Bind-all.** A listen address the OS treats as every network interface — including `0`, `::0`, and some zero-padded forms people think look local.
-- **Planted failure.** A deliberate bad case a gate must catch and name; if PASS still prints, the gate is theater.
-- **Runner label.** A GitHub Actions tag that must match a registered self-hosted runner; mismatch means queued forever, not red.
+- **Smoke (health check).** A short live check that something still answers — like tapping a smoke detector. It is not a full security audit; it is proof today’s alarm still rings.
+- **Bind-all.** A listen address the OS treats as every network interface — including forms people think look local-only. Detail for implementers later; the exec takeaway is “open on the whole network when we meant private.”
+- **Planted failure.** A deliberate bad case a gate must catch and name; if PASS still prints, the gate is theater — like testing a fire alarm by holding a match under it.
+- **Runner label.** A tag that must match a machine registered to run CI jobs; mismatch means the job waits forever instead of going red.
 - **Fail-closed.** Missing or unverified means stop — not smile and continue.
-- **LaunchAgent.** A macOS launchd job from a plist; it can keep aiming at a path you already deleted.
-- **Worktree.** A linked git working directory where `.git` is often a **file** — locks that assume “`.git` is a folder” lie.
+- **LaunchAgent.** A macOS scheduled job (a small config file the system loads at login). It can keep aiming at a path you already deleted.
+- **Worktree.** A second working copy of the same git repo. Locks that assume “`.git` is always a folder” can lie here.
 - **Gate honesty.** PASS only when everything claimed was verified; otherwise SKIP, PARTIAL, or red.
 
 ## Situation
@@ -79,7 +80,7 @@ Why now: automated closeouts, self-hosted runners, and long-lived LaunchAgents m
 
 ![Decision: planted failure and fail-closed vs comforting green](/images/posts/green-suites-that-hid-holes-decision.png)
 
-*Visual grammar: amber review asks “did we plant failure?” — teal only if the planted case went coral and named the phase; gray missing-script tiles go coral, never teal by default.*
+*Comforting green optimizes for quiet dashboards. Planted failure + fail-closed optimizes for a red you can trust.*
 
 ## System model
 
@@ -92,7 +93,7 @@ The OS notices a dead process. It does not notice stale `ProgramArguments`. GitH
 
 ![System model: humans, agents, infra, and honesty gates](/images/posts/green-suites-that-hid-holes-system-model.png)
 
-*ELI10: purple automation and blue human both point at gray infra; amber gates on the arrows go coral when bind, runner, plist, or preflight pairing fails, teal only after verification.*
+*Humans and automation both depend on the same honesty gates — network listen address, CI machine online, scheduled-job path, pre-ship checklist — because the OS will not check those pairings for you.*
 
 ## Implementation detail
 
@@ -120,7 +121,7 @@ You do not need my fleet to steal the shape.
 
 ![Failure modes: coral tiles with teal fixes](/images/posts/green-suites-that-hid-holes-failure-modes.png)
 
-*Coral tiles for false greens; teal underline for each fix. Light canvas preferred; night-console optional on one fail-closed row only.*
+*Each failure mode is a false green; each fix is the pairing that makes the next green mean something.*
 
 ## Put it into practice
 
