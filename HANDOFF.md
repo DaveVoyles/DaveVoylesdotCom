@@ -1,32 +1,29 @@
 # Handoff
 
-**2026-09-21 — #181 draft still open. IMAGE OFFLOAD exaggerated landed. Do not merge.**
+**2026-09-21 — #181 draft still open. Tip `91bcd23`. Soft Keep (Roberto). Publish = CoS Need-go hold. Do not merge.**
 
-## What this session did
+## Current art state (READ THIS — do not chase ghost tip `d2e43f8`)
 
-| Work | Notes |
-|------|-------|
-| Dave PNG | `_inbox/p12-art/dave-two-brains.png` → `static/images/posts/two-brains-bender-maya-decision.png`. Caption: two jobs on one machine. Cover left unique (photoreal desks). |
-| Visual | Exaggerated HTML→PNG (no Imagine): D1 two-doors (megaphone vs CODING/ASSISTS doors), D3 system-model (blue conductor, doorways, Today’s code / ECHOED, own-runner stamp Bender only), D4 failure-modes (CAL sticky, Process running empty slot vs Today’s code, coral STOP). Indigo Bender ≠ magenta Maya. Dropped D5 two-surfaces (Dave PNG already carries the split). |
-| Copy | `draft = true` unchanged. Smoke/nonce/up/Fix glossary from prior tips kept. |
-| Preview | Reused hugo on `:1313` (`-D -F`). Local post + PNGs 200. |
-| Git | Pushed to `draft/two-brains-bender-maya` only. PR stays draft. Did not merge. |
+| Slot | State |
+|------|--------|
+| **Decision** | Dave Desktop `two-brains.png` → `static/images/posts/two-brains-bender-maya-decision.png` (**keep**) |
+| **D1 / D3 / D4 / D5** | Restored from pre-exaggerated tip `f88dcc4` via revert `91bcd23` |
+| **Cover** | Unique photoreal desks — not Dave PNG |
 
-## Local-only (not committed)
+**Superseded:** tip `d2e43f8` (exaggerated / simplified card Archify) — **reverted**. Dave rejected that pass as too simple. Next art agent: prefer **rich Archify** like internal GitHub/docs — not the simplified card/VS “public fun” set. Don’t force one style on every figure. **No more Archify from Engineer/Blog lane on this post until Dave’s new art agent.**
 
-- `_inbox/p12-art/` (Dave PNG + IMAGE OFFLOAD brief)
-- `/tmp/two-brains-ex-d1.html`, `/tmp/two-brains-ex-d3.html`, `/tmp/two-brains-ex-d4.html`
+## Copy
 
-## Where to start next session
+`draft = true`. Smoke / nonce / up / Fix glossary from prior tips kept.
 
-1. Dave review of #181. Keep draft until he says ship.
-2. Do **not** set `draft = false` or merge unless asked.
+## Preview
+
+http://mini-pro.tail86a7c7.ts.net:1313/posts/two-brains-bender-maya/ (Hugo `-D -F` on Pro `:1313`)
 
 ## Do not
 
-- Do not merge #181.
-- Do not put private hostnames, Tailscale URLs, or creds in the post.
-- Do not edit `themes/PaperMod/`.
-- Do not touch main for this work.
-- Do not reuse the cover as a body image.
-- Do not use Grok Bot Imagine for post art.
+- Do not merge #181 / do not `draft = false` unless CoS+Dave ship.
+- Do not re-land exaggerated Archify from `IMAGE-OFFLOAD-EXAGGERATED-2026-09-21.md`.
+- Do not put private hosts / Tailscale / creds in the post.
+- Do not reuse cover as a body image.
+- Do not use Grok Bot Imagine.
