@@ -8,18 +8,20 @@ categories = ['Programming', 'AI']
 tags = ['Build-log', 'CI', 'fleet', 'fail-closed', 'LaunchAgents', 'self-hosted runners', 'ops']
 topics = ['Tech', 'AI and Agents']
 [cover]
-image = "/images/posts/green-suites-that-hid-holes-cover.png"
+image = '/images/posts/green-suites-that-hid-holes-cover.png'
 alt = 'A bright green status panel beside an open LAN hatch the suite never checked'
 caption = 'False confidence is worse than no check — green can mean we never asked the hard question.'
 +++
 
-I have shipped test suites that were green for the life of a repo and still left a hole on the LAN.
+I have shipped test suites that were **green** for the life of a repo and still left a hole on the LAN.
 
-Not because anyone was careless in a dramatic way. Because the suite asked the easy spelling of the question, CI never ran the suite that looked like coverage, a workflow asked for a runner label no machine had registered, and a closeout treated a missing preflight as “gates okay, push to main.” The badges stayed cheerful. The machine disagreed.
+By **green** I mean the dashboard color everyone treats as “safe to ship” — the check passed, the badge is cheerful, nobody is paging. **CI** (continuous integration) is the automated check-runner that usually paints that color: on every push or pull request it runs a suite of tests and jobs, then reports pass or fail. Green CI is valuable when it asked the hard questions. It is dangerous when it only asked the easy ones, or never ran the suite that looked like coverage.
 
-The stealable pattern is not “write more tests.” It is **honest gates**: plant a failure that must go red and name the phase, refuse missing-as-pass, and check pairings the operating system will never notice for you — bind addresses that mean all interfaces, LaunchAgents still pointed at deleted paths, runner labels that map to nothing online.
+Not because anyone was careless in a dramatic way. Because the suite asked the easy spelling of the question, CI never invoked the suite that looked like coverage, a workflow asked for a runner label no machine had registered, and a closeout treated a missing preflight as “gates okay, push to main.” The badges stayed cheerful. The machine disagreed.
 
-If you get this wrong, you buy false confidence. Teams stop looking. Executives read green and schedule the next feature. Implementers learn not to trust the dashboard. That is the cost of wrong: a system that looks operated while the hole stays open.
+The stealable pattern is not “write more tests.” It is **honest gates**: plant a failure that must go **red** (fail loudly) and name the phase, refuse missing-as-pass, and check pairings the operating system will never notice for you — bind addresses that mean all interfaces, LaunchAgents still pointed at deleted paths, runner labels that map to nothing online.
+
+If you get this wrong, you buy false confidence. Teams stop looking. Executives read green CI as readiness and schedule the next feature. Implementers learn not to trust the dashboard. That is the cost of wrong: a system that looks operated while the hole stays open.
 
 ![Green badge beside an unchecked LAN bind hole](/images/posts/green-suites-that-hid-holes-green-vs-hole.png)
 
@@ -27,7 +29,7 @@ If you get this wrong, you buy false confidence. Teams stop looking. Executives 
 
 ## In brief
 
-- Green suites can hide **bind-all** servers, **never-run** coverage, and receipts that only work when CI exports the right env.
+- **Green** suites (CI pass badges) can hide **bind-all** servers, **never-run** coverage, and receipts that only work when CI exports the right env.
 - Splitting a huge smoke into phases is good — until `return 1` becomes a no-op inside a helper and PASS still prints.
 - Workflows that ask for **runner labels no registered runner has** sit `queued` forever; GitHub does not fail them red for you.
 - Missing preflight is not a passed gate. WIP only with an explicit flag.
@@ -36,6 +38,9 @@ If you get this wrong, you buy false confidence. Teams stop looking. Executives 
 
 ## Words I use below
 
+- **CI (continuous integration).** The automated check-runner on your repo — usually GitHub Actions or similar — that runs tests and jobs on push or pull request and reports pass or fail. It is the machine that paints the badge executives glance at.
+- **Green.** A passing CI result: the jobs that ran did not fail. Useful when those jobs asked the hard question; misleading when they skipped it, never started, or treated “missing” as “okay.”
+- **Red.** A failing CI result — the gate refused to pass. Honest systems can go red on purpose (a planted failure) so you trust them when they stay green.
 - **Bind-all.** A listen address the OS treats as every network interface — including `0`, `::0`, and some zero-padded forms people think look local.
 - **Planted failure.** A deliberate bad case a gate must catch and name; if PASS still prints, the gate is theater.
 - **Runner label.** A GitHub Actions tag that must match a registered self-hosted runner; mismatch means queued forever, not red.
@@ -56,7 +61,7 @@ No private repo URLs, runner ids, or invented uptime hours here — just the fai
 
 ## Why it matters
 
-Executives hear “green CI” as readiness. Implementers hear “the jobs that ran did not fail.” Those are not the same sentence. In an agent OS — humans, coding agents, and machines that keep running when nobody is watching — the second sentence is what you bought.
+Executives hear “green CI” as readiness — the plan is healthy; ship the next thing. Implementers hear “the jobs that ran did not fail,” which is narrower and sometimes emptier. Those are not the same sentence. In an agent OS — humans, coding agents, and machines that keep running when nobody is watching — the second sentence is what you bought.
 
 Why now: automated closeouts, self-hosted runners, and long-lived LaunchAgents make dashboards prettier and holes quieter. Why this decision: missing-as-pass, PASS-with-zero-checks, and “queued means in progress” train the org to stop poking dark corners. If a suite cannot go red on a planted failure, it cannot protect you from the unplanted ones.
 
