@@ -1,5 +1,6 @@
 # History
 
+- 2026-09-21: Draft PR #181 IMAGE OFFLOAD exaggerated — Dave `two-brains` PNG as decision figure; regen D1/D3/D4 HTML→PNG (physical doors/conductor/STOP); dropped D5 two-surfaces. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #181 tip — purple-align: system-model copy indigo Bender ≠ magenta Maya; D3/D5 HTML→PNG recolor. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #181 tip — D2 RHS **Fixed: two doors** / split jobs; D1 badge same; indigo Bender ≠ magenta Maya on D1+D2 HTML→PNG. Left `draft = true`. Did not merge.
 - 2026-09-21: Draft PR #181 REVIEW-FIX-NONCE-IMAGES — Blog pack nonce ELI5 + “up” glossary; D1 computing desks HTML→PNG; D2 Process running / fail plain / Today’s code; photoreal cover C no solder. Left `draft = true`. Did not merge.

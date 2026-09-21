@@ -45,7 +45,7 @@ If you get this wrong, you buy a mega-agent that is busy and still incoherent. E
 - **Role split.** Two named jobs with two identities — not one agent with a longer prompt.
 
 
-![Two brains, two doors: mega-agent at a laptop versus Bender coding desk and Maya calendar desk with a one-time code echo](/images/posts/two-brains-bender-maya-two-doors.png)
+![False path: one megaphone crushing calendar and code under a Process running lamp. Fixed: two doors — indigo Bender CODING desk and magenta Maya ASSISTS desk with Today’s code tickets echoed](/images/posts/two-brains-bender-maya-two-doors.png)
 
 ## Situation
 
@@ -77,14 +77,9 @@ The cost of wrong is folklore with a friendly chat UI. Busy is not the same as o
 
 <!-- figure: decision — amber “same brain?” → coral “Process running?” lamp vs teal “Fixed: two doors” + today’s-code tickets; indigo Bender ≠ magenta Maya -->
 
-![Decision poster: noisy hallway with process-running lamp versus Fixed: two doors — Today's code tickets echoed back](/images/posts/two-brains-bender-maya-decision.png)
+![Two-column job split: indigo Bender coding agent versus magenta Maya personal assistant, each with how I know they answered and where they stop](/images/posts/two-brains-bender-maya-decision.png)
 
-![Indigo Bender coding desk and door beside magenta Maya PA desk and door — teaching illustration, not a product UI](/images/posts/two-brains-bender-maya-two-surfaces.png)
-
-*Same pattern as the doors — two surfaces, two jobs.*
-
-
-<!-- figure: doors surfaces — teaching illustration: indigo Bender engineering desk + magenta Maya PA desk as two labeled doors; NOT fake product UI; NOT Mission Control -->
+*Two jobs on one machine — coding vs the rest of the day — each with its own door and its own one-time check.*
 
 ## System model
 
@@ -99,7 +94,7 @@ The interesting arrow is **separation**: coral when a request hits the wrong doo
 
 <!-- figure: system model — blue human; indigo Bender + magenta Maya on separate gray hosts; doors; dashed gateway; one-time-code arrows; fail-loud / no-merge badges -->
 
-![System model: blue human, indigo Bender coding desk, magenta Maya assistant desk, doors, smokes, and fail-loud review](/images/posts/two-brains-bender-maya-system-model.png)
+![System model: blue human as conductor, indigo Bender CODING doorway, magenta Maya ASSISTS doorway, Today’s code buzzers, and an oversized own-runner never-merges stamp under Bender only](/images/posts/two-brains-bender-maya-system-model.png)
 
 
 ## Implementation detail
@@ -128,7 +123,7 @@ You do not need my fleet names to steal the shape.
 
 <!-- figure: failure modes — coral tiles with teal fixes; light canvas; night-console optional on fail-loud tile only -->
 
-![Failure modes: wrong-brain routing, smoke theater, and fail-loud missing credentials](/images/posts/two-brains-bender-maya-failure-modes.png)
+![Failure modes: calendar sticky on the coding door, Process running lamp with an empty ticket slot versus Today’s code, and a coral STOP for a missing credential](/images/posts/two-brains-bender-maya-failure-modes.png)
 
 
 ## Put it into practice

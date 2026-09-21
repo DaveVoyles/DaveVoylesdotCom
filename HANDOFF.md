@@ -1,20 +1,21 @@
 # Handoff
 
-**2026-09-21 — #181 draft still open. Purple-align D3/D5 landed. Do not merge.**
+**2026-09-21 — #181 draft still open. IMAGE OFFLOAD exaggerated landed. Do not merge.**
 
 ## What this session did
 
 | Work | Notes |
 |------|-------|
-| Copy | System model: **Bender = indigo / deep purple**, **Maya = magenta / rose purple**. Killed lagging both-purple HTML comments and D5 “Purple Bender/Maya” alt. `draft = true` unchanged. |
-| Visual | D3 `system-model.png` and D5 `two-surfaces.png` recolored HTML→PNG: indigo Bender ≠ magenta Maya (match D1/D2). Labels **Indigo Bender** / **Magenta Maya**. No Imagine. Cover unique, not reused. |
-| Preview | Reused hugo on `:1313` (`-D -F --bind 0.0.0.0`). Local `http://127.0.0.1:1313/posts/two-brains-bender-maya/` 200. D3/D5 PNGs 200. |
+| Dave PNG | `_inbox/p12-art/dave-two-brains.png` → `static/images/posts/two-brains-bender-maya-decision.png`. Caption: two jobs on one machine. Cover left unique (photoreal desks). |
+| Visual | Exaggerated HTML→PNG (no Imagine): D1 two-doors (megaphone vs CODING/ASSISTS doors), D3 system-model (blue conductor, doorways, Today’s code / ECHOED, own-runner stamp Bender only), D4 failure-modes (CAL sticky, Process running empty slot vs Today’s code, coral STOP). Indigo Bender ≠ magenta Maya. Dropped D5 two-surfaces (Dave PNG already carries the split). |
+| Copy | `draft = true` unchanged. Smoke/nonce/up/Fix glossary from prior tips kept. |
+| Preview | Reused hugo on `:1313` (`-D -F`). Local post + PNGs 200. |
 | Git | Pushed to `draft/two-brains-bender-maya` only. PR stays draft. Did not merge. |
 
 ## Local-only (not committed)
 
-- `_inbox/p12-purple-align/` (Blog pack)
-- `/tmp/two-brains-d3.html`, `/tmp/two-brains-d5.html` (HTML sources)
+- `_inbox/p12-art/` (Dave PNG + IMAGE OFFLOAD brief)
+- `/tmp/two-brains-ex-d1.html`, `/tmp/two-brains-ex-d3.html`, `/tmp/two-brains-ex-d4.html`
 
 ## Where to start next session
 
