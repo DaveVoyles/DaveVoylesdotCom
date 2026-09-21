@@ -7,6 +7,7 @@ scripts/.venv/
 static/images/*.tmp
 public/
 .hugo_build.lock
+.omp-handoff/
 
 # Environment variables and credentials — never commit these
 .env
