@@ -55,6 +55,12 @@ The settling move was boring on purpose. Rename and document so **Bender** is th
 
 No private hostnames, Tailscale URLs, or credential values on a public post. The pattern is the point: role split, doors, smoke, fail-loud review without merge authority.
 
+<!-- figure: decision — Dave Desktop two-brains.png; indigo Bender ≠ magenta Maya; keep this file, do not re-add D5 -->
+
+![Two jobs — indigo Bender coding vs magenta Maya assisting — each with its own door and one-time check](/images/posts/two-brains-bender-maya-decision.png)
+
+*Two jobs on one machine — coding vs the rest of the day — each with its own door and its own one-time check.*
+
 ## Why it matters
 
 Executives hear “one agent OS” and picture leverage. Implementers hear “one process that owns coding *and* my calendar” and picture thrash. Those are not the same sentence.
@@ -67,26 +73,9 @@ The cost of wrong is folklore with a friendly chat UI. Busy is not the same as o
 
 **Prefer two named brains with two doors over one mega-agent with a clever prompt.** Different hosts when blast radius differs. Smoke both with a fresh nonce. On the engineering brain, unattended review on its own runner, fail loud when credentials are missing, and never let the reviewer own the merge button.
 
-| Approach | What it optimizes | What breaks |
-| :--- | :--- | :--- |
-| One mega-agent, one gateway | Single chat surface | Roles blur; every failure looks the same |
-| Same host, two prompts | Less hardware ceremony | Blast radius and focus still shared |
-| Shared runner labels for review | Copy-paste CI | Jobs queue forever or review the wrong world |
-| Green when credential missing | Quiet dashboards | “Review passed” means “we never asked” |
-| **Two brains, direct doors, nonce smokes, fail-loud review (no merge)** | Clear jobs + trustworthy red/green | Slightly more naming — worth it |
+![Skip cheaper shapes vs steal two brains: mega-agent, same host, shared runners, and quiet green on the left; Bender, Maya, direct doors, and fail-loud review on the right](/images/posts/two-brains-bender-maya-decision-table.png)
 
-<!-- figure: decision — amber “same brain?” → coral “Process running?” lamp vs teal “Fixed: two doors” + today’s-code tickets; indigo Bender ≠ magenta Maya -->
-
-![Two jobs — indigo Bender coding vs magenta Maya assisting — each with its own door and one-time check](/images/posts/two-brains-bender-maya-decision.png)
-
-*Two jobs on one machine — coding vs the rest of the day — each with its own door and its own one-time check.*
-
-![Indigo Bender coding desk and door beside magenta Maya PA desk and door — teaching illustration, not a product UI](/images/posts/two-brains-bender-maya-two-surfaces.png)
-
-*Same pattern as the doors — two surfaces, two jobs.*
-
-
-<!-- figure: doors surfaces — teaching illustration: indigo Bender engineering desk + magenta Maya PA desk as two labeled doors; NOT fake product UI; NOT Mission Control -->
+*Left looks cheaper. Right is the steal: two named brains, direct doors, nonce smokes, fail-loud review that never merges.*
 
 ## System model
 
