@@ -1,6 +1,6 @@
 # Handoff
 
-**2026-09-21 — #181 draft still open. Tip pending restamp. Soft Keep (Roberto). Publish = CoS Need-go hold. Do not merge.**
+**2026-09-21 — #181 draft still open. Tip `309cea8`. Soft Keep (Roberto). Publish = CoS Need-go hold. Do not merge.**
 
 ## Current art state (READ THIS — D5 is gone, do not re-add)
 
