@@ -16,7 +16,7 @@ I used to want one agent that could do everything.
 
 Write the PR, tidy the calendar, answer Slack, review the diff, remind me about lacrosse pickup — one conversational surface, one “brain,” one place to yell when something was wrong. It felt efficient until the failures started rhyming. Coding work leaned on personal-assistant shortcuts. Calendar noise interrupted engineering focus. A gateway that looked like a helpful front door became a noisy hallway where every request sounded the same, and “the agent is up” stopped meaning either job was actually done.
 
-The stealable pattern is not “buy a bigger model.” It is **two brains, two jobs**: one engineering orchestrator, one personal assistant, on different hosts, with **direct doors** instead of one mega-gateway, plus **capability smokes** that ping both brains with a fresh nonce so “reachable” is a proof, not a vibe. In my fleet I extend and operate Hermes as the engineering side (**Bender**) and OpenClaw as the personal-assistant side (**Maya**). I did not invent those platforms — I wire them, name them clearly, and refuse to let one identity pretend it owns both jobs.
+The stealable pattern is not “buy a bigger model.” It is **two brains, two jobs**: one engineering orchestrator, one personal assistant, on different hosts, with **direct doors** instead of one mega-gateway, plus **capability smokes**. Smokes are short nonce capability checks that prove each brain’s door answers, not that a process is running. A fresh nonce ping makes “reachable” a proof, not a vibe. In my fleet I extend and operate Hermes as the engineering side (**Bender**) and OpenClaw as the personal-assistant side (**Maya**). I did not invent those platforms — I wire them, name them clearly, and refuse to let one identity pretend it owns both jobs.
 
 If you get this wrong, you buy a mega-agent that is busy and still incoherent. Executives hear “we have agents.” Implementers inherit a single process that cannot fail closed on the right job, because nobody agreed which job it was.
 
@@ -35,7 +35,7 @@ If you get this wrong, you buy a mega-agent that is busy and still incoherent. E
 - **Personal assistant (PA).** Calendar, reminders, life logistics — no merge authority. Here: OpenClaw as **Maya**.
 - **Direct door.** Clear entry into one brain for one job, not a shared lobby with one voice.
 - **Gateway.** Front process that routes traffic; useful until it becomes the product.
-- **Capability smoke / fresh nonce.** Tiny live proof (echo a one-time value) so cached “I’m fine” cannot fake today.
+- **Smoke / smokes (capability smoke / fresh nonce).** Short nonce capability checks that prove each brain’s door answers, not that a process is running. Echo a one-time value so cached “I’m fine” cannot fake today.
 - **Own runner.** Self-hosted Actions runner labeled for the job you mean.
 - **Fail loud.** Missing credentials or a dead door go red (or skip with a named reason).
 - **Role split.** Two named jobs with two identities — not one agent with a longer prompt.
@@ -51,6 +51,10 @@ I extend and operate a small agent fleet on a homelab — roughly the same **20+
 The settling move was boring on purpose. Rename and document so **Bender** is the Hermes engineering orchestrator on the Mini-class host, and **Maya** is the OpenClaw personal assistant on the Pro-class host. Park noisy shared gateways. Give each brain a direct door. Add smokes that ping both with a fresh nonce. On the engineering side, land unattended PR review on a distinct runner identity, teach CI to fail loudly when the review credential is missing (so “no secret” and “review passed” never look the same), and keep the rule that the **reviewer never merges** — a separate bot-run lands approved work.
 
 No private hostnames, Tailscale URLs, or credential values on a public post. The pattern is the point: role split, doors, smoke, fail-loud review without merge authority.
+
+![Teaching diagram of two doors: Bender engineering surface versus Maya PA surface. Illustration, not a product screenshot.](/images/posts/two-brains-bender-maya-dashboards.png "Teaching illustration of two doors, not a product screenshot.")
+
+<!-- figure: teaching — two dashboards / two doors; purple Bender + Maya; gray hosts; teal doors; labeled illustration, not a product shot -->
 
 ## Why it matters
 
