@@ -160,3 +160,8 @@ over 1MB.
 3. Set `[cover]` and/or inline `![]()` with honest alt + caption.
 4. Branch, `make check`, PR (or push onto the existing draft PR).
    Do not change `date` / `draft` unless this is the publish pass.
+
+
+## IMAGE OFFLOAD note — `two-brains-bender-maya` (2026-09-21)
+
+Engineer local CLI path used for this slug: HTML/SVG → Chrome headless PNG on the agent box (D1–D4 Archify-style). Cover intended as C-house photoreal via Pro `agy`/`gemini`; this draft ships an HTML house-metaphor stand-in because Pro `machineId` Shell was unavailable on the executor. Redo cover on Pro when Computers Shell is bound.
