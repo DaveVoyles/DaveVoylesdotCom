@@ -1,20 +1,24 @@
 # Handoff
 
-**2026-09-21 — #181 draft still open. Tip `930c4e6`. Soft Keep (Roberto). Publish = CoS Need-go hold. Do not merge.**
+**2026-09-21 — #181 draft still open. Image STANDARD locked. Do not merge.**
 
-## Current art state (READ THIS — D5 is gone, do not re-add)
+## Image STANDARD (Dave go 2026-09-21)
+
+Follow MainVault [`docs-blog-image-standard.md`](https://github.com/DaveVoyles/MainVault/blob/main/20-Areas/Personal/docs-blog-image-standard.md): dual audience, casual voice, define jargon (prefer visuals), four templates (system context / path-decision / break-failure / comparison fork), semantic legend only, **no color narration**, no stock Archify role legends, text must fit boxes.
+
+**No new Archify on this post** until a standard-aligned pass **or** Dave go.
+
+## Current art state
 
 | Slot | State |
 |------|--------|
-| **Decision PNG** | Dave Desktop `two-brains.png` → `static/images/posts/two-brains-bender-maya-decision.png` (**keep**, ~502k). Wired after Situation so Decision is not two images. |
-| **Decision table** | Rich Archify HTML→PNG `two-brains-bender-maya-decision-table.png` (skip vs steal; indigo Bender / magenta Maya). Stock External/Security/Cloud/Message bus/Backend/Frontend/Database legend **stripped** — legend is Human / Bender (indigo) / Maya (magenta) only. Source: `_inbox/p12-art/two-brains-bender-maya-decision-table.{architecture.json,html}` (untracked). |
-| **D1 / D3 / D4** | Restored from pre-exaggerated tip `f88dcc4` via revert `91bcd23` |
-| **D5** | **Deleted.** No `two-brains-bender-maya-two-surfaces.png`, no figure, no caption. Do not re-add. |
+| **Decision** | Dave Desktop `two-brains.png` → `two-brains-bender-maya-decision.png` (**keep**) |
+| **Decision table** | rich Archify — stock role legend stripped (`930c4e6`) |
+| **D1 / D3 / D4** | pre-exaggerated / `f88dcc4`-era |
+| **D5 two-surfaces** | **GONE — do not re-add** |
 | **Cover** | Unique photoreal desks — not Dave PNG |
 
-**Cadence:** D1 after Words; Dave decision PNG after Situation; table Archify after Decision thesis; system after System model; failure after Failure modes. Prose between figures.
-
-**Superseded:** tip `d2e43f8` (exaggerated / simplified card Archify) — **reverted**. Dave rejected that pass as too simple. Next art agent: prefer **rich Archify** like internal GitHub/docs — not the simplified card/VS “public fun” set. **Do not re-add D5.** Don’t force one style on every figure. **No Imagine.** Remaining D1/D3/D4 stay until Dave’s new art agent unless he names a swap.
+**Superseded:** tip `d2e43f8` exaggerated card pass — reverted. Do not chase.
 
 ## Copy
 
@@ -27,8 +31,8 @@ http://mini-pro.tail86a7c7.ts.net:1313/posts/two-brains-bender-maya/ (Hugo `-D -
 ## Do not
 
 - Do not merge #181 / do not `draft = false` unless CoS+Dave ship.
-- Do not re-add D5 (`two-surfaces`).
-- Do not re-land exaggerated Archify from `IMAGE-OFFLOAD-EXAGGERATED-2026-09-21.md`.
+- Do not re-land exaggerated Archify or re-add D5.
 - Do not put private hosts / Tailscale / creds in the post.
 - Do not reuse cover as a body image.
 - Do not use Grok Bot Imagine.
+- Do not narrate paint on-figure (Indigo/Magenta/Gray …).
