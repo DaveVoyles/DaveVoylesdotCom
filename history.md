@@ -1,5 +1,13 @@
 # History
 
+- 2026-09-21: Draft PR #181 nit — strip stock Archify role legend on `two-brains-bender-maya-decision-table.png`; legend is Human / Bender (indigo) / Maya (magenta) only. Skip-vs-steal copy unchanged. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 tip — deleted D5 two-surfaces; kept Dave decision PNG; markdown comparison table → rich Archify `two-brains-bender-maya-decision-table.png`; cadence so Decision is not two images. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 IMAGE OFFLOAD exaggerated — Dave `two-brains` PNG as decision figure; regen D1/D3/D4 HTML→PNG (physical doors/conductor/STOP); dropped D5 two-surfaces. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 tip — purple-align: system-model copy indigo Bender ≠ magenta Maya; D3/D5 HTML→PNG recolor. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 tip — D2 RHS **Fixed: two doors** / split jobs; D1 badge same; indigo Bender ≠ magenta Maya on D1+D2 HTML→PNG. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 REVIEW-FIX-NONCE-IMAGES — Blog pack nonce ELI5 + “up” glossary; D1 computing desks HTML→PNG; D2 Process running / fail plain / Today’s code; photoreal cover C no solder. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 REVIEW-FIX — Blog pack smoke/nonce copy; D5 two-surfaces Archify PNG; removed dashboards.png. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 — defined smoke/smokes on first use + glossary; Archify teaching two-doors diagram (`two-brains-bender-maya-dashboards.png`). No real Maya/Hermes screenshot. Left `draft = true`. Did not merge.
 - 2026-09-16: Rebased #178 onto main after #165. Conflicts HANDOFF/history only. Kept light-first + v1.1 tokens. Do not squash-merge unless mergeable and gitleaks green.
 - 2026-09-16: PUBLISH GO — squash-merged #165 Second Brain (`draft = false`, date 2026-09-16T10:00:00-04:00). Merge `905695ee981571bf8f49de63e2b784fe10f87a1b`. Pages Hugo build/deploy succeeded (run 35106994400). Live https://davevoyles.com/posts/the-second-brain-i-own/ HTTP 200. No series YAML sync. No LinkedIn/X.
 - 2026-09-14: Site chrome thin first PR — light default, canvas/ink + Post Standard v1.1 role tokens, labels/patterns, reduced-motion diagram hooks. PaperMod kept. Held #165. Do not squash-merge.

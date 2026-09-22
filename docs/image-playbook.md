@@ -160,3 +160,8 @@ over 1MB.
 3. Set `[cover]` and/or inline `![]()` with honest alt + caption.
 4. Branch, `make check`, PR (or push onto the existing draft PR).
    Do not change `date` / `draft` unless this is the publish pass.
+
+
+## IMAGE OFFLOAD note — `two-brains-bender-maya` (2026-09-21)
+
+Engineer local CLI path for this slug: D1–D4 = HTML/SVG → PNG (Archify-style). Cover = C-house **photoreal** via Pro `agy` `generate_image` (not Grok Bot Imagine). Unique cover only.
