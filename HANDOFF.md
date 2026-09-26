@@ -1,6 +1,6 @@
 # Handoff
 
-**2026-09-25 — advisory-pr-triage draft PR open. Do not merge. Do not flip `draft = false`.**
+**2026-09-25 — #182 draft still open. Image lock landed. Do not merge.**
 
 ## Image lock (Dave send-go 2026-09-25)
 
