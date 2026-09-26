@@ -74,12 +74,12 @@ Why now: reusable Actions jobs make it cheap to put a voice on every PR. Cheap v
 
 ## System model
 
-1. **Human** (blue) owns the merge button and reads advisory signal as advice.
-2. **Triage bot / job** (purple) runs typed checks, writes one marker comment, sets one `triage/*` label, emits a feed note.
-3. **Checks** (amber → teal or coral) report structured results humans can skim.
-4. **Classifier Phase 1** (amber) is fail-open: unknown is first-class, not a discarded shape.
-5. **Confidence floor** (coral when misused) may *annotate* low confidence; it must not delete typed answers.
-6. **Land / merge path** (gray, separate) does **not** subscribe to the advisory comment, label, or feed note.
+1. **Human** owns the merge button and reads advisory signal as advice.
+2. **Triage bot / job** runs typed checks, writes one marker comment, sets one `triage/*` label, emits a feed note.
+3. **Checks** report structured results humans can skim.
+4. **Classifier Phase 1** is fail-open: unknown is first-class, not a discarded shape.
+5. **Confidence floor** may *annotate* low confidence; it must not delete typed answers.
+6. **Land / merge path** does **not** subscribe to the advisory comment, label, or feed note.
 7. **Reusable `workflow_call`** packages the same job so other repos can call the contract without copying folklore.
 
 The interesting arrow is the one that **is missing**: there is no edge from advisory surface → merge. If you draw that edge “temporarily,” you no longer have advisory triage. You have a soft merge button with better marketing.
