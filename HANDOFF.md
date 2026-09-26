@@ -1,32 +1,35 @@
 # Handoff
 
-**2026-09-16 — #178 rebased onto main. Light-first chrome + v1.1 tokens. Ready to ship after CI.**
+**2026-09-25 — #182 draft still open. Image lock landed. Do not merge.**
 
-## What this session did
+## Image lock (Dave send-go 2026-09-25)
 
-| Work | Notes |
-|------|--------|
-| Rebase | `theme/light-first-visual-grammar` onto `origin/main` (`6254d19`, #165 live). Conflicts only in `HANDOFF.md` and `history.md`. |
-| Kept from #178 | Light default, `--ds-canvas` / `--ds-surface` / `--ds-ink`, role tokens, `10-visual-grammar.css`, PaperMod untouched. |
-| Kept from main | #165 Second Brain live; v1.1 docs pointers already on main (#177). |
-| Gates | `make check` passed. `make build` 428 pages. |
+Follow MainVault [`docs-blog-image-standard.md`](https://github.com/DaveVoyles/MainVault/blob/main/20-Areas/Personal/docs-blog-image-standard.md): Field Notes / Archify lane. Unique cover vs body. No Imagine.
 
-## Local-only (not committed)
+| Slot | Winner | File |
+|------|--------|------|
+| **Cover** | Brief A (template 2 path/decision) | `static/images/posts/advisory-pr-triage-cover.png` |
+| **D1 body** | Brief B (template 3 break/failure) | `static/images/posts/advisory-pr-triage-confidence-floor.png` |
+| **D2 body** | Brief C (template 4 comparison fork) | `static/images/posts/advisory-pr-triage-advisory-vs-authority.png` |
 
-- Homebrew Hugo 0.166 used for a local `--minify` smoke (CI pins 0.164). `public/` not committed.
+HTML + PNG also served at:
 
-## Where to start next session
+- http://mini-pro.tail86a7c7.ts.net:8790/scratch/advisory-pr-triage/cover.html
+- http://mini-pro.tail86a7c7.ts.net:8790/scratch/advisory-pr-triage/confidence-floor.html
+- http://mini-pro.tail86a7c7.ts.net:8790/scratch/advisory-pr-triage/advisory-vs-authority.html
 
-1. Wait for CI on #178. Ignore known cursor-cloud-setup / adapter flakes.
-2. Do **not** squash-merge unless mergeable and gitleaks is green.
-3. Interactive system map is a follow-up (not this PR).
-4. Second Brain is live. Do not reopen #165.
-5. P0-3 blog pilot still unused.
+## Copy
+
+`content/posts/advisory-pr-triage.md` — `draft = true`, no publish date. Cover only in front matter. D1 after Words I use. D2 after Decision table.
+
+## Preview
+
+http://mini-pro.tail86a7c7.ts.net:1313/posts/advisory-pr-triage/ (Hugo `-D -F` on Pro `:1313`)
 
 ## Do not
 
-- Do not reopen #176.
-- Do not auto-post LinkedIn/X.
-- Do not retrofit #165 to Post Standard v1.1 unless Dave asks.
-- Do not make dark the default.
-- Do not edit `themes/PaperMod/`.
+- Do not merge this PR / do not `draft = false` unless CoS+Dave Need-go.
+- Do not reuse cover as a body image.
+- Do not use Imagine / in-chat bitmaps.
+- Do not put private hosts / Tailscale / creds in the post.
+- Do not rehash human-approval merge-button or prove-before-floor as this thesis.
