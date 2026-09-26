@@ -24,7 +24,7 @@ In my fleet those jobs have names. **Bender** is my engineering agent — Hermes
 
 If you get this wrong, you buy a mega-agent that is busy and still incoherent. Executives hear “we have agents.” Implementers inherit a single process that cannot fail closed on the right job, because nobody agreed which job it was.
 
-<!-- figure: primary — two actors, two doors, smoke; blue human · indigo Bender (coding) · magenta Maya (assist) — distinct agent hues · teal verified · coral conflation · gray hosts; computing desks not EE -->
+<!-- figure: primary — two actors, two doors, smoke; Human · Bender (coding) · Maya (assist); verified echo vs conflation; separate hosts; computing desks not EE -->
 
 ## In brief
 
@@ -59,7 +59,7 @@ The settling move was boring on purpose. Rename and document so **Bender** is th
 
 No private hostnames, Tailscale URLs, or credential values on a public post. The pattern is the point: role split, doors, smoke, fail-loud review without merge authority.
 
-<!-- figure: decision — Dave Desktop two-brains.png; indigo Bender ≠ magenta Maya; keep this file, do not re-add D5 -->
+<!-- figure: decision — “same brain?” → “Process running?” fail vs “Fixed: two doors” + today’s-code tickets; Bender ≠ Maya -->
 
 ![Two jobs — Bender coding vs Maya assisting — each with its own door and one-time check](/images/posts/two-brains-bender-maya-decision.png)
 
@@ -90,9 +90,9 @@ The cost of wrong is folklore with a friendly chat UI. Busy is not the same as o
 5. **Smokes** — fresh nonce from the brain you meant to ping; echo = verified, silence = fail.
 6. **Review path** — own runner; missing credential → fail-loud; approval does not merge; separate bot-run lands approved PRs.
 
-The interesting arrow is **separation**: coral when a request hits the wrong door, teal only when the smoke proves the intended door answered.
+The interesting arrow is **separation**: fail when a request hits the wrong door; pass only when the smoke proves the intended door answered.
 
-<!-- figure: system model — blue human; indigo Bender + magenta Maya on separate gray hosts; doors; dashed gateway; one-time-code arrows; fail-loud / no-merge badges -->
+<!-- figure: system model — Human; Bender + Maya on separate hosts; doors; dashed gateway; one-time-code arrows; fail-loud / no-merge badges -->
 
 ![System model: human, Bender coding desk, Maya assistant desk, doors, smokes, and fail-loud review](/images/posts/two-brains-bender-maya-system-model.png)
 
@@ -119,9 +119,9 @@ You do not need my fleet names to steal the shape.
 4. **Smoke theater** — “process running” ≠ brain answered. **Fix:** fresh one-time code from the intended door.
 5. **Review green without credentials** — missing secret looks like pass. **Fix:** fail loud; name carve-outs.
 6. **Reviewer merges** — approval becomes ship. **Fix:** separate land step.
-7. **Wrong-brain routing** — calendar on the engineering door (or reverse). **Fix:** role checks; coral on conflation.
+7. **Wrong-brain routing** — calendar on the engineering door (or reverse). **Fix:** role checks; fail loud on conflation.
 
-<!-- figure: failure modes — coral tiles with teal fixes; light canvas; night-console optional on fail-loud tile only -->
+<!-- figure: failure modes — fail tiles with fix underlines; light canvas; night-console optional on fail-loud tile only -->
 
 ![Failure modes: wrong-brain routing, smoke theater, and fail-loud missing credentials](/images/posts/two-brains-bender-maya-failure-modes.png)
 
@@ -135,7 +135,7 @@ You do not need my fleet names to steal the shape.
 5. Map review CI to an online runner label you own.
 6. Missing review credentials fail loudly — or skip with a named carve-out.
 7. Confirm the reviewer cannot merge; name what lands approved PRs.
-8. Run one wrong-brain drill; require coral.
+8. Run one wrong-brain drill; require a visible fail when the wrong door is hit.
 9. Operator rule: two jobs, two doors, prove both.
 
 ## Next in the system
