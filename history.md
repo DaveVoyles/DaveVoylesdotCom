@@ -64,3 +64,4 @@
 - 2026-08-05: Embedded Plex.jpg and docker-containers.jpg into docker-homelab-agent-ops post; resized Plex.jpg (1.4MB→399KB) to clear the 1MB image gate that was already failing on main. Pushed 65386ad to origin/main.
 
 - 2026-08-05: Embedded mac-runner-vis.jpg under "Where this earned its stripes" in human-approval-merge-button; pushed 92a105e.
+- 2026-09-26: Draft PR #181 Soft Fix — opening split into three short paras (pattern → nonce → Bender/Maya); prose-only, left `draft = true`, did not merge.
