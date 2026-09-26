@@ -1,5 +1,6 @@
 # History
 
+- 2026-09-25: Draft PR `draft/advisory-pr-triage` (P1-5) — Field Notes HTML→PNG cover A / D1 B confidence-floor / D2 C advisory-vs-authority. `draft = true`. Do not merge.
 - 2026-09-16: Rebased #178 onto main after #165. Conflicts HANDOFF/history only. Kept light-first + v1.1 tokens. Do not squash-merge unless mergeable and gitleaks green.
 - 2026-09-16: PUBLISH GO — squash-merged #165 Second Brain (`draft = false`, date 2026-09-16T10:00:00-04:00). Merge `905695ee981571bf8f49de63e2b784fe10f87a1b`. Pages Hugo build/deploy succeeded (run 35106994400). Live https://davevoyles.com/posts/the-second-brain-i-own/ HTTP 200. No series YAML sync. No LinkedIn/X.
 - 2026-09-14: Site chrome thin first PR — light default, canvas/ink + Post Standard v1.1 role tokens, labels/patterns, reduced-motion diagram hooks. PaperMod kept. Held #165. Do not squash-merge.
