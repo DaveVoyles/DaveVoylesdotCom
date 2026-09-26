@@ -65,3 +65,4 @@
 
 - 2026-08-05: Embedded mac-runner-vis.jpg under "Where this earned its stripes" in human-approval-merge-button; pushed 92a105e.
 - 2026-09-26: Draft PR #181 Soft Fix — opening split into three short paras (pattern → nonce → Bender/Maya); prose-only, left `draft = true`, did not merge.
+- 2026-09-26: Draft PR #181 Soft Fix — replaced System model paint labels with job/status language and stripped paint names from visible figure alts; kept draft=true and did not regenerate figures or merge.

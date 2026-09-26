@@ -61,7 +61,7 @@ No private hostnames, Tailscale URLs, or credential values on a public post. The
 
 <!-- figure: decision — Dave Desktop two-brains.png; indigo Bender ≠ magenta Maya; keep this file, do not re-add D5 -->
 
-![Two jobs — indigo Bender coding vs magenta Maya assisting — each with its own door and one-time check](/images/posts/two-brains-bender-maya-decision.png)
+![Two jobs — Bender coding vs Maya assisting — each with its own door and one-time check](/images/posts/two-brains-bender-maya-decision.png)
 
 *Two jobs on one machine — coding vs the rest of the day — each with its own door and its own one-time check.*
 
@@ -83,18 +83,18 @@ The cost of wrong is folklore with a friendly chat UI. Busy is not the same as o
 
 ## System model
 
-1. **Human** (blue) assigns jobs, reads smokes, keeps merge authority.
-2. **Bender** (indigo / deep purple) — engineering orchestrator on its host — coding work and review CI for that world.
-3. **Maya** (magenta / rose purple) — PA on its host — does not own merge. Same “agent” family, different hues so the two jobs read at a glance.
-4. **Doors** (gray → teal when healthy) — direct entries; parked gateways optional, not the default product.
-5. **Smokes** (amber → teal echo / coral silence) — fresh nonce from the brain you meant to ping.
-6. **Review path** (amber) — own runner; missing credential → coral fail-loud; approval does not merge; separate bot-run lands approved PRs.
+1. **Human** assigns jobs, reads smokes, keeps merge authority.
+2. **Bender** — engineering orchestrator on its host — coding work and review CI for that world.
+3. **Maya** — PA on its host — does not own merge. Same “agent” family, different jobs so the two brains read at a glance.
+4. **Doors** — direct entries; parked gateways optional, not the default product. Healthy doors answer smokes; silent doors fail the check.
+5. **Smokes** — fresh nonce from the brain you meant to ping; echo = verified, silence = fail.
+6. **Review path** — own runner; missing credential → fail-loud; approval does not merge; separate bot-run lands approved PRs.
 
 The interesting arrow is **separation**: coral when a request hits the wrong door, teal only when the smoke proves the intended door answered.
 
 <!-- figure: system model — blue human; indigo Bender + magenta Maya on separate gray hosts; doors; dashed gateway; one-time-code arrows; fail-loud / no-merge badges -->
 
-![System model: blue human, indigo Bender coding desk, magenta Maya assistant desk, doors, smokes, and fail-loud review](/images/posts/two-brains-bender-maya-system-model.png)
+![System model: human, Bender coding desk, Maya assistant desk, doors, smokes, and fail-loud review](/images/posts/two-brains-bender-maya-system-model.png)
 
 
 ## Implementation detail
