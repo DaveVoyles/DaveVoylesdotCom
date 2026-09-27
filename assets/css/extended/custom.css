@@ -2113,6 +2113,10 @@ a.home-building-card:focus-visible {
 .post-content .post-figure {
   margin: var(--ds-space-5) 0;
 }
+.post-content .post-figure--sm {
+  max-width: 40%;
+  margin-inline: auto;
+}
 .post-content .post-figure-link {
   display: block;
   cursor: zoom-in;

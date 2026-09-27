@@ -1,10 +1,19 @@
 {{- /*
   Wrap markdown images so readers can click to enlarge (dialog lightbox).
+  Title "sm" or "sm|<caption>" adds post-figure--sm (narrow display width).
 */ -}}
 {{- $u := .Destination | safeURL -}}
 {{- $alt := .Text | default "" -}}
 {{- $title := .Title | default "" -}}
-<figure class="post-figure">
+{{- $sm := false -}}
+{{- if eq $title "sm" -}}
+  {{- $sm = true -}}
+  {{- $title = "" -}}
+{{- else if strings.HasPrefix $title "sm|" -}}
+  {{- $sm = true -}}
+  {{- $title = strings.TrimPrefix "sm|" $title -}}
+{{- end -}}
+<figure class="post-figure{{ if $sm }} post-figure--sm{{ end }}">
   <a class="post-figure-link" href="{{ $u }}" data-lightbox="post"
      data-alt="{{ $alt | htmlEscape }}"
      {{- with $title }} data-caption="{{ . | htmlEscape }}"{{ end }}
