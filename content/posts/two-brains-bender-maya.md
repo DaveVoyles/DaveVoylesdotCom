@@ -22,6 +22,10 @@ That one-time code is a **nonce** (said “nonse”): think of the restaurant bu
 
 In my fleet those jobs have names. **Bender** is my engineering agent — Hermes extended and operated on the Mini-class host. **Maya** is my personal-assistant agent — OpenClaw on the Pro-class host. I named Bender after the Futurama robot people already recognize; the name and the job are mine. I did not invent those platforms — I wire them, name them clearly, and refuse to let one identity pretend it owns both jobs.
 
+![Bender — Dave’s engineering agent name, after the Futurama robot](/images/posts/two-brains-bender-maya-bender.png)
+
+*Bender — my engineering agent’s name, after the Futurama robot. Character art used under Dave’s draft override; not a licensed still.*
+
 If you get this wrong, you buy a mega-agent that is busy and still incoherent. Executives hear “we have agents.” Implementers inherit a single process that cannot fail closed on the right job, because nobody agreed which job it was.
 
 <!-- figure: primary — two actors, two doors, smoke; Human · Bender (coding) · Maya (assist); verified echo vs conflation; separate hosts; computing desks not EE -->
