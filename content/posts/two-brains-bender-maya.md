@@ -1,5 +1,6 @@
 +++
-draft = true
+date = "2026-09-26T20:17:41-04:00"
+draft = false
 title = 'Two brains, two jobs: Bender engineers, Maya assists'
 author = 'Dave Voyles'
 description = 'One mega-agent blurs coding and calendar work — split the roles, give each brain its own door, and prove both still answer with a one-time check code.'
