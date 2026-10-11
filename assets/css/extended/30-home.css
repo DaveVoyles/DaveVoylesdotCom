@@ -18,8 +18,8 @@
     var(--theme);
 }
 .ledger-look { position: absolute; inset: 0; z-index: -2; opacity: 0; transition: opacity var(--ds-dur-slow) var(--ds-ease-out); }
-.ledger-look.is-ready { opacity: 0.6; }
-.ledger-look iframe { display: block; width: 100%; height: 100%; border: 0; pointer-events: none; }
+.ledger-look.is-ready { opacity: 0.85; }
+.ledger-look canvas { display: block; width: 100%; height: 100%; }
 .ledger-hero::after {
   content: "";
   position: absolute;
