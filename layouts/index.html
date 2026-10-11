@@ -18,7 +18,8 @@
 <div class="ledger" id="home">
 
   <header class="ledger-hero">
-    <div class="ledger-look" data-look="{{ "/motion/looks/shader-loop/index.html" | relURL }}" data-label="Slow contour lines drifting" aria-hidden="true"></div>
+    {{- $heroJS := resources.Get "js/home-hero-webgl.js" | resources.Minify | fingerprint }}
+    <div class="ledger-look" data-webgl-src="{{ $heroJS.RelPermalink }}" aria-hidden="true"></div>
     <div class="ledger-hero-in">
       <h1 class="ledger-title">{{ site.Title }}</h1>
       <p class="ledger-lede">{{ site.Params.homeInfoParams.Content }}</p>
