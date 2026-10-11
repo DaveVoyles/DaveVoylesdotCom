@@ -49,6 +49,24 @@
   --ds-infra: rgb(100, 108, 120);
   --ds-agent: rgb(109, 80, 160);
 
+  /* dark hero / palette / card-glow roles (issue #184) */
+  --ds-hero-glow-a: #10301f;
+  --ds-hero-glow-b: #0c2a30;
+  --ds-hero-scrim: rgba(6, 11, 8, 0.78);
+  --ds-hero-scrim-soft: rgba(6, 11, 8, 0.5);
+  --ds-hero-shadow: rgba(5, 10, 7, 0.7);
+  --ds-hero-title-from: #f2fbf4;
+  --ds-hero-title-to: #22d3ee;
+  --ds-btn-bg: #1f6b3c;
+  --ds-btn-bg-hover: #26834b;
+  --ds-btn-border: #2a8a4f;
+  --ds-on-btn: #fff;
+  --ds-spot: rgba(127, 211, 154, 0.18);
+  --ds-mask: #000;
+  --ds-overlay: rgba(3, 6, 4, 0.62);
+  --ds-box-border: #2a4435;
+  --ds-shadow-lg: rgba(0, 0, 0, 0.6);
+
   /* type scale (shared — do not change values) */
   --ds-fs-1: 0.75rem;   /* 12 — fine print, badges */
   --ds-fs-2: 0.875rem;  /* 14 — captions, meta */
