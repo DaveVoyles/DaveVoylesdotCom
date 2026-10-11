@@ -25,6 +25,14 @@ photo_alt = "Dave Voyles"
 focus = "Builder-first TPM / agent platform work — production systems with real controls, not demo-only chatbots."
 building = "Agent fleets on a Dockerized homelab, evidence-backed resume tooling, and sports tech (Philly Lax + CFB playbooks)."
 
+[about.film]
+title = "Dave in 22 seconds"
+src = "/video/about-dave.mp4"
+poster = "/video/about-dave-poster.jpg"
+captions = "/video/about-dave.vtt"
+width = 1920
+height = 1080
+
 [[about.ctas]]
 label = "LinkedIn"
 url = "https://www.linkedin.com/in/davevoyles/"

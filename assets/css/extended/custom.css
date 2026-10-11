@@ -711,6 +711,20 @@
   }
 }
 
+.about-film {
+  margin: 0 0 calc(var(--gap) * 1.5);
+}
+
+.about-film video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--ds-canvas);
+}
+
 .about-ctas {
   display: flex;
   flex-wrap: wrap;
