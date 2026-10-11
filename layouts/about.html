@@ -75,6 +75,16 @@
     {{- end }}
   </header>
 
+  {{/* -------- Film (studio motion pipeline; lazy, captions track, never autoplays) -------- */}}
+  {{- with $a.film }}
+  <section class="about-film" aria-label="{{ .title }}">
+    <video controls preload="none" playsinline width="{{ .width }}" height="{{ .height }}" poster="{{ .poster | relURL }}">
+      <source src="{{ .src | relURL }}" type="video/mp4">
+      <track kind="captions" src="{{ .captions | relURL }}" srclang="en" label="English" default>
+    </video>
+  </section>
+  {{- end }}
+
   {{/* -------- Stats -------- */}}
   {{- with $a.stats }}
   <section class="about-stats" aria-label="Highlights">

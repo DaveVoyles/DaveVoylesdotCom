@@ -68,3 +68,4 @@
 - 2026-09-26: Draft PR #181 Soft Fix — scrubbed paint narration from the System model, body prose, figure comments, and visible alts; kept job/status language, draft=true, and did not regenerate figures or merge.
 - 2026-09-26: Dave override Want-go — wire Bender still on draft #181; draft=true; no publish.
 - 2026-09-26: Soft Fix — Bender still ~40% display width on live two-brains-bender-maya (`post-figure--sm`). Date/draft unchanged.
+- 2026-10-11: About film, 22 s studio-pipeline film (shader-loop, stat-grid, kinetic-type, say VO, WebVTT) embedded on /about/, lazy, no autoplay; 9:16 and 1:1 cutdowns in static/video.
