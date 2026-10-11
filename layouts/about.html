@@ -73,16 +73,6 @@
       <a class="about-cta" href="{{ "/posts/agent-production-system/" | relURL }}">Case study</a>
     </div>
     {{- end }}
-    {{- with $a.tech }}
-    <div class="about-tech" aria-label="Technologies">
-      <span class="about-section-label">Stack I work with</span>
-      <ul class="about-tech-list">
-        {{- range . }}
-        <li class="about-tech-item">{{ .name }}</li>
-        {{- end }}
-      </ul>
-    </div>
-    {{- end }}
   </header>
 
   {{/* -------- Stats -------- */}}

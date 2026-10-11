@@ -35,24 +35,6 @@ label = "GitHub"
 url = "https://github.com/davevoyles"
 primary = false
 
-[[about.tech]]
-name = "Azure"
-
-[[about.tech]]
-name = "Docker"
-
-[[about.tech]]
-name = "GitHub"
-
-[[about.tech]]
-name = "Xbox"
-
-[[about.tech]]
-name = "Multi-LLM"
-
-[[about.tech]]
-name = "MCP"
-
 [[about.stats]]
 value = "10+"
 label = "Years at Microsoft"

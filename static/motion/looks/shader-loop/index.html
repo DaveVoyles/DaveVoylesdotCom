@@ -1,0 +1,78 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Shader loop</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root { --bg:#0a0f0c; --fg:#e8f1ea; --accent:#2f8f5b; }
+  html,body { margin:0; height:100%; background:var(--bg); overflow:hidden; }
+  #gl { position:absolute; inset:0; width:100%; height:100%; display:block; }
+</style>
+<canvas id="gl"></canvas>
+<script src="engine.js"></script>
+<script>
+// Seeded contour field that loops seamlessly (studio motion look: shader-loop). Palette is the site's green-black.
+const CONFIG = M.cfg({
+  seed: 11, duration: 12, fps: 30,
+  palette: ["bg", "#10301f", "accent", "fg"],
+  scale: 1.5, warp: 0.9, lines: 12, lineWeight: 0.08, turns: 1,
+  brand: { bg: "#0a0f0c", fg: "#9fe3bb", accent: "#1f6b3c" },
+});
+const BRAND = M.brand(CONFIG.brand);
+const PAL = CONFIG.palette.map((c) => ({ bg: BRAND.bg, fg: BRAND.fg, accent: BRAND.accent })[c] || c);
+const VS = `attribute vec2 p; void main(){ gl_Position = vec4(p,0.,1.); }`;
+const FS = `precision highp float;
+uniform vec2 uRes; uniform float uTh, uScale, uWarp, uLines, uLineW, uTurns;
+uniform float uP[12]; uniform vec3 uC0, uC1, uC2, uC3;
+float hash(vec2 q){ return fract(sin(dot(q, vec2(127.1, 311.7))) * 43758.5453); }
+vec3 ramp(float v){
+  v = clamp(v, 0., 1.) * 3.;
+  vec3 c = mix(uC0, uC1, smoothstep(0., 1., v));
+  c = mix(c, uC2, smoothstep(1., 2., v));
+  return mix(c, uC3, smoothstep(2., 3., v));
+}
+void main(){
+  vec2 uv = (gl_FragCoord.xy - .5 * uRes) / uRes.y;
+  vec2 q = uv * uScale;
+  float a = uTh * uTurns;
+  for (int i = 0; i < 3; i++) {
+    float f = 1.3 + float(i) * .8;
+    q += uWarp * .45 / (1. + float(i)) * vec2(sin(q.y * f + a + uP[i]), sin(q.x * f - a + uP[i + 3]));
+  }
+  float v = .5 + .5 * sin(q.x * 1.6 + q.y * 1.1 + uP[6] + a) + .25 * sin(length(q) * 2.4 - a + uP[7]);
+  v = clamp(v * .66, 0., 1.);
+  vec3 col = ramp(v);
+  float c = abs(fract(v * uLines) - .5);
+  col = mix(col, uC3, (1. - smoothstep(0., uLineW, c)) * .22 * uLineW * 10.);
+  col *= .88 + .12 * smoothstep(1.1, .2, length(uv));
+  col += (hash(gl_FragCoord.xy) - .5) * .02;
+  gl_FragColor = vec4(col, 1.);
+}`;
+const rnd = M.mulberry32(CONFIG.seed);
+const P = Array.from({ length: 12 }, () => rnd() * Math.PI * 2);
+const cv = document.getElementById("gl");
+const gl = cv.getContext("webgl", { preserveDrawingBuffer: true, antialias: false });
+const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
+const pr = gl.createProgram();
+gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS));
+gl.linkProgram(pr); gl.useProgram(pr);
+gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+const loc = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+const U = (n) => gl.getUniformLocation(pr, n);
+const col = (h) => M.hex(h).map((v) => v / 255);
+gl.uniform1fv(U("uP"), new Float32Array(P));
+["uC0", "uC1", "uC2", "uC3"].forEach((n, i) => gl.uniform3fv(U(n), col(PAL[i])));
+gl.uniform1f(U("uScale"), CONFIG.scale); gl.uniform1f(U("uWarp"), CONFIG.warp);
+gl.uniform1f(U("uLines"), CONFIG.lines); gl.uniform1f(U("uLineW"), CONFIG.lineWeight);
+gl.uniform1f(U("uTurns"), Math.round(CONFIG.turns));
+M.film({ duration: CONFIG.duration, poster: CONFIG.duration * 0.3, render(time) {
+  const { W, H } = M.dims();
+  const dpr = 0.5; // half-res: the field is soft, and it halves the fill cost
+  const w = Math.max(1, Math.round(W * dpr)), h = Math.max(1, Math.round(H * dpr));
+  if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; gl.viewport(0, 0, w, h); }
+  gl.uniform2f(U("uRes"), w, h);
+  gl.uniform1f(U("uTh"), (time / (CONFIG.duration - 1 / CONFIG.fps)) * Math.PI * 2);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+} });
+</script>
