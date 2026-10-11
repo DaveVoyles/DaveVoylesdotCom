@@ -1,305 +1,86 @@
 {{- /*
-  Homepage: ops-dashboard (A) + magazine desk (B) hybrid.
-
-  Does NOT paginate the full post archive. Home shows:
-    - hero status + optional WebGL field
-    - magazine featured post
-    - short "recent" desk
-    - topic rails / building pane / graph pane
-    - a few archive picks + CTA to /archives/
-
-  Full history: /archives/. Config: params.home in hugo.toml.
+  Home: "Ledger". The writing is the product, so the home page is a hero with one
+  quiet motion look (shader-loop, a contour field) over a typographic index of posts.
+  No full archive here (ADR 0010): featured + a short recent run + a link to /archives/.
+  Config: params.home in hugo.toml.
 */ -}}
 {{- define "main" }}
-
-{{- if (and site.Params.profileMode.enabled .IsHome) }}
-{{- partial "index_profile.html" . }}
-{{- else }}
 
 {{- $home := site.Params.home | default dict }}
 {{- $featuredCount := $home.featured_count | default 1 }}
 {{- $recentCount := $home.recent_count | default 5 }}
-{{- $archivePicks := $home.archive_picks | default 3 }}
-{{- $archiveBefore := $home.archive_before_year | default 2020 }}
 
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
 {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
-{{/* RegularPages are already date-desc by default in Hugo. */}}
-
 {{- $featured := first $featuredCount $pages }}
-{{- $afterFeatured := after $featuredCount $pages }}
-{{- $recent := first $recentCount $afterFeatured }}
+{{- $recent := first $recentCount (after $featuredCount $pages) }}
 
-{{- /* Archive picks: older than archive_before_year, first N of remaining. */ -}}
-{{- $archiveCandidates := slice }}
-{{- range $afterFeatured }}
-  {{- if lt (.Date.Year) $archiveBefore }}
-    {{- $archiveCandidates = $archiveCandidates | append . }}
-  {{- end }}
-{{- end }}
-{{- /* Prefer not reusing posts already in $recent */ -}}
-{{- $recentPerms := slice }}
-{{- range $recent }}
-  {{- $recentPerms = $recentPerms | append .RelPermalink }}
-{{- end }}
-{{- $archiveFiltered := slice }}
-{{- range $archiveCandidates }}
-  {{- if not (in $recentPerms .RelPermalink) }}
-    {{- $archiveFiltered = $archiveFiltered | append . }}
-  {{- end }}
-{{- end }}
-{{- $fromArchive := first $archivePicks $archiveFiltered }}
+<div class="ledger" id="home">
 
-<div class="home-dashboard" id="home">
-  {{/* -------- Hero (magazine status + WebGL field) -------- */}}
-  <header class="home-hero">
-    {{- if $home.show_webgl_hero | default true }}
-    {{- $heroJS := resources.Get "js/home-hero-webgl.js" | resources.Minify | fingerprint }}
-    <div class="home-hero-webgl" data-home-webgl data-webgl-src="{{ $heroJS.RelPermalink }}" aria-hidden="true"></div>
-    {{- end }}
-    <div class="home-hero-inner">
-      <h1 class="home-hero-title">{{ site.Title }}</h1>
-      <p class="home-hero-lede">{{ site.Params.homeInfoParams.Content }}</p>
+  <header class="ledger-hero">
+    <div class="ledger-look" data-look="{{ "/motion/looks/shader-loop/index.html" | relURL }}" data-label="Slow contour lines drifting" aria-hidden="true"></div>
+    <div class="ledger-hero-in">
+      <h1 class="ledger-title">{{ site.Title }}</h1>
+      <p class="ledger-lede">{{ site.Params.homeInfoParams.Content }}</p>
     </div>
   </header>
 
-  {{/* -------- Status: agent-loop animation (iframe mounted lazily by home.js) -------- */}}
-  {{- if $home.show_status_embed | default true }}
-  <section class="home-status" aria-label="Agent loop animation">
-    <div class="home-status-card">
-      <div class="home-emb" data-embed="{{ "/motion/looks/agent-loop/index.html" | relURL }}" data-label="Agent loop: think, call a tool, observe"></div>
-    </div>
-  </section>
-  {{- end }}
-
-  {{/* -------- Magazine featured -------- */}}
-  {{- with $featured }}
-  <section class="home-featured" aria-labelledby="home-featured-title">
-    <div class="home-section-head">
-      <h2 id="home-featured-title">Featured</h2>
-    </div>
-    {{- range . }}
-    <article class="home-feature-card">
-      {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
-      {{- $cover := (.Param "cover.image") | default "" }}
-      {{- if and $cover (not $isHidden) }}
-      <a class="home-feature-media" href="{{ .RelPermalink }}" tabindex="-1" aria-hidden="true">
-        <img src="{{ $cover | relURL }}" alt="" loading="eager" />
-      </a>
-      {{- end }}
-      <div class="home-feature-body">
-        <p class="home-meta">
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
-          {{- with .GetTerms "topics" }}
-          <span class="home-meta-sep" aria-hidden="true">·</span>
-          {{- range $i, $t := . }}
-          {{- if $i }}, {{ end }}
-          <a class="home-topic-inline" href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>
-          {{- end }}
-          {{- end }}
-        </p>
-        <h3 class="home-feature-title">
-          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        </h3>
-        {{- if (ne (.Param "hideSummary") true) }}
-        <p class="home-feature-summary">{{ .Summary | plainify | htmlUnescape | truncate 220 }}</p>
-        {{- end }}
-        <a class="home-read-more" href="{{ .RelPermalink }}">Read post →</a>
-      </div>
-    </article>
-    {{- end }}
-  </section>
-  {{- end }}
-
-  {{/* -------- Currently building (hand-edited status strip) -------- */}}
-  {{- if and ($home.show_building | default true) $home.building }}
-  <section class="home-building" aria-labelledby="home-building-title">
-    <div class="home-section-head">
-      <h2 id="home-building-title">Currently building</h2>
-      <p class="home-section-sub">What I’m actively working on — not a full portfolio dump.</p>
-    </div>
-    <ul class="home-building-list home-building-list--cards">
-      {{- range $i, $b := $home.building }}
-      {{- with $b }}
-      <li class="home-building-item">
-        {{- if .url }}
-        <a class="home-building-card" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}{{ if eq $i 0 }} data-lift="{{ "/motion/looks/layer-stack/index.html" | relURL }}"{{ end }}>
-          <span class="home-building-label">{{ .label }}</span>
-          {{- with .note }}
-          <span class="home-building-note">{{ . }}</span>
-          {{- end }}
-          {{- if eq $i 0 }}
-          <span class="home-lift" aria-hidden="true"><span class="home-emb"></span></span>
-          {{- end }}
-        </a>
-        {{- else }}
-        <div class="home-building-card home-building-card--static">
-          <span class="home-building-label">{{ .label }}</span>
-          {{- with .note }}
-          <span class="home-building-note">{{ . }}</span>
-          {{- end }}
-        </div>
-        {{- end }}
-      </li>
-      {{- end }}
-      {{- end }}
-    </ul>
-  </section>
-  {{- end }}
-
-  {{/* -------- Projects (highlighted personal work) -------- */}}
-  {{- if and ($home.show_projects | default true) $home.projects }}
-  <section class="home-projects" aria-labelledby="home-projects-title">
-    <div class="home-section-head">
-      <h2 id="home-projects-title">Projects</h2>
-      <p class="home-section-sub">Selected work — agents, sports tech, and the team I coach.</p>
-    </div>
-    <div class="home-projects-grid">
-      {{- range $home.projects }}
-      <article class="home-project-card">
-        {{- with .badge }}
-        <p class="home-project-badge">{{ . }}</p>
-        {{- end }}
-        <h3 class="home-project-title">{{ .title }}</h3>
-        {{- with .blurb }}
-        <p class="home-project-blurb">{{ . }}</p>
-        {{- end }}
-        <div class="home-project-links">
-          {{- $urlLabel := .url_label | default "Open" }}
-          {{- $secLabel := .secondary_label | default "More" }}
-          {{- with .url }}
-          <a class="home-project-link home-project-link--primary" href="{{ . }}"{{ if strings.HasPrefix . "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
-            {{ $urlLabel }} →
-          </a>
-          {{- end }}
-          {{- with .secondary_url }}
-          <a class="home-project-link" href="{{ . }}"{{ if strings.HasPrefix . "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
-            {{ $secLabel }}
-          </a>
-          {{- end }}
-        </div>
-      </article>
-      {{- end }}
-    </div>
-  </section>
-  {{- end }}
-
-  {{/* -------- Panel grid: topics + graph -------- */}}
-  <section class="home-panels home-panels--two" aria-label="Site panels">
-    {{- if $home.show_topic_rails | default true }}
-    <div class="home-panel home-panel--topics">
-      <h2 class="home-panel-title">Topics</h2>
-      <p class="home-panel-sub">Browse by curated bucket — full history, not just recent.</p>
-      <ul class="home-topic-chips">
-        {{- $topics := site.Taxonomies.topics }}
-        {{- if $topics }}
-          {{- range $name, $weighted := $topics }}
-          <li>
-            <a class="home-chip" href="{{ printf "/topics/%s/" ($name | urlize) | relURL }}">
-              <span class="home-chip-label">{{ $name }}</span>
-              <span class="home-chip-count">{{ len $weighted }}</span>
-            </a>
-          </li>
-          {{- end }}
-        {{- else }}
-          <li class="home-panel-empty">Topics will appear as posts are tagged.</li>
-        {{- end }}
-      </ul>
-    </div>
-    {{- end }}
-
-    {{- if $home.show_graph_pane | default true }}
-    <div class="home-panel home-panel--graph">
-      <h2 class="home-panel-title">Post graph</h2>
-      <p class="home-panel-sub">How posts connect by shared topics and tags.</p>
-      <a class="home-graph-card" href="{{ "/graph/" | relURL }}">
-        <span class="home-graph-visual" aria-hidden="true">
-          <span class="home-graph-dot"></span>
-          <span class="home-graph-dot"></span>
-          <span class="home-graph-dot"></span>
-          <span class="home-graph-dot"></span>
-          <span class="home-graph-line"></span>
-          <span class="home-graph-line home-graph-line--2"></span>
-        </span>
-        <span class="home-graph-cta">Open interactive graph →</span>
-      </a>
-    </div>
-    {{- end }}
-  </section>
-
-  {{/* -------- Recent desk (magazine strip, not full archive) -------- */}}
-  {{- with $recent }}
-  <section class="home-recent" aria-labelledby="home-recent-title">
-    <div class="home-section-head">
-      <h2 id="home-recent-title">Recent</h2>
-      <p class="home-section-sub">Latest notes — not the full back catalog.</p>
-    </div>
-    <div class="home-recent-grid">
-      {{- range . }}
-      <article class="home-card">
-        {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
-        {{- $cover := (.Param "cover.image") | default "" }}
-        {{- if and $cover (not $isHidden) }}
-        <a class="home-card-media" href="{{ .RelPermalink }}" tabindex="-1" aria-hidden="true">
-          <img src="{{ $cover | relURL }}" alt="" loading="lazy" />
-        </a>
-        {{- end }}
-        <div class="home-card-body">
-          <p class="home-meta">
-            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
-          </p>
-          <h3 class="home-card-title">
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          </h3>
+  <section class="ledger-section" aria-labelledby="ledger-writing">
+    <h2 class="ledger-h" id="ledger-writing">Writing</h2>
+    <ol class="ledger-list">
+      {{- range $featured }}
+      <li class="ledger-row ledger-row--lead">
+        <time class="ledger-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+        <div class="ledger-main">
+          <h3 class="ledger-post"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
           {{- if (ne (.Param "hideSummary") true) }}
-          <p class="home-card-summary">{{ .Summary | plainify | htmlUnescape | truncate 140 }}</p>
-          {{- end }}
-          {{- with .GetTerms "topics" }}
-          <ul class="home-card-topics">
-            {{- range . }}
-            <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
-            {{- end }}
-          </ul>
+          <p class="ledger-sum">{{ .Summary | plainify | htmlUnescape | truncate 200 }}</p>
           {{- end }}
         </div>
-      </article>
+      </li>
       {{- end }}
-    </div>
+      {{- range $recent }}
+      <li class="ledger-row">
+        <time class="ledger-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+        <div class="ledger-main">
+          <h3 class="ledger-post"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        </div>
+      </li>
+      {{- end }}
+    </ol>
+    <p class="ledger-more"><a href="{{ "/archives/" | relURL }}">All {{ len $pages }} posts →</a></p>
   </section>
-  {{- end }}
 
-  {{/* -------- From the archives -------- */}}
-  {{- with $fromArchive }}
-  <section class="home-archives-strip" aria-labelledby="home-archives-title">
-    <div class="home-section-head">
-      <h2 id="home-archives-title">From the archives</h2>
-      <p class="home-section-sub">Older posts worth a look — {{ len $pages }} total in the library.</p>
-    </div>
-    <ul class="home-archive-list">
-      {{- range . }}
+  {{- if and ($home.show_building | default true) $home.building }}
+  <section class="ledger-section" aria-labelledby="ledger-building">
+    <h2 class="ledger-h" id="ledger-building">Currently building</h2>
+    <ul class="ledger-building">
+      {{- range $home.building }}
       <li>
-        <a class="home-archive-row" href="{{ .RelPermalink }}">
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006" }}</time>
-          <span class="home-archive-row-title">{{ .Title }}</span>
+        <a href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
+          <span class="ledger-b-name">{{ .label }}</span>
+          {{- with .note }}<span class="ledger-b-note">{{ . }}</span>{{ end }}
         </a>
       </li>
       {{- end }}
     </ul>
-    <p class="home-archives-cta">
-      <a class="home-btn home-btn--primary" href="{{ "/archives/" | relURL }}">Browse all archives →</a>
-    </p>
   </section>
-  {{- else }}
-  <section class="home-archives-strip">
-    <p class="home-archives-cta">
-      <a class="home-btn home-btn--primary" href="{{ "/archives/" | relURL }}">Browse all archives →</a>
-    </p>
+  {{- end }}
+
+  {{- $topics := site.Taxonomies.topics }}
+  {{- if and ($home.show_topic_rails | default true) $topics }}
+  <section class="ledger-section" aria-labelledby="ledger-topics">
+    <h2 class="ledger-h" id="ledger-topics">Topics</h2>
+    <ul class="ledger-chips">
+      {{- range $name, $weighted := $topics }}
+      <li><a href="{{ printf "/topics/%s/" ($name | urlize) | relURL }}"><span>{{ $name }}</span><b>{{ len $weighted }}</b></a></li>
+      {{- end }}
+    </ul>
   </section>
   {{- end }}
 </div>
 
 {{- $homeJS := resources.Get "js/home.js" | resources.Minify | fingerprint }}
 <script src="{{ $homeJS.RelPermalink }}" integrity="{{ $homeJS.Data.Integrity }}" defer></script>
-{{- end }}{{/* end profileMode */}}
 
 {{- end }}{{/* end main */}}

@@ -35,13 +35,13 @@ posts = calm reading. Don’t put About-level WebGL noise on every post page.
 | [`hugo.toml`](../hugo.toml) → `[params.home]` / `[[params.home.projects]]` | Home counts, toggles, status line, **projects cards** |
 | [`hugo.toml`](../hugo.toml) → `[params.homeInfoParams]` | Sidebar bio (every page), avatar |
 | [`content/about.md`](../content/about.md) | About copy + structured data under `[about]` front matter |
-| [`layouts/index.html`](../layouts/index.html) | Home shell (hero, featured, projects, panels, recent, archives) |
+| [`layouts/index.html`](../layouts/index.html) | Home "Ledger" (hero with one motion look, writing index, building, topics) |
 | [`layouts/about.html`](../layouts/about.html) | About portfolio layout |
 | [`layouts/partials/about-constellation.html`](../layouts/partials/about-constellation.html) | SVG constellation + JSON blob for WebGL |
 | [`layouts/partials/sidebar.html`](../layouts/partials/sidebar.html) | Persistent bio rail |
 | [`assets/css/extended/00-tokens.css`](../assets/css/extended/00-tokens.css) | Shared `--ds-*` color/type/space/motion tokens |
 | [`assets/css/extended/custom.css`](../assets/css/extended/custom.css) | Console theme + home + About styles (PaperMod aliases) |
-| [`assets/js/home-hero-webgl.js`](../assets/js/home-hero-webgl.js) | Home hero particle field |
+| [`assets/js/home.js`](../assets/js/home.js) | Mounts the shader-loop look (`static/motion/looks/shader-loop/`) behind the hero |
 | [`assets/js/about-constellation.js`](../assets/js/about-constellation.js) | About cluster highlight + Three.js constellation |
 | [`layouts/graph.html`](../layouts/graph.html) | Post graph page (separate stack: force-graph CDN) |
 
@@ -67,13 +67,10 @@ layout dir is `_partials/` on current PaperMod).
 
 Home **does not paginate the full post archive**. It shows:
 
-1. **Hero** — status line, CTAs (About / Archives / Graph), optional WebGL field  
-2. **Featured** — newest `featured_count` posts (magazine card)  
-3. **Projects** — cards from `[[params.home.projects]]`  
-4. **Panels** — topics chips + graph teaser  
-5. **Recent** — next `recent_count` posts (short desk)  
-6. **From the archives** — up to `archive_picks` posts with `Date.Year < archive_before_year`  
-7. **CTA** → `/archives/` for the full library  
+1. **Hero** — name + bio over one quiet motion look (shader-loop contour field; paused off-screen, one still frame under reduced motion)  
+2. **Writing** — newest `featured_count` post with summary, then `recent_count` posts as a dated index, then a link to `/archives/`  
+3. **Currently building** — `[[params.home.building]]`  
+4. **Topics** — chips from the `topics` taxonomy  
 
 Config: `[params.home]` in `hugo.toml`.
 
@@ -188,7 +185,7 @@ Hard rules that have already bitten agents:
 
 | Page | Script | Library | Purpose |
 |------|--------|---------|---------|
-| Home | `home-hero-webgl.js` | Three.js r170 CDN (UMD) | Soft particle / signal field behind hero |
+| Home | `static/motion/looks/shader-loop/` (iframe, own tiny engine) | none | Contour-line field behind hero; no CDN |
 | About | `about-constellation.js` | Three.js r170 CDN (UMD) | 3D system map + orbit drag |
 | Graph | inline in `graph.html` | force-graph CDN | 2D force layout of posts |
 

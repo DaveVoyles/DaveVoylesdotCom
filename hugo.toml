@@ -75,16 +75,8 @@ msapplication_TileColor = "#0a0f0c"
 [params.home]
 featured_count = 1
 recent_count = 5
-archive_picks = 3
 show_topic_rails = true
-show_projects = false
-show_graph_pane = true
-show_webgl_hero = true
-show_status_embed = true
 show_building = true
-# Archive picks are drawn from posts older than this year so the desk
-# stays "current" while the magazine still surface-links the back catalog.
-archive_before_year = 2020
 
 # "Currently building" strip on the homepage — hand-edited, keep honest.
 [[params.home.building]]
