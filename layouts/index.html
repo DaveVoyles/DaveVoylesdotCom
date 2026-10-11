@@ -54,23 +54,23 @@
   {{/* -------- Hero (magazine status + WebGL field) -------- */}}
   <header class="home-hero">
     {{- if $home.show_webgl_hero | default true }}
-    <div class="home-hero-webgl" data-home-webgl aria-hidden="true"></div>
+    {{- $heroJS := resources.Get "js/home-hero-webgl.js" | resources.Minify | fingerprint }}
+    <div class="home-hero-webgl" data-home-webgl data-webgl-src="{{ $heroJS.RelPermalink }}" aria-hidden="true"></div>
     {{- end }}
     <div class="home-hero-inner">
-      {{- with $home.status_label }}
-      <p class="home-status-label">{{ . }}</p>
-      {{- end }}
-      <h1 class="home-hero-title">
-        <span class="home-hero-kicker">~/blog</span>
-        <span class="home-hero-line">{{ $home.status | default site.Params.description }}</span>
-      </h1>
-      <div class="home-hero-actions">
-        <a class="home-btn home-btn--primary" href="{{ "/about/" | relURL }}">About</a>
-        <a class="home-btn" href="{{ "/archives/" | relURL }}">Full archives</a>
-        <a class="home-btn" href="{{ "/graph/" | relURL }}">Graph</a>
-      </div>
+      <h1 class="home-hero-title">{{ site.Title }}</h1>
+      <p class="home-hero-lede">{{ site.Params.homeInfoParams.Content }}</p>
     </div>
   </header>
+
+  {{/* -------- Status: agent-loop animation (iframe mounted lazily by home.js) -------- */}}
+  {{- if $home.show_status_embed | default true }}
+  <section class="home-status" aria-label="Agent loop animation">
+    <div class="home-status-card">
+      <div class="home-emb" data-embed="{{ "/motion/looks/agent-loop/index.html" | relURL }}" data-label="Agent loop: think, call a tool, observe"></div>
+    </div>
+  </section>
+  {{- end }}
 
   {{/* -------- Magazine featured -------- */}}
   {{- with $featured }}
@@ -119,13 +119,17 @@
       <p class="home-section-sub">What I’m actively working on — not a full portfolio dump.</p>
     </div>
     <ul class="home-building-list home-building-list--cards">
-      {{- range $home.building }}
+      {{- range $i, $b := $home.building }}
+      {{- with $b }}
       <li class="home-building-item">
         {{- if .url }}
-        <a class="home-building-card" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
+        <a class="home-building-card" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}{{ if eq $i 0 }} data-lift="{{ "/motion/looks/layer-stack/index.html" | relURL }}"{{ end }}>
           <span class="home-building-label">{{ .label }}</span>
           {{- with .note }}
           <span class="home-building-note">{{ . }}</span>
+          {{- end }}
+          {{- if eq $i 0 }}
+          <span class="home-lift" aria-hidden="true"><span class="home-emb"></span></span>
           {{- end }}
         </a>
         {{- else }}
@@ -137,6 +141,7 @@
         </div>
         {{- end }}
       </li>
+      {{- end }}
       {{- end }}
     </ul>
   </section>
@@ -293,11 +298,8 @@
   {{- end }}
 </div>
 
-{{- if $home.show_webgl_hero | default true }}
-{{- $homeJS := resources.Get "js/home-hero-webgl.js" | resources.Minify | fingerprint }}
+{{- $homeJS := resources.Get "js/home.js" | resources.Minify | fingerprint }}
 <script src="{{ $homeJS.RelPermalink }}" integrity="{{ $homeJS.Data.Integrity }}" defer></script>
-{{- end }}
-
 {{- end }}{{/* end profileMode */}}
 
 {{- end }}{{/* end main */}}

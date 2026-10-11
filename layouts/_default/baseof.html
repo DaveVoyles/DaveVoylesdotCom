@@ -35,10 +35,12 @@
     <a class="skip-link" href="#main-content">Skip to content</a>
     {{ partialCached "header.html" . .Page -}}
     <main class="main" id="main-content">
-        <div class="page-shell">
+        <div class="page-shell{{ if or .IsHome (eq .Layout "about") }} page-shell--solo{{ end }}">
+            {{- if not (or .IsHome (eq .Layout "about")) }}
             <aside class="site-sidebar">
                 {{- partial "sidebar.html" . }}
             </aside>
+            {{- end }}
             <div class="page-shell-content">
                 {{- block "main" . }}{{ end }}
             </div>

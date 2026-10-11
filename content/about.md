@@ -2,7 +2,7 @@
 title = "About"
 layout = "about"
 url = "/about/"
-description = "Former Senior Technical Program Manager at Xbox/Microsoft — builder-first TPM bridging deep tech, agent orchestration, and platform delivery from Philadelphia."
+description = "I help developers get the most out of AI tooling as an evangelist at Salesforce, after years as a Software Engineer and Technical Program Manager at Xbox/Microsoft. Head lacrosse coach at Harriton High School (Lower Merion, PA). I write about AI/agents, cloud, games — plus whatever I'm building on the side."
 ShowToc = false
 hideMeta = true
 hideReadingTime = true
@@ -15,15 +15,15 @@ hideReadingTime = true
 # ---------------------------------------------------------------------------
 
 [about]
-badge = "TPM / BUILDER"
+badge = "EVANGELIST / BUILDER"
 headline = "Hi, I'm Dave."
 headline_accent = "I bridge deep tech with execution rigor."
-lede = "Former Senior Technical Program Manager at Xbox/Microsoft. I spent years shipping platform systems at scale — and now I build the agent fleets that help engineering work get done under real controls."
+lede = "I help developers get the most out of AI tooling as an evangelist at Salesforce, after years as a Software Engineer and Technical Program Manager at Xbox/Microsoft. Head lacrosse coach at Harriton High School (Lower Merion, PA). I write about AI/agents, cloud, games — plus whatever I'm building on the side."
 location = "Philadelphia, PA · Remote-US"
 photo = "/images/posts/Dave_Debbie.jpeg"
 photo_alt = "Dave Voyles"
 focus = "Builder-first TPM / agent platform work — production systems with real controls, not demo-only chatbots."
-building = "Agent fleets on a Dockerized homelab, evidence-backed resume tooling, sports tech (Philly Lax + CFB playbooks), and head coach at Harriton lacrosse."
+building = "Agent fleets on a Dockerized homelab, evidence-backed resume tooling, and sports tech (Philly Lax + CFB playbooks)."
 
 [[about.ctas]]
 label = "LinkedIn"

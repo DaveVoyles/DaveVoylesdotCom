@@ -1,7 +1,7 @@
 /*
  * --ds-* design tokens (web-design-standards, plan 0084 D12, issue #141).
- * Identity: light-first professional (warm off-white canvas, near-navy ink)
- * with console-green accent. Dark is optional via the theme toggle.
+ * Identity: dark-first (green-black canvas, soft mint ink; light is opt-in via the toggle)
+ * with console-green accent. Light is the opt-in toggle (issue #184).
  *
  * Post Standard v1.1 visual grammar (MainVault ef4d637):
  *   canvas / surface / ink
@@ -87,24 +87,24 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --ds-canvas: rgb(13, 15, 13);
-    --ds-surface: rgb(18, 22, 17);
-    --ds-ink: rgb(230, 234, 242);
+    --ds-canvas: rgb(10, 15, 12);
+    --ds-surface: rgb(16, 24, 19);
+    --ds-ink: rgb(232, 241, 234);
     --ds-bg: var(--ds-canvas);
     --ds-bg-elevated: var(--ds-surface);
-    --ds-border: rgb(38, 48, 38);
+    --ds-border: rgb(31, 47, 37);
     --ds-text: var(--ds-ink);
-    --ds-text-muted: rgb(138, 148, 162);
-    --ds-accent: rgb(95, 184, 122);
-    --ds-accent-fg: rgb(13, 15, 13);
-    --ds-success: rgb(95, 184, 122);
+    --ds-text-muted: rgb(147, 166, 154);
+    --ds-accent: rgb(127, 211, 154);
+    --ds-accent-fg: rgb(10, 15, 12);
+    --ds-success: rgb(127, 211, 154);
     --ds-warn: rgb(214, 168, 72);
     --ds-error: rgb(214, 104, 96);
-    --ds-link: rgb(95, 184, 122);
-    --ds-content: rgb(198, 206, 218);
-    --ds-tertiary: rgb(38, 48, 38);
-    --ds-code-bg: rgb(26, 32, 24);
-    --ds-code-block-bg: rgb(18, 22, 17);
+    --ds-link: rgb(127, 211, 154);
+    --ds-content: rgb(195, 211, 200);
+    --ds-tertiary: rgb(31, 47, 37);
+    --ds-code-bg: rgb(20, 32, 25);
+    --ds-code-block-bg: rgb(16, 24, 19);
     --ds-human: rgb(110, 168, 230);
     --ds-verified: rgb(80, 196, 184);
     --ds-review: rgb(232, 176, 80);
@@ -117,24 +117,24 @@
 /* Explicit user choice — must mirror the media block above. */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --ds-canvas: rgb(13, 15, 13);
-  --ds-surface: rgb(18, 22, 17);
-  --ds-ink: rgb(230, 234, 242);
+  --ds-canvas: rgb(10, 15, 12);
+  --ds-surface: rgb(16, 24, 19);
+  --ds-ink: rgb(232, 241, 234);
   --ds-bg: var(--ds-canvas);
   --ds-bg-elevated: var(--ds-surface);
-  --ds-border: rgb(38, 48, 38);
+  --ds-border: rgb(31, 47, 37);
   --ds-text: var(--ds-ink);
-  --ds-text-muted: rgb(138, 148, 162);
-  --ds-accent: rgb(95, 184, 122);
-  --ds-accent-fg: rgb(13, 15, 13);
-  --ds-success: rgb(95, 184, 122);
+  --ds-text-muted: rgb(147, 166, 154);
+  --ds-accent: rgb(127, 211, 154);
+  --ds-accent-fg: rgb(10, 15, 12);
+  --ds-success: rgb(127, 211, 154);
   --ds-warn: rgb(214, 168, 72);
   --ds-error: rgb(214, 104, 96);
-  --ds-link: rgb(95, 184, 122);
-  --ds-content: rgb(198, 206, 218);
-  --ds-tertiary: rgb(38, 48, 38);
-  --ds-code-bg: rgb(26, 32, 24);
-  --ds-code-block-bg: rgb(18, 22, 17);
+  --ds-link: rgb(127, 211, 154);
+  --ds-content: rgb(195, 211, 200);
+  --ds-tertiary: rgb(31, 47, 37);
+  --ds-code-bg: rgb(20, 32, 25);
+  --ds-code-block-bg: rgb(16, 24, 19);
   --ds-human: rgb(110, 168, 230);
   --ds-verified: rgb(80, 196, 184);
   --ds-review: rgb(232, 176, 80);

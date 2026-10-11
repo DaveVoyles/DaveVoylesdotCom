@@ -1,0 +1,180 @@
+/* Dark-first interactive layer (issue #184). Loads after custom.css. */
+
+html { scroll-behavior: smooth; }
+
+/* Home and About carry their own bio, so they run without the sidebar rail. */
+.page-shell--solo { grid-template-columns: minmax(0, 1fr) !important; }
+
+/* --- Hero --- */
+.home-hero {
+  min-height: min(72vh, 600px);
+  display: flex;
+  align-items: center;
+  border-color: var(--border);
+  background:
+    radial-gradient(60% 80% at 20% 30%, #10301f 0, transparent 70%),
+    radial-gradient(50% 70% at 85% 70%, #0c2a30 0, transparent 70%),
+    var(--theme);
+}
+.home-hero-webgl { opacity: 1; }
+.home-hero-inner { width: 100%; max-width: 44rem; padding: 3.5rem 1.5rem; pointer-events: none; }
+.home-hero-inner a { pointer-events: auto; }
+.home-hero-inner::before {
+  content: "";
+  position: absolute;
+  inset: -40px -60px;
+  z-index: -1;
+  background: radial-gradient(closest-side, rgba(6, 11, 8, 0.78), rgba(6, 11, 8, 0.5) 60%, transparent);
+  pointer-events: none;
+}
+.home-hero-kicker {
+  margin: 0;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: var(--ds-fs-2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.home-hero-title {
+  margin: 0.6rem 0 1.1rem;
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  background: linear-gradient(100deg, #f2fbf4 20%, var(--accent) 60%, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.home-hero-lede {
+  margin: 0 0 1.6rem;
+  max-width: 38rem;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.6;
+  color: var(--content);
+  text-shadow: 0 2px 24px rgba(5, 10, 7, 0.7);
+}
+.home-btn--primary { background: #1f6b3c; border-color: #2a8a4f; color: #fff; }
+.home-btn--primary:hover, .home-btn--primary:focus-visible { background: #26834b; color: #fff; filter: none; }
+
+/* --- Status card (agent loop) --- */
+.home-status { margin-bottom: calc(var(--gap) * 1.5); }
+.home-status-card {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--entry);
+  overflow: hidden;
+}
+.home-status-line { margin: 0 0 0.6rem; font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; color: var(--primary); }
+.home-status-sub { margin: 0; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: var(--ds-fs-2); color: var(--secondary); }
+.home-emb { border-radius: 10px; overflow: hidden; }
+.home-emb iframe { display: block; }
+
+/* --- Building cards: spotlight, tilt, layer-stack lift --- */
+.home-building-list--cards { perspective: 900px; align-items: start; }
+a.home-building-card {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease-out, border-color var(--ds-dur-fast);
+  will-change: transform;
+}
+a.home-building-card.is-live { transition: transform 0.06s linear, border-color var(--ds-dur-fast); }
+a.home-building-card::before,
+a.home-building-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+a.home-building-card::before { background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(127, 211, 154, 0.18), transparent 65%); }
+a.home-building-card::after {
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%), var(--accent), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+a.home-building-card:hover::before, a.home-building-card:hover::after,
+a.home-building-card:focus-visible::before, a.home-building-card:focus-visible::after { opacity: 1; }
+.home-lift { display: block; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.45s ease, opacity 0.35s, margin 0.35s; }
+.home-lift .home-emb { display: block; width: min(300px, 100%); margin: 0 auto; }
+a.home-building-card.is-open .home-lift { max-height: 330px; opacity: 1; margin-top: 0.85rem; }
+
+/* --- Command palette --- */
+.cmdk-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: var(--ds-space-3);
+  height: 28px;
+  line-height: 1;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--entry);
+  color: var(--secondary);
+  font: 13px ui-monospace, "SF Mono", Menlo, monospace;
+  cursor: pointer;
+}
+.cmdk-btn:hover { border-color: var(--accent); color: var(--primary); }
+.cmdk-btn kbd, #cmdk kbd {
+  font: 12px ui-monospace, "SF Mono", Menlo, monospace;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 0 5px;
+  color: var(--secondary);
+  background: var(--theme);
+}
+#cmdk {
+  position: fixed; inset: 0; z-index: 1000; display: none;
+  align-items: flex-start; justify-content: center; padding: 12vh 16px 0;
+  background: rgba(3, 6, 4, 0.62); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+}
+#cmdk.on { display: flex; }
+.cmdk-box { width: min(640px, 100%); background: var(--entry); border: 1px solid #2a4435; border-radius: 14px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6); overflow: hidden; animation: cmdk-pop 0.14s ease-out; }
+@keyframes cmdk-pop { from { transform: scale(0.97) translateY(-6px); opacity: 0; } }
+.cmdk-input { width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--border); padding: 16px 18px; color: var(--primary); font-size: 17px; outline: none; }
+.cmdk-res { list-style: none; margin: 0; padding: 6px; max-height: min(52vh, 420px); overflow: auto; }
+.cmdk-res li a { display: flex; flex-direction: column; gap: 3px; padding: 9px 12px; border-radius: 8px; color: var(--primary); text-decoration: none; }
+.cmdk-res li[aria-selected="true"] a { background: var(--tertiary); box-shadow: inset 2px 0 0 var(--accent); }
+.cmdk-t { font-size: 15px; }
+.cmdk-m { font: 12px ui-monospace, "SF Mono", Menlo, monospace; color: var(--secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cmdk-res mark { background: transparent; color: var(--accent); font-weight: 700; }
+.cmdk-none { padding: 10px 12px; color: var(--secondary); font: 13px ui-monospace, monospace; }
+.cmdk-foot { display: flex; gap: 14px; padding: 8px 14px; border-top: 1px solid var(--border); font: 12px ui-monospace, monospace; color: var(--secondary); }
+
+@media (max-width: 820px) {
+  .home-status-card { grid-template-columns: 1fr; padding: 1.1rem; }
+  .cmdk-btn kbd { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  a.home-building-card, a.home-building-card.is-live { transition: none; transform: none !important; }
+  .home-lift { transition: none; }
+  .cmdk-box { animation: none; }
+  .home-hero-webgl { display: block !important; }
+}
+
+.cmdk-btn { align-self: center; height: 28px !important; min-height: 0 !important; padding: 0 10px !important; }
+@media (max-width: 640px) { .cmdk-btn { display: none; } }
+
+/* Critique pass: fewer elements, clearer hierarchy. */
+.home-hero { min-height: min(66vh, 560px); }
+.home-hero-title { white-space: nowrap; font-size: clamp(2.6rem, 8.5vw, 6rem); margin: 0 0 1.4rem; }
+.home-hero-lede { font-size: 1.125rem; margin: 0; }
+.home-status-card { display: block; padding: 1.25rem 1.75rem; }
+.home-status-card .home-emb { max-width: 760px; margin: 0 auto; }
+.home-featured, .home-building, .home-status, .home-panels, .home-recent { margin-bottom: calc(var(--gap) * 2.25); }
+@media (max-width: 820px) { .home-status-card { padding: 0.9rem; } }
