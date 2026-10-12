@@ -18,7 +18,7 @@
   <header class="about-hero">
     <div class="about-hero-main">
       {{- with $a.photo }}
-      <div class="about-hero-photo">
+      <div class="about-hero-photo" data-fx="film-grade:warm,grain=0.25,vignette=0.3">
         <img
           src="{{ . | relURL }}"
           alt="{{ $a.photo_alt | default "Dave Voyles" }}"

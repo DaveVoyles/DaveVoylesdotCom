@@ -1,0 +1,20 @@
+/* fx: cancels the layout a section carries when its class had to go on <html> (no section wrapper of its own), and adds
+   the few rules attribute-composed elements need. Loaded first in <head>, so the page's own CSS wins ties. */
+html.sx-fx-scope { padding: 0; border: 0; background: none; }
+
+/* film-grade over content: the graded image is a backdrop, the box is as tall as its content */
+.sx-fx-backdrop.sx-film-grade__box { aspect-ratio: auto; border: 0; border-radius: 0; background: none; }
+.sx-fx-backdrop > .sx-film-grade__src, .sx-fx-backdrop > .sx-film-grade__canvas { z-index: 0; }
+
+/* glass-panels on a plain element: real HTML cards, CSS glass until the canvas is live */
+.sx-glass-panels.sx-fx:not(.is-live) [data-glass] { border-radius: 22px; border: 1px solid color-mix(in srgb, var(--ds-text) 16%, transparent); background: color-mix(in srgb, var(--ds-text) 7%, transparent); -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3); }
+.sx-glass-panels.sx-fx [data-glass] { position: relative; }
+.sx-glass-panels.sx-fx.is-live [data-glass] { text-shadow: 0 1px 14px color-mix(in srgb, var(--ds-bg) 55%, transparent); }
+
+/* chrome-type on any heading: no section-sized caps on width unless asked */
+.sx-fx[data-chrome="text"] { max-width: 14ch; }
+
+/* particle-field: an iframe layer behind the element's content */
+.sx-fx-host { position: relative; isolation: isolate; overflow: hidden; }
+.sx-fx-layer { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.sx-fx-layer iframe { width: 100%; height: 100%; }
