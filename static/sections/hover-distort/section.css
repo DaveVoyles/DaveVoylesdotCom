@@ -1,0 +1,19 @@
+/* hover-distort. Knobs: --sx-hd-ratio (hero aspect), data-distort-strength on the box (0-2). Boxes keep a fixed aspect ratio, so the canvas never shifts layout. */
+.sx-hover-distort { --sx-hd-ratio: 21 / 9; padding-block: var(--ds-space-8); border-bottom: 1px solid var(--ds-border); }
+.sx-hover-distort__eyebrow { font-family: var(--ds-font-mono); font-size: var(--ds-fs-1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ds-text-muted); margin-bottom: var(--ds-space-3); }
+.sx-hover-distort__title { font-size: clamp(1.625rem, 4.5vw, var(--ds-fs-7)); line-height: 1.12; letter-spacing: -0.02em; font-weight: 650; max-width: 22ch; text-wrap: balance; }
+.sx-hover-distort__box { position: relative; overflow: hidden; border-radius: var(--ds-radius-md); background: var(--ds-surface); border: 1px solid var(--ds-border); aspect-ratio: 4 / 3; isolation: isolate; }
+.sx-hover-distort__box img, .sx-hover-distort__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.sx-hover-distort__canvas { opacity: 0; transition: opacity var(--ds-dur-base) var(--ds-ease-out); touch-action: pan-y; }
+.sx-hover-distort__box.is-live .sx-hover-distort__canvas { opacity: 1; }
+.sx-hover-distort__box.is-live { cursor: crosshair; }
+.sx-hover-distort__hero { margin-top: var(--ds-space-7); aspect-ratio: var(--sx-hd-ratio); }
+.sx-hover-distort__grid { display: grid; gap: var(--ds-space-4); margin-top: var(--ds-space-4); }
+.sx-hover-distort__card figcaption { padding: var(--ds-space-3) var(--ds-space-1) 0; }
+.sx-hover-distort__card h3 { font-size: var(--ds-fs-4); font-weight: 600; letter-spacing: -0.01em; }
+.sx-hover-distort__card p { margin-top: var(--ds-space-1); color: var(--ds-text-muted); font-size: var(--ds-fs-2); }
+.sx-hover-distort__lens { margin-top: var(--ds-space-4); aspect-ratio: 21 / 9; }
+.sx-hover-distort__tag { position: absolute; left: var(--ds-space-4); bottom: var(--ds-space-4); z-index: 2; padding: var(--ds-space-1) var(--ds-space-3); border-radius: var(--ds-radius-full); background: color-mix(in srgb, var(--ds-bg) 72%, transparent); border: 1px solid var(--ds-border); font-family: var(--ds-font-mono); font-size: var(--ds-fs-1); color: var(--ds-text); pointer-events: none; }
+@media (min-width: 640px) { .sx-hover-distort__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .sx-hover-distort__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sx-hover-distort { padding-block: 96px; } }
+@media (max-width: 639px) { .sx-hover-distort__hero { aspect-ratio: 4 / 3; } .sx-hover-distort__lens { aspect-ratio: 4 / 3; } }

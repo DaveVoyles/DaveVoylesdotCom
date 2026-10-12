@@ -1,0 +1,9 @@
+{{- /* {{< fx name="chrome-type" tag="h2" >}}text{{< /fx >}} wraps content in an element carrying data-fx. tag is allowlisted. */ -}}
+{{- $name := .Get "name" | default (.Get 0) -}}
+{{- $tag := .Get "tag" | default "div" -}}
+{{- $allowed := slice "div" "span" "p" "h1" "h2" "h3" "h4" "h5" "h6" "section" "figure" "a" -}}
+{{- if not (in $allowed $tag) -}}
+  {{- errorf "fx shortcode: tag %q not allowed (use one of %s) at %s" $tag (delimit $allowed ", ") .Position -}}
+{{- end -}}
+{{- .Page.Store.Set "fx" true -}}
+{{- printf `<%s data-fx="%s">%s</%s>` $tag ($name | htmlEscape) (.Inner | markdownify) $tag | safeHTML -}}

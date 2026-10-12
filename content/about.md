@@ -4,6 +4,7 @@ layout = "about"
 url = "/about/"
 description = "I help developers get the most out of AI tooling as an evangelist at Salesforce, after years as a Software Engineer and Technical Program Manager at Xbox/Microsoft. Head lacrosse coach at Harriton High School (Lower Merion, PA). I write about AI/agents, cloud, games — plus whatever I'm building on the side."
 ShowToc = false
+fx = true
 hideMeta = true
 hideReadingTime = true
 
