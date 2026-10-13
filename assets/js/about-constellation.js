@@ -657,8 +657,10 @@
     window.addEventListener("resize", onResize);
 
     let raf = 0;
+    let inView = true;
     const clock = new THREE.Clock();
     function frame() {
+      if (!inView) { raf = 0; return; }
       raf = requestAnimationFrame(frame);
       const t = clock.getElapsedTime();
 
@@ -682,6 +684,11 @@
       projectLabels();
       renderer.render(scene, camera);
     }
+    // Pause the render loop while the figure is off-screen.
+    new IntersectionObserver((es) => {
+      inView = es[0].isIntersecting;
+      if (inView && !raf) frame();
+    }).observe(host);
     frame();
 
     renderer.domElement.addEventListener(
