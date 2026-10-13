@@ -9,7 +9,7 @@
 
 /* ==========================================================================
    1. Token aliases (PaperMod consumes --theme / --entry / --primary / …)
-   Dark values live on :root[data-theme="dark"] in 00-tokens.css.
+   Dark is the only theme; values live on :root in 00-tokens.css.
    ========================================================================== */
 
 /* ds-alias-allow-begin */
@@ -35,20 +35,6 @@
   --nav-width: 1440px;
   --sidebar-width: 240px;
   --toc-rail-width: 280px;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --theme: var(--ds-bg);
-    --entry: var(--ds-surface);
-    --primary: var(--ds-text);
-    --secondary: var(--ds-text-muted);
-    --tertiary: var(--ds-tertiary);
-    --content: var(--ds-content);
-    --code-block-bg: var(--ds-code-block-bg);
-    --code-bg: var(--ds-code-bg);
-    --border: var(--ds-border);
-    --accent: var(--ds-accent);
-  }
 }
 /* ds-alias-allow-end */
 

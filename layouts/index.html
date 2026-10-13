@@ -27,7 +27,7 @@
   </header>
 
   <section class="ledger-section" aria-labelledby="ledger-writing">
-    <h2 class="ledger-h" id="ledger-writing">Writing</h2>
+    <h2 class="sr-only" id="ledger-writing">Writing</h2>
     <ol class="ledger-list">
       {{- range $featured }}
       <li class="ledger-row ledger-row--lead">
@@ -54,12 +54,12 @@
 
   {{- if and ($home.show_building | default true) $home.building }}
   <section class="ledger-section" aria-labelledby="ledger-building">
-    <h2 class="ledger-h" id="ledger-building">Currently building</h2>
+    <h2 class="sr-only" id="ledger-building">Currently building</h2>
     <ul class="ledger-building">
       {{- range $home.building }}
       <li>
         <a href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
-          <span class="ledger-b-name">{{ .label }}</span>
+          <span class="ledger-b-name">{{ .label }}{{ if strings.HasPrefix .url "http" }}<span class="sr-only"> (opens in a new tab)</span>{{ end }}</span>
           {{- with .note }}<span class="ledger-b-note">{{ . }}</span>{{ end }}
         </a>
       </li>
@@ -71,9 +71,10 @@
   {{- $topics := site.Taxonomies.topics }}
   {{- if and ($home.show_topic_rails | default true) $topics }}
   <section class="ledger-section" aria-labelledby="ledger-topics">
-    <h2 class="ledger-h" id="ledger-topics">Topics</h2>
+    <h2 class="sr-only" id="ledger-topics">Topics</h2>
     <ul class="ledger-chips">
-      {{- range $name, $weighted := $topics }}
+      {{- range $topics.ByCount }}
+      {{- $name := .Page.Title }}{{ $weighted := .Pages }}
       <li><a href="{{ printf "/topics/%s/" ($name | urlize) | relURL }}"><span>{{ $name }}</span><b>{{ len $weighted }}</b></a></li>
       {{- end }}
     </ul>

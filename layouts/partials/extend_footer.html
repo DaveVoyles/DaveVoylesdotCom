@@ -1,3 +1,5 @@
 {{- /* Cmd/Ctrl-K palette (issue #184): small, deferred, loads post data only on first open. */ -}}
 {{- $cmdk := resources.Get "js/cmdk.js" | resources.Minify | fingerprint }}
 <script src="{{ $cmdk.RelPermalink }}" integrity="{{ $cmdk.Data.Integrity }}" defer></script>
+{{- $pill := resources.Get "js/nav-pill.js" | resources.Minify | fingerprint }}
+<script src="{{ $pill.RelPermalink }}" integrity="{{ $pill.Data.Integrity }}" defer></script>

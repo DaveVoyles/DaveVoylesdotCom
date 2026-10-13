@@ -51,11 +51,13 @@ privacyEnhanced = true
 
 [params]
 author = 'Dave Voyles'
-description = 'Blog by Dave Voyles'
+description = 'Dave Voyles writes about AI, agents, cloud and games: notes from building and running real systems.'
+homeTitle = 'Dave Voyles · AI, agents, cloud and games'
 
 # Dark is first paint (issue #184). Light stays on the PaperMod toggle (opt-in).
 # When this is "auto", OS dark preference becomes the default.
 defaultTheme = "dark"
+disableThemeToggle = true
 
 # Site-wide TOC default (plan 0004 / D3): `.Param "ShowToc"` in
 # layouts/single.html checks page frontmatter first, falling back to this
@@ -136,7 +138,7 @@ url_label = "Team site"
 [params.homeInfoParams]
 Title = "Hi, I'm Dave 👋"
 Content = "I help developers get the most out of AI tooling as an evangelist at Salesforce, after years as a Software Engineer and Technical Program Manager at Xbox/Microsoft. Head lacrosse coach at Harriton High School (Lower Merion, PA). I write about AI/agents, cloud, games — plus whatever I'm building on the side."
-Avatar = "/images/posts/Dave_Debbie.jpeg"
+Avatar = "/images/posts/Dave_Debbie-320.jpeg"
 AvatarAlt = "Dave Voyles and his wife"
 
 [[params.socialIcons]]

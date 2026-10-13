@@ -9,7 +9,7 @@
   overflow: hidden;
   display: flex;
   align-items: flex-end;
-  min-height: 26rem;
+  min-height: min(26rem, 55svh);
   border: 1px solid var(--border);
   border-radius: var(--ds-radius-md);
   background:
@@ -31,9 +31,10 @@
 .ledger-hero-in { width: 100%; padding: var(--ds-space-7) var(--ds-space-6); }
 .ledger-title {
   margin: 0 0 var(--ds-space-4);
-  font-size: clamp(3rem, 11vw, 6.5rem);
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-fs-display);
   line-height: 0.95;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   font-weight: 700;
   color: var(--ds-hero-title-from);
 }
@@ -47,14 +48,6 @@
 
 /* --- Sections --- */
 .ledger-section { margin-top: var(--ds-space-8); }
-.ledger-h {
-  margin: 0 0 var(--ds-space-3);
-  font: var(--ds-fs-1) ui-monospace, "SF Mono", Menlo, monospace;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--secondary);
-  font-weight: 500;
-}
 
 /* --- Writing index --- */
 .ledger-list { list-style: none; margin: 0; padding: 0; }
@@ -68,15 +61,15 @@
 }
 .ledger-row:last-child { border-bottom: 1px solid var(--border); }
 .ledger-date { font: var(--ds-fs-2) ui-monospace, "SF Mono", Menlo, monospace; color: var(--secondary); }
-.ledger-post { margin: 0; font-size: var(--ds-fs-5); line-height: 1.3; letter-spacing: -0.015em; font-weight: 600; }
+.ledger-post { font-family: var(--ds-font-display); margin: 0; font-size: var(--ds-fs-5); line-height: 1.3; letter-spacing: -0.015em; font-weight: 600; }
 .ledger-post a { color: var(--primary); text-decoration: none; }
 .ledger-post a:hover, .ledger-post a:focus-visible { color: var(--accent); }
 .ledger-row--lead { padding: var(--ds-space-5) 0; }
 .ledger-row--lead .ledger-post { font-size: var(--ds-fs-7); line-height: 1.15; letter-spacing: -0.025em; }
 .ledger-sum { margin: var(--ds-space-2) 0 0; max-width: 40rem; color: var(--secondary); font-size: var(--ds-fs-3); line-height: 1.55; }
-.ledger-topic { font: var(--ds-fs-2) ui-monospace, "SF Mono", Menlo, monospace; color: var(--accent); text-decoration: none; white-space: nowrap; }
+.ledger-topic { font-size: var(--ds-fs-2); color: var(--accent); text-decoration: none; white-space: nowrap; }
 .ledger-topic:hover, .ledger-topic:focus-visible { text-decoration: underline; }
-.ledger-more { margin: var(--ds-space-4) 0 0; font: var(--ds-fs-2) ui-monospace, "SF Mono", Menlo, monospace; }
+.ledger-more { margin: var(--ds-space-4) 0 0; font-size: var(--ds-fs-2); }
 .ledger-more a { color: var(--accent); text-decoration: none; }
 .ledger-more a:hover, .ledger-more a:focus-visible { text-decoration: underline; }
 
@@ -84,7 +77,7 @@
 .ledger-building { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--border); }
 .ledger-building li { border-bottom: 1px solid var(--border); }
 .ledger-building a { display: block; padding: var(--ds-space-4) 0; color: inherit; text-decoration: none; }
-.ledger-b-name { display: block; font: 600 var(--ds-fs-3) ui-monospace, "SF Mono", Menlo, monospace; color: var(--primary); }
+.ledger-b-name { display: block; font: 600 var(--ds-fs-4) var(--ds-font-display); letter-spacing: -0.01em; color: var(--primary); }
 .ledger-b-note { display: block; margin-top: var(--ds-space-1); font-size: var(--ds-fs-2); color: var(--secondary); line-height: 1.5; }
 .ledger-building a:hover .ledger-b-name, .ledger-building a:focus-visible .ledger-b-name { color: var(--accent); }
 
@@ -97,7 +90,7 @@
   padding: var(--ds-space-1) var(--ds-space-3);
   border: 1px solid var(--border);
   border-radius: var(--ds-radius-full);
-  font: var(--ds-fs-2) ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: var(--ds-fs-2);
   color: var(--secondary);
   text-decoration: none;
   transition: border-color var(--ds-dur-fast), color var(--ds-dur-fast);
@@ -106,8 +99,8 @@
 .ledger-chips b { font-weight: 500; color: var(--accent); }
 
 @media (max-width: 640px) {
-  .ledger-hero { min-height: 22rem; }
-  .ledger-hero-in { padding: var(--ds-space-6) var(--ds-space-4); }
+  .ledger-hero { min-height: min(20rem, 50svh); }
+  .ledger-hero-in { padding: var(--ds-space-5) var(--ds-space-4); }
   .ledger-row { grid-template-columns: 1fr; gap: var(--ds-space-1); }
   .ledger-row--lead .ledger-post { font-size: var(--ds-fs-6); }
   .ledger-topic { justify-self: start; margin-top: var(--ds-space-1); }
@@ -122,8 +115,47 @@
 
 /* --- Post pages share the home display face (sans), mono stays for chrome --- */
 .post-single .post-title {
-  font-family: inherit;
+  font-family: var(--ds-font-display);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
+
+/* --- Micro-motion (CSS only; every effect is off under reduced motion) --- */
+@media (prefers-reduced-motion: no-preference) {
+  .ledger-row { position: relative; transition: background-color var(--ds-dur-base) var(--ds-ease-out); }
+  .ledger-row::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--ds-space-3) * -1);
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform var(--ds-dur-base) var(--ds-ease-out);
+  }
+  .ledger-main { transition: transform var(--ds-dur-base) var(--ds-ease-out); }
+  .ledger-row:hover::before, .ledger-row:focus-within::before { transform: scaleY(1); }
+  .ledger-row:hover .ledger-main, .ledger-row:focus-within .ledger-main { transform: translateX(var(--ds-space-1)); }
+  .ledger-row:active .ledger-main { transform: translateX(var(--ds-space-1)) scale(0.99); transition-duration: var(--ds-dur-fast); }
+  .ledger-row--lead .ledger-sum { opacity: 0.6; transition: opacity var(--ds-dur-base) var(--ds-ease-out); }
+  .ledger-row--lead:hover .ledger-sum, .ledger-row--lead:focus-within .ledger-sum { opacity: 1; }
+  /* nav sliding pill (assets/js/nav-pill.js positions it) */
+  .menu { position: relative; }
+  .nav-pill {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 2rem;
+    margin-top: -1rem;
+    border-radius: var(--ds-radius-full);
+    background: var(--ds-spot);
+    pointer-events: none;
+    opacity: 0;
+    transition: transform var(--ds-dur-base) var(--ds-ease-out), width var(--ds-dur-base) var(--ds-ease-out), opacity var(--ds-dur-base);
+  }
+  .nav-pill.is-on { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .nav-pill { display: none; } }

@@ -18,7 +18,14 @@
      data-alt="{{ $alt | htmlEscape }}"
      {{- with $title }} data-caption="{{ . | htmlEscape }}"{{ end }}
      aria-label="{{ if $alt }}Enlarge: {{ $alt }}{{ else }}Enlarge image{{ end }}">
-    <img src="{{ $u }}" alt="{{ $alt }}" loading="lazy"
+    {{- $r := or (.Page.Resources.GetMatch .Destination) (resources.Get (strings.TrimPrefix "/" .Destination)) -}}
+    {{- if and $r (in (slice "image/jpeg" "image/png") $r.MediaType.Type) -}}
+    {{- $w := cond (gt $r.Width 1400) ($r.Resize "1400x webp q82") ($r.Process "webp q82") -}}
+    <img src="{{ $w.RelPermalink }}" alt="{{ $alt }}" width="{{ $w.Width }}" height="{{ $w.Height }}" loading="lazy" decoding="async"
       {{- with $title }} title="{{ . }}"{{ end -}} />
+    {{- else -}}
+    <img src="{{ $u }}" alt="{{ $alt }}" loading="lazy" decoding="async"
+      {{- with $title }} title="{{ . }}"{{ end -}} />
+    {{- end -}}
   </a>
 </figure>

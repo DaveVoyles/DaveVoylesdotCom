@@ -68,7 +68,7 @@
     {{- with $a.ctas }}
     <div class="about-ctas">
       {{- range . }}
-      <a class="about-cta{{ if .primary }} about-cta--primary{{ end }}" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>{{ .label }}</a>
+      <a class="about-cta{{ if .primary }} about-cta--primary{{ end }}" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>{{ .label }}{{ if strings.HasPrefix .url "http" }}<span class="sr-only"> (opens in a new tab)</span>{{ end }}</a>
       {{- end }}
       <a class="about-cta" href="{{ "/posts/agent-production-system/" | relURL }}">Case study</a>
     </div>
@@ -220,10 +220,10 @@
     <p class="about-footer-line">{{ .line }}</p>
     <div class="about-ctas">
       {{- with .linkedin }}
-      <a class="about-cta about-cta--primary" href="{{ . }}" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+      <a class="about-cta about-cta--primary" href="{{ . }}" rel="noopener noreferrer" target="_blank">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
       {{- end }}
       {{- with .github }}
-      <a class="about-cta" href="{{ . }}" rel="noopener noreferrer" target="_blank">GitHub</a>
+      <a class="about-cta" href="{{ . }}" rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only"> (opens in a new tab)</span></a>
       {{- end }}
       <a class="about-cta" href="{{ "/posts/agent-production-system/" | relURL }}">Case study</a>
     </div>
