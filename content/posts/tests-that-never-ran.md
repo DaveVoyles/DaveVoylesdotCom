@@ -1,6 +1,6 @@
 +++
 date = "2026-10-19T10:00:00-04:00"
-draft = true
+draft = false
 title = 'Tests that never ran now run'
 author = 'Dave Voyles'
 description = 'CI stayed green while a film render test failed on the default branch for about six hours — because the mixed browser-and-unit file that held it had sat off the schedule for a long time.'
