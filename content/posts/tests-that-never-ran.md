@@ -21,7 +21,7 @@ So here is the rule I took away: **green only proves the checks you scheduled.**
 
 <!-- figure: primary (D1) — scheduled green path vs unscheduled failing case trapped off the board; comparison fork; Field Notes lane -->
 
-![A green CI board labeled All green beside a sealed Unscheduled folder with a failing, unseen test ticket inside, marked Not on the list](/images/posts/tests-that-never-ran-scheduled-vs-not.png "Show a green CI board beside a sealed unscheduled folder trapping a red test ticket.")
+![A green CI board labeled All green beside a sealed Unscheduled folder with a failing, unseen test ticket inside, marked Not on the list](/images/posts/tests-that-never-ran-scheduled-vs-not.png "The board showed every scheduled check passing. The failing case sat in a file that was not on the list.")
 
 ## In brief
 
@@ -64,7 +64,7 @@ Run locally with a name filter, it failed for a boring, honest reason: expected 
 
 <!-- figure: cadence (D2) — break shape: mixed file → whole file omitted → stale aspect red unseen; fix spine: pure case alone on schedule → expectation reads fixture → CI sees red then green; Field Notes lane -->
 
-![Broken path: Mixed file, Omit whole, Stale aspect. Fix path: Pure alone, Read fixture, CI sees it](/images/posts/tests-that-never-ran-fix-spine.png "Break/fix spine for mixed-file omit → stale aspect → pure case scheduled and fixed.")
+![Broken path: Mixed file, Omit whole, Stale aspect. Fix path: Pure alone, Read fixture, CI sees it](/images/posts/tests-that-never-ran-fix-spine.png "The fix pulled the pure case out of the mixed file, pointed it at the real fixture, and put it on the schedule where CI can see it.")
 
 ## The fix was smaller than “run the whole file”
 
