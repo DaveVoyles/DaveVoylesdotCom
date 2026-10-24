@@ -1,0 +1,11 @@
+{{- /* Cross-document View Transitions (same-origin, Chromium 126+, Safari 18.2+; others navigate normally) + speculative prefetch on hover/near-viewport links. Motion stays off under prefers-reduced-motion. */ -}}
+<style>
+@view-transition { navigation: auto; }
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.22s; }
+}
+.post-single .post-title { view-transition-name: post-title; }
+</style>
+<script type="speculationrules">
+{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/*.xml","/*.json","/graph*"]}}]},"eagerness":"moderate"}]}
+</script>

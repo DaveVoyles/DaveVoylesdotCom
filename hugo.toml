@@ -51,11 +51,13 @@ privacyEnhanced = true
 
 [params]
 author = 'Dave Voyles'
-description = 'Blog by Dave Voyles'
+description = 'Dave Voyles writes about AI, agents, cloud and games: notes from building and running real systems.'
+homeTitle = 'Dave Voyles · AI, agents, cloud and games'
 
-# Light is first paint. Dark stays on the PaperMod toggle (optional).
+# Dark is first paint (issue #184). Light stays on the PaperMod toggle (opt-in).
 # When this is "auto", OS dark preference becomes the default.
-defaultTheme = "light"
+defaultTheme = "dark"
+disableThemeToggle = true
 
 # Site-wide TOC default (plan 0004 / D3): `.Param "ShowToc"` in
 # layouts/single.html checks page frontmatter first, falling back to this
@@ -64,28 +66,19 @@ defaultTheme = "light"
 # opt out individually with `ShowToc = false` in its own frontmatter.
 ShowToc = true
 
-# Manifest / browser chrome — must match --ds-bg light (web-design-standards).
+# Manifest / browser chrome — must match --ds-bg dark (web-design-standards).
 [params.assets]
-theme_color = "#faf9f4"
-msapplication_TileColor = "#faf9f4"
+theme_color = "#0a0f0c"
+msapplication_TileColor = "#0a0f0c"
 
 # Homepage "ops dashboard + magazine" shell (A+B hybrid). Home no longer
 # paginates the full 76-post archive — featured + a short recent desk +
 # archive CTA. Full history lives at /archives/.
 [params.home]
-status = "Writing about AI agents, games, cloud, and whatever I'm building next."
-status_label = "status"
 featured_count = 1
 recent_count = 5
-archive_picks = 3
 show_topic_rails = true
-show_projects = true
-show_graph_pane = true
-show_webgl_hero = true
 show_building = true
-# Archive picks are drawn from posts older than this year so the desk
-# stays "current" while the magazine still surface-links the back catalog.
-archive_before_year = 2020
 
 # "Currently building" strip on the homepage — hand-edited, keep honest.
 [[params.home.building]]
@@ -144,8 +137,8 @@ url_label = "Team site"
 # partial rather than the theme's homepage-only home_info.html.
 [params.homeInfoParams]
 Title = "Hi, I'm Dave 👋"
-Content = "Formerly a Software Engineer and Technical Program Manager at Xbox/Microsoft. Head lacrosse coach at Harriton High School (Lower Merion, PA). I write about AI/agents, cloud, games — plus whatever I'm building on the side."
-Avatar = "/images/posts/Dave_Debbie.jpeg"
+Content = "I help developers get the most out of AI tooling as an evangelist at Salesforce, after years as a Software Engineer and Technical Program Manager at Xbox/Microsoft. Head lacrosse coach at Harriton High School (Lower Merion, PA). I write about AI/agents, cloud, games — plus whatever I'm building on the side."
+Avatar = "/images/posts/Dave_Debbie-320.jpeg"
 AvatarAlt = "Dave Voyles and his wife"
 
 [[params.socialIcons]]
@@ -173,12 +166,6 @@ identifier = 'archives'
 name = 'Archives'
 url = '/archives/'
 weight = 20
-
-[[menu.main]]
-identifier = 'search'
-name = 'Search'
-url = '/search/'
-weight = 30
 
 [[menu.main]]
 identifier = 'graph'

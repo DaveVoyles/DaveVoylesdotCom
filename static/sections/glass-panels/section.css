@@ -1,0 +1,34 @@
+/* glass-panels. Knobs on the section: data-glass-strength (0-2, refraction), data-glass-frost (0-2, blur).
+   Fallback (no WebGL, reduced motion): cards use CSS backdrop-filter over a CSS gradient. When the canvas is live, .is-live removes that. */
+.sx-glass-panels { --sx-gp-gap: var(--ds-space-4); position: relative; isolation: isolate; overflow: hidden; padding-block: var(--ds-space-8);
+  border-bottom: 1px solid var(--ds-border);
+  background:
+    radial-gradient(60% 50% at 18% 20%, color-mix(in srgb, var(--ds-accent) 38%, transparent), transparent 70%),
+    radial-gradient(50% 45% at 85% 75%, color-mix(in srgb, var(--ds-accent) 26%, var(--ds-bg)) 0%, transparent 70%),
+    var(--ds-bg); }
+.sx-glass-panels__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: -1; opacity: 0; transition: opacity var(--ds-dur-slow) var(--ds-ease-out); pointer-events: none; }
+.sx-glass-panels.is-live .sx-glass-panels__canvas { opacity: 1; }
+.sx-glass-panels__inner { position: relative; }
+.sx-glass-panels__eyebrow { font-family: var(--ds-font-mono); font-size: var(--ds-fs-1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ds-text-muted); margin-bottom: var(--ds-space-3); }
+.sx-glass-panels__title { font-size: clamp(1.625rem, 4.5vw, var(--ds-fs-7)); line-height: 1.12; letter-spacing: -0.02em; font-weight: 650; max-width: 20ch; text-wrap: balance; }
+.sx-glass-panels__grid { list-style: none; margin: var(--ds-space-7) 0 0; padding: 0; display: grid; gap: var(--sx-gp-gap); grid-auto-rows: minmax(150px, auto); }
+.sx-glass-panels__card { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: var(--ds-space-2); padding: var(--ds-space-5); min-height: 150px; border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--ds-text) 16%, transparent);
+  background: color-mix(in srgb, var(--ds-text) 7%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ds-text) 22%, transparent), 0 18px 40px -22px color-mix(in srgb, var(--ds-bg) 90%, transparent); }
+.sx-glass-panels__card h3 { font-size: var(--ds-fs-5); font-weight: 600; letter-spacing: -0.01em; }
+.sx-glass-panels__card p { color: var(--ds-text-muted); font-size: var(--ds-fs-2); max-width: 34ch; }
+.sx-glass-panels.is-live .sx-glass-panels__card { background: transparent; border-color: transparent; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+@media (min-width: 640px) {
+  .sx-glass-panels__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sx-glass-panels__card--wide { grid-column: span 2; }
+}
+@media (min-width: 1024px) {
+  .sx-glass-panels { padding-block: 96px; }
+  .sx-glass-panels__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 170px; }
+  .sx-glass-panels__card--wide { grid-column: span 2; }
+  .sx-glass-panels__card--tall { grid-row: span 2; }
+}
+.sx-glass-panels.is-live .sx-glass-panels__card { text-shadow: 0 1px 14px color-mix(in srgb, var(--ds-bg) 55%, transparent); }
+.sx-glass-panels.is-live .sx-glass-panels__card p { color: color-mix(in srgb, var(--ds-text) 86%, transparent); }

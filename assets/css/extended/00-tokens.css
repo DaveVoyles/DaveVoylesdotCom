@@ -1,7 +1,7 @@
 /*
  * --ds-* design tokens (web-design-standards, plan 0084 D12, issue #141).
- * Identity: light-first professional (warm off-white canvas, near-navy ink)
- * with console-green accent. Dark is optional via the theme toggle.
+ * Identity: dark-first (green-black canvas, soft mint ink; dark is the only theme)
+ * with console-green accent. Light is the opt-in toggle (issue #184).
  *
  * Post Standard v1.1 visual grammar (MainVault ef4d637):
  *   canvas / surface / ink
@@ -17,37 +17,55 @@
  */
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
   /* canvas / surface / ink (Post Standard v1.1) */
-  --ds-canvas: rgb(250, 249, 244);
-  --ds-surface: rgb(255, 255, 255);
-  --ds-ink: rgb(26, 39, 68);
+  --ds-canvas: rgb(10, 15, 12);
+  --ds-surface: rgb(16, 24, 19);
+  --ds-ink: rgb(232, 241, 234);
   --ds-bg: var(--ds-canvas);
   --ds-bg-elevated: var(--ds-surface);
-  --ds-border: rgb(214, 220, 202);
+  --ds-border: rgb(31, 47, 37);
   --ds-text: var(--ds-ink);
-  --ds-text-muted: rgb(84, 96, 118);
-  --ds-accent: rgb(34, 99, 60);
-  --ds-accent-fg: rgb(250, 249, 244);
-  --ds-success: rgb(34, 99, 60);
-  --ds-warn: rgb(148, 100, 24);
-  --ds-error: rgb(160, 64, 56);
-  --ds-link: rgb(34, 99, 60);
+  --ds-text-muted: rgb(147, 166, 154);
+  --ds-accent: rgb(127, 211, 154);
+  --ds-accent-fg: rgb(10, 15, 12);
+  --ds-success: rgb(127, 211, 154);
+  --ds-warn: rgb(214, 168, 72);
+  --ds-error: rgb(214, 104, 96);
+  --ds-link: rgb(127, 211, 154);
 
   /* extra identity roles (still --ds-* namespace) */
-  --ds-content: rgb(36, 48, 72);
-  --ds-tertiary: rgb(210, 224, 200);
-  --ds-code-bg: rgb(234, 238, 226);
-  --ds-code-block-bg: rgb(26, 39, 68);
+  --ds-content: rgb(195, 211, 200);
+  --ds-tertiary: rgb(31, 47, 37);
+  --ds-code-bg: rgb(20, 32, 25);
+  --ds-code-block-bg: rgb(16, 24, 19);
 
   /* visual grammar roles — diagrams, labels, status chips */
-  --ds-human: rgb(37, 86, 156);
-  --ds-verified: rgb(15, 118, 110);
-  --ds-review: rgb(148, 100, 24);
-  --ds-blocked: rgb(176, 64, 64);
-  --ds-infra: rgb(100, 108, 120);
-  --ds-agent: rgb(109, 80, 160);
+  --ds-human: rgb(110, 168, 230);
+  --ds-verified: rgb(80, 196, 184);
+  --ds-review: rgb(232, 176, 80);
+  --ds-blocked: rgb(232, 120, 112);
+  --ds-infra: rgb(160, 168, 176);
+  --ds-agent: rgb(176, 148, 220);
+
+  /* dark hero / palette / card-glow roles (issue #184) */
+  --ds-hero-glow-a: #10301f;
+  --ds-hero-glow-b: #0c2a30;
+  --ds-hero-scrim: rgba(6, 11, 8, 0.78);
+  --ds-hero-scrim-soft: rgba(6, 11, 8, 0.5);
+  --ds-hero-shadow: rgba(5, 10, 7, 0.7);
+  --ds-hero-title-from: #f2fbf4;
+  --ds-hero-title-to: #22d3ee;
+  --ds-btn-bg: #1f6b3c;
+  --ds-btn-bg-hover: #26834b;
+  --ds-btn-border: #2a8a4f;
+  --ds-on-btn: #fff;
+  --ds-spot: rgba(127, 211, 154, 0.18);
+  --ds-mask: #000;
+  --ds-overlay: rgba(3, 6, 4, 0.62);
+  --ds-box-border: #2a4435;
+  --ds-shadow-lg: rgba(0, 0, 0, 0.6);
 
   /* type scale (shared — do not change values) */
   --ds-fs-1: 0.75rem;   /* 12 — fine print, badges */
@@ -58,6 +76,8 @@
   --ds-fs-6: 1.625rem;  /* 26 — h3 */
   --ds-fs-7: 2rem;      /* 32 — h2 */
   --ds-fs-8: 3rem;      /* 48 — h1 / display */
+  --ds-fs-display: clamp(3rem, 11vw, 6rem); /* 96 cap, hero title */
+  --ds-font-display: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* spacing (shared 4px grid — do not change values) */
   --ds-space-1: 4px;
@@ -82,67 +102,6 @@
   --ds-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* OS-preference mode — redeclare COLOR tokens only.
-   Does not apply when html[data-theme="light"] (the site default). */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --ds-canvas: rgb(13, 15, 13);
-    --ds-surface: rgb(18, 22, 17);
-    --ds-ink: rgb(230, 234, 242);
-    --ds-bg: var(--ds-canvas);
-    --ds-bg-elevated: var(--ds-surface);
-    --ds-border: rgb(38, 48, 38);
-    --ds-text: var(--ds-ink);
-    --ds-text-muted: rgb(138, 148, 162);
-    --ds-accent: rgb(95, 184, 122);
-    --ds-accent-fg: rgb(13, 15, 13);
-    --ds-success: rgb(95, 184, 122);
-    --ds-warn: rgb(214, 168, 72);
-    --ds-error: rgb(214, 104, 96);
-    --ds-link: rgb(95, 184, 122);
-    --ds-content: rgb(198, 206, 218);
-    --ds-tertiary: rgb(38, 48, 38);
-    --ds-code-bg: rgb(26, 32, 24);
-    --ds-code-block-bg: rgb(18, 22, 17);
-    --ds-human: rgb(110, 168, 230);
-    --ds-verified: rgb(80, 196, 184);
-    --ds-review: rgb(232, 176, 80);
-    --ds-blocked: rgb(232, 120, 112);
-    --ds-infra: rgb(160, 168, 176);
-    --ds-agent: rgb(176, 148, 220);
-  }
-}
-
-/* Explicit user choice — must mirror the media block above. */
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --ds-canvas: rgb(13, 15, 13);
-  --ds-surface: rgb(18, 22, 17);
-  --ds-ink: rgb(230, 234, 242);
-  --ds-bg: var(--ds-canvas);
-  --ds-bg-elevated: var(--ds-surface);
-  --ds-border: rgb(38, 48, 38);
-  --ds-text: var(--ds-ink);
-  --ds-text-muted: rgb(138, 148, 162);
-  --ds-accent: rgb(95, 184, 122);
-  --ds-accent-fg: rgb(13, 15, 13);
-  --ds-success: rgb(95, 184, 122);
-  --ds-warn: rgb(214, 168, 72);
-  --ds-error: rgb(214, 104, 96);
-  --ds-link: rgb(95, 184, 122);
-  --ds-content: rgb(198, 206, 218);
-  --ds-tertiary: rgb(38, 48, 38);
-  --ds-code-bg: rgb(26, 32, 24);
-  --ds-code-block-bg: rgb(18, 22, 17);
-  --ds-human: rgb(110, 168, 230);
-  --ds-verified: rgb(80, 196, 184);
-  --ds-review: rgb(232, 176, 80);
-  --ds-blocked: rgb(232, 120, 112);
-  --ds-infra: rgb(160, 168, 176);
-  --ds-agent: rgb(176, 148, 220);
-}
-
 /* Accessibility + motion floor — MANDATORY, do not remove (standards rule 6/7). */
 body {
   background: var(--ds-bg);
@@ -163,4 +122,24 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Display face: Geist (OFL), self-hosted latin subset, one variable file, preloaded in extend_head. */
+@font-face {
+  font-family: "Geist";
+  font-style: normal;
+  font-weight: 500 800;
+  font-display: swap;
+  src: url("/fonts/geist-latin-500-800.woff2") format("woff2");
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }

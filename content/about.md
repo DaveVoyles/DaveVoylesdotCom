@@ -2,8 +2,9 @@
 title = "About"
 layout = "about"
 url = "/about/"
-description = "Former Senior Technical Program Manager at Xbox/Microsoft — builder-first TPM bridging deep tech, agent orchestration, and platform delivery from Philadelphia."
+description = "I help developers get the most out of AI tooling as an evangelist at Salesforce, after years as a Software Engineer and Technical Program Manager at Xbox/Microsoft. Head lacrosse coach at Harriton High School (Lower Merion, PA). I write about AI/agents, cloud, games — plus whatever I'm building on the side."
 ShowToc = false
+fx = true
 hideMeta = true
 hideReadingTime = true
 
@@ -15,15 +16,23 @@ hideReadingTime = true
 # ---------------------------------------------------------------------------
 
 [about]
-badge = "TPM / BUILDER"
+badge = "EVANGELIST / BUILDER"
 headline = "Hi, I'm Dave."
 headline_accent = "I bridge deep tech with execution rigor."
-lede = "Former Senior Technical Program Manager at Xbox/Microsoft. I spent years shipping platform systems at scale — and now I build the agent fleets that help engineering work get done under real controls."
+lede = "I help developers get the most out of AI tooling as an evangelist at Salesforce, after years as a Software Engineer and Technical Program Manager at Xbox/Microsoft. Head lacrosse coach at Harriton High School (Lower Merion, PA). I write about AI/agents, cloud, games — plus whatever I'm building on the side."
 location = "Philadelphia, PA · Remote-US"
-photo = "/images/posts/Dave_Debbie.jpeg"
+photo = "/images/posts/Dave_Debbie-320.jpeg"
 photo_alt = "Dave Voyles"
 focus = "Builder-first TPM / agent platform work — production systems with real controls, not demo-only chatbots."
-building = "Agent fleets on a Dockerized homelab, evidence-backed resume tooling, sports tech (Philly Lax + CFB playbooks), and head coach at Harriton lacrosse."
+building = "Agent fleets on a Dockerized homelab, evidence-backed resume tooling, and sports tech (Philly Lax + CFB playbooks)."
+
+[about.film]
+title = "Dave in 22 seconds"
+src = "/video/about-dave.mp4"
+poster = "/video/about-dave-poster.jpg"
+captions = "/video/about-dave.vtt"
+width = 1920
+height = 1080
 
 [[about.ctas]]
 label = "LinkedIn"
@@ -34,24 +43,6 @@ primary = true
 label = "GitHub"
 url = "https://github.com/davevoyles"
 primary = false
-
-[[about.tech]]
-name = "Azure"
-
-[[about.tech]]
-name = "Docker"
-
-[[about.tech]]
-name = "GitHub"
-
-[[about.tech]]
-name = "Xbox"
-
-[[about.tech]]
-name = "Multi-LLM"
-
-[[about.tech]]
-name = "MCP"
 
 [[about.stats]]
 value = "10+"

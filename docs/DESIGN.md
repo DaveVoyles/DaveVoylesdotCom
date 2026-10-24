@@ -92,12 +92,12 @@ Shared 8-step type scale lives on `:root` in `00-tokens.css` (do not change valu
 
 ## Motion & Interaction
 - Not a static site — several small, deliberate interactive/animated surfaces exist:
-  - Homepage WebGL hero (`assets/js/home-hero-webgl.js`).
+  - Homepage hero: the shader-loop motion look in an iframe (`assets/js/home.js`, `static/motion/looks/shader-loop/`).
   - About-page "agent constellation" (`assets/js/about-constellation.js`), SVG + WebGL variants with per-element `transition` on stroke/fill/opacity/radius (e.g. `assets/css/extended/custom.css:818-853`).
   - Live TOC active-section highlighting via IntersectionObserver (`assets/js/toc-active.js`).
   - Instant client-side search (`assets/js/fastsearch.js`, PaperMod's fuse.js-based search).
 - Shared motion tokens: `--ds-dur-fast` 120ms, `--ds-dur-base` 200ms, `--ds-dur-slow` 350ms; `--ds-ease-out` / `--ds-ease-in-out`. The mandatory blanket `@media (prefers-reduced-motion: reduce)` block lives in `00-tokens.css` (zeroes animation/transition duration sitewide).
-- **Home hero reduced-motion:** `assets/js/home-hero-webgl.js` bails out when `matchMedia("(prefers-reduced-motion: reduce)")` matches; `custom.css` hides `.home-hero-webgl` (`display: none !important`) and disables card hover transforms under the same query, on top of the token-file floor.
+- **Home hero reduced-motion:** the look shows one still frame and waits for its play button; it also pauses off-screen and is skipped when Save-Data is on.
 - About constellation: WebGL canvas hidden and SVG fallback restored under `prefers-reduced-motion` (`custom.css` + `assets/js/about-constellation.js`).
 - **Diagram hooks:** `.ds-diagram-hook` / `[data-diagram-hook]` in `10-visual-grammar.css` are static (no autoplay). `[data-animate]` descendants stay un-animated; reduced-motion forces `animation: none`.
 
@@ -109,7 +109,7 @@ Shared 8-step type scale lives on `:root` in `00-tokens.css` (do not change valu
 - **Illustration style:** none beyond the generative SVG/WebGL "constellation" graphic on the About page — no custom illustration set.
 
 ## Accessibility Notes
-- Reduced motion: sitewide floor in `00-tokens.css`; home hero already guarded in both JS (`home-hero-webgl.js` early return) and CSS (`.home-hero-webgl { display: none }`); About constellation likewise; diagram hooks static.
+- Reduced motion: sitewide floor in `00-tokens.css`; home hero look shows a still frame and pauses off-screen; About constellation likewise; diagram hooks static.
 - `:focus-visible` is defined in `00-tokens.css` as a 2px `--ds-accent` outline with 2px offset. A skip-link (`.skip-link` → `#main-content`) sits at the top of `layouts/_default/baseof.html`. Component CSS still has extra accent-tinted `box-shadow` rings on select elements (e.g. avatar). Hover and `:focus-within` stay paired on list-style components.
 - Light ink (`#1a2744` on `#faf9f4`) is near-navy on warm paper. Green accent (`#22633c` light / `#5fb87a` dark) is still used for links and chips; tag-pill contrast on `--ds-tertiary` remains the pair to watch.
 - Body copy intentionally stays in the readable system sans font while only structural/meta text goes monospace — a good readability call for long-form posts (documented rationale in the CSS comment at `assets/css/extended/custom.css:36-38`).
@@ -133,8 +133,8 @@ Shared 8-step type scale lives on `:root` in `00-tokens.css` (do not change valu
 - `themes/PaperMod/assets/css/core/reset.css` — base reset and default body font stack
 - `themes/PaperMod/layouts/baseof.html` — theme's `data-theme` attribute + dark/light toggle wiring
 - `layouts/_default/baseof.html` — site's page-shell wrapper (sidebar + content grid) around PaperMod's base layout
-- `layouts/index.html` — homepage dashboard/magazine layout
-- `assets/js/home-hero-webgl.js`, `assets/js/about-constellation.js`, `assets/js/toc-active.js`, `assets/js/fastsearch.js` — interactive/motion behavior
+- `layouts/index.html` — homepage "Ledger" layout
+- `assets/js/home.js`, `assets/js/about-constellation.js`, `assets/js/toc-active.js`, `assets/js/fastsearch.js` — interactive/motion behavior
 - `docs/platform-guide.md` — existing prose documentation of the console theme and CSS variable conventions
 - `docs/portfolio-surfaces.md` — existing documentation of homepage/About/graph/WebGL surfaces
 - `docs/decisions/0002-images-committed-to-repo.md` — image-handling convention

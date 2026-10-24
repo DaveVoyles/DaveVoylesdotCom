@@ -1,0 +1,20 @@
+/* chrome-type. Knobs: --sx-ct-size (headline size), data-chrome-depth (0.5-2, bevel height), data-chrome-tint (cool|warm|mono).
+   The heading or figure is the real element; the WebGL canvas sits on top (aria-hidden, no pointer events).
+   Fallback (no WebGL2, or before first paint): a brushed-metal gradient fill on the real text, a conic ring on shapes. */
+.sx-chrome-type { --sx-ct-size: clamp(3rem, 12.5vw, 9.5rem); padding-block: var(--ds-space-8); border-bottom: 1px solid var(--ds-border); }
+.sx-chrome-type__eyebrow { font-family: var(--ds-font-mono); font-size: var(--ds-fs-1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ds-text-muted); margin-bottom: var(--ds-space-4); }
+.sx-chrome-type [data-chrome="text"] { position: relative; font-size: var(--sx-ct-size); line-height: 0.96; font-weight: 800; letter-spacing: -0.035em; max-width: 9ch; text-wrap: balance; margin: 0; width: fit-content;
+  color: var(--ds-text); background: linear-gradient(172deg, #f4f6fa 0%, #7d8594 22%, #14161b 38%, #d9dde5 52%, #596070 70%, #eceff4 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.sx-chrome-type [data-chrome="text"].is-live { -webkit-text-fill-color: transparent; background: none; }
+.sx-chrome-type [data-chrome="text"]::selection { -webkit-text-fill-color: var(--ds-text); background: color-mix(in srgb, var(--ds-accent) 45%, transparent); }
+.sx-chrome-type__canvas { position: absolute; pointer-events: none; display: block; opacity: 0; transition: opacity var(--ds-dur-slow) var(--ds-ease-out); }
+.is-live > .sx-chrome-type__canvas { opacity: 1; }
+.sx-chrome-type__lede { margin-top: var(--ds-space-6); max-width: 44ch; color: var(--ds-text-muted); font-size: var(--ds-fs-4); }
+.sx-chrome-type__shapes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ds-space-4); margin-top: var(--ds-space-7); }
+.sx-chrome-type__shape { position: relative; margin: 0; aspect-ratio: 1; border-radius: var(--ds-radius-md); border: 1px solid var(--ds-border); background: var(--ds-bg-elevated); overflow: hidden; isolation: isolate; }
+.sx-chrome-type__shape::before { content: ""; position: absolute; inset: 14%; border-radius: 50%; background: conic-gradient(from 210deg, #eef1f6, #5a6272, #12141a, #cfd4de, #5a6272, #eef1f6); -webkit-mask: radial-gradient(circle, transparent 46%, #000 47%); mask: radial-gradient(circle, transparent 46%, #000 47%); }
+.sx-chrome-type__shape[data-chrome-shape="blob"]::before { border-radius: 42% 58% 55% 45% / 52% 44% 56% 48%; -webkit-mask: none; mask: none; }
+.sx-chrome-type__shape.is-live::before { display: none; }
+.sx-chrome-type__shape > .sx-chrome-type__canvas { inset: 0; width: 100%; height: 100%; }
+@media (min-width: 1024px) { .sx-chrome-type { padding-block: 96px; } .sx-chrome-type [data-chrome="text"] { max-width: 11ch; } }
+@media (max-width: 639px) { .sx-chrome-type__shapes { gap: var(--ds-space-3); } .sx-chrome-type [data-chrome="text"] { max-width: 7ch; font-size: clamp(3.5rem, 20vw, 5.5rem); } }

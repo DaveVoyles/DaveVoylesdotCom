@@ -12,13 +12,9 @@
 {{- $homeInfo := . }}
 <div class="sidebar-bio">
     {{- with .Avatar }}
-    <img class="sidebar-avatar" src="{{ . | absURL }}" alt="{{ $homeInfo.AvatarAlt | default (site.Params.author | default site.Title) }}" />
+    <img class="sidebar-avatar" width="160" height="160" src="{{ . | absURL }}" alt="{{ $homeInfo.AvatarAlt | default (site.Params.author | default site.Title) }}" />
     {{- end }}
     <h2 class="sidebar-title">{{ .Title | markdownify }}</h2>
-    <div class="sidebar-content md-content">
-        {{ $opts := dict "display" "block" }}
-        {{ .Content | $.RenderString $opts }}
-    </div>
     {{- partial "social_icons.html" (dict "align" .AlignSocialIconsTo) }}
 </div>
 {{- end -}}
