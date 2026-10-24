@@ -75,7 +75,7 @@ To check I was not telling myself a story, I reran the shape on a plain Linux bo
 
 ![Two lanes. Break: grep exits early, printf has no reader, pipefail reports fail, the guard reads no, and the merge passes. Fix: a here-string, one status to read, Block merge, with a lint that keeps the old pattern out.](/images/posts/the-match-that-came-back-no-d2.png)
 
-*The no came from the printer, not the search. Hand grep the text directly, read one honest status, and let a lint keep the pipe from coming back.*
+*The no came from the printer, not the search. Hand grep the text directly, read grep's own status, and let a lint keep the pipe from coming back.*
 
 ## The fix, and the part that actually keeps it fixed
 
