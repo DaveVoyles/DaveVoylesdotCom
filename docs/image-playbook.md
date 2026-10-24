@@ -11,11 +11,29 @@ not a mood board. Voice and claim rules:
 
 ---
 
+## IMAGE OFFLOAD lock (2026-09-20)
+
+Blog FYI. This path wins over the 2026-09-14 "Blog generates 3
+variants" step unless Dave overrides.
+
+- **Blog writes 3 briefs only.** No generation. No Imagine. No
+  session image tool.
+- **Engineer runs on Mini/Pro** with a local image CLI (`gemini`,
+  `agy`, or another installed image CLI). Not Grok Bot Imagine.
+- **Labeled diagrams** are HTML, SVG, or Archify export to PNG. Not
+  image-gen.
+- **Pick packet goes to CoS.** Engineer and Roberto pick in-room.
+  Dave can override.
+- Wire **only the named winner**. Unique cover. Never reuse the cover
+  as a body image. Rejects stay out of git.
+
+
 ## Default path (Dave lock 2026-09-14)
 
 Every **new** cover or mechanism image:
 
-1. **Blog** generates **3 design variants** (HTML→PNG / Archify / image-gen — whatever fits the beat).
+1. **Blog** writes **3 briefs only**. Engineer generates on Mini/Pro
+   (HTML→PNG / Archify / local image CLI). Not Imagine.
 2. Blog posts the three options in the **Engineering** room (link + what each variant is + what Dave gets).
 3. **Engineer + Roberto** pick the best in-room (keep / fix / redo energy on the pick).
 4. **Blog** lands the winner on the draft PR (or asks Engineer to swap the file). Dave can override any pick.
@@ -96,10 +114,11 @@ Site tokens: `--ds-human` / `--ds-verified` / `--ds-review` / `--ds-blocked` / `
 
 ## How to prompt (photoreal covers)
 
-When the beat is a photoreal cover (not a labeled diagram), use the
-session image tool. One call per option. Distinct prompts. Do not
-fire a whole post’s worth in one burst — rate limits bite. Two or
-three at a time.
+When the beat is a photoreal cover (not a labeled diagram), Engineer
+runs a **local image CLI on Mini/Pro** (`gemini`, `agy`, or another
+installed image CLI). Not Grok Bot Imagine. Not a session generator.
+One call per option. Distinct prompts. Do not fire a whole post's
+worth in one burst. Rate limits bite. Two or three at a time.
 
 Write 2–5 sentences, **subject first**, then setting, then style:
 
@@ -141,15 +160,16 @@ over 1MB.
 ## Hard rules
 
 - Ground every candidate in a sentence that is actually in the post.
-- Three variants → Engineering → Engineer+Roberto pick → Blog wires.
-  Dave can override.
+- Three briefs from Blog. Engineer generates on Mini/Pro. Pick packet
+  to CoS. Engineer+Roberto pick. Blog wires only the named winner.
+  Dave can override. No Imagine.
 - Unique cover (never also a body image).
 - Photoreal covers: almost no readable type. No fake Dave face.
 - Labeled architecture / permission lists / exact numbers are
   export jobs, not image-gen.
 - No invented metrics or “N agents” baked into pixels.
-- Missing image-gen is not a prompt-engineering problem — say so and
-  wait for a file or use HTML/Archify.
+- Missing local image CLI is not a prompt-engineering problem. Say so
+  and wait for a file, or use HTML/Archify. Do not fall back to Imagine.
 
 ---
 
