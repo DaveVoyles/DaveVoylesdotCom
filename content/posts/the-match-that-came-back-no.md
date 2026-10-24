@@ -1,6 +1,6 @@
 +++
 date = "2026-10-22T10:00:00-04:00"
-draft = true
+draft = false
 title = 'The match that came back as no'
 author = 'Dave Voyles'
 description = 'A safety check found exactly what it was looking for, and the shell still told it the answer was no. One bash setting, one early exit, and a guard that quietly failed open.'
@@ -9,7 +9,7 @@ tags = ['Build-log', 'bash', 'shell', 'guards', 'ops', 'AI agents']
 topics = ['Tech', 'AI and Agents']
 [cover]
 image = '/images/posts/the-match-that-came-back-no-cover.png'
-alt = 'A green path labeled Search list, Match found, and Block merge. A side branch marked Printer cut off pulls the path down to Reported no, which ends at a red Merge passes.'
+alt = 'Found it. Said no. A green path labeled Search list, Match found, and Block merge. A side branch marked Printer cut off pulls the path down to Reported no, which ends at a red Merge passes.'
 caption = 'The search found the line. The pipeline still reported a failure, and the guard believed the pipeline.'
 +++
 
