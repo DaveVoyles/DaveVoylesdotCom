@@ -1,6 +1,6 @@
 +++
 date = '2026-09-22T09:00:00-04:00'
-draft = true
+draft = false
 title = 'Green suites that hid holes: fleet gates that plant failure'
 author = 'Dave Voyles'
 description = 'A green check can look like health while a real hole stays open — until you plant a failure on purpose and watch whether the alarm actually rings.'
