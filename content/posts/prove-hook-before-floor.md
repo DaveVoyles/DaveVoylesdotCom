@@ -1,6 +1,6 @@
 +++
 title = "Prove the guard before it becomes the floor"
-date = "2026-09-10T13:40:00-04:00"
+date = "2026-10-25T19:24:00-04:00"
 draft = false
 author = "Dave Voyles"
 description = "A policy slide is not a control. Before you trust the guard that sits in front of an AI agent, make it prove it works — or leave the last good one in place."
