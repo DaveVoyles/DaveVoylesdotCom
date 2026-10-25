@@ -64,7 +64,7 @@ Shared 8-step type scale lives on `:root` in `00-tokens.css` (do not change valu
 - **Breakpoints:** canonical set is **640 / 1024 / 1440**. Shells are mobile-first at 1024; remaining component queries use those three values (mostly `max-width`, look-preserving).
 - **Spacing scale:** `--ds-space-1`–`--ds-space-8` = 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64px in `00-tokens.css`. PaperMod `--gap` aliases `--ds-space-5`. Exact-match rem paddings use the scale; off-grid leftovers stay literal.
 - **Border radius:** identity tokens `--ds-radius-sm: 4px`, `--ds-radius-md: 8px`, `--ds-radius-full: 999px`. PaperMod `--radius: 8px` matches `--ds-radius-md`.
-- **Shadow / elevation:** mostly flat; depth is borders (`--ds-border`) plus faint accent-tinted rings, e.g. the TOC panel (`.post-toc-rail details.toc`: `0 0 0 1px` at 6% accent) and the sidebar avatar (`.sidebar-avatar`: `0 0 0 4px` at 12% accent). Two large shadows exist: the command palette `.cmdk-box` (`0 30px 80px var(--ds-shadow-lg)`, `zz-dark-interactive.css`) and the image lightbox `.post-lightbox` (`0 var(--ds-space-5) var(--ds-space-7)` at 35% `--ds-text`, `custom.css`). No other elevation levels.
+- **Shadow / elevation:** mostly flat; depth is borders (`--ds-border`) plus faint accent-tinted rings, e.g. the TOC panel (`.post-toc-rail details.toc`: `0 0 0 1px` at 6% accent) and the About hero photo (`.about-hero-photo`: `0 0 0 4px` at 12% accent plus a 2px accent-mixed border). Two large shadows exist: the command palette `.cmdk-box` (`0 30px 80px var(--ds-shadow-lg)`, `zz-dark-interactive.css`) and the image lightbox `.post-lightbox` (`0 var(--ds-space-5) var(--ds-space-7)` at 35% `--ds-text`, `custom.css`). No other elevation levels.
 
 ## Components
 - **Nav / logo:** `.logo a::before` injects a literal `~/` prompt prefix in accent color before the site title — a deliberate terminal-prompt affectation (`custom.css`, `.logo a::before`).
@@ -73,14 +73,14 @@ Shared 8-step type scale lives on `:root` in `00-tokens.css` (do not change valu
 - **Sidebar bio card:** persistent left rail, `1px solid var(--border)` panel with `--radius`, avatar image, title, bio content, social icons (`custom.css`, sidebar bio); collapses to a stacked card below 1024px.
 - **Post TOC rail:** sticky right-hand panel styled as a distinct bordered "side panel" (uppercase monospace header, active-link highlight driven by `assets/js/toc-active.js` via IntersectionObserver) — permanently expanded on desktop (`min-width: 1024px`), click-to-expand `<details>` on narrower viewports.
 - **Series nav / Related Posts / Backlinks:** three near-identical bottom-of-post widgets sharing the border-top + left-rule-hover-list pattern (`custom.css`).
-- **Buttons/pills (general):** `border-radius: var(--ds-radius-full)` pills with `var(--ds-dur-fast)` / `var(--ds-ease-out)` transitions.
+- **Chips/pills:** `.ledger-chips a` (`30-home.css`) uses `border-radius: var(--ds-radius-full)` with `var(--ds-dur-fast)` border/color transitions; `.ds-label--verified::before` (`10-visual-grammar.css`) is also `--ds-radius-full`.
 - **Homepage-specific widgets** (not itemized individually here — see `docs/portfolio-surfaces.md`): featured/recent post cards, "currently building" strip, projects grid, topic rails, and a WebGL hero, all driven by `hugo.toml`'s `[params.home]` block and `layouts/index.html`.
 - **About page:** interactive "agent constellation" graphic (`assets/js/about-constellation.js`) with an SVG fallback and WebGL variant, hidden under `prefers-reduced-motion`.
 
 ## Motion & Interaction
 - Not a static site — several small, deliberate interactive/animated surfaces exist:
   - Homepage hero: the shader-loop motion look in an iframe (`assets/js/home.js`, `static/motion/looks/shader-loop/`).
-  - About-page "agent constellation" (`assets/js/about-constellation.js`), SVG + WebGL variants with per-element `transition` on stroke/fill/opacity/radius (`custom.css`, `.about-constellation-stage`).
+  - About-page "agent constellation" (`assets/js/about-constellation.js`), SVG + WebGL variants with per-element `transition` on stroke/fill/opacity/radius (`custom.css`, `.about-constellation-edge` and `.about-constellation-dot`).
   - Live TOC active-section highlighting via IntersectionObserver (`assets/js/toc-active.js`).
   - Instant client-side search (`assets/js/fastsearch.js`, PaperMod's fuse.js-based search).
 - Shared motion tokens: `--ds-dur-fast` 120ms, `--ds-dur-base` 200ms, `--ds-dur-slow` 350ms; `--ds-ease-out` / `--ds-ease-in-out`. The mandatory blanket `@media (prefers-reduced-motion: reduce)` block lives in `00-tokens.css` (zeroes animation/transition duration sitewide).
@@ -91,13 +91,13 @@ Shared 8-step type scale lives on `:root` in `00-tokens.css` (do not change valu
 ## Imagery & Iconography
 - **Icons:** PaperMod's built-in social icon set (`themes/PaperMod/assets/`) — the site currently wires up `linkedin` and `github` via `[[params.socialIcons]]` in `hugo.toml`.
 - **Logo:** no image logo — the "logo" is text (`Dave Voyles`) with a CSS-injected `~/` prompt prefix (see Components above). No favicon override found in `static/` beyond Hugo/PaperMod defaults.
-- **Avatar:** `/images/posts/Dave_Debbie.jpeg`, rendered in the sidebar bio card, circular via CSS.
+- **Avatar:** `/images/posts/Dave_Debbie.jpeg`, rendered in the sidebar bio card (`.sidebar-avatar`, max 160px, `--radius` rounded corners).
 - **Post/content images:** committed directly to `static/images/` (no LFS — see `docs/decisions/0002-images-committed-to-repo.md`), including a large batch of recovered legacy WordPress images (`static/images/www.davevoyles.com_wp-content_uploads_...`), served at `/images/<file>`.
 - **Illustration style:** none beyond the generative SVG/WebGL "constellation" graphic on the About page — no custom illustration set.
 
 ## Accessibility Notes
 - Reduced motion: sitewide floor in `00-tokens.css`; home hero look shows a still frame and pauses off-screen; About constellation likewise; diagram hooks static.
-- `:focus-visible` is defined in `00-tokens.css` as a 2px `--ds-accent` outline with 2px offset. A skip-link (`.skip-link` → `#main-content`) sits at the top of `layouts/_default/baseof.html`. Component CSS still has extra accent-tinted `box-shadow` rings on select elements (e.g. avatar). Hover and `:focus-within` stay paired on list-style components.
+- `:focus-visible` is defined in `00-tokens.css` as a 2px `--ds-accent` outline with 2px offset. A skip-link (`.skip-link` → `#main-content`) sits at the top of `layouts/_default/baseof.html`. Component CSS still has extra accent-tinted `box-shadow` rings on select elements (e.g. `.about-hero-photo`). Hover and `:focus-within` stay paired on list-style components.
 - Mint ink (`rgb(232, 241, 234)` on `rgb(10, 15, 12)`) on the dark canvas. Green accent (`rgb(127, 211, 154)`) is used for links and chips; tag-pill contrast on `--ds-tertiary` remains the pair to watch.
 - Body copy intentionally stays in the readable system sans font while only structural/meta text goes monospace — a good readability call for long-form posts (rationale in the `custom.css` chrome comment).
 
