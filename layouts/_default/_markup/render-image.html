@@ -1,0 +1,31 @@
+{{- /*
+  Wrap markdown images so readers can click to enlarge (dialog lightbox).
+  Title "sm" or "sm|<caption>" adds post-figure--sm (narrow display width).
+*/ -}}
+{{- $u := .Destination | safeURL -}}
+{{- $alt := .Text | default "" -}}
+{{- $title := .Title | default "" -}}
+{{- $sm := false -}}
+{{- if eq $title "sm" -}}
+  {{- $sm = true -}}
+  {{- $title = "" -}}
+{{- else if strings.HasPrefix $title "sm|" -}}
+  {{- $sm = true -}}
+  {{- $title = strings.TrimPrefix "sm|" $title -}}
+{{- end -}}
+<figure class="post-figure{{ if $sm }} post-figure--sm{{ end }}">
+  <a class="post-figure-link" href="{{ $u }}" data-lightbox="post"
+     data-alt="{{ $alt | htmlEscape }}"
+     {{- with $title }} data-caption="{{ . | htmlEscape }}"{{ end }}
+     aria-label="{{ if $alt }}Enlarge: {{ $alt }}{{ else }}Enlarge image{{ end }}">
+    {{- $r := or (.Page.Resources.GetMatch .Destination) (resources.Get (strings.TrimPrefix "/" .Destination)) -}}
+    {{- if and $r (in (slice "image/jpeg" "image/png") $r.MediaType.Type) -}}
+    {{- $w := cond (gt $r.Width 1400) ($r.Resize "1400x webp q82") ($r.Process "webp q82") -}}
+    <img src="{{ $w.RelPermalink }}" alt="{{ $alt }}" width="{{ $w.Width }}" height="{{ $w.Height }}" loading="lazy" decoding="async"
+      {{- with $title }} title="{{ . }}"{{ end -}} />
+    {{- else -}}
+    <img src="{{ $u }}" alt="{{ $alt }}" loading="lazy" decoding="async"
+      {{- with $title }} title="{{ . }}"{{ end -}} />
+    {{- end -}}
+  </a>
+</figure>

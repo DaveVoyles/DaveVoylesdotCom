@@ -18,7 +18,7 @@ happens when you do:
 |---|---|
 | "Draft a post about X" | Agent writes `content/posts/<slug>.md`, pushes to a **branch** (not `main`), opens it for your review. Nothing is live until you approve and it's merged. Detail: [`authoring-guide.md`](authoring-guide.md). |
 | "Propose some blog ideas" | Agent follows [`idea-playbook.md`](idea-playbook.md): Chat-Agents mission dashboard → recent `docs/` → existing series slugs. You get a title + one-line-angle list. **No full posts** in that pass. |
-| "Add an image to this post" / "give it a cover image" | Agent follows [`image-playbook.md`](image-playbook.md): reads the post, generates **four or five** distinct candidates, then **stops**. You pick. Then it compresses the winner under 1MB into `static/images/posts/` and wires `[cover]` or `![]()`. If this session has no image-generation tool, it says so — you supply the file and it only places/compresses. Labeled architecture stays an export, not image-gen. |
+| "Add an image to this post" / "give it a cover image" | Agent follows [`image-playbook.md`](image-playbook.md): Blog posts **3 design variants** in **Engineering**; Engineer+Roberto pick; Blog wires the winner (you can override). Compress under 1MB into `static/images/posts/`. Unique cover — never also a body image. Labeled architecture stays Archify/HTML/SVG, not image-gen. |
 | "Make a video for this post" | **Opt-in, never automatic.** Agent runs a preview step that drafts narration + renders an MP4, then **stops** — you watch it before anything uploads. Detail: [`video-guide.md`](video-guide.md). |
 
 ## 🏗️ What this actually is
@@ -73,13 +73,14 @@ hosting bill, no plugin security patching, and a full backup that's just
 
 ## 🎨 Changing colors and styling
 
-The site uses a **console theme** (green accent, monospace chrome). Shared
-`--ds-*` tokens live in `assets/css/extended/00-tokens.css` (loads first —
-Hugo concatenates `extended/*.css` alphabetically). Component overrides
-live in `assets/css/extended/custom.css`, which loads *after* PaperMod's
-CSS — edit those files rather than the theme submodule. See
-[`DESIGN.md`](DESIGN.md) and the shared standard at
-`~/.claude/skills/web-design-standards/SKILL.md`.
+The site is **light-first** (warm off-white canvas, near-navy ink) with a
+console-green accent and monospace chrome. Shared `--ds-*` tokens live in
+`assets/css/extended/00-tokens.css` (loads first — Hugo concatenates
+`extended/*.css` alphabetically). Visual grammar labels/patterns:
+`assets/css/extended/10-visual-grammar.css`. Component overrides live in
+`assets/css/extended/custom.css`, which loads *after* PaperMod's CSS — edit
+those files rather than the theme submodule. See [`DESIGN.md`](DESIGN.md)
+and the shared standard at `~/.claude/skills/web-design-standards/SKILL.md`.
 
 ### Do you need to ask an agent?
 
@@ -93,19 +94,21 @@ CSS — edit those files rather than the theme submodule. See
 ### How the color system actually works
 
 Canonical roles are `--ds-*` tokens in `00-tokens.css` (light on `:root`,
-dark via `prefers-color-scheme` and `:root[data-theme="dark"]`). PaperMod
-legacy names (`--theme`, `--entry`, `--accent`, …) still appear in
-`custom.css` during migration; new CSS should use `var(--ds-accent)` (etc.).
+optional dark via the theme toggle: `:root[data-theme="dark"]`). First paint
+is light (`defaultTheme = "light"`). PaperMod legacy names (`--theme`,
+`--entry`, `--accent`, …) still appear in `custom.css` during migration;
+new CSS should use `var(--ds-accent)` / `var(--ds-ink)` (etc.).
 
 | Token | What it controls |
 |---|---|
-| `--ds-bg` | Page background |
+| `--ds-canvas` / `--ds-bg` | Page background (warm off-white) |
 | `--ds-surface` / `--ds-bg-elevated` | Card / panel background |
-| `--ds-text` | Main headings / strong text |
+| `--ds-ink` / `--ds-text` | Near-navy headings / strong text |
 | `--ds-text-muted` | Muted meta text |
 | `--ds-content` | Body copy |
 | `--ds-border` | Dividers |
 | `--ds-accent` / `--ds-link` | Console green — links, chips, CTAs |
+| `--ds-human` / `--ds-verified` / `--ds-review` / `--ds-blocked` / `--ds-infra` / `--ds-agent` | Post Standard v1.1 role colors (use with labels + patterns, not color alone) |
 | `--ds-tertiary` | Soft fill behind badges |
 | `--ds-code-bg` / `--ds-code-block-bg` | Inline / fenced code |
 
@@ -149,9 +152,8 @@ the page down.
 
 **"Can the agent just create the image for me?"** If the session has an
 image-generation tool (Grok Imagine, or whatever is wired that day), yes —
-but as a **pick-list**, not an auto-wired cover. Follow
-[`image-playbook.md`](image-playbook.md): four or five options grounded in
-the post, then stop. You choose; the agent compresses and commits only the
+but as **3 design variants in Engineering**, not an auto-wired cover. Follow
+[`image-playbook.md`](image-playbook.md): three options grounded in the post, then stop. Engineer+Roberto pick in-room (Dave can override); Blog wires only the
 winner. If this session has no generator, the agent says so. You still can
 hand it a file from ChatGPT, Gemini, a camera, or an older cover, and it
 will place, optimize, and wire it.

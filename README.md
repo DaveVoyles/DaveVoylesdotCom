@@ -1,73 +1,50 @@
 # davevoyles.com
 
-Rebuild of the old davevoyles.com WordPress blog (formerly Azure-hosted,
-taken down with no content backup) as a static Hugo site on GitHub Pages.
-Content is being recovered from the Wayback Machine.
+<img src="docs/images/home.webp" alt="The davevoyles.com home page: a dark hero with Dave's name and bio over a green particle glow, then a list of recent posts" width="600">
 
-See [`docs/design/0001-rebuild-davevoylescom-blog.md`](docs/design/0001-rebuild-davevoylescom-blog.md)
-for the full plan, and [`docs/decisions/`](docs/decisions/) for the
-architectural decisions behind it.
+**The source for Dave Voyles' personal website: his blog and portfolio, built from plain text files.**
 
-Writing a new post? See [`docs/authoring-guide.md`](docs/authoring-guide.md).
-Wondering how the platform itself works — styling, images, video, what it
-can't do? See [`docs/platform-guide.md`](docs/platform-guide.md).
-Changing the homepage, About page, projects grid, or WebGL surfaces?
-See [`docs/portfolio-surfaces.md`](docs/portfolio-surfaces.md) first.
-Want a snapshot of the current design system (colors, type, layout,
-components)? See [`docs/DESIGN.md`](docs/DESIGN.md).
+Anyone can read it at davevoyles.com. No login, nothing to install.
 
-Status: site live at [davevoyles.com](https://davevoyles.com) — historical
-content migration from the old WordPress blog is complete (76 recovered
-posts, triaged for staleness per [plan 0001](docs/design/0001-rebuild-davevoylescom-blog.md)).
-Home is a **dashboard + magazine desk** (not a full archive dump);
-`/about/` is a portfolio page with an interactive agent constellation.
+- ✍️ **Blog**: posts about games, software and building with AI coding agents, written as plain Markdown.
+- 🧭 **Home dashboard**: a hand-built front page with recent posts and projects.
+- 🌌 **About page**: Dave's work and skills, with an interactive agent constellation.
+- 🚦 **Publishing pipeline**: draft, content gate, publish. A human or an agent runs it the same way.
+- 📦 **Static output**: Markdown in, HTML out. No server to break or go offline.
 
-## Repo map
+## What davevoyles.com is, and isn't
 
-A quick orientation for anyone (human or agent) new to this checkout —
-what each top-level folder is for and when you'd touch it.
+- **It is** a [Hugo](https://gohugo.io/) site on the PaperMod theme, deployed to GitHub Pages.
+- **History:** it was rebuilt from scratch after the older version was shut down and lost.
 
-| Path | What's in it | When you'd touch it |
-|---|---|---|
-| [`content/posts/`](content/posts/) | Blog posts as Hugo Markdown (front matter: `title`, `date`, `draft`, `tags`, optional `topics`, covers). | Writing, editing, or triaging a post. See [`docs/authoring-guide.md`](docs/authoring-guide.md). |
-| [`content/about.md`](content/about.md) | About portfolio — **data-driven** `[about]` front matter (skills, stats, constellation). Body is unused by the layout. | Editing About identity, skills, impact, or the agent system map. See [`docs/portfolio-surfaces.md`](docs/portfolio-surfaces.md). |
-| [`layouts/`](layouts/) | Site overrides of PaperMod: `index.html` (home dashboard), `about.html`, `graph.html`, `single.html`, sidebar/TOC/vault partials. | Changing home/About/graph shell or post chrome — prefer this over editing the theme submodule. |
-| [`assets/css/extended/custom.css`](assets/css/extended/custom.css) | Console theme (green accent, light/dark tokens) + home/About component styles. | Colors, spacing, portfolio UI polish. |
-| [`assets/js/`](assets/js/) | Site JS: `home-hero-webgl.js`, `about-constellation.js`, search/TOC overrides. Loaded only from the pages that need them. | Interactive surfaces; keep progressive enhancement + reduced-motion. |
-| [`static/images/`](static/images/) | Images committed to the repo (no LFS — see [ADR 0002](docs/decisions/0002-images-committed-to-repo.md)). Referenced as `/images/<file>`. | Adding an image to a post or page. |
-| [`static/CNAME`](static/CNAME) | Custom domain for GitHub Pages (`davevoyles.com`). | Almost never — only if the domain changes. |
-| [`archetypes/default.md`](archetypes/default.md) | Template for `hugo new content posts/<slug>.md`. | Changing default new-post front matter. |
-| [`themes/PaperMod/`](themes/PaperMod/) | Git submodule. **Empty on fresh clone** until `git submodule update --init --recursive`. | Prefer site-level `layouts/` + `assets/` overrides; don't edit the submodule for features. |
-| [`scripts/`](scripts/) | Migration/triage utilities. See [`scripts/README.md`](scripts/README.md). | Recovering old content or re-running mapping/triage. |
-| [`docs/portfolio-surfaces.md`](docs/portfolio-surfaces.md) | **Agent map** for home, About, projects, constellation, WebGL. | Any portfolio UI change. |
-| [`docs/design/`](docs/design/) | Design plans for major initiatives. | Understanding scope of large work. |
-| [`docs/decisions/`](docs/decisions/) | ADRs (including [0010](docs/decisions/0010-home-dashboard-not-full-archive.md) home dashboard). | Before reversing a deliberate choice. |
-| [`AGENTS.md`](AGENTS.md) | Thin router for coding agents. | First file to open in a new session. |
-| [`docs/post-pipeline.md`](docs/post-pipeline.md) | Who does what: Dave, agent, site. Diagram: [`docs/diagrams/post-pipeline.html`](docs/diagrams/post-pipeline.html). | “How do we make a post?” |
-| [`docs/claim-safe-facts.md`](docs/claim-safe-facts.md) | Allowed metrics, banned claims, constellation node ids. | Any post/About copy with numbers or product claims. |
-| [`docs/authoring-guide.md`](docs/authoring-guide.md) | Write → preview → publish a post (includes voice do/don't). | Every new post. |
-| [`docs/idea-playbook.md`](docs/idea-playbook.md) | Propose titles + one-line angles from Chat-Agents, then stop. | Idea-generating agent — not a drafting session. |
-| [`docs/image-playbook.md`](docs/image-playbook.md) | Propose 4–5 covers/body images from the post text, then stop. | Image pick-list — do not wire `[cover]` until Dave picks. |
-| [`docs/series/README.md`](docs/series/README.md) | Series operator card (auto-publish, scaffold). | Agent production series. |
-| [`docs/platform-guide.md`](docs/platform-guide.md) | Human-facing platform explainer. | "Can I do X on this site?" |
-| [`docs/learnings.md`](docs/learnings.md) | Session gotchas. | Before non-trivial work. |
-| `HANDOFF.md` | Last session snapshot (overwrite, don't append). | Start of a new session. |
-| `history.md` | One-line task log (append). | Close-out. |
-| [`Makefile`](Makefile) | `preview`, `build`, `check`, `list-future`, `list-tags`. | Day-to-day agent/human commands. |
-| `hugo.toml` | Site config: theme, menus, `[params.home]` (dashboard + **projects**), sidebar bio. | Home projects/status, site-wide settings. |
+## See it
 
-Everything under `content/`, `static/`, `archetypes/`, `layouts/`, `assets/`,
-and `hugo.toml` is what Hugo builds into the deployed site. Everything under
-`docs/` and `scripts/` is process/tooling — none of it ships.
+- **[davevoyles.com](https://davevoyles.com)**: the live site.
 
-## Local preview
+## Get started in 3 steps
 
-```bash
-make submodules   # once per fresh checkout (PaperMod)
-make preview      # hugo server -D -F  (drafts + future-dated)
-# or: make check && make build
-```
+1. Fetch the theme once per fresh checkout: `make submodules`
+2. Start the preview with drafts and future-dated posts: `make preview`
+3. Open `http://localhost:1313/`, then try `/about/`, `/graph/` and `/archives/`.
 
-Open `http://localhost:1313/` (home), `/about/`, `/graph/`, `/archives/`.
+## How it fits together
 
-**Agents:** start at [`AGENTS.md`](AGENTS.md). Claim-safe numbers: [`docs/claim-safe-facts.md`](docs/claim-safe-facts.md).
+<img src="docs/diagrams/overview.svg" alt="Flow from a Markdown post through make check and the Hugo build to GitHub Pages and the reader" width="600">
+
+[Interactive version](docs/diagrams/overview.html)
+
+---
+
+You can stop here. Everything below is for developers and agents.
+
+## For developers
+
+- Write a post: [docs/authoring-guide.md](docs/authoring-guide.md)
+- How the platform works: [docs/platform-guide.md](docs/platform-guide.md)
+- Path-by-path repo map: [docs/repo-map.md](docs/repo-map.md)
+- Home, About and WebGL surfaces: [docs/portfolio-surfaces.md](docs/portfolio-surfaces.md)
+- Design system, plan and ADRs: [docs/DESIGN.md](docs/DESIGN.md), [docs/design/](docs/design/), [docs/decisions/](docs/decisions/)
+
+## For agents
+
+Start at [AGENTS.md](AGENTS.md), the router for coding agents. Claim-safe numbers and banned claims: [docs/claim-safe-facts.md](docs/claim-safe-facts.md). `make check` runs the content gates and must pass before anything lands.

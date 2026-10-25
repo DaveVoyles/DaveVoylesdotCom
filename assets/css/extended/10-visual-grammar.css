@@ -1,0 +1,164 @@
+/*
+ * Post Standard v1.1 visual grammar — labels + patterns, not color alone.
+ * Tokens: 00-tokens.css (--ds-canvas / --ds-ink / --ds-human …).
+ * PaperMod stays; this is an override layer only.
+ *
+ * No autoplay. Interactive diagram hooks are static unless a later PR
+ * opts in, and even then prefers-reduced-motion keeps the static form.
+ */
+
+/* ---- Status / role labels (text + a distinct mark) ---- */
+
+.ds-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  padding: var(--ds-space-1) var(--ds-space-2);
+  border: 1px solid currentColor;
+  border-radius: var(--ds-radius-sm);
+  background: var(--ds-surface);
+  color: var(--ds-ink);
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  font-size: var(--ds-fs-1);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.ds-label::before {
+  content: "";
+  width: 0.6em;
+  height: 0.6em;
+  flex: none;
+  background: currentColor;
+}
+
+.ds-label--human {
+  color: var(--ds-human);
+}
+
+.ds-label--human::before {
+  border-radius: 0;
+}
+.ds-label--verified {
+  color: var(--ds-verified);
+}
+
+.ds-label--verified::before {
+  border-radius: var(--ds-radius-full);
+}
+
+.ds-label--review {
+  color: var(--ds-review);
+}
+
+.ds-label--review::before {
+  background: repeating-linear-gradient(
+    -45deg,
+    currentColor 0 1px,
+    transparent 1px 3px
+  );
+}
+
+.ds-label--blocked {
+  color: var(--ds-blocked);
+}
+
+.ds-label--blocked::before {
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.ds-label--infra {
+  color: var(--ds-infra);
+}
+
+.ds-label--infra::before {
+  height: 0.2em;
+  width: 0.75em;
+}
+
+.ds-label--agent {
+  color: var(--ds-agent);
+}
+
+.ds-label--agent::before {
+  background: radial-gradient(currentColor 1.25px, transparent 1.3px);
+  background-size: 3px 3px;
+}
+
+/* ---- Region fills (pattern + wash; pair with a label) ---- */
+
+.ds-pattern--human {
+  background-color: color-mix(in srgb, var(--ds-human) 12%, var(--ds-canvas));
+}
+
+.ds-pattern--verified {
+  background-color: color-mix(in srgb, var(--ds-verified) 12%, var(--ds-canvas));
+}
+
+.ds-pattern--review {
+  background-color: color-mix(in srgb, var(--ds-review) 12%, var(--ds-canvas));
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--ds-review) 28%, transparent) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.ds-pattern--blocked {
+  background-color: color-mix(in srgb, var(--ds-blocked) 12%, var(--ds-canvas));
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      color-mix(in srgb, var(--ds-blocked) 28%, transparent) 0 1px,
+      transparent 1px 6px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--ds-blocked) 28%, transparent) 0 1px,
+      transparent 1px 6px
+    );
+}
+
+.ds-pattern--infra {
+  background-color: color-mix(in srgb, var(--ds-infra) 12%, var(--ds-canvas));
+  background-image: repeating-linear-gradient(
+    0deg,
+    color-mix(in srgb, var(--ds-infra) 22%, transparent) 0 1px,
+    transparent 1px 5px
+  );
+}
+
+.ds-pattern--agent {
+  background-color: color-mix(in srgb, var(--ds-agent) 12%, var(--ds-canvas));
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--ds-agent) 45%, transparent) 1px,
+    transparent 1.25px
+  );
+  background-size: 6px 6px;
+}
+
+/* ---- Interactive diagram hook: static first, no autoplay ---- */
+
+.ds-diagram-hook,
+[data-diagram-hook] {
+  background: var(--ds-canvas);
+  color: var(--ds-ink);
+}
+
+.ds-diagram-hook [data-animate],
+[data-diagram-hook] [data-animate] {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-diagram-hook [data-animate],
+  [data-diagram-hook] [data-animate],
+  .ds-diagram-hook svg [data-animate],
+  [data-diagram-hook] svg [data-animate] {
+    animation: none !important;
+    animation-duration: 0.01ms !important;
+    transition: none !important;
+  }
+}

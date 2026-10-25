@@ -1,23 +1,14 @@
 # Handoff
 
-**2026-09-10 — image playbook palette lock (docs only).**
+**2026-09-26 — Soft Fix shipped on live two-brains-bender-maya.** Bender still uses markdown title `"sm"` → `post-figure--sm` (`max-width: 40%`, centered). Lightbox, alt, and italic caption unchanged. PNG not resized.
 
-## What this session did
+## Live
 
-| Work | Notes |
-|------|--------|
-| `docs/image-playbook.md` | Night-console (`#0d0f0d` / `#5fb87a`) remains valid for ops / fail-closed. Not mandatory. Prefer lighter palettes when the post is exec adoption / optimism. Photoreal, grounded sentence, almost no type, no fake Dave face, no purple SaaS/HUD/logos unchanged. |
-
-## Local-only (not committed)
-
-- None.
-
-## Where to start next session
-
-1. Merge the image-playbook PR if Dave agrees.
-2. Next image pass: do not default every cover to night-console.
+https://davevoyles.com/posts/two-brains-bender-maya/
 
 ## Do not
 
-- Do not merge or publish the site from this session.
-- Do not treat AGENTS.md §7 “night-console” wording as a hard override of the playbook — the playbook is the image source of truth.
+- Do not change `date` / `draft` on this post for art/layout nits.
+- Do not resize/recompress the Bender PNG unless layout forces it.
+- Do not put private hosts / Tailscale / creds in the post.
+- Do not reuse cover as a body image.

@@ -16,7 +16,10 @@ GitHub Actions rebuild ships them automatically (see
 **Claim-safe facts** (metrics, bans, node ids): [`claim-safe-facts.md`](claim-safe-facts.md).  
 **Voice (do/don't):** [Writing standard](#writing-standard-2026-07-28) below.  
 **Propose ideas, don't draft:** [`idea-playbook.md`](idea-playbook.md).  
-**Propose covers / body images, don't wire them:** [`image-playbook.md`](image-playbook.md).  
+**Covers / mechanism images:** 3 variants in Engineering → Engineer+Roberto pick → wire winner ([`image-playbook.md`](image-playbook.md)).  
+**Visual cadence (2026-09-14):** about every **3 paragraphs** of body prose, include an image, diagram, or table that earns the scroll — no long walls of text. Cover counts for the top; body still needs beats. Glossary/`Words I use` bullets are fine condensed lists.
+**Post Standard v1.1 (2026-09-14):** vault [Blog Post Standard](https://github.com/DaveVoyles/MainVault/blob/main/20-Areas/Personal/blog-post-standard-v1.md) (`ef4d637`). Delta vs v1 (`e442376`): series-tax order (thesis → stakes → primary visual/decision → *then* Part N nav); subtitle = concrete problem → business/engineering consequence; **visual grammar** in [`image-playbook.md`](image-playbook.md); artifact menu when earned (claim ledger · action-risk worksheet · receipt schema · permission checklist · agent SLO starter); optional post-type tags (Pattern · Build-log · Template · Brief). Pipeline locks in this guide still win. Pilot = next *new* unused post / P0-3 only (not retrofits / not #165).
+  
 **Agent router:** [`../AGENTS.md`](../AGENTS.md).  
 **Turning a post into a video:** [`video-guide.md`](video-guide.md).
 
@@ -72,6 +75,7 @@ from. Unless the post genuinely earns a short treatment, aim for:
   but the connective prose around them should read like explaining it to a
   colleague — short anecdotes, a concrete example, a "picture this" beat —
   not a compressed slide restated in sentence case.
+- **A visual about every 3 paragraphs** — image, Archify/HTML diagram, or table. Prefer mechanism diagrams for how-it-works beats. Cover alone is not enough for a long post.
 - **A markdown table wherever there's a real comparison** (before/after,
   theater-vs-real, states/outcomes). Beyond readability, a table is also
   what [`video-guide.md`](video-guide.md)'s pipeline renders as an actual

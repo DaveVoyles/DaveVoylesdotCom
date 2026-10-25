@@ -1,5 +1,20 @@
 # History
 
+- 2026-09-21: Draft PR #181 nit — strip stock Archify role legend on `two-brains-bender-maya-decision-table.png`; legend is Human / Bender (indigo) / Maya (magenta) only. Skip-vs-steal copy unchanged. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 tip — deleted D5 two-surfaces; kept Dave decision PNG; markdown comparison table → rich Archify `two-brains-bender-maya-decision-table.png`; cadence so Decision is not two images. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 IMAGE OFFLOAD exaggerated — Dave `two-brains` PNG as decision figure; regen D1/D3/D4 HTML→PNG (physical doors/conductor/STOP); dropped D5 two-surfaces. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 tip — purple-align: system-model copy indigo Bender ≠ magenta Maya; D3/D5 HTML→PNG recolor. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 tip — D2 RHS **Fixed: two doors** / split jobs; D1 badge same; indigo Bender ≠ magenta Maya on D1+D2 HTML→PNG. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 REVIEW-FIX-NONCE-IMAGES — Blog pack nonce ELI5 + “up” glossary; D1 computing desks HTML→PNG; D2 Process running / fail plain / Today’s code; photoreal cover C no solder. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 REVIEW-FIX — Blog pack smoke/nonce copy; D5 two-surfaces Archify PNG; removed dashboards.png. Left `draft = true`. Did not merge.
+- 2026-09-21: Draft PR #181 — defined smoke/smokes on first use + glossary; Archify teaching two-doors diagram (`two-brains-bender-maya-dashboards.png`). No real Maya/Hermes screenshot. Left `draft = true`. Did not merge.
+- 2026-09-16: Rebased #178 onto main after #165. Conflicts HANDOFF/history only. Kept light-first + v1.1 tokens. Do not squash-merge unless mergeable and gitleaks green.
+- 2026-09-16: PUBLISH GO — squash-merged #165 Second Brain (`draft = false`, date 2026-09-16T10:00:00-04:00). Merge `905695ee981571bf8f49de63e2b784fe10f87a1b`. Pages Hugo build/deploy succeeded (run 35106994400). Live https://davevoyles.com/posts/the-second-brain-i-own/ HTTP 200. No series YAML sync. No LinkedIn/X.
+- 2026-09-14: Site chrome thin first PR — light default, canvas/ink + Post Standard v1.1 role tokens, labels/patterns, reduced-motion diagram hooks. PaperMod kept. Held #165. Do not squash-merge.
+- 2026-09-14: Post Standard v1.1 pointers — `docs/authoring-guide.md` (`ef4d637` delta) + visual grammar in `docs/image-playbook.md`. Docs-only; no posts; held #165; did not reopen #176.
+- 2026-09-14: Pointer in `docs/authoring-guide.md` to MainVault Post Standard v1 (`e442376`). Docs-only; no posts; held #165.
+- 2026-09-14: Synced `data/series/agent-production-system.yaml` after EXT-R publish (#174, `ec797bf`). Pages Hugo build/deploy succeeded; five live posts 200 with retrofit diagrams. Held #165.
+- 2026-09-14: Need-go publish — squash-merged #169 lightbox, then EXT-R #168 #170 #171 #172 #173 (`draft = false`). Held #165 Second Brain (still draft, Wed Sep 16).
 - 2026-09-10: Image playbook — night-console stays valid, not mandatory; match post mood; prefer lighter for exec adoption / optimism. Docs-only; no site publish.
 - 2026-08-31: True-zero rewrites of claim-safety (#157), what-i-will-not-automate (#158), and github-tokens (#159). Primer then argument; TeachingWordCap 800–1800; date/draft/cover path unchanged. Pushed to main.
 - 2026-08-31: Executed plan 0007 — true-zero primer (seven nouns) then argument on the landing-floor post; writing standard define-first + teaching cap 1800. Date/draft/cover path unchanged. #155 #156.
@@ -49,3 +64,8 @@
 - 2026-08-05: Embedded Plex.jpg and docker-containers.jpg into docker-homelab-agent-ops post; resized Plex.jpg (1.4MB→399KB) to clear the 1MB image gate that was already failing on main. Pushed 65386ad to origin/main.
 
 - 2026-08-05: Embedded mac-runner-vis.jpg under "Where this earned its stripes" in human-approval-merge-button; pushed 92a105e.
+- 2026-09-26: Draft PR #181 Soft Fix — opening split into three short paras (pattern → nonce → Bender/Maya); prose-only, left `draft = true`, did not merge.
+- 2026-09-26: Draft PR #181 Soft Fix — scrubbed paint narration from the System model, body prose, figure comments, and visible alts; kept job/status language, draft=true, and did not regenerate figures or merge.
+- 2026-09-26: Dave override Want-go — wire Bender still on draft #181; draft=true; no publish.
+- 2026-09-26: Soft Fix — Bender still ~40% display width on live two-brains-bender-maya (`post-figure--sm`). Date/draft unchanged.
+- 2026-10-11: About film, 22 s studio-pipeline film (shader-loop, stat-grid, kinetic-type, say VO, WebVTT) embedded on /about/, lazy, no autoplay; 9:16 and 1:1 cutdowns in static/video.
