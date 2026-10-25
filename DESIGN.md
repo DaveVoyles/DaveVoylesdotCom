@@ -92,7 +92,7 @@ Persistent page shell: sidebar (240px) + content (900px) from 1024px, stacked be
 
 ## Elevation & Depth
 
-Mostly flat. Depth is borders (`--ds-border`) and tinted 1px rings; the one large shadow is the command-palette box (`--ds-shadow-lg` in `zz-dark-interactive.css`). List items use a 2px left rule that lights up in accent on hover/focus.
+Mostly flat. Depth is borders (`--ds-border`) and faint accent-tinted rings. Two large shadows exist: the command-palette box `.cmdk-box` (`0 30px 80px var(--ds-shadow-lg)`, `zz-dark-interactive.css`) and the image lightbox `.post-lightbox` (`0 24px 48px` at 35% `--ds-text`, `custom.css`). List items use a 2px left rule that lights up in accent on hover/focus.
 
 ## Shapes
 
@@ -114,5 +114,5 @@ This repo ships its own `--ds-*` token set and does not use a visual-kit theme p
 - Do use `var(--ds-*)`; do not add raw hex/rgb outside `00-tokens.css`.
 - Do not edit `themes/PaperMod/`; override in `layouts/` and `assets/`.
 - Do pair hover with `:focus-within`/`:focus-visible`; keep the skip link.
-- Do not add a web font (Geist is the only one), new large shadows, a light theme, or autoplay motion.
+- Do not add a web font (Geist is the only one), new large shadows beyond those two, a light theme, or autoplay motion.
 - Do use `--ds-fs-3` (16px) or larger for body content.
