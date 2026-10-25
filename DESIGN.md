@@ -1,27 +1,26 @@
 ---
 name: davevoyles.com
-description: Light-first "console" theme on Hugo + PaperMod; warm paper, navy ink, console-green accent, mono chrome.
+description: Dark-only "console" theme on Hugo + PaperMod; green-black canvas, mint ink, console-green accent, mono chrome.
 colors:
-  canvas: "#faf9f4"
-  surface: "#ffffff"
-  ink: "#1a2744"
-  content: "#243048"
-  text-muted: "#546076"
-  border: "#d6dcca"
-  tertiary: "#d2e0c8"
-  accent: "#22633c"
-  accent-fg: "#faf9f4"
-  warn-review: "#946418"
-  error: "#a04038"
-  blocked: "#b04040"
-  human: "#25569c"
-  verified: "#0f766e"
-  infra: "#646c78"
-  agent: "#6d50a0"
-  code-bg: "#eaeee2"
-  code-block-bg: "#1a2744"
-  dark-canvas: "#0d0f0d"
-  dark-accent: "#5fb87a"
+  canvas: "rgb(10, 15, 12)"
+  surface: "rgb(16, 24, 19)"
+  ink: "rgb(232, 241, 234)"
+  content: "rgb(195, 211, 200)"
+  text-muted: "rgb(147, 166, 154)"
+  border: "rgb(31, 47, 37)"
+  tertiary: "rgb(31, 47, 37)"
+  accent: "rgb(127, 211, 154)"
+  accent-fg: "rgb(10, 15, 12)"
+  warn: "rgb(214, 168, 72)"
+  error: "rgb(214, 104, 96)"
+  human: "rgb(110, 168, 230)"
+  verified: "rgb(80, 196, 184)"
+  review: "rgb(232, 176, 80)"
+  blocked: "rgb(232, 120, 112)"
+  infra: "rgb(160, 168, 176)"
+  agent: "rgb(176, 148, 220)"
+  code-bg: "rgb(20, 32, 25)"
+  code-block-bg: "rgb(16, 24, 19)"
 typography:
   body:
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
@@ -63,9 +62,9 @@ Full prose snapshot with every token table: [docs/DESIGN.md](docs/DESIGN.md). Th
 
 ## Overview
 
-**Creative North Star: "The Console Notebook"**
+**Creative North Star: "The Night Console"**
 
-A calm, light-first reading surface with a terminal accent: warm paper canvas, near-navy ink, one console-green accent, monospace for structural text (logo, nav, titles, meta, TOC) and a plain system sans for long-form body. Dark is an opt-in toggle (`defaultTheme = "light"` in `hugo.toml`); OS dark preference does not set first paint.
+A calm, dark-only reading surface with a terminal accent: green-black canvas, soft mint ink, one console-green accent, monospace for structural text (logo, nav, titles, meta, TOC) and a plain system sans for long-form body. There is one theme: `hugo.toml` sets `defaultTheme = "dark"` and `disableThemeToggle = true` (issue #184). Do not add a light theme or a toggle.
 
 **Key Characteristics:**
 - Content first; chrome is quiet and mono.
@@ -74,11 +73,11 @@ A calm, light-first reading surface with a terminal accent: warm paper canvas, n
 
 ## Colors
 
-Values above are the light theme; dark overrides live in `00-tokens.css` (two blocks that must stay in sync).
+Values above are the single `:root` block in `00-tokens.css` (`color-scheme: dark`). There are no light overrides; the file also holds hero, button and overlay roles (`--ds-hero-*`, `--ds-btn-*`, `--ds-overlay`).
 
 - **Console Green** (`--ds-accent`): links, tag text, success, the `~/` logo prefix. Rare on any screen.
-- **Warm Paper / White** (`--ds-canvas` / `--ds-surface`): page and card backgrounds.
-- **Navy Ink** (`--ds-ink`, `--ds-content`, `--ds-text-muted`): headings, body, meta.
+- **Green-Black Canvas / Surface** (`--ds-canvas` / `--ds-surface`): page and card backgrounds.
+- **Mint Ink** (`--ds-ink`, `--ds-content`, `--ds-text-muted`): headings, body, meta.
 - **Role hues** (human blue, verified teal, review amber, blocked coral, infra gray, agent purple): diagrams, labels, status chips only.
 
 **The Tokens Only Rule.** Raw colors live only in `00-tokens.css`; everything else uses `var(--ds-*)`. `scripts/check-ds-tokens.sh` (run by `make check`) enforces it.
@@ -93,7 +92,7 @@ Persistent page shell: sidebar (240px) + content (900px) from 1024px, stacked be
 
 ## Elevation & Depth
 
-Flat. Depth is borders (`--ds-border`) and tinted 1px rings, not drop shadows. List items use a 2px left rule that lights up in accent on hover/focus.
+Mostly flat. Depth is borders (`--ds-border`) and tinted 1px rings; the one large shadow is the command-palette box (`--ds-shadow-lg` in `zz-dark-interactive.css`). List items use a 2px left rule that lights up in accent on hover/focus.
 
 ## Shapes
 
@@ -101,7 +100,7 @@ Flat. Depth is borders (`--ds-border`) and tinted 1px rings, not drop shadows. L
 
 ## Components
 
-Tag pills, post/archive entries, sidebar bio card, TOC rail, series nav, related posts, backlinks, homepage ledger (hero, featured post, projects grid), About constellation. Defined in `assets/css/extended/custom.css` and `30-home.css`; layouts in `layouts/`. Motion tokens: `--ds-dur-fast/base/slow` (120/200/350ms), `--ds-ease-out`, `--ds-ease-in-out`. `prefers-reduced-motion` floor is in `00-tokens.css`.
+Tag pills, post/archive entries, sidebar bio card, TOC rail, series nav, related posts, backlinks, homepage ledger (hero, featured post, projects grid), About constellation. Defined in `assets/css/extended/custom.css`, `30-home.css` and `zz-dark-interactive.css`; layouts in `layouts/`. Motion tokens: `--ds-dur-fast/base/slow` (120/200/350ms), `--ds-ease-out`, `--ds-ease-in-out`. `prefers-reduced-motion` floor is in `00-tokens.css`.
 
 ## Shared parts
 
@@ -115,5 +114,5 @@ This repo ships its own `--ds-*` token set and does not use a visual-kit theme p
 - Do use `var(--ds-*)`; do not add raw hex/rgb outside `00-tokens.css`.
 - Do not edit `themes/PaperMod/`; override in `layouts/` and `assets/`.
 - Do pair hover with `:focus-within`/`:focus-visible`; keep the skip link.
-- Do not add a web font, large soft shadows, or autoplay motion.
+- Do not add a web font (Geist is the only one), new large shadows, a light theme, or autoplay motion.
 - Do use `--ds-fs-3` (16px) or larger for body content.

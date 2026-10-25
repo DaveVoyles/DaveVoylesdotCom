@@ -29,7 +29,7 @@ A builder-first site where the author runs the systems he writes about (agent pr
 - About is driven by `[about]` front matter in `content/about.md`, not the Markdown body.
 - Topics are a controlled vocabulary of 6 buckets; tags reuse existing values (`docs/claim-safe-facts.md`, `CONTEXT.md`).
 - Do not edit `themes/PaperMod/`; overrides live in `layouts/` and `assets/`.
-- Terms: "Console theme" (the light-first visual system), "Constellation" (About-page agent map), "Vault" (short wikilinked notes), see `CONTEXT.md`.
+- Terms: "Console theme" (the dark-only visual system), "Constellation" (About-page agent map), "Vault" (short wikilinked notes), see `CONTEXT.md`.
 
 ## Brand Commitments
 - Name: Dave Voyles. Text logo with a CSS `~/` prompt prefix; no image logo (`docs/DESIGN.md`).
@@ -44,7 +44,7 @@ A builder-first site where the author runs the systems he writes about (agent pr
 ## Product Principles
 1. Claims come from `docs/claim-safe-facts.md` or not at all.
 2. Content first: reading comfort beats decoration; body copy stays a readable sans.
-3. Light-first, with dark as a choice, never an OS-forced first paint.
+3. One dark theme (`defaultTheme = "dark"`, toggle disabled); no light mode.
 4. The site is static and fast; motion and WebGL are small, deliberate, and degrade under reduced motion and Save-Data.
 5. A human or an agent publishes through the same gate.
 
