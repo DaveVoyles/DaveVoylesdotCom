@@ -91,7 +91,7 @@ Shared 8-step type scale lives on `:root` in `00-tokens.css` (do not change valu
 ## Imagery & Iconography
 - **Icons:** PaperMod's built-in social icon set (`themes/PaperMod/assets/`) — the site currently wires up `linkedin` and `github` via `[[params.socialIcons]]` in `hugo.toml`.
 - **Logo:** no image logo — the "logo" is text (`Dave Voyles`) with a CSS-injected `~/` prompt prefix (see Components above). No favicon override found in `static/` beyond Hugo/PaperMod defaults.
-- **Avatar:** `/images/posts/Dave_Debbie.jpeg`, rendered in the sidebar bio card (`.sidebar-avatar`, max 160px, `--radius` rounded corners).
+- **Avatar:** `/images/posts/Dave_Debbie-320.jpeg`, rendered in the sidebar bio card (`.sidebar-avatar`, max 160px, `--radius` rounded corners).
 - **Post/content images:** committed directly to `static/images/` (no LFS — see `docs/decisions/0002-images-committed-to-repo.md`), including a large batch of recovered legacy WordPress images (`static/images/www.davevoyles.com_wp-content_uploads_...`), served at `/images/<file>`.
 - **Illustration style:** none beyond the generative SVG/WebGL "constellation" graphic on the About page — no custom illustration set.
 

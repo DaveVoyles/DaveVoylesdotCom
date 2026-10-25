@@ -1,7 +1,7 @@
 /*
  * --ds-* design tokens (web-design-standards, plan 0084 D12, issue #141).
  * Identity: dark-first (green-black canvas, soft mint ink; dark is the only theme)
- * with console-green accent. Light is the opt-in toggle (issue #184).
+ * with console-green accent. No light theme or toggle (issue #184).
  *
  * Post Standard v1.1 visual grammar (MainVault ef4d637):
  *   canvas / surface / ink
