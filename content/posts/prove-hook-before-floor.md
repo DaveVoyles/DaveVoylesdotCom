@@ -1,7 +1,7 @@
 +++
 title = "Prove the guard before it becomes the floor"
 date = "2026-09-10T13:40:00-04:00"
-draft = true
+draft = false
 author = "Dave Voyles"
 description = "A policy slide is not a control. Before you trust the guard that sits in front of an AI agent, make it prove it works — or leave the last good one in place."
 categories = ["Programming", "AI"]
@@ -17,7 +17,7 @@ Agents are fluent. Fluency is not the same as **safe**.
 
 If you are rolling AI agents into a real org, you already know the demo version of this problem. The model sounds careful. The slide says "guardrails." Someone writes "do not touch production" in a prompt, and the room relaxes. That sentence is a sticky note. It is not a control. When the agent is in a hurry, or the chat got cut short, or it found a clever way to spell the same dangerous action, the sticky note is already gone.
 
-I am a **former** Senior Technical Program Manager at Xbox / Microsoft. **10+** years of that job trained a boring habit: the control that earns its keep is the one that can fail a check out loud, not the one that sounds confident in a meeting. Agent fleets inherit the same failure mode with better vocabulary. So the rule I keep coming back to is simple enough to steal into a staff meeting:
+I spent years as a Software Engineer and Technical Program Manager at Xbox / Microsoft. That work trained a boring habit: the control that earns its keep is the one that can fail a check out loud, not the one that sounds confident in a meeting. Agent fleets inherit the same failure mode with better vocabulary. So the rule I keep coming back to is simple enough to steal into a staff meeting:
 
 **Prove the guard before it becomes the floor.**
 
@@ -27,7 +27,7 @@ The "floor" is just the copy of the rule that actually runs everywhere agents wo
 
 You are adopting agents the way a sane org adopts any junior with infinite energy and imperfect judgment. You do not hand them production because the resume sounded sharp. You put a check in front of the dangerous moves, and you make that check prove itself before it is the standard.
 
-In my setup I extend and operate a harness that does that for AI tool use: before an agent can delete, write outside a scratch folder, or run a command that matters, a small guard gets a vote. The details are engineering. The management question is the same one I used to ask on Xbox pipelines:
+In my setup I run a guard layer that does that for AI tool use: before an agent can delete, write outside a scratch folder, or run a command that matters, a small guard gets a vote. The details are engineering. The management question is the same one I used to ask on Xbox pipelines:
 
 > Did this control pass an independent check, or did we install it because it looked present?
 
@@ -77,7 +77,7 @@ Scratch space is the temporary area an agent is allowed to trash. Real work live
 
 Two corrections, same theme. First, resolve the path for real before you decide "scratch" versus "production work." Second, a missing piece should block the dangerous classes it exists to guard, not every keystroke on the machine. And once you trust a shared library, do not only check that the file is readable. **Prove it works** with a known input. A present-but-broken pass-through will sail past a readability check and then lie about every path that matters.
 
-When one guard never grew a self-test, installs froze for weeks — correctly, because "could not prove it" counts as failed. The gate was doing its job. The guard simply had nothing to answer with. Adding a real self-test unfroze the floor without weakening the rule.
+When one guard never grew a self-test, installs stayed frozen — correctly, because "could not prove it" counts as failed. The gate was doing its job. The guard simply had nothing to answer with. Adding a real self-test unfroze the floor without weakening the rule.
 
 ## Theater vs. a floor that proves itself
 
@@ -94,7 +94,7 @@ If your safety never fails an install, you do not have safety — you have decor
 
 ## What to steal for an AI adoption program
 
-You do not need my harness to use the rule. You need three habits:
+You do not need my setup to use the rule. You need three habits:
 
 1. **Separate the sticky note from the control.** Prompts and slides are communication. The control is the thing that can say no when the agent acts.
 2. **Prove before you promote.** A new guard does not replace a working one until an independent check passes. If the check is missing, that is a fail, not a maybe.
