@@ -25,9 +25,9 @@
 
 <div id="graph-container" style="min-height: 70vh; border: 1px solid var(--border); border-radius: 4px; overflow: hidden;"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/force-graph@1.51.4/dist/force-graph.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.51.4/dist/force-graph.min.js" defer></script>
 <script>
-(async function() {
+document.addEventListener("DOMContentLoaded", async function() {
     try {
         // Fetch the graph data
         const response = await fetch('/graph-data.json');
@@ -273,7 +273,7 @@
     } catch (error) {
         console.error('Error initializing graph:', error);
     }
-})();
+});
 </script>
 
 {{- end }}{{/* end main */}}

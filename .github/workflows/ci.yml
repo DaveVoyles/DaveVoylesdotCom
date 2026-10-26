@@ -1,13 +1,13 @@
 # Copied by `harness init`. Stamp: 0.1.1
 # Consumer smoke only — harness gates live in the harness repo, not here.
-# Mini pr-ci, never ubuntu-latest (no hosted-runner billing).
+# Trivial file check; no runner with pr-ci serves this repo, so it runs on ubuntu-latest like the other jobs here.
 name: harness-adapter
 on:
   push:
   pull_request:
 jobs:
   adapter:
-    runs-on: [self-hosted, macOS, ARM64, pr-ci]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: harness adapter present

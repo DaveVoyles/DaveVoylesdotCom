@@ -1,0 +1,58 @@
+/* Dark-first interactive layer (issue #184). Loads after custom.css. */
+
+html { scroll-behavior: smooth; }
+
+/* Home and About carry their own bio, so they run without the sidebar rail. */
+.page-shell--solo { grid-template-columns: minmax(0, 1fr) !important; }
+
+/* --- Command palette --- */
+.cmdk-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: var(--ds-space-3);
+  height: 28px;
+  line-height: 1;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--entry);
+  color: var(--secondary);
+  font: var(--ds-fs-2) ui-monospace, "SF Mono", Menlo, monospace;
+  cursor: pointer;
+}
+.cmdk-btn:hover { border-color: var(--accent); color: var(--primary); }
+.cmdk-btn kbd, #cmdk kbd {
+  font: var(--ds-fs-1) ui-monospace, "SF Mono", Menlo, monospace;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 0 5px;
+  color: var(--secondary);
+  background: var(--theme);
+}
+#cmdk {
+  position: fixed; inset: 0; z-index: 1000; display: none;
+  align-items: flex-start; justify-content: center; padding: 12vh 16px 0;
+  background: var(--ds-overlay); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+}
+#cmdk.on { display: flex; }
+.cmdk-box { width: min(640px, 100%); background: var(--entry); border: 1px solid var(--ds-box-border); border-radius: 14px; box-shadow: 0 30px 80px var(--ds-shadow-lg); overflow: hidden; animation: cmdk-pop 0.14s ease-out; }
+@keyframes cmdk-pop { from { transform: scale(0.97) translateY(-6px); opacity: 0; } }
+.cmdk-input { width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--border); padding: 16px 18px; color: var(--primary); font-size: var(--ds-fs-4); outline: none; }
+.cmdk-res { list-style: none; margin: 0; padding: 6px; max-height: min(52vh, 420px); overflow: auto; }
+.cmdk-res li a { display: flex; flex-direction: column; gap: 3px; padding: 9px 12px; border-radius: 8px; color: var(--primary); text-decoration: none; }
+.cmdk-res li[aria-selected="true"] a { background: var(--tertiary); box-shadow: inset 2px 0 0 var(--accent); }
+.cmdk-t { font-size: var(--ds-fs-3); }
+.cmdk-m { font: var(--ds-fs-1) ui-monospace, "SF Mono", Menlo, monospace; color: var(--secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cmdk-res mark { background: transparent; color: var(--accent); font-weight: 700; }
+.cmdk-none { padding: 10px 12px; color: var(--secondary); font: var(--ds-fs-2) ui-monospace, monospace; }
+.cmdk-foot { display: flex; gap: 14px; padding: 8px 14px; border-top: 1px solid var(--border); font: var(--ds-fs-1) ui-monospace, monospace; color: var(--secondary); }
+
+.cmdk-btn { align-self: center; height: 28px !important; min-height: 0 !important; padding: 0 10px !important; }
+@media (max-width: 640px) { .cmdk-btn { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .cmdk-box { animation: none; }
+}

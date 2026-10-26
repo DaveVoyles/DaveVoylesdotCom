@@ -18,7 +18,7 @@
   <header class="about-hero">
     <div class="about-hero-main">
       {{- with $a.photo }}
-      <div class="about-hero-photo">
+      <div class="about-hero-photo" data-fx="film-grade:warm,grain=0.25,vignette=0.3">
         <img
           src="{{ . | relURL }}"
           alt="{{ $a.photo_alt | default "Dave Voyles" }}"
@@ -68,22 +68,22 @@
     {{- with $a.ctas }}
     <div class="about-ctas">
       {{- range . }}
-      <a class="about-cta{{ if .primary }} about-cta--primary{{ end }}" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>{{ .label }}</a>
+      <a class="about-cta{{ if .primary }} about-cta--primary{{ end }}" href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>{{ .label }}{{ if strings.HasPrefix .url "http" }}<span class="sr-only"> (opens in a new tab)</span>{{ end }}</a>
       {{- end }}
       <a class="about-cta" href="{{ "/posts/agent-production-system/" | relURL }}">Case study</a>
     </div>
     {{- end }}
-    {{- with $a.tech }}
-    <div class="about-tech" aria-label="Technologies">
-      <span class="about-section-label">Stack I work with</span>
-      <ul class="about-tech-list">
-        {{- range . }}
-        <li class="about-tech-item">{{ .name }}</li>
-        {{- end }}
-      </ul>
-    </div>
-    {{- end }}
   </header>
+
+  {{/* -------- Film (studio motion pipeline; lazy, captions track, never autoplays) -------- */}}
+  {{- with $a.film }}
+  <section class="about-film" aria-label="{{ .title }}">
+    <video controls preload="none" playsinline width="{{ .width }}" height="{{ .height }}" poster="{{ .poster | relURL }}">
+      <source src="{{ .src | relURL }}" type="video/mp4">
+      <track kind="captions" src="{{ .captions | relURL }}" srclang="en" label="English" default>
+    </video>
+  </section>
+  {{- end }}
 
   {{/* -------- Stats -------- */}}
   {{- with $a.stats }}
@@ -220,10 +220,10 @@
     <p class="about-footer-line">{{ .line }}</p>
     <div class="about-ctas">
       {{- with .linkedin }}
-      <a class="about-cta about-cta--primary" href="{{ . }}" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+      <a class="about-cta about-cta--primary" href="{{ . }}" rel="noopener noreferrer" target="_blank">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
       {{- end }}
       {{- with .github }}
-      <a class="about-cta" href="{{ . }}" rel="noopener noreferrer" target="_blank">GitHub</a>
+      <a class="about-cta" href="{{ . }}" rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only"> (opens in a new tab)</span></a>
       {{- end }}
       <a class="about-cta" href="{{ "/posts/agent-production-system/" | relURL }}">Case study</a>
     </div>
