@@ -21,7 +21,7 @@ If you get this wrong, parallel agents do not merely slow each other down. They 
 
 ![Shared fixed /tmp vs per-checkout isolation](/images/posts/per-checkout-isolation-shared-vs-checkout.png)
 
-*Left: two agents dump into one shared `/tmp` bin and block each other. Right: each checkout gets its own verified scratch tray.*
+*Left: two agents share one `/tmp`, so receipts get clobbered and tests turn flaky. Right: each checkout gets its own scratch space, so gates read receipts they can trace to that checkout.*
 
 ## In brief
 
