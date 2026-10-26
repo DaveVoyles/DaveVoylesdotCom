@@ -1,11 +1,11 @@
 +++
-date = '2026-09-18T09:00:00-04:00'
-draft = true
+date = '2026-11-01T08:00:00-05:00'
+draft = false
 title = 'Per-checkout isolation so parallel agents stop sharing one /tmp'
 author = 'Dave Voyles'
 description = 'When two agents share fixed scratch paths, receipts and tests lie about which work they came from — make the checkout the isolation unit, not the product name.'
 categories = ['Programming', 'AI']
-tags = ['AI agents', 'isolation', 'worktrees', 'harness', 'ops', 'Pattern']
+tags = ['AI agents', 'isolation', 'worktrees', 'agent tooling', 'ops', 'Pattern']
 topics = ['Tech']
 [cover]
 image = "/images/posts/per-checkout-isolation-cover.png"
@@ -21,7 +21,7 @@ If you get this wrong, parallel agents do not merely slow each other down. They 
 
 ![Shared fixed /tmp vs per-checkout isolation](/images/posts/per-checkout-isolation-shared-vs-checkout.png)
 
-*ELI10: left path — two purple agents dump into one gray `/tmp` bin and coral-block each other; right path — each checkout gets its own teal-verified scratch tray.*
+*Left: two agents dump into one shared `/tmp` bin and block each other. Right: each checkout gets its own verified scratch tray.*
 
 ## In brief
 
@@ -44,9 +44,9 @@ If you get this wrong, parallel agents do not merely slow each other down. They 
 
 I run coding agents against real repos on real machines. That means worktrees, parallel sessions, and a habit of letting more than one agent touch related problems in the same afternoon. The failure mode is not science fiction: Agent A writes a prove receipt under a fixed temp name; Agent B overwrites it; a push gate reads the leftover and smiles.
 
-The interesting ships in this pattern were not “more agents.” They were the dull plumbing: a per-checkout scheme that owns every artifact class, receipts that follow the environment instead of a global default, an observational session ledger scoped to the checkout, and tests that stop colliding on fixed `/tmp`. The fleet side then re-synced the same libraries so worktrees there stayed separate too. Same shape, two homes.
+The interesting ships in this pattern were not “more agents.” They were the dull plumbing: a per-checkout scheme that owns every artifact class, receipts that follow the environment instead of a global default, an observational session ledger scoped to the checkout, and tests that stop colliding on fixed `/tmp`. I then re-synced the same libraries on the other host that starts agent worktrees, so those stayed separate too. Same shape, two homes.
 
-I am not going to paste private repo URLs or invent how many agents I run. The stealable part is the unit of isolation.
+The stealable part is the unit of isolation.
 
 ## Why it matters
 
@@ -70,7 +70,7 @@ That middle row is the trap I want named out loud. Product names feel like bound
 
 ![Checkout owns every artifact class](/images/posts/per-checkout-isolation-artifact-classes.png)
 
-*Visual grammar: gray infra checkout box; purple agent inside; teal trays for receipts / temp / ledger / tests — each labeled as verified per-checkout, not shared.*
+*One checkout owns every artifact class: receipts, temp, ledger and tests, each scoped to that checkout.*
 
 ## System model
 
@@ -89,11 +89,11 @@ The session ledger sits beside this as a camera, not a judge. It observes what t
 
 ## Implementation detail
 
-You do not need my harness to steal the shape. You need a boring checklist implemented in whatever language you already ship.
+You do not need my tooling to steal the shape. You need a boring checklist implemented in whatever language you already ship.
 
 **1. Define the scheme once.** For a given checkout root, compute deterministic homes for each artifact class: receipts, temp, session ledger, test scratch. Prefer paths under the checkout or under a host cache that includes a checkout id — not ` /tmp/agent-receipt.json` with a wink.
 
-**2. Teach every writer the scheme.** Hooks, prove steps, push helpers, and tests should call one library (or one function) to ask “where does this class live for *this* checkout?” If two tools invent paths independently, you will re-create the collision in a week.
+**2. Teach every writer the scheme.** Hooks, prove steps, push helpers, and tests should call one library (or one function) to ask “where does this class live for *this* checkout?” If two tools invent paths independently, you will re-create the collision.
 
 **3. Thread the environment into receipts.** A receipt should be able to answer: which checkout, which step, what outcome. If a receipt cannot name its checkout, treat it as incomplete — same family of bug as a green check that never asked whether the service was alive.
 
@@ -101,7 +101,7 @@ You do not need my harness to steal the shape. You need a boring checklist imple
 
 **5. Keep the session ledger observational.** Useful for “what did this session touch?” Dangerous if someone starts treating “ledger says we pushed” as proof. Proof is the prove step. The ledger is the diary.
 
-**6. Re-sync the same libs wherever worktrees live.** Isolation that exists in one repo’s hooks but not in the fleet/worktree host is a part-time fence. Same scheme, both places, or you will watch collisions migrate to the machine you forgot.
+**6. Re-sync the same libs wherever worktrees live.** Isolation that exists in one repo’s hooks but not on the other host that runs worktrees is a part-time fence. Same scheme, both places, or you will watch collisions migrate to the machine you forgot.
 
 **7. Test for collision on purpose.** Have two checkouts write the same artifact class in parallel in CI or a local smoke. If either can overwrite the other, the scheme is unfinished.
 
@@ -127,7 +127,7 @@ Folders named after the product, shared across every checkout of that product. F
 
 ### 5. Half-migrated hosts
 
-Harness checkouts are isolated; fleet worktrees still share old libs. Collisions “mysteriously” only happen on one machine. **Fix:** re-sync the scheme everywhere parallel work can start.
+One repo's checkouts are isolated; worktrees on another host still share old libraries. Collisions “mysteriously” only happen on one machine. **Fix:** re-sync the scheme everywhere parallel work can start.
 
 ![Five failure modes on one glance](/images/posts/per-checkout-isolation-failure-modes.png)
 
