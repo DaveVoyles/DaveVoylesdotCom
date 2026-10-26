@@ -1,0 +1,36 @@
+/* film-grade. Knobs: --sx-fg-ratio (hero aspect). Grade, grain, vignette, halation and blur are data-grade-* attributes on the box. */
+.sx-film-grade { --sx-fg-ratio: 21 / 9; padding-block: var(--ds-space-8); border-bottom: 1px solid var(--ds-border); }
+.sx-film-grade__eyebrow { font-family: var(--ds-font-mono); font-size: var(--ds-fs-1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ds-text-muted); margin-bottom: var(--ds-space-3); }
+.sx-film-grade__title { font-size: clamp(1.625rem, 4.5vw, var(--ds-fs-7)); line-height: 1.12; letter-spacing: -0.02em; font-weight: 650; max-width: 22ch; text-wrap: balance; }
+.sx-film-grade__box { position: relative; overflow: hidden; border-radius: var(--ds-radius-md); background: var(--ds-surface); border: 1px solid var(--ds-border); aspect-ratio: 4 / 3; isolation: isolate; }
+.sx-film-grade__src, .sx-film-grade__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.sx-film-grade__canvas { z-index: 1; pointer-events: none; }
+.sx-film-grade__hero { margin-top: var(--ds-space-7); aspect-ratio: var(--sx-fg-ratio); }
+.sx-film-grade__cap { position: absolute; z-index: 2; left: var(--ds-space-5); right: var(--ds-space-5); bottom: var(--ds-space-5); max-width: 40ch; color: var(--ds-text); }
+.sx-film-grade__cap h3 { font-size: clamp(1.125rem, 2.6vw, var(--ds-fs-5)); font-weight: 650; letter-spacing: -0.01em; }
+.sx-film-grade__cap p { margin-top: var(--ds-space-1); color: var(--ds-text-muted); font-size: var(--ds-fs-2); }
+.sx-film-grade__controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-3) var(--ds-space-5); margin-top: var(--ds-space-4); }
+.sx-film-grade__chips { display: flex; flex-wrap: wrap; gap: var(--ds-space-2); border: 0; padding: 0; margin: 0; }
+.sx-film-grade__chips label { position: relative; }
+.sx-film-grade__chips input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.sx-film-grade__chips span { display: inline-block; padding: var(--ds-space-2) var(--ds-space-4); border-radius: var(--ds-radius-full); border: 1px solid var(--ds-border); background: var(--ds-surface); font-family: var(--ds-font-mono); font-size: var(--ds-fs-1); color: var(--ds-text-muted); transition: color var(--ds-dur-fast), border-color var(--ds-dur-fast); }
+.sx-film-grade__chips input:checked + span { color: var(--ds-text); border-color: var(--ds-accent); }
+.sx-film-grade__chips input:focus-visible + span { outline: 2px solid var(--ds-accent); outline-offset: 2px; }
+.sx-film-grade__compare { display: flex; align-items: center; gap: var(--ds-space-3); font-family: var(--ds-font-mono); font-size: var(--ds-fs-1); color: var(--ds-text-muted); }
+.sx-film-grade__compare input { accent-color: var(--ds-accent); width: 160px; }
+.sx-film-grade__grid { display: grid; gap: var(--ds-space-4); margin-top: var(--ds-space-4); }
+.sx-film-grade__card figcaption { padding: var(--ds-space-3) var(--ds-space-1) 0; }
+.sx-film-grade__card h3 { font-size: var(--ds-fs-4); font-weight: 600; letter-spacing: -0.01em; }
+.sx-film-grade__card p { margin-top: var(--ds-space-1); color: var(--ds-text-muted); font-size: var(--ds-fs-2); }
+
+/* Fallback when WebGL2 is missing (.is-css): filter per grade, radial vignette, tiled noise as grain. */
+.sx-film-grade__box.is-css[data-grade-css="teal-orange"] .sx-film-grade__src { filter: contrast(1.08) saturate(1.2) hue-rotate(-6deg) sepia(0.12); }
+.sx-film-grade__box.is-css[data-grade-css="bleach"] .sx-film-grade__src { filter: contrast(1.3) saturate(0.45) brightness(1.04); }
+.sx-film-grade__box.is-css[data-grade-css="noir"] .sx-film-grade__src { filter: grayscale(1) contrast(1.4); }
+.sx-film-grade__box.is-css[data-grade-css="warm"] .sx-film-grade__src { filter: sepia(0.35) saturate(1.15) brightness(1.02); }
+.sx-film-grade__box.is-css::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at center, transparent 45%, rgb(0 0 0 / calc(var(--sx-fg-vig, 0.55) * 0.9)) 100%); }
+.sx-film-grade__box.is-css::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: calc(var(--sx-fg-grain, 0.45) * 0.5); mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); }
+@media (min-width: 640px) { .sx-film-grade__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .sx-film-grade__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .sx-film-grade { padding-block: calc(var(--ds-space-8) * 1.4); } }
+@media (max-width: 639px) { .sx-film-grade__hero { aspect-ratio: 4 / 5; } }
+.sx-film-grade__box.is-css .sx-film-grade__cap { text-shadow: 0 1px 12px rgb(0 0 0 / 0.8); }

@@ -1,0 +1,7 @@
+{{- /* data-fx loader (studio). Once per page, only when the page opts in:
+       front matter `fx = true`, or any {{< fx >}} shortcode on the page. Effects lazy-load on first view.
+       Reading .Content first makes sure shortcodes have run before the check. */ -}}
+{{- $_ := .Content -}}
+{{- if or .Params.fx (.Store.Get "fx") }}
+<script type="module" src="{{ "sections/fx/fx.js" | relURL }}"></script>
+{{- end }}

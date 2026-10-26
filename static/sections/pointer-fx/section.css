@@ -1,0 +1,25 @@
+/* pointer-fx. Knobs: --sx-pf-tile (trail tile width), --sx-pf-fill (goo button fill). The trail pool and the goo blobs only move transform and opacity. */
+.sx-pointer-fx { --sx-pf-tile: clamp(110px, 15%, 190px); padding-block: var(--ds-space-8); border-bottom: 1px solid var(--ds-border); }
+.sx-pointer-fx__eyebrow { font-family: var(--ds-font-mono); font-size: var(--ds-fs-1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ds-text-muted); margin-bottom: var(--ds-space-3); }
+.sx-pointer-fx__title { font-size: clamp(1.625rem, 4.5vw, var(--ds-fs-7)); line-height: 1.12; letter-spacing: -0.02em; font-weight: 650; max-width: 22ch; text-wrap: balance; }
+.sx-pointer-fx__stage { position: relative; width: 100%; overflow: hidden; margin-top: var(--ds-space-7); aspect-ratio: 21 / 9; min-height: 320px; border-radius: var(--ds-radius-md); background: var(--ds-surface); border: 1px solid var(--ds-border); contain: layout paint; touch-action: pan-y; isolation: isolate; }
+.sx-pointer-fx__stage.is-live { cursor: crosshair; }
+.sx-pointer-fx__hint { position: absolute; inset: 0; z-index: 0; display: grid; place-items: center; padding: var(--ds-space-4); text-align: center; font-family: var(--ds-font-mono); font-size: var(--ds-fs-2); color: var(--ds-text-muted); pointer-events: none; transition: opacity var(--ds-dur-slow) var(--ds-ease-out); }
+.sx-pointer-fx__stage.is-moving .sx-pointer-fx__hint { opacity: 0; }
+.sx-pointer-fx__tile { position: absolute; left: 0; top: 0; z-index: 1; width: var(--sx-pf-tile); height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--ds-radius-sm); border: 1px solid var(--ds-border); opacity: 0; pointer-events: none; will-change: transform, opacity; user-select: none; -webkit-user-drag: none; }
+.sx-pointer-fx__band { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-7); margin-top: var(--ds-space-4); padding: var(--ds-space-8) var(--ds-space-6); border-radius: var(--ds-radius-md); background: var(--ds-bg-elevated); border: 1px solid var(--ds-border); }
+.sx-pointer-fx__note { flex: 1 1 260px; color: var(--ds-text-muted); font-size: var(--ds-fs-3); max-width: 38ch; }
+.sx-pointer-fx__row { display: flex; flex-wrap: wrap; gap: var(--ds-space-8); padding: var(--ds-space-2); }
+.sx-pointer-fx__goo { --sx-pf-fill: var(--ds-accent); --sx-pf-ink: var(--ds-accent-fg); position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 var(--ds-space-6); border-radius: var(--ds-radius-full); color: var(--sx-pf-ink); font-size: var(--ds-fs-3); font-weight: 600; letter-spacing: -0.005em; text-decoration: none; isolation: isolate; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.sx-pointer-fx__goo--alt { --sx-pf-fill: var(--ds-text); --sx-pf-ink: var(--ds-bg); }
+.sx-pointer-fx__goo:focus-visible { outline: 2px solid var(--ds-text); outline-offset: 6px; }
+.sx-pointer-fx__goo-label { position: relative; z-index: 1; white-space: nowrap; }
+.sx-pointer-fx__goo-layer { position: absolute; inset: -32px; z-index: 0; pointer-events: none; }
+.sx-pointer-fx__goo-layer.is-goo { filter: url(#sx-pf-goo); }
+.sx-pointer-fx__goo-base { position: absolute; inset: 32px; border-radius: var(--ds-radius-full); background: var(--sx-pf-fill); transition: transform var(--ds-dur-base) var(--ds-ease-out); }
+.sx-pointer-fx__goo:hover .sx-pointer-fx__goo-base { transform: scale(1.03); }
+.sx-pointer-fx__blob { position: absolute; left: 50%; top: 50%; border-radius: 50%; background: var(--sx-pf-fill); opacity: 0; will-change: transform; }
+.sx-pointer-fx__defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+@media (max-width: 639px) { .sx-pointer-fx__stage { aspect-ratio: 1 / 1; min-height: 0; } .sx-pointer-fx__band { padding: var(--ds-space-7) var(--ds-space-4); gap: var(--ds-space-6); } .sx-pointer-fx__row { gap: var(--ds-space-7); } }
+@media (min-width: 1024px) { .sx-pointer-fx { padding-block: 96px; } }
+@media (prefers-reduced-motion: reduce) { .sx-pointer-fx__goo:hover .sx-pointer-fx__goo-base { transform: none; } }
