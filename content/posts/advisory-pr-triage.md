@@ -9,7 +9,7 @@ tags = ['Pattern', 'PR triage', 'advisory', 'fail-open', 'CI', 'agents', 'confid
 topics = ['Tech', 'AI and Agents']
 [cover]
 image = "/images/posts/advisory-pr-triage-cover.png"
-alt = "A PR triage path that ends in a comment and a label — never at the merge button — beside a discarded typed answer under a confidence floor"
+alt = "Advisory triage stops before the ship button. A pull request moves through typed checks, a comment and a label, then stops; the merge button is human only. Below a confidence floor, a shredder discards the typed answer, while an annotation keeps its shape with a low-confidence badge."
 caption = "Advisory triage stops before the ship button; a confidence floor that eats every typed answer is worse than a quiet bot."
 +++
 
