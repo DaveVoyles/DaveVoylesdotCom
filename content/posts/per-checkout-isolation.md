@@ -91,7 +91,7 @@ The session ledger sits beside this as a camera, not a judge. It observes what t
 
 You do not need my tooling to steal the shape. You need a boring checklist implemented in whatever language you already ship.
 
-**1. Define the scheme once.** For a given checkout root, compute deterministic homes for each artifact class: receipts, temp, session ledger, test scratch. Prefer paths under the checkout or under a host cache that includes a checkout id — not ` /tmp/agent-receipt.json` with a wink.
+**1. Define the scheme once.** For a given checkout root, compute deterministic homes for each artifact class: receipts, temp, session ledger, test scratch. Prefer paths under the checkout or under a host cache that includes a checkout id — not `/tmp/agent-receipt.json` with a wink.
 
 **2. Teach every writer the scheme.** Hooks, prove steps, push helpers, and tests should call one library (or one function) to ask “where does this class live for *this* checkout?” If two tools invent paths independently, you will re-create the collision.
 
@@ -146,7 +146,7 @@ One repo’s checkouts are isolated; worktrees on another host still share old l
 
 ## Next in the system
 
-This pattern sits beside prove-before-floor and dead-man heartbeats, not on top of them. Prove-before-floor asks whether a hook actually works before it becomes policy. Heartbeats ask whether silence means dead. Per-checkout isolation asks whether the evidence those systems consume can be attributed to the worktree that produced it.
+This pattern sits beside [Prove the guard before it becomes the floor](/posts/prove-hook-before-floor/), not on top of it. Prove-before-floor asks whether a hook actually works before it becomes policy. Per-checkout isolation asks whether the evidence that system consumes can be attributed to the worktree that produced it.
 
 If your gates are honest but your paths are shared, you still have folklore — just folklore with CI badges. Fix the unit of isolation first, then the proves have something true to read.
 
