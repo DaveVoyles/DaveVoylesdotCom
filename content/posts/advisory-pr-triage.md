@@ -97,7 +97,6 @@ You do not need my setup to steal the shape.
 6. **Confidence floor as annotation, not shredder.** Keep typed answers; show low confidence beside them.
 7. **Assert the missing edge.** Any job that reads this label or comment to merge gets cut.
 8. **Package as `workflow_call`** so other repos call the contract instead of forking folklore.
-9. **Honest public verbs.** Pattern + incident shape — not hostnames, keys, or invented triage counts.
 
 ## Failure modes
 
@@ -106,8 +105,7 @@ You do not need my setup to steal the shape.
 3. **Comment spam** — five bot voices per PR. **Fix:** one marker comment contract.
 4. **Fail-closed Phase 1** — weak model vetoes by silence or block. **Fix:** fail-open unknown.
 5. **Untyped vibes** — free text only; cannot test or reuse. **Fix:** typed answers as the unit of triage.
-6. **Private metrics on a public post** — “N PRs triaged” without an allowlist. **Fix:** pattern + incident shape only.
-7. **Reusable job that secretly owns merge** — `workflow_call` that lands when a label appears. **Fix:** call sites get triage only; land stays elsewhere.
+6. **Reusable job that secretly owns merge** — `workflow_call` that lands when a label appears. **Fix:** call sites get triage only; land stays elsewhere.
 
 ## Put it into practice
 
@@ -119,6 +117,6 @@ You do not need my setup to steal the shape.
 
 ## Next in the system
 
-This Pattern sits beside — and does not rewrite — essays on **human approval as the merge button** and **prove-before-floor** gate honesty. Those own “who may ship” and “when green is theater.” This one owns a thinner claim: **triage in public without becoming the ship button, and never let a confidence floor eat typed answers.**
+This Pattern sits beside — and does not rewrite — essays on **[human approval as the merge button](/posts/human-approval-merge-button/)** and **[prove-before-floor](/posts/prove-hook-before-floor/)** gate honesty. Those own “who may ship” and “when green is theater.” This one owns a thinner claim: **triage in public without becoming the ship button, and never let a confidence floor eat typed answers.**
 
 Steal the rule even if your stack differs: advisory signals, typed contracts, fail-open early, keep the shapes you already paid for.
