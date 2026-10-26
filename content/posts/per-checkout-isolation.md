@@ -76,16 +76,16 @@ That middle row is the trap I want named out loud. Product names feel like bound
 
 Picture three actors and a few gates.
 
-1. **Human** (blue) opens or assigns a checkout — a real path, not a vibe.
-2. **Agent** (purple) works only inside that checkout’s scheme for artifact classes.
-3. **Infra** (gray) is the machine: disks, `/tmp`, runners. Infra is shared. That is exactly why you must not let artifact classes default into unbound infra paths.
-4. **Prove / push gate** (amber while reviewing, teal when verified, coral when blocked) reads receipts that name the checkout. If the path is unbound, the gate blocks — it does not go hunting for a friendly leftover.
+1. **Human** opens or assigns a checkout — a real path, not a vibe.
+2. **Agent** works only inside that checkout’s scheme for artifact classes.
+3. **Infra** is the machine: disks, `/tmp`, runners. Infra is shared. That is exactly why you must not let artifact classes default into unbound infra paths.
+4. **Prove / push gate** reads receipts that name the checkout. If the path is unbound, the gate blocks — it does not go hunting for a friendly leftover.
 
 The session ledger sits beside this as a camera, not a judge. It observes what the session did in that checkout. It does not get a vote that overrides a red prove.
 
-![Receipts follow the environment; unbound fallback is coral-blocked](/images/posts/per-checkout-isolation-receipts-follow-env.png)
+![Receipts follow the environment: an unbound fallback blesses the wrong leftover, while fail closed names the checkout or blocks](/images/posts/per-checkout-isolation-receipts-follow-env.png)
 
-*Left: amber review finds an unbound receipt path and coral-blocks. Right: teal-verified receipt is scoped to the checkout the purple agent actually used.*
+*Left: the agent cannot resolve its receipt, reads a legacy shared folder, and blesses the wrong leftover. Right: the review binds the path, the receipt names checkout A, and the gate proceeds or blocks if unbound.*
 
 ## Implementation detail
 
@@ -115,7 +115,7 @@ Two agents, one predictable temp filename, last writer wins. Tests flake in a wa
 
 ### 2. Unbound fallback that “just works”
 
-A push gate cannot resolve the checkout-scoped receipt, so it reads a legacy global file and continues. Demo green. Production folklore. **Fix:** coral-block on unbound; delete the fallback; fix callers.
+A push gate cannot resolve the checkout-scoped receipt, so it reads a legacy global file and continues. Demo green. Production folklore. **Fix:** block on unbound; delete the fallback; fix callers.
 
 ### 3. Ledger promoted to authority
 
@@ -127,11 +127,11 @@ Folders named after the product, shared across every checkout of that product. F
 
 ### 5. Half-migrated hosts
 
-One repo's checkouts are isolated; worktrees on another host still share old libraries. Collisions “mysteriously” only happen on one machine. **Fix:** re-sync the scheme everywhere parallel work can start.
+One repo’s checkouts are isolated; worktrees on another host still share old libraries. Collisions “mysteriously” only happen on one machine. **Fix:** re-sync the scheme everywhere parallel work can start.
 
 ![Five failure modes on one glance](/images/posts/per-checkout-isolation-failure-modes.png)
 
-*Coral tiles for the false paths; teal note under each for the fix. Purple agent icon only appears inside a checkout-scoped box — never floating over shared gray `/tmp`.*
+*Each row names a failure mode, the symptom you see, and the fix.*
 
 ## Put it into practice
 
