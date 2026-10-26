@@ -1,5 +1,6 @@
 +++
-draft = true
+date = '2026-11-08T08:00:00-05:00'
+draft = false
 title = 'Advisory PR triage that never owns the merge'
 author = 'Dave Voyles'
 description = 'A bot that comments on every PR can look like it owns the ship button — and a confidence floor that discards every typed answer is worse than no bot.'
@@ -46,9 +47,9 @@ If you get this wrong, you buy either false authority (a comment that *feels* li
 
 I extend and operate agent and CI paths where bots help humans triage pull requests in public. The advisory-only path is deliberately thin: **typed checks**, **one marker comment**, **one `triage/*` label**, a short **feed note**. That is the whole public surface — and **nothing** in dispatch or land reads those signals to merge. The bot may help in the thread. It must not become the merge button by accident.
 
-Phase 1 of the classifier is **fail-open**: when it does not know, it says so. The first live run still taught a sharper lesson. A mail-style confidence floor sat under the typed outputs. Every shaped answer — structured slots, scores, choices — fell under the line and got discarded. The public result was **unknown** with cheerful activity around it. The bot looked operated. The triage was empty.
+Phase 1 of the classifier is **fail-open**: when it does not know, it says so. The first live run still taught a sharper lesson. A confidence floor borrowed from another classifier sat under the typed outputs. Every shaped answer — structured slots, scores, choices — fell under the line and got discarded. The public result was **unknown** with cheerful activity around it. The bot looked operated. The triage was empty.
 
-The fix was not “raise the floor until it feels safer.” The fix was **stop discarding typed answers under that floor** — keep the shape, show the low confidence. Humans can disagree with a weak typed guess. They cannot disagree with a void that pretends to be review. No private hostnames, API keys, or “N PRs triaged” metrics on a public post — ADR shape and incident shape only.
+The fix was not “raise the floor until it feels safer.” The fix was **stop discarding typed answers under that floor** — keep the shape, show the low confidence. Humans can disagree with a weak typed guess. They cannot disagree with a void that pretends to be review.
 
 ## Why it matters
 
@@ -86,7 +87,7 @@ The interesting arrow is the one that **is missing**: there is no edge from advi
 
 ## Implementation detail
 
-You do not need my fleet names to steal the shape.
+You do not need my setup to steal the shape.
 
 1. **Write the contract first.** What types can the classifier emit? What does unknown mean?
 2. **One marker comment** per pass — findable, not spam.
