@@ -1,6 +1,6 @@
 +++
-date = "2026-10-26T10:00:00-04:00"
-draft = true
+date = "2026-11-13T08:00:00-05:00"
+draft = false
 title = 'One render in 25 just stopped talking'
 author = 'Dave Voyles'
 description = 'About one render in 25 just stopped talking: no error, no finish. Bounding one audio filter made the stalls stop. I still cannot tell you why. The real fix was giving every outside tool a finish line.'
