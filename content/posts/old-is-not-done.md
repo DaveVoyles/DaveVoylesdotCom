@@ -1,6 +1,6 @@
 +++
-date = "2026-10-29T10:00:00-04:00"
-draft = true
+date = "2026-11-18T08:00:00-05:00"
+draft = false
 title = 'Old is not the same as done'
 author = 'Dave Voyles'
 description = 'My agent dashboard flagged two stale alarms and one idle pull request. The cleanup I added to quiet it also hid a live blocked pull request that still needed action. Age tells you when you last looked. It does not tell you whether the thing is finished.'
