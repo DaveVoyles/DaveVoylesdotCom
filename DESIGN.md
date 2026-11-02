@@ -104,10 +104,10 @@ Tag pills, post/archive entries, sidebar bio card, TOC rail, series nav, related
 
 ## Shared parts
 
-This repo ships its own `--ds-*` token set and does not use a visual-kit theme pack or material (no `data-pack`, no `data-material`). The studio UI shelf (`~/REPOS/studio/skills/ui`) is not wired in. Before hand-writing a button, input, card, modal, tabs, table or similar:
+This repo ships its own `--ds-*` token set and does not use a visual-kit theme pack or material (no `data-pack`, no `data-material`). The UI shelf (`site/ui` in Dvoyles-Skills) is not wired in. Before hand-writing a button, input, card, modal, tabs, table or similar:
 
 1. Reuse an existing class in `custom.css` / `30-home.css` first.
-2. Otherwise run `node ~/REPOS/studio/skills/ui/scripts/ui-find.mjs "<need>"` and adapt the part to `--ds-*` tokens instead of improvising.
+2. Otherwise run `node ${SKILLS_ROOT:-$HOME/REPOS/Dvoyles-Skills/skills}/site/ui/scripts/ui-find.mjs "<need>"` and adapt the part to `--ds-*` tokens instead of improvising.
 
 ## Do's and Don'ts
 
