@@ -1,6 +1,6 @@
 +++
-date = "2026-11-02T10:00:00-05:00"
-draft = true
+date = "2026-11-23T08:00:00-05:00"
+draft = false
 title = 'A private repo is not private work'
 author = 'Dave Voyles'
 description = 'The first time my nightly recap ran on its own, it marked 10 of its 12 items as too private to write about. Nothing was secret. The rule said "private work," and the run read that as "lives in a private repo." The checks all passed anyway.'
