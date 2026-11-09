@@ -1,5 +1,6 @@
 +++
-draft = true
+date = "2026-12-03T08:00:00-05:00"
+draft = false
 title = 'The CI that only checked what I touched'
 author = 'Dave Voyles'
 description = 'Our pull request checks only ran the tests a change looked like it touched. A stale map of which test depends on which file let a real break through, and nobody saw it until the default branch went red and every push to that project stopped.'
