@@ -69,3 +69,5 @@
 - 2026-09-26: Dave override Want-go — wire Bender still on draft #181; draft=true; no publish.
 - 2026-09-26: Soft Fix — Bender still ~40% display width on live two-brains-bender-maya (`post-figure--sm`). Date/draft unchanged.
 - 2026-10-11: About film, 22 s studio-pipeline film (shader-loop, stat-grid, kinetic-type, say VO, WebVTT) embedded on /about/, lazy, no autoplay; 9:16 and 1:1 cutdowns in static/video.
+
+- 2026-11-08: Fixed persistent sidebar bio showing only "Hi, I'm Dave" — layouts/partials/sidebar.html rendered Title but never homeInfoParams.Content, so the configured bio never appeared on post pages (homepage hero already used it). Added sidebar-text render + CSS and updated hugo.toml Content to Dave's worded spine (Comcast/Microsoft/Xbox → Salesforce evangelist), preserving lacrosse-coaching and writing focus. Added Comcast (2013–2014) + Salesforce evangelist rows to docs/claim-safe-facts.md per resume-builder evidence. Verified with make check (PASSED) and make build (481 pages, sidebar HTML contains new bio on advisory-pr-triage).

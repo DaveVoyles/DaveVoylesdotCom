@@ -362,6 +362,13 @@
   margin: 0 0 var(--ds-space-2);
 }
 
+.sidebar-text {
+  font-size: var(--ds-fs-3);
+  line-height: 1.55;
+  color: var(--ds-content);
+  margin: 0 0 var(--ds-space-2);
+}
+
 .sidebar-bio .social-icons {
   margin-top: var(--content-gap);
 }

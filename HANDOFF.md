@@ -1,14 +1,13 @@
 # Handoff
 
-**2026-09-26 — Soft Fix shipped on live two-brains-bender-maya.** Bender still uses markdown title `"sm"` → `post-figure--sm` (`max-width: 40%`, centered). Lightbox, alt, and italic caption unchanged. PNG not resized.
+**2026-11-08 — Sidebar bio fix on `fix/sidebar-bio`.** `layouts/partials/sidebar.html` now renders `homeInfoParams.Content` (was title-only). New bio text in `hugo.toml` (Comcast/Microsoft/Xbox → Salesforce evangelist + lacrosse + writing). `make check` PASSED, `make build` 481 pages.
 
 ## Live
 
-https://davevoyles.com/posts/two-brains-bender-maya/
+https://davevoyles.com/ (after PR merges + GitHub Pages rebuild)
 
 ## Do not
 
-- Do not change `date` / `draft` on this post for art/layout nits.
-- Do not resize/recompress the Bender PNG unless layout forces it.
+- Do not change `date` / `draft` on any post for art/layout nits.
 - Do not put private hosts / Tailscale / creds in the post.
 - Do not reuse cover as a body image.
