@@ -1,0 +1,10 @@
+{{- /* {{< motion-figure gif="/images/posts/x.gif" still="/images/posts/x-final.png" width="1280" height="2000" alt="..." >}}
+     Looping GIF figure with its exact final-frame PNG as the static fallback: readers who ask for reduced motion get the still. */ -}}
+{{- $gif := .Get "gif" -}}{{- $still := .Get "still" -}}{{- $alt := .Get "alt" -}}
+{{- if not (and $gif $still $alt) -}}{{- errorf "motion-figure: gif, still and alt are required at %s" .Position -}}{{- end -}}
+<figure class="motion-figure" style="margin:2rem auto;max-width:640px">
+<picture>
+<source media="(prefers-reduced-motion: reduce)" srcset="{{ $still | relURL }}">
+<img src="{{ $gif | relURL }}" alt="{{ $alt }}" {{ with .Get "width" }}width="{{ . }}"{{ end }} {{ with .Get "height" }}height="{{ . }}"{{ end }} loading="lazy" decoding="async" style="width:100%;height:auto;display:block">
+</picture>
+</figure>
