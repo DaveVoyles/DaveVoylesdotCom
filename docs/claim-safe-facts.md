@@ -17,6 +17,8 @@ If those files and this page disagree, **stop and ask** — do not silently pick
 | Fact | Use this language |
 |------|-------------------|
 | Role | **Former** Senior Technical Program Manager at Xbox / Microsoft (past tense) |
+| Former employer | **Former** Senior Software Engineer at Comcast (2013–2014) — Xbox 360 / Xbox One / SmartGlass; co-inventor on US20160234295A1 |
+| Current role | Evangelist at Salesforce helping developers get the most out of AI tooling |
 | Location | Philadelphia, PA · Remote-US |
 | Positioning | Builder-first TPM; agent production systems with real controls, not demo-only chatbots |
 
