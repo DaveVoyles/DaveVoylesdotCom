@@ -13,7 +13,7 @@ alt = 'A row of twelve plain gray folders, ten of them stamped PRIVATE.'
 caption = 'Ten of twelve stamped private. Nothing in them was secret.'
 +++
 
-Every night, a recap of what my coding agents shipped that day gets written into a file, one row per piece of work, and each row carries a small flag that says whether it is safe to write about in public. That flag matters to me because it is where the ideas for this blog come from. My blog bot reads the recap once a week, throws out every row marked private, and turns what is left into a short list of post ideas. If the flag is wrong in the cautious direction, nothing leaks, which is nice, and nothing gets written, which is less nice.
+Two of twelve. That is how many rows my nightly recap marked safe to write about the first time it ran on its own. Every night, a recap of what my coding agents shipped that day gets written into a file, one row per piece of work, and each row carries a small flag that says whether it is safe to write about in public. That flag matters to me because it is where the ideas for this blog come from. My blog bot reads the recap once a week, throws out every row marked private, and turns what is left into a short list of post ideas. If the flag is wrong in the cautious direction, nothing leaks, which is nice, and nothing gets written, which is less nice.
 
 For a while I built that recap by hand at the end of a long session. Then I set it up to run on its own after midnight, and before I trusted it, I had it do a practice run on a day I had already recapped by hand. The hand-built version had 17 rows and marked 16 of them public. The unattended version had 12 rows and marked 2 of them public. Same day, same 27 merged pull requests, same seven projects, and the automated one had decided that almost all of my work was too private to talk about.
 
@@ -23,14 +23,14 @@ The fix landed the same night, and the lesson is one I expect to keep relearning
 
 *Same day, same 27 merged changes. The hand-built recap kept 16 of 17 rows public; the unattended run kept 2 of 12. Both passed.*
 
-## In brief
+## The numbers
 
 - The unattended run marked 10 of 12 rows as not safe to write about. The hand-built recap of the same day marked 1 of 17 that way.
 - The rule said to mark "private work" as private. Six of my seven projects live in private repositories on GitHub, so the run read it as "anything in a private repo."
 - The file's own check passed on both versions, because it checked that rows were well formed and linked, not whether anything usable was left.
 - The fix lists what counts as sensitive and warns when fewer than half the rows survive. A second practice run of the same day kept 13 of 14.
 
-## Words I use
+## Terms for this one
 
 - **Recap** is the nightly file that lists what my agents shipped that day. Each item in it is a **row**.
 - **Pull request** is a proposed change that gets reviewed and merged. Each row links to the merged ones it came from.
@@ -78,7 +78,7 @@ The other is whether the writing will leak names, paths or links that should sta
 
 The unattended run folded the second question into the first. It saw a private repo name and marked the whole row private. Once the two jobs are split, the flag can be generous and the redaction step can be strict.
 
-## Put it into practice
+## If your filter errs on the safe side
 
 If you have an automated step that filters for privacy, safety or anything else where "when in doubt, leave it out" sounds responsible:
 
@@ -87,7 +87,7 @@ If you have an automated step that filters for privacy, safety or anything else 
 - **Count what survives.** Warn when output drops well below what a normal day produces. A schema check cannot do that.
 - **Practice on a day you already know.** I only saw 2 of 12 because I had a hand-built 16 of 17 to compare against.
 
-## What changes
+## The quiet cost of over-caution
 
 Over-caution is still the cheaper mistake, but it is not free, and it is much quieter. Nothing alarms and nothing looks broken. The cost shows up as posts and fixes you never notice are missing.
 

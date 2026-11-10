@@ -13,7 +13,7 @@ alt = 'A to-do list where an old card has been muted to gray while a red flag on
 caption = 'Muted because it was old. Still needs action.'
 +++
 
-I have a small page that tells me what my coding agents need from me. It has one strip at the top, called Needs you, and the point of it is that I can glance at it over coffee and know whether I have work to do. One morning it told me I had three things waiting. As far as I could tell, I had zero. Two were alarms about nightly test runs that had gone red once and then passed every night since, and the third was a pull request that nobody had touched in days and that the page kept calling stuck. A strip that seems to cry wolf three times before breakfast is a strip you stop reading, which is worse than having no strip at all.
+One morning my Needs you strip told me I had three things waiting. As far as I could tell, I had zero. That strip sits at the top of a small page that tells me what my coding agents need from me, and the point of it is that I can glance at it over coffee and know whether I have work to do. Two were alarms about nightly test runs that had gone red once and then passed every night since, and the third was a pull request that nobody had touched in days and that the page kept calling stuck. A strip that seems to cry wolf three times before breakfast is a strip you stop reading, which is worse than having no strip at all.
 
 So my agents and I cleaned it up, and in the cleaning we hid a live blocked pull request that still needed action. My agents fixed it within a couple of hours, but the mistake is worth writing down, because I think it is one of the most common in any alert system: **age tells you when you last checked something, not whether it is done. Mute a row because you could not check it, never because it is old.**
 
@@ -21,14 +21,14 @@ So my agents and I cleaned it up, and in the cleaning we hid a live blocked pull
 
 *Where the fix ended up: old and verified still counts, old and unverified goes quiet with a note.*
 
-## In brief
+## The short version
 
 - My Needs you strip showed three items I took for noise: two stale test alarms and one long-idle pull request. The alarms were noise. The pull request, it turned out, really was stuck.
 - The first fix closed alarms automatically once a later run of the same test passed, and muted any row older than 72 hours that had not been re-checked.
 - That 72-hour rule also muted a live pull request my reviewer agent had blocked, because its last update was more than 72 hours old. It dropped out of the count, which is the one thing that strip exists to prevent.
 - The follow-ups made live rows count no matter how old they are. Rows now mute only when the data behind them could not be refreshed.
 
-## Words I use
+## Terms the page uses
 
 - **Pull request** is a proposed change waiting to be reviewed and merged. My agents open them; a reviewer agent and sometimes I read them.
 - **Nightly run** is the full test suite running on a schedule, once a day. **Red** means it failed; **green** means it passed.
@@ -79,4 +79,4 @@ Whether yours is an agent dashboard or an on-call page, here is the part of this
 
 ## What the strip does now
 
-The strip is quieter now, for the right reason. Old alarms close themselves when a later run proves them over. Live work stays on the list for as long as it is live, and the only things that go gray are things the page honestly could not check. I like a dashboard I can trust more than one that is tidy, and those turned out to be different requests. Old is not the same as done, and sometimes old is the whole point.
+Old is not the same as done, and sometimes old is the whole point. The strip is quieter now, for the right reason. Old alarms close themselves when a later run proves them over. Live work stays on the list for as long as it is live, and the only things that go gray are things the page honestly could not check. I like a dashboard I can trust more than one that is tidy, and those turned out to be different requests.
