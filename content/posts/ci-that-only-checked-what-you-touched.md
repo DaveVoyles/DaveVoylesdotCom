@@ -15,17 +15,17 @@ alt = 'A changed file goes into a test map. One entry is missing a file, so its 
 caption = 'The pull request check was honest about what it ran. It just did not know about everything the change could break.'
 +++
 
+A change merged cleanly, the next full run on the default branch went red, and because our push tool refuses new pushes while the default branch is red, no agent working on that project could push until someone fixed it.
+
 Running only the tests a change touches is one of those ideas that sounds obviously right. If I edit a file in one corner of a project, why should I wait for every test in every other corner to finish before I find out whether my change is fine? On a busy project with a lot of automated contributors, that difference adds up fast, and it's why I set up our pull request checks that way.
 
 The catch is that "the tests this change touches" is a guess. Somebody, or something, has to decide which tests care about which files, and that decision lives in a map that can go stale. When it does, the pull request check stays green for a change that is actually broken, because the one test that would have caught it never ran.
-
-That's what happened to us. A change merged cleanly, the next full run on the default branch went red, and because our push tool refuses new pushes while the default branch is red, no agent working on that project could push until someone fixed it.
 
 **We fixed it by repairing the map and making the failing test name itself. When the fast check and the full run on the default branch disagree, the full run is the one I believe.**
 
 {{< motion-figure gif="/images/posts/ci-that-only-checked-what-you-touched-fig1-stale-map-skipped-the-step.gif" still="/images/posts/ci-that-only-checked-what-you-touched-fig1-stale-map-skipped-the-step-final.png" width="1280" height="2780" alt="A changed file is looked up in the test map. Two steps that list it are selected and run; the step whose entry does not list it is not selected and skipped. After the merge, the full run on the default branch runs every step, the skipped step goes red, and pushes to this project pause." >}}
 
-## In brief
+## The five-line version
 
 - Our pull request checks run only the test steps a change appears to affect. A map decides which steps those are.
 - One change made a test depend on two new library files, but that test's entry in the map was never updated, so pull request checks never picked it.
@@ -97,7 +97,7 @@ There was also a queueing problem, where the full run on the default branch coul
 | Leftover-process check failed | Real leak | A process caught mid-shutdown | Sample a few times; report only what stays |
 | Timing tests failed | Slow code | A very busy machine | Run them on their own; limits unchanged |
 
-## Put it into practice
+## Habits I would keep
 
 If your CI only runs what a change touches, these are the habits I'd keep.
 
@@ -109,6 +109,6 @@ Make failures say where they are. A red step with a vague message invites the "p
 
 And when one run goes red for several reasons at once, split them up. Each one gets its own cause, its own fix, and its own honest note about what's still open.
 
-## What changes for me
+## Why I still run the fast check
 
 I still like running only what a change touches. It saves a lot of waiting, and most of the time the map is right. What I don't do anymore is read a green pull request check as proof that nothing else broke. It's proof that the steps it chose passed. Whether it chose the right steps depends on a map, and the map deserves the same care as any other code that decides what gets tested.
