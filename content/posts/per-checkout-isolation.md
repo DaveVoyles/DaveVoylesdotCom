@@ -3,7 +3,7 @@ date = '2026-11-01T08:00:00-05:00'
 draft = false
 title = 'Two agents, one /tmp, and a receipt that lied'
 author = 'Dave Voyles'
-description = 'When two agents share fixed scratch paths, receipts and tests lie about which work they came from — make the checkout the isolation unit, not the product name.'
+description = 'Two agents sharing a fixed /tmp overwrote each other\'s receipts, and the fix was to make the checkout, not the product name, the unit of isolation.'
 categories = ['Programming', 'AI']
 tags = ['AI agents', 'isolation', 'worktrees', 'agent tooling', 'ops', 'Pattern']
 topics = ['Tech']
@@ -120,7 +120,7 @@ One repo's checkouts are isolated while worktrees on another host still share ol
 7. Write the rule in AGENTS.md or your operator docs: isolation unit = checkout; ledger is not proof.
 8. Re-sync the library on every host that starts agent worktrees. A fence that covers only some hosts lets this bug grow back.
 
-## Where this sits
+## How this differs from prove-before-floor
 
 This pattern sits beside [Prove the guard before it becomes the floor](/posts/prove-hook-before-floor/), not on top of it. Prove-before-floor asks whether a hook actually works before it becomes policy. Per-checkout isolation asks whether the evidence that system consumes can be attributed to the worktree that produced it.
 
