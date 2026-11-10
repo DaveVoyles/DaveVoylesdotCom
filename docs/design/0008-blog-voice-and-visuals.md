@@ -270,4 +270,7 @@ D2 starts the moment the plan is approved, because its post publishes on 2026-11
 
 ## Execution Tracking
 
-Written by the issue exporter after approval.
+- Cards: [open issues labelled `plan:0008`](https://github.com/DaveVoyles/DaveVoylesdotCom/issues?q=is%3Aissue+state%3Aopen+label%3Aplan%3A0008), issues 206 (D1) to 213 (D8), exported 2026-11-10.
+- Blockers are registered natively: 209 waits on 206; 211 waits on 206; 212 waits on 211; 213 waits on 208, 209, 210 and 211.
+- Board: none. This repo has no `.harness/board.json`, so the export ran without a project board and the label is the tracker.
+- One orchestrator drives the plan. A second one would race it for the same cards.
