@@ -1,6 +1,6 @@
 # Handoff
 
-**2026-11-10 — Plan 0008 drafted, awaiting Dave's approval.** [`docs/design/0008-blog-voice-and-visuals.md`](docs/design/0008-blog-voice-and-visuals.md) proposes eight deliverables to make posts read like Dave wrote them, give figures one dark house style and put pictures on the home page. Nothing is built. Do not export cards, dispatch workers or edit posts until the plan header reads `Status: approved <date> by Dave`.
+**2026-11-10 — Plan 0008 approved by Dave, build starting.** [`docs/design/0008-blog-voice-and-visuals.md`](docs/design/0008-blog-voice-and-visuals.md) has eight deliverables to make posts read like Dave wrote them, give figures one dark house style and put pictures on the home page. Cards carry the `plan:0008` label. One orchestrator drives them; do not start a second.
 
 Plan page (becomes the build tracker): progress page slug `2026-11-10-blog-voice-visuals` on the fleet page server. The link is private, so it is not written in this public repo.
 

@@ -11,4 +11,4 @@ One line per plan: number, title, status, what it supersedes. New plans append h
 | 0005 | [Post video prototype](0005-post-video-prototype.md) | see doc | none |
 | 0006 | [Post video pipeline](0006-post-video-pipeline.md) | see doc | none |
 | 0007 | [Landing floor true zero](0007-landing-floor-true-zero.md) | see doc | none |
-| 0008 | [Blog voice, visuals and a fun front door](0008-blog-voice-and-visuals.md) | draft, awaiting Dave's approval | none |
+| 0008 | [Blog voice, visuals and a fun front door](0008-blog-voice-and-visuals.md) | approved 2026-11-10 by Dave | none |

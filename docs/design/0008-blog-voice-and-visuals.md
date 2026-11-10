@@ -1,8 +1,8 @@
 # 0008 - Blog voice, visuals and a fun front door
 
-Status: draft
+Status: approved 2026-11-10 by Dave
 Supersedes: none   Superseded by: none
-Model roster (proposed, not yet approved): cheap=haiku, standard=sonnet, deep=sonnet at high effort; credits=ok; caps: builders<=3 concurrent, deep=orchestrator+critic only
+Model roster (approved 2026-11-10): cheap=haiku, standard=sonnet, deep=sonnet at high effort; credits=ok; caps: builders<=3 concurrent, deep=orchestrator+critic only
 Sources: audit of the nine newest posts on 2026-11-10 (five live, four scheduled); [`docs/authoring-guide.md`](../authoring-guide.md); [`docs/image-playbook.md`](../image-playbook.md); [`docs/post-pipeline.md`](../post-pipeline.md); [`DESIGN.md`](../../DESIGN.md); MainVault `20-Areas/Personal/blog-post-standard-v1.md` and `docs-blog-image-standard.md`; the `humanize` and `voice` skills in the Dvoyles-Skills repo; a cold read and a critic premortem of this draft on 2026-11-10.
 
 ## Executive Summary
@@ -156,7 +156,7 @@ Grok Bot is doing what its instructions say. Four documents describe one job and
 
 ## Unconfirmed defaults
 
-Each of these is my call and Dave has not confirmed it. Approving the plan approves all six; any of them can be struck in the reply.
+Each of these was my call. Dave approved the plan on 2026-11-10 without striking any, so all six stand.
 
 1. **Dark figures replace "prefer lighter".** This reverses the lock Dave set on 2026-09-14, before the site went dark-only, and changes `AGENTS.md` rule 7 and the image playbook.
 2. **"In brief" and "Words I use" stop being required sections.** The summary becomes a callout of at most three lines, and terms are defined in the sentence that first uses them. This changes the Post Standard checklist and the glossary line in the authoring guide.
