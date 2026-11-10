@@ -13,20 +13,13 @@ alt = 'A render progress bar stops partway while a flat line labeled silence run
 caption = 'No error and no finish. The render just stopped.'
 +++
 
-The render did not fail. That would have been polite. It just sat there, forever, with nothing on the screen and nothing in the log, like a guest who has finished dinner and decided not to leave.
+Nothing in the log said anything was wrong, and nothing on the screen moved. The render just sat there, forever, like a guest who has finished dinner and decided not to leave.
 
 I use a small film and design toolchain to make short product videos, and my coding agents do most of the work on it. Under a loop test, about one render in 25 hung like that. It gave no error and no message, and from the outside I couldn't tell whether it was thinking hard or had quietly died in its chair. The trigger turned out to be an audio filter left without a length, which its manual says will pad silence indefinitely. Give it a length and the stalls stopped. I still don't know why the unbounded version stalled only some of the time. That is the most annoying kind of bug there is. So here is the rule I took away: **every call to an outside tool needs a finish line, and when it crosses that line, it should say why.**
 
 ![A render starts and branches three ways: finished; stopped at a deadline with the tool and wait time named; and the old way, marked with an X, hanging forever with no message.](/images/posts/the-silence-that-never-ended-d1.png)
 
 *A render should end one of two ways: it finishes, or it stops and says why. The old third way was hanging forever with nothing said.*
-
-## In brief
-
-- A **render** that hung forever was not slow. It was stuck in the audio mixer, where a filter padded each track with no length set. I don't know why that stalled only some of the time.
-- The audio step used a filter that adds silence to the end of a track. Left without a length, it adds silence indefinitely, and the manual says so in plain words.
-- A second, quieter trap: the tool can sit waiting for keyboard input that never comes.
-- The fix was boring on purpose. Give the silence a length, close the input, and put a time limit with a clear error on every ffmpeg call in the render scripts. After that, loop runs came back with zero stalls and the same audio.
 
 ## Words I use
 
@@ -72,7 +65,6 @@ The fix went in over two changes, and none of it is clever.
 4. **Say why.** When the deadline hits, the call is stopped and the error names the tool and how long it waited. "Stalled, no exit after this many seconds, killed" is not a beautiful sentence, but it beats a blank screen by a mile.
 5. **Keep it from coming back.** A test now fails if anyone adds an unbounded `apad` again, and another one fakes a hung ffmpeg to prove the stall message actually shows up.
 
-
 Then the proof. In the mixer, bounding the pad gave the same audio and 0 stalls in 150 runs. A follow-up change bounded the same pattern in the other render scripts and ran each of them 50 times in a loop, with 0 stalls. It also ran the old filter and the new one side by side on short and long tracks: same decoded audio, hash for hash. I care about the "same audio" part as much as the "zero stalls" part, because a fix that changes how the films sound is just a new bug with better manners.
 
 One footnote: the calls in two scripts that never pad audio were left outside this change. They do not use the filter tied to the hang, but they don't have the deadline either, and "every call" should mean every call.
@@ -99,6 +91,6 @@ If you run renders, builds, or anything else that shells out to a command-line t
 
 This matters more when agents are writing the code. "Pad, then trim" reads as correct and the audio comes out right, so nothing in a review flags it. It passed almost every run, and then roughly one in 25 just stopped talking, for reasons nobody has pinned down. That is why the guard is a test that fails on the unbounded form, not a hope that the next author knows.
 
-## Bottom line
+## A finish line for every call
 
-A hang is worse than a crash, because a crash at least tells you where to look. Give every outside call a finish line and a sentence to say when it gets there, and "it's stuck" turns back into "it stopped, and here's why."
+A hang is worse than a crash, because a crash at least tells you where to look. Every outside call needs a finish line and a sentence to say when it gets there.
