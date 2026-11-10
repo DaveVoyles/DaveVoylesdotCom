@@ -1,0 +1,11 @@
+# Retired phrases for scripts/check-voice.sh. One per line, matched
+# case-insensitively against post prose (code and quotes already removed).
+# A trailing {max=N} allows N uses before the phrase is reported.
+# Source: docs/design/0008-blog-voice-and-visuals.md, "Moves to retire".
+That was the annoying part
+So here is the rule I took away
+Executives hear
+Implementers hear
+You do not need my setup to steal the shape
+theater {max=1}
+folklore {max=1}
