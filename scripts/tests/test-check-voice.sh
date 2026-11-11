@@ -265,14 +265,17 @@ d="$(new_dir oldpost)"
 post "$d" old 2026-10-30 "That was the annoying part — really. **a** **b** **c**"
 if run "$d" | grep -q '^WARN'; then bad "post dated before 2026-11-01 was checked"; else ok "posts dated before 2026-11-01 are exempt"; fi
 
-# 13. warning mode exits 0 on findings; VOICE_STRICT=1 exits 1
+# 13. a finding exits 1 (blocking); VOICE_WARN_ONLY=1 exits 0; the passing fixture exits 0
 d="$(new_dir exit)"; post "$d" new 2026-11-10 "$GOOD_BODY
 
 That was the annoying part."
 ./scripts/check-voice.sh --dir "$d" >/dev/null 2>&1; rc=$?
-[ "$rc" -eq 0 ] && ok "warning mode exits 0 with findings" || bad "warning mode exited $rc"
-VOICE_STRICT=1 ./scripts/check-voice.sh --dir "$d" >/dev/null 2>&1; rc=$?
-[ "$rc" -eq 1 ] && ok "VOICE_STRICT=1 exits 1 with findings" || bad "strict mode exited $rc"
+[ "$rc" -eq 1 ] && ok "a finding exits 1" || bad "finding exited $rc"
+VOICE_WARN_ONLY=1 ./scripts/check-voice.sh --dir "$d" >/dev/null 2>&1; rc=$?
+[ "$rc" -eq 0 ] && ok "VOICE_WARN_ONLY=1 exits 0 with findings" || bad "warn-only exited $rc"
+d="$(new_dir exitpass)"; post "$d" new 2026-11-10 "$GOOD_BODY"
+./scripts/check-voice.sh --dir "$d" >/dev/null 2>&1; rc=$?
+[ "$rc" -eq 0 ] && ok "passing fixture exits 0" || bad "passing fixture exited $rc"
 
 # 14. make check does not invoke the voice script (directly or through a prerequisite)
 plan="$(make -n check 2>&1)"

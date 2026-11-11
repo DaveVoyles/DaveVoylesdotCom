@@ -1,7 +1,8 @@
 name: Voice check
 
 # Pull requests only. Never part of `make check`, the push build or the daily
-# scheduled publish. Warning mode: findings show as annotations, the job passes.
+# scheduled publish. Blocking: a finding fails the job. A post opts out with
+# voice_exempt plus voice_exempt_reason in its front matter.
 on:
   pull_request:
     paths:

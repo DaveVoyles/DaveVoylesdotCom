@@ -79,3 +79,5 @@
 - 2026-11-10: Plan 0008 D4: wrote the story-first writing standard into docs/authoring-guide.md (replacing four older voice sections), dropped "prefer lighter palettes" from AGENTS.md rule 7, aligned the pipeline and idea docs, folded in the public-links rule from draft PR 153, and sent the two locked vault-note wordings to the Chief of Staff persona (receipt 20261111003412-70dc1567).
 
 - 2026-11-10: Plan 0008, later the same day. Landed D6 (dark figure kit, PRs 221, 224, 227), D7 (home refresh, PR 223), D5 (voice check on pull requests, PR 215) and D4 (writing standard, PR 222); the last two after an independent reviewer verdict. Restored the who-makes-and-picks-images rules the playbook rewrite had dropped. D8 and issue 219 remain.
+
+- 2026-11-10: Plan 0008 D8: Grok Bot's machine has node, the Dvoyles-Skills repo and runnable humanize scripts, so no fallback is needed; the voice job now exits non-zero on a finding (pull requests only, voice_exempt kept), AGENTS.md rule 7 says figures are dark, and the Grok Bot brief went through the handoff tool (receipt 20261111030408-d51b520b).
