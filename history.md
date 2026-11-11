@@ -83,3 +83,5 @@
 - 2026-11-10: Plan 0008 D8: Grok Bot's machine has node, the Dvoyles-Skills repo and runnable humanize scripts, so no fallback is needed; the voice job now exits non-zero on a finding (pull requests only, voice_exempt kept), AGENTS.md rule 7 says figures are dark, and the Grok Bot brief went through the handoff tool (receipt 20261111030408-d51b520b).
 
 - 2026-11-10: Plan 0008 closed. Landed the pull-request site build (PR 229, issue 219) and D8, the blocking voice check and Grok Bot brief (PR 230), each after an independent reviewer verdict. All eight deliverables are on main; the plan doc carries the Outcome table.
+
+- 2026-11-11: Turned off CodeRabbit's automatic review in `.coderabbit.yaml`: it was skipping every pull request (its notice says the repo has fewer than 10 stars) and posting that notice each time. A review can still be asked for by hand on one pull request.

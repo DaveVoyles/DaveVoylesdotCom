@@ -16,8 +16,12 @@ reviews:
   slop_detection:
     enabled: true              # flags low-effort / AI-slop PRs (free on public repos)
 
+  # Off since 2026-11-11: CodeRabbit skips this repo (its notice says the repo has
+  # fewer than 10 stars) and posts that notice on every pull request. Reviews here
+  # come from the reviewer dispatch, the voice check and the site build. Comment
+  # "@coderabbitai review" on a pull request to ask for one by hand.
   auto_review:
-    enabled: true
+    enabled: false
     drafts: false
     base_branches:
       - main
