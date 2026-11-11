@@ -1,9 +1,9 @@
 +++
 date = '2026-11-01T08:00:00-05:00'
 draft = false
-title = 'Per-checkout isolation so parallel agents stop sharing one /tmp'
+title = 'Two agents, one /tmp, and a receipt that lied'
 author = 'Dave Voyles'
-description = 'When two agents share fixed scratch paths, receipts and tests lie about which work they came from — make the checkout the isolation unit, not the product name.'
+description = "Two agents sharing a fixed /tmp overwrote each other's receipts, and the fix was to make the checkout, not the product name, the unit of isolation."
 categories = ['Programming', 'AI']
 tags = ['AI agents', 'isolation', 'worktrees', 'agent tooling', 'ops', 'Pattern']
 topics = ['Tech']
@@ -13,141 +13,117 @@ alt = 'Two agent work lanes with separate scratch trays instead of one shared /t
 caption = 'Isolation unit is the checkout. Shared fixed paths are how parallel agents clobber each other.'
 +++
 
-Two coding agents on the same machine will happily invent the same filenames, write the same “temporary” paths, and then argue about whose receipt is whose.
+Agent A writes a prove receipt under a fixed temp name. Agent B, working on a related problem the same afternoon, overwrites it. Then a push gate reads the leftover and smiles.
 
-I learned that the boring way: launch parallel work, watch tests and push gates read unbound or fixed scratch, and discover that “green” was sometimes just whoever finished last painting over `/tmp`. The isolation unit was wrong. People reach for product names, container names, even agent display names — anything that sounds like a fence. The fence that actually worked was smaller and duller: **the checkout**. One worktree, one scheme for artifact classes, receipts that follow that environment, and tests that refuse to collide on a shared fixed path.
+That is how I learned the boring way that two coding agents on the same machine will happily invent the same filenames and then argue about whose receipt is whose. I launched parallel work and watched tests and push gates read unbound or fixed scratch. "Green" was sometimes just whoever finished last painting over `/tmp`.
 
-If you get this wrong, parallel agents do not merely slow each other down. They cross-contaminate evidence. A receipt that cannot name its checkout is folklore. A push gate that falls back to “whatever is lying around” will bless the wrong stack. That is the cost: you stop being able to trust the paper trail you built the agents to produce.
+I had picked the wrong isolation unit, meaning the thing you fence. People reach for product names, container names, even agent display names, anything that sounds like a fence. The fence that worked was smaller and duller: **the checkout**, the actual working tree (a clone, worktree or checked-out branch directory) with a real path on disk. One worktree gets one scheme for artifact classes, receipts follow that environment, and tests refuse to collide on a shared fixed path.
+
+When this goes wrong, parallel agents contaminate each other's evidence. A receipt, which is a small durable record that a step ran in a named environment, is folklore if it cannot name its checkout. A push gate that falls back to whatever is lying around will bless the wrong stack. After that, the paper trail the agents exist to produce stops being something you can believe.
 
 ![Shared fixed /tmp vs per-checkout isolation](/images/posts/per-checkout-isolation-shared-vs-checkout.png)
 
 *Left: two agents share one `/tmp`, so receipts get clobbered and tests turn flaky. Right: each checkout gets its own scratch space, so gates read receipts they can trace to that checkout.*
 
-## In brief
+## Where it hurt
 
-- Parallel agent work fails quietly when receipts, temp files, and test output share **fixed or unbound** paths.
-- Treat the **checkout** (the concrete worktree / clone the agent is in) as the isolation unit — not the product nickname.
-- Give every artifact class a per-checkout home: receipts, session notes, temp, and anything a gate will later read.
-- Make push and prove steps **fail closed** when the environment is unbound; do not “helpfully” fall back to a shared folder.
-- Keep a session ledger **observational** — it records what happened in that checkout; it is not a second authority that invents success.
+I run coding agents against real repos on real machines. That means worktrees, parallel sessions, and a habit of letting more than one agent touch related problems in the same afternoon. The failure was not science fiction.
 
-## Words I use below
+The fixes that mattered were dull plumbing, and none of them added agents. A per-checkout scheme now owns every artifact class: receipts, session notes, temp files, test output and push evidence. Receipts follow the environment instead of a global default. A session ledger, an observational log of what one checkout's session did, is scoped to that checkout. And the tests stopped colliding on fixed `/tmp`. I then re-synced the same libraries on the other host that starts agent worktrees, so those stayed separate too. The same scheme now lives in both places.
 
-- **Checkout.** The concrete working tree the agent is editing — a clone, worktree, or checked-out branch directory with a real path on disk.
-- **Artifact class.** A kind of leftover the system must keep straight: receipts, temp files, test output, session notes, push evidence.
-- **Receipt.** A small, durable record that a step actually ran in a named environment — not a chat summary of what the agent meant to do.
-- **Unbound path.** A location that is not tied to the current checkout (shared `/tmp` names, home-directory defaults, “first folder we find”).
-- **Session ledger.** An observational log of what this checkout’s session did — useful for debugging, never a substitute for a prove step.
-- **Isolation unit.** The thing you fence. Here it is the checkout, not the product name on the README.
+## Why the fence was wrong
 
-## Situation
+On a slide, multi-agent means more work at once. On my machine it meant two shells fighting over the same scratch file.
 
-I run coding agents against real repos on real machines. That means worktrees, parallel sessions, and a habit of letting more than one agent touch related problems in the same afternoon. The failure mode is not science fiction: Agent A writes a prove receipt under a fixed temp name; Agent B overwrites it; a push gate reads the leftover and smiles.
+Once you treat product names as the fence, you keep finding shared paths that never learned the product name: `/tmp`, CI caches, a default receipt directory, the helpful fallback that made a demo look smooth. What is at stake is trust. If a receipt can lie about which checkout produced it, every gate downstream is reading fiction.
 
-The interesting ships in this pattern were not “more agents.” They were the dull plumbing: a per-checkout scheme that owns every artifact class, receipts that follow the environment instead of a global default, an observational session ledger scoped to the checkout, and tests that stop colliding on fixed `/tmp`. I then re-synced the same libraries on the other host that starts agent worktrees, so those stayed separate too. Same shape, two homes.
+## Pick the checkout
 
-The stealable part is the unit of isolation.
-
-## Why it matters
-
-Executives hear “multi-agent” and picture throughput. Implementers hear “multi-agent” and picture two shells fighting over the same scratch file. Both are right about the aspiration, and both lose when the filesystem is the shared memory nobody designed.
-
-Why now: agent tooling got good enough that parallel work is the default temptation, not a rare experiment. Why this decision: once you treat product names as the fence, you will keep discovering shared paths that never learned the product name — `/tmp`, CI caches, “default receipt dir,” the helpful fallback that made a demo look smooth.
-
-The stakes are trust, not aesthetics. If the receipt can lie about which checkout produced it, every gate downstream is theater with better fonts.
-
-## Decision
-
-**Make the checkout the isolation unit.** Name artifact paths from the checkout’s identity. Ban shared fixed scratch for anything a gate will later read. Prefer fail-closed when the environment cannot prove which checkout it is in.
+I make the checkout the isolation unit. Artifact paths are named from the checkout's identity. Shared fixed scratch is banned for anything a gate will later read. When the environment cannot prove which checkout it is in, the gate fails closed.
 
 | Approach | What it optimizes | What breaks |
 | :--- | :--- | :--- |
 | Shared fixed `/tmp` (or one global receipt dir) | Demo speed; fewer path arguments | Parallel clobber; wrong receipt wins; flaky tests |
 | Isolate by product / agent display name | Branding clarity | Paths that never heard the brand; two checkouts of the same product still collide |
-| **Per-checkout scheme for every artifact class** | Honest parallel work; receipts that mean something | Slightly more path discipline up front — worth it |
+| Per-checkout scheme for every artifact class | Honest parallel work; receipts that mean something | Slightly more path discipline up front, which is worth it |
 
-That middle row is the trap I want named out loud. Product names feel like boundaries. They are labels. The boundary is the directory the agent can actually write.
+The middle row is the trap. A product name sounds like a boundary, but nothing on disk enforces it. The line sits wherever the agent can really write.
 
 ![Checkout owns every artifact class](/images/posts/per-checkout-isolation-artifact-classes.png)
 
 *One checkout owns every artifact class: receipts, temp, ledger and tests, each scoped to that checkout.*
 
-## System model
+## Who touches what
 
-Picture three actors and a few gates.
+A human opens or assigns a checkout, which is a real path and not a vibe. The agent works only inside that checkout's scheme for artifact classes. The machine itself (disks, `/tmp`, runners) is shared, and that is exactly why artifact classes must not default into unbound infra paths. An unbound path is any location not tied to the current checkout, such as a shared `/tmp` name, a home-directory default or the first folder a script finds.
 
-1. **Human** opens or assigns a checkout — a real path, not a vibe.
-2. **Agent** works only inside that checkout’s scheme for artifact classes.
-3. **Infra** is the machine: disks, `/tmp`, runners. Infra is shared. That is exactly why you must not let artifact classes default into unbound infra paths.
-4. **Prove / push gate** reads receipts that name the checkout. If the path is unbound, the gate blocks — it does not go hunting for a friendly leftover.
-
-The session ledger sits beside this as a camera, not a judge. It observes what the session did in that checkout. It does not get a vote that overrides a red prove.
+The prove or push gate reads receipts that name the checkout. If the path is unbound, the gate blocks. It does not go hunting for a friendly leftover. The session ledger sits beside all this as a camera and not a judge. It observes what the session did in that checkout, and it does not get a vote that overrides a red prove.
 
 ![Receipts follow the environment: an unbound fallback blesses the wrong leftover, while fail closed names the checkout or blocks](/images/posts/per-checkout-isolation-receipts-follow-env.png)
 
 *Left: the agent cannot resolve its receipt, reads a legacy shared folder, and blesses the wrong leftover. Right: the review binds the path, the receipt names checkout A, and the gate proceeds or blocks if unbound.*
 
-## Implementation detail
+## What I changed
 
-You do not need my tooling to steal the shape. You need a boring checklist implemented in whatever language you already ship.
+You need a boring checklist, built in whatever language you already ship.
 
-**1. Define the scheme once.** For a given checkout root, compute deterministic homes for each artifact class: receipts, temp, session ledger, test scratch. Prefer paths under the checkout or under a host cache that includes a checkout id — not `/tmp/agent-receipt.json` with a wink.
+Define the scheme once. For a given checkout root, compute a deterministic home for each artifact class: receipts, temp, session ledger and test scratch. Prefer paths under the checkout or under a host cache that includes a checkout id, and avoid `/tmp/agent-receipt.json` with a wink.
 
-**2. Teach every writer the scheme.** Hooks, prove steps, push helpers, and tests should call one library (or one function) to ask “where does this class live for *this* checkout?” If two tools invent paths independently, you will re-create the collision.
+Then teach every writer the scheme. Hooks, prove steps, push helpers and tests should call one library, or one function, to ask where a class lives for this checkout. If two tools invent paths independently, you will re-create the collision.
 
-**3. Thread the environment into receipts.** A receipt should be able to answer: which checkout, which step, what outcome. If a receipt cannot name its checkout, treat it as incomplete — same family of bug as a green check that never asked whether the service was alive.
+Thread the environment into receipts. A receipt should be able to answer which checkout, which step and what outcome. One that cannot name its checkout is incomplete, in the same family as a green check that never asked whether the service was alive.
 
-**4. Kill unbound fallbacks in gates.** The “helpful” branch that says “if we cannot find a per-checkout receipt, look in the old global folder” is how wrong evidence gets promoted. Fail closed. Make the operator fix the wiring. Painful once; cheaper than debugging a blessed lie.
+Kill the unbound fallbacks in gates. The helpful branch that says "if we cannot find a per-checkout receipt, look in the old global folder" is how wrong evidence gets promoted. Fail closed and make the operator fix the wiring. It is painful once and cheaper than debugging a blessed lie.
 
-**5. Keep the session ledger observational.** Useful for “what did this session touch?” Dangerous if someone starts treating “ledger says we pushed” as proof. Proof is the prove step. The ledger is the diary.
+Keep the session ledger observational. It is useful for "what did this session touch?" and dangerous if someone starts treating "ledger says we pushed" as proof. Proof is the prove step. The ledger is the diary.
 
-**6. Re-sync the same libs wherever worktrees live.** Isolation that exists in one repo’s hooks but not on the other host that runs worktrees is a part-time fence. Same scheme, both places, or you will watch collisions migrate to the machine you forgot.
+Re-sync the same libraries wherever worktrees live. Isolation that exists in one repo's hooks but not on the other host that runs worktrees is a part-time fence. Same scheme in both places, or you will watch collisions migrate to the machine you forgot.
 
-**7. Test for collision on purpose.** Have two checkouts write the same artifact class in parallel in CI or a local smoke. If either can overwrite the other, the scheme is unfinished.
+Last, test for collision on purpose. Have two checkouts write the same artifact class in parallel in CI or a local smoke. If either can overwrite the other, the scheme is unfinished.
 
-## Failure modes
+## Five ways it comes back
 
-These are the ones I care about naming before someone “simplifies” the paths again.
+I want these named before someone "simplifies" the paths again.
 
-### 1. Fixed `/tmp` friendship
+### Fixed `/tmp` friendship
 
-Two agents, one predictable temp filename, last writer wins. Tests flake in a way that looks like timing. Gates look haunted. **Fix:** per-checkout temp roots; never a repo-wide constant path for prove output.
+Two agents, one predictable temp filename, last writer wins. Tests flake in a way that looks like timing and gates look haunted. The fix: per-checkout temp roots, and never a repo-wide constant path for prove output.
 
-### 2. Unbound fallback that “just works”
+### Unbound fallback that "just works"
 
-A push gate cannot resolve the checkout-scoped receipt, so it reads a legacy global file and continues. Demo green. Production folklore. **Fix:** block on unbound; delete the fallback; fix callers.
+A push gate cannot resolve the checkout-scoped receipt, so it reads a legacy global file and continues. The demo passes and production inherits a wrong receipt. The fix: block on unbound, delete the fallback and fix the callers.
 
-### 3. Ledger promoted to authority
+### Ledger promoted to authority
 
-Someone wires automation that treats the session ledger as proof of push or proof of tests. The ledger was a camera. Now it is a forged badge. **Fix:** ledger read-only for humans and debug tools; gates read receipts that were proved, not diary lines.
+Someone wires automation that treats the session ledger as proof of push or proof of tests. The ledger was a camera and is now a forged badge. The fix: keep the ledger read-only for humans and debug tools, and have gates read receipts that were proved, not diary lines.
 
-### 4. Product-name fencing
+### Product-name fencing
 
-Folders named after the product, shared across every checkout of that product. Feels organized. Still a shared scratch bin. **Fix:** checkout id in the path; product name is a label, not a directory strategy.
+Folders named after the product, shared across every checkout of that product. It feels organized and is still a shared scratch bin. The fix: put a checkout id in the path. Keep the product name as a label on the folder.
 
-### 5. Half-migrated hosts
+### Half-migrated hosts
 
-One repo’s checkouts are isolated; worktrees on another host still share old libraries. Collisions “mysteriously” only happen on one machine. **Fix:** re-sync the scheme everywhere parallel work can start.
+One repo's checkouts are isolated while worktrees on another host still share old libraries. Collisions "mysteriously" only happen on one machine. The fix: re-sync the scheme everywhere parallel work can start.
 
 ![Five failure modes on one glance](/images/posts/per-checkout-isolation-failure-modes.png)
 
-*Each row names a failure mode, the symptom you see, and the fix.*
+*Five failure modes, each with its symptom and its fix.*
 
-## Put it into practice
+## Do this on Monday
 
-1. **Inventory paths your agents write** that a gate might later read — receipts, temp, test output, push evidence.
-2. **Mark each path** checkout-scoped, product-scoped, or unbound. Unbound and product-scoped are debt.
-3. **Pick one checkout id** you can compute the same way from hooks and from tests (path hash, worktree name, git common-dir key — consistency beats cleverness).
-4. **Move one artifact class first** (usually receipts). Prove two parallel checkouts cannot clobber it.
-5. **Delete unbound fallbacks** in the gate that consumes that class. Watch who complains; that list is your migration queue.
-6. **Add a collision smoke** that fails the build if two checkouts share a writable artifact path.
-7. **Write the rule in AGENTS.md / operator docs:** isolation unit = checkout; ledger ≠ proof.
-8. **Re-sync the library** on every host that starts agent worktrees — partial fences are how this bug regenerates.
+1. Inventory the paths your agents write that a gate might later read: receipts, temp, test output and push evidence.
+2. Mark each path checkout-scoped, product-scoped or unbound. Unbound and product-scoped are debt.
+3. Pick one checkout id you can compute the same way from hooks and from tests. A path hash, a worktree name or a git common-dir key all work. Compute it the same way everywhere; a clever scheme computed two ways is worse than a plain one.
+4. Move one artifact class first, usually receipts, and prove two parallel checkouts cannot clobber it.
+5. Delete unbound fallbacks in the gate that consumes that class. Watch who complains. That list is your migration queue.
+6. Add a collision smoke that fails the build if two checkouts share a writable artifact path.
+7. Write the rule in AGENTS.md or your operator docs: isolation unit = checkout; ledger is not proof.
+8. Re-sync the library on every host that starts agent worktrees. A fence that covers only some hosts lets this bug grow back.
 
-## Next in the system
+## How this differs from prove-before-floor
 
 This pattern sits beside [Prove the guard before it becomes the floor](/posts/prove-hook-before-floor/), not on top of it. Prove-before-floor asks whether a hook actually works before it becomes policy. Per-checkout isolation asks whether the evidence that system consumes can be attributed to the worktree that produced it.
 
-If your gates are honest but your paths are shared, you still have folklore — just folklore with CI badges. Fix the unit of isolation first, then the proves have something true to read.
+If your gates are honest but your paths are shared, the receipts they read can still be wrong. Fix the unit of isolation first. After that the prove steps have something true to read.
 
-**Bottom line:** parallel agents need a fence; the checkout is the fence; shared `/tmp` is how you pretend you built one.
+If you take one thing from this: give each checkout its own scratch space before you add the next agent.
