@@ -78,6 +78,23 @@ and arrows does not count. The artifact goes in the body where the
 claim needs it; a figure can sit beside it but not replace it. If a
 post has nothing real to show, the post is not ready.
 
+## Who does what
+
+This section carries forward Dave's image rules of 2026-09-14 and
+2026-09-20. Plan 0008 changed how figures look, not who makes or
+picks them.
+
+- **Blog writes three briefs only.** It does not generate images:
+  no Imagine, no session image tool.
+- **Engineer builds on the Mini or the Pro.** Figures and drawn
+  covers come from the kit. A generated cover, when the post calls
+  for one, comes from a local image CLI on that machine, never from
+  Grok Bot Imagine.
+- **The pick happens in the Engineering room.** The pick packet goes
+  to the Chief of Staff; Engineer and Roberto choose. Dave can
+  override.
+- **Blog lands only the named winner.**
+
 ## Process: three variants, one winner
 
 1. **Read the post.** Pull the visual beats already on the page.
@@ -86,8 +103,8 @@ post has nothing real to show, the post is not ready.
    near-copies. For a cover that means three different objects or
    compositions. Keep them outside the repo (scratch folder) or in
    the pull request description as a table.
-3. **Pick one and say why.** Name the winner in the pull request in
-   one line. Dave can override.
+3. **Engineer and Roberto pick one and say why.** Name the winner
+   in the pull request in one line. Dave can override.
 4. **Wire only the winner.** Commit the winner's PNG and its HTML
    source. Rejects stay out of git. Set `[cover]` or inline
    `![]()` with honest alt text.
