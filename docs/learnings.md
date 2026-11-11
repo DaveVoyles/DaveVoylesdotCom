@@ -166,4 +166,4 @@
 - **Proof a layout change from `hugo server`, not from a `hugo` build opened as files.** A plain build links its CSS at the live site address, so the screenshot shows the live styles and not the change.
 - **To move a rail below the content on a phone, change the DOM order and pin the rail's grid cell on desktop.** CSS `order` alone leaves keyboard focus visiting the rail first while it is drawn last.
 - **`sips --cropOffset` does not tile a tall screenshot reliably.** `ffmpeg -vf crop=W:H:0:Y` does.
-
+- **Setting `reviews.auto_review.enabled: false` in `.coderabbit.yaml` stops CodeRabbit's skip notice.** The notice used to land within seconds of a pull request opening. The pull request that carried the setting got none, and neither did the next one, so CodeRabbit reads the setting from the pull request's own branch. A skipped CodeRabbit status check still shows.
