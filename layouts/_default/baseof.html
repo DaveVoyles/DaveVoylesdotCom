@@ -36,14 +36,17 @@
     {{ partialCached "header.html" . .Page -}}
     <main class="main" id="main-content">
         <div class="page-shell{{ if or .IsHome (eq .Layout "about") }} page-shell--solo{{ end }}">
+            <div class="page-shell-content">
+                {{- block "main" . }}{{ end }}
+            </div>
+            {{- /* Bio comes after the content in the DOM so a phone reader
+                   meets the page first and the bio last. On desktop the CSS
+                   grid places it in the left column (custom.css, section 4). */ -}}
             {{- if not (or .IsHome (eq .Layout "about")) }}
             <aside class="site-sidebar">
                 {{- partial "sidebar.html" . }}
             </aside>
             {{- end }}
-            <div class="page-shell-content">
-                {{- block "main" . }}{{ end }}
-            </div>
         </div>
     </main>
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}

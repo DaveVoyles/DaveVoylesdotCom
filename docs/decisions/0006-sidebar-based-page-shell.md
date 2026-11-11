@@ -68,3 +68,9 @@ TOC-only right rail on top of the same shell.
 - Neutral: below ~1024px both rails collapse via CSS reflow only (no
   separate mobile markup), keeping the responsive story to one set of
   partials at every viewport width.
+
+- Amended 2026-11-11: below 1024px the content now comes first and the bio
+  card follows it (the bio is after the content in the DOM, and the desktop
+  grid places it in the left column). Before, a phone reader met the bio
+  before a post's title. The contents rail is desktop only: stacked on a
+  phone it sat below the tags as a closed box. Still one set of partials.

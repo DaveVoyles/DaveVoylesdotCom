@@ -85,3 +85,5 @@
 - 2026-11-10: Plan 0008 closed. Landed the pull-request site build (PR 229, issue 219) and D8, the blocking voice check and Grok Bot brief (PR 230), each after an independent reviewer verdict. All eight deliverables are on main; the plan doc carries the Outcome table.
 
 - 2026-11-11: Turned off CodeRabbit's automatic review in `.coderabbit.yaml`: it was skipping every pull request (its notice says the repo has fewer than 10 stars) and posting that notice each time. A review can still be asked for by hand on one pull request.
+
+- 2026-11-11: Phone check of the home page and the two rewritten posts at 390 pixels. Fixed two flaws on post pages: the bio card sat above the post title, and the contents box trailed the tags as a closed, empty-looking box. Content now comes first with the bio after it, and the contents rail is desktop only (ADR 0006 amended).

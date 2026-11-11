@@ -159,3 +159,11 @@
 - **Home thumbnails load lazily,** so a full-page screenshot shows blank tiles unless the page is scrolled first.
 - **A `.gitignore` comment has to sit on its own line;** a trailing `#` is read as part of the pattern.
 - **A Guarded pull request that gets "SHIP with nits" lands as reviewed,** and the nits go in a follow-up, because any new commit moves the head past the verdict.
+
+## 2026-11-11 — phone check and CodeRabbit, after plan 0008
+
+- **A proof shot of the part a pull request changed does not cover the page around it.** Plan 0008's 390-pixel proofs showed figures and the home page; nobody shot a whole post page top to bottom, so a bio card above every post title and an empty-looking contents box under the tags went unseen. Shoot the full page at 390 at least once per layout.
+- **Proof a layout change from `hugo server`, not from a `hugo` build opened as files.** A plain build links its CSS at the live site address, so the screenshot shows the live styles and not the change.
+- **To move a rail below the content on a phone, change the DOM order and pin the rail's grid cell on desktop.** CSS `order` alone leaves keyboard focus visiting the rail first while it is drawn last.
+- **`sips --cropOffset` does not tile a tall screenshot reliably.** `ffmpeg -vf crop=W:H:0:Y` does.
+- **Setting `reviews.auto_review.enabled: false` in `.coderabbit.yaml` stops CodeRabbit's skip notice.** The notice used to land within seconds of a pull request opening. The pull request that carried the setting got none, and neither did the next one, so CodeRabbit reads the setting from the pull request's own branch. A skipped CodeRabbit status check still shows.

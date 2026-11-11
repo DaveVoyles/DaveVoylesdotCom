@@ -1,6 +1,6 @@
 # Handoff
 
-**2026-11-10 — Plan 0008 is done; all eight deliverables are on main.** [`docs/design/0008-blog-voice-and-visuals.md`](docs/design/0008-blog-voice-and-visuals.md) ends with an Outcome table that says where each one landed. No pull request or `plan:0008` issue is open.
+**2026-11-11 — Plan 0008 is done; all eight deliverables are on main.** [`docs/design/0008-blog-voice-and-visuals.md`](docs/design/0008-blog-voice-and-visuals.md) ends with an Outcome table that says where each one landed. No pull request or `plan:0008` issue is open.
 
 ## What is different now
 
@@ -9,6 +9,12 @@
 - **Site build check:** every pull request builds the site, so invalid front matter fails before merge.
 - **Figures and covers:** dark, from [`docs/figure-kit/`](docs/figure-kit/); covers are one object, no words, 16 by 9. Rules and who does what are in [`docs/image-playbook.md`](docs/image-playbook.md).
 - **Home page:** one-line hero with avatar, a Start here row and a thumbnail on each recent post.
+
+## Since the plan closed (2026-11-11)
+
+- CodeRabbit's automatic review is off in `.coderabbit.yaml` (it skipped every pull request and posted a notice each time). A review can be asked for by hand on one pull request.
+- Post pages on a phone: the content comes first and the bio card follows; the contents rail is desktop only (ADR 0006 amended).
+- Grok Bot's vault note change for D4 was read and matches what it reported.
 
 ## Open items (none blocks anything)
 
