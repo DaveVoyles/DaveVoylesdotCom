@@ -17,3 +17,18 @@
   if ("requestIdleCallback" in window) requestIdleCallback(mount, { timeout: 1500 });
   else setTimeout(mount, 300);
 })();
+
+/* Thumbnails fade in and rise 8px on first view (200 ms, CSS). Skipped under reduced motion. */
+(function () {
+  if (!("IntersectionObserver" in window)) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const thumbs = document.querySelectorAll(".ledger-thumb");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.remove("is-pre");
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: "0px 0px -8% 0px" });
+  thumbs.forEach((t) => { t.classList.add("is-pre"); io.observe(t); });
+})();

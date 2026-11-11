@@ -6,7 +6,7 @@ author = "Dave Voyles"
 description = "An agent is a program that writes code for you. Automate means let it work without you. I still keep the last say on things I cannot undo, stories about people, and talks that need a human."
 categories = ["Career", "AI"]
 tags = ["AI agents", "governance", "TPM", "ethics", "leadership"]
-topics = ["Tech"]
+topics = ["Tech", "AI and Agents"]
 series = ["Agent production system"]
 series_weight = 6
 [cover]

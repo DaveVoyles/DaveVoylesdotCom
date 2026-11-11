@@ -6,7 +6,7 @@ author = 'Dave Voyles'
 description = 'Piloting Meta’s Muse beside a mature multi-bot Grok Bot desk — not a feature-parity scorecard — with a second brain I own, and a Dad pilot that chose the friendlier on-ramp.'
 categories = ['Programming', 'AI']
 tags = ['AI agents', 'Muse', 'Grok Bot', 'MainVault', 'second brain']
-topics = ['Tech']
+topics = ['Tech', 'AI and Agents']
 [cover]
 image = "/images/posts/muse-second-brain-hub.png"
 alt = "Second brain hub across Grok Bot and Muse"

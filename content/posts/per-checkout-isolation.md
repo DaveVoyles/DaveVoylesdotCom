@@ -6,7 +6,7 @@ author = 'Dave Voyles'
 description = "Two agents sharing a fixed /tmp overwrote each other's receipts, and the fix was to make the checkout, not the product name, the unit of isolation."
 categories = ['Programming', 'AI']
 tags = ['AI agents', 'isolation', 'worktrees', 'agent tooling', 'ops', 'Pattern']
-topics = ['Tech']
+topics = ['Tech', 'AI and Agents']
 [cover]
 image = "/images/posts/per-checkout-isolation-cover.png"
 alt = 'One receipt card sitting in its own teal tray with a check mark beside it, for a receipt that names its checkout'

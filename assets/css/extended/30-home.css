@@ -38,6 +38,15 @@
   font-weight: 700;
   color: var(--ds-hero-title-from);
 }
+.ledger-intro { display: flex; align-items: center; gap: var(--ds-space-4); }
+.ledger-avatar {
+  flex: none;
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--ds-radius-full);
+  border: 1px solid var(--border);
+  object-fit: cover;
+}
 .ledger-lede {
   margin: 0;
   max-width: 38rem;
@@ -48,6 +57,40 @@
 
 /* --- Sections --- */
 .ledger-section { margin-top: var(--ds-space-8); }
+
+/* --- Start here: three picks for a first-time reader --- */
+.ledger-start { margin-top: var(--ds-space-6); }
+.ledger-kicker {
+  margin: 0 0 var(--ds-space-3);
+  font: var(--ds-fs-2) ui-monospace, "SF Mono", Menlo, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.ledger-start-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: var(--ds-space-3); counter-reset: start; }
+.ledger-start-list li { counter-increment: start; }
+.ledger-start-list a {
+  display: block;
+  height: 100%;
+  padding: var(--ds-space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface);
+  font: 600 var(--ds-fs-4) var(--ds-font-display);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--primary);
+  text-decoration: none;
+  transition: border-color var(--ds-dur-fast), color var(--ds-dur-fast);
+}
+.ledger-start-list a::before {
+  content: "0" counter(start);
+  display: block;
+  margin-bottom: var(--ds-space-2);
+  font: var(--ds-fs-2) ui-monospace, "SF Mono", Menlo, monospace;
+  color: var(--secondary);
+}
+.ledger-start-list a:hover, .ledger-start-list a:focus-visible { border-color: var(--accent); color: var(--accent); }
 
 /* --- Writing index --- */
 .ledger-list { list-style: none; margin: 0; padding: 0; }
@@ -65,6 +108,34 @@
 .ledger-post a { color: var(--primary); text-decoration: none; }
 .ledger-post a:hover, .ledger-post a:focus-visible { color: var(--accent); }
 .ledger-row--lead { padding: var(--ds-space-5) 0; }
+
+/* --- Thumbnails: 16 by 9, 480 by 270 WebP (layouts/partials/home-thumb.html) --- */
+.ledger-row { align-items: start; }
+.ledger-date { padding-top: var(--ds-space-1); }
+.ledger-main { display: flex; align-items: center; gap: var(--ds-space-4); min-width: 0; }
+.ledger-text { min-width: 0; }
+.ledger-thumb {
+  flex: none;
+  display: block;
+  width: 10rem;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface);
+}
+.ledger-row--lead .ledger-thumb { width: 20rem; }
+.ledger-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ledger-thumb--tile {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(70% 90% at 80% 20%, var(--ds-hero-glow-a), transparent 70%),
+    radial-gradient(60% 80% at 10% 90%, var(--ds-hero-glow-b), transparent 70%),
+    var(--ds-surface);
+}
+.ledger-tile-mark { font: 700 var(--ds-fs-7) var(--ds-font-display); color: var(--accent); opacity: 0.8; }
+.ledger-thumb.is-pre { opacity: 0; transform: translateY(8px); }
 .ledger-row--lead .ledger-post { font-size: var(--ds-fs-7); line-height: 1.15; letter-spacing: -0.025em; }
 .ledger-sum { margin: var(--ds-space-2) 0 0; max-width: 40rem; color: var(--secondary); font-size: var(--ds-fs-3); line-height: 1.55; }
 .ledger-topic { font-size: var(--ds-fs-2); color: var(--accent); text-decoration: none; white-space: nowrap; }
@@ -102,15 +173,22 @@
   .ledger-hero { min-height: min(20rem, 50svh); }
   .ledger-hero-in { padding: var(--ds-space-5) var(--ds-space-4); }
   .ledger-row { grid-template-columns: 1fr; gap: var(--ds-space-1); }
+  .ledger-date { padding-top: 0; }
+  .ledger-thumb { width: 6.5rem; }
+  .ledger-row--lead .ledger-main { flex-direction: column; align-items: stretch; gap: var(--ds-space-3); }
+  .ledger-row--lead .ledger-thumb { width: 100%; }
+  .ledger-avatar { width: 3rem; height: 3rem; }
   .ledger-row--lead .ledger-post { font-size: var(--ds-fs-6); }
   .ledger-topic { justify-self: start; margin-top: var(--ds-space-1); }
 }
 @media (min-width: 1024px) {
+  .ledger-start-list { grid-template-columns: repeat(3, 1fr); gap: var(--ds-space-4); }
   .ledger-building { grid-template-columns: repeat(3, 1fr); column-gap: var(--ds-space-6); border-top: 0; }
   .ledger-building li { border-top: 1px solid var(--border); }
 }
 @media (prefers-reduced-motion: reduce) {
   .ledger-look { transition: none; }
+  .ledger-thumb.is-pre { opacity: 1; transform: none; }
 }
 
 /* --- Post pages share the home display face (sans), mono stays for chrome --- */
@@ -137,6 +215,7 @@
     transition: transform var(--ds-dur-base) var(--ds-ease-out);
   }
   .ledger-main { transition: transform var(--ds-dur-base) var(--ds-ease-out); }
+  .ledger-thumb { transition: opacity var(--ds-dur-base) var(--ds-ease-out), transform var(--ds-dur-base) var(--ds-ease-out); }
   .ledger-row:hover::before, .ledger-row:focus-within::before { transform: scaleY(1); }
   .ledger-row:hover .ledger-main, .ledger-row:focus-within .ledger-main { transform: translateX(var(--ds-space-1)); }
   .ledger-row:active .ledger-main { transform: translateX(var(--ds-space-1)) scale(0.99); transition-duration: var(--ds-dur-fast); }
@@ -159,3 +238,24 @@
   .nav-pill.is-on { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .nav-pill { display: none; } }
+
+/* --- Post callouts (shortcodes: summary, define). Tokens only. --- */
+.callout-summary {
+  margin: var(--ds-space-5) 0;
+  padding: var(--ds-space-4) var(--ds-space-5);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface);
+}
+.callout-summary-label {
+  margin: 0 0 var(--ds-space-2);
+  font: var(--ds-fs-2) ui-monospace, "SF Mono", Menlo, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.callout-summary-body { color: var(--content); font-size: var(--ds-fs-4); line-height: 1.55; }
+.callout-summary-body > :last-child { margin-bottom: 0; }
+.inline-def { font-style: normal; font-weight: 600; color: var(--primary); }
+.inline-def-text { color: var(--secondary); }

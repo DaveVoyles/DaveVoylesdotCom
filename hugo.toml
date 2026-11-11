@@ -46,6 +46,36 @@ toLower = true
 name = 'topics'
 weight = 100
 
+# Home thumbnails (plan 0008 / D7): expose the post images to Hugo's image
+# pipeline as assets/thumbsrc/ without moving them out of static/. Declaring any
+# mount replaces Hugo's defaults, so the defaults are listed again. The distinct
+# target keeps cover.html's resources.ByType lookups unchanged.
+[module]
+[[module.mounts]]
+source = 'archetypes'
+target = 'archetypes'
+[[module.mounts]]
+source = 'assets'
+target = 'assets'
+[[module.mounts]]
+source = 'content'
+target = 'content'
+[[module.mounts]]
+source = 'data'
+target = 'data'
+[[module.mounts]]
+source = 'i18n'
+target = 'i18n'
+[[module.mounts]]
+source = 'layouts'
+target = 'layouts'
+[[module.mounts]]
+source = 'static'
+target = 'static'
+[[module.mounts]]
+source = 'static/images/posts'
+target = 'assets/thumbsrc'
+
 [privacy.youtube]
 privacyEnhanced = true
 
@@ -79,6 +109,18 @@ featured_count = 1
 recent_count = 5
 show_topic_rails = true
 show_building = true
+# One line under the home title: what the reader gets (plan 0008 / D7).
+hero_line = "What breaks when AI agents run real work, and the rules that kept it safe."
+
+# "Start here" row: three posts for a first-time reader, by file name under
+# content/posts/. Titles come from the posts. Does not count toward the
+# featured/recent caps above (ADR 0010).
+[[params.home.start_here]]
+page = "agent-production-system"
+[[params.home.start_here]]
+page = "the-match-that-came-back-no"
+[[params.home.start_here]]
+page = "what-i-will-not-automate"
 
 # "Currently building" strip on the homepage — hand-edited, keep honest.
 [[params.home.building]]

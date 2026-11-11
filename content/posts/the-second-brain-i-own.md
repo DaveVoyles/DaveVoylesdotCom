@@ -6,7 +6,7 @@ author = 'Dave Voyles'
 description = 'How MainVault works day to day — git as the source of truth, two-machine sync, read-first agents, and narrow write ownership — as a portable second brain beside chat memory.'
 categories = ['Programming', 'AI']
 tags = ['AI agents', 'second brain', 'MainVault', 'Grok Bot', 'knowledge management']
-topics = ['Tech']
+topics = ['Tech', 'AI and Agents']
 [cover]
 image = "/images/posts/second-brain-rented-vs-owned.png"
 alt = "Rented chat memory versus a second brain you own"

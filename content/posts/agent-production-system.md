@@ -6,7 +6,7 @@ author = "Dave Voyles"
 description = "A claim-safe walkthrough of the multi-agent production system I operate — orchestrator, eval gates, human approval, Docker, and Azure — not a résumé timeline."
 categories = ["Programming", "AI"]
 tags = ["AI agents", "Docker", "Azure", "orchestration", "TPM"]
-topics = ["Tech"]
+topics = ["Tech", "AI and Agents"]
 series = ["Agent production system"]
 series_weight = 0
 [cover]
