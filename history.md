@@ -81,3 +81,5 @@
 - 2026-11-10: Plan 0008, later the same day. Landed D6 (dark figure kit, PRs 221, 224, 227), D7 (home refresh, PR 223), D5 (voice check on pull requests, PR 215) and D4 (writing standard, PR 222); the last two after an independent reviewer verdict. Restored the who-makes-and-picks-images rules the playbook rewrite had dropped. D8 and issue 219 remain.
 
 - 2026-11-10: Plan 0008 D8: Grok Bot's machine has node, the Dvoyles-Skills repo and runnable humanize scripts, so no fallback is needed; the voice job now exits non-zero on a finding (pull requests only, voice_exempt kept), AGENTS.md rule 7 says figures are dark, and the Grok Bot brief went through the handoff tool (receipt 20261111030408-d51b520b).
+
+- 2026-11-10: Plan 0008 closed. Landed the pull-request site build (PR 229, issue 219) and D8, the blocking voice check and Grok Bot brief (PR 230), each after an independent reviewer verdict. All eight deliverables are on main; the plan doc carries the Outcome table.
