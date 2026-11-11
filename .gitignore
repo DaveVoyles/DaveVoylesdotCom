@@ -6,6 +6,8 @@ __pycache__/
 scripts/.venv/
 static/images/*.tmp
 public/
+# Hugo image-processing cache
+resources/_gen/
 .hugo_build.lock
 .omp-handoff/
 
