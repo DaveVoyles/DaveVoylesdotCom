@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../assets/css/extended/00-tokens.css">
+<link rel="stylesheet" href="../kit.css"></head>
+<body>
+<div class="fig">
+  <h1>The bot looked busy. Every typed answer was already gone.</h1>
+  <p class="sub">A confidence floor borrowed from another classifier sat under every typed answer.</p>
+  <div class="cols">
+    <div class="panel blocked">
+      <div class="head">Broken: floor as shredder</div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">Typed answers</div><div class="d">Choice, score or slot</div></div>
+      <div class="ar">↓</div>
+      <div class="n review"><span class="tag">Review</span><div class="t">Confidence floor</div><div class="d">Cutoff under the line</div></div>
+      <div class="ar">↓</div>
+      <div class="n blocked"><span class="tag">Blocked</span><div class="t">Discarded</div><div class="d">Shape thrown away</div></div>
+      <div class="ar">↓</div>
+      <div class="n blocked"><span class="tag">Blocked</span><div class="t">Public result: unknown</div><div class="d">Busy bot, empty triage</div></div>
+    </div>
+    <div class="panel verified">
+      <div class="head">Fix: floor as annotation</div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">Typed answers</div><div class="d">Keep the shape</div></div>
+      <div class="ar">↓</div>
+      <div class="n review"><span class="tag">Review</span><div class="t">Confidence floor</div><div class="d">Mark weak guesses</div></div>
+      <div class="ar">↓</div>
+      <div class="n verified"><span class="tag">Verified</span><div class="t">Shape survives</div><div class="d">Humans can disagree</div></div>
+      <div class="ar">↓</div>
+      <div class="n verified"><span class="tag">Verified</span><div class="t">Low-confidence badge</div><div class="d">Show the doubt</div></div>
+    </div>
+  </div>
+</div>
+</body></html>

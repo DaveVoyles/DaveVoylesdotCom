@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../assets/css/extended/00-tokens.css">
+<link rel="stylesheet" href="../kit.css"></head>
+<body>
+<div class="fig">
+  <h1>Receipts follow the environment</h1>
+  <div class="cols">
+    <div class="panel blocked">
+      <div class="head">Unbound fallback</div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">Agent in checkout A</div></div>
+      <div class="ar">↓</div>
+      <div class="n review"><span class="tag">Review</span><div class="t">Cannot resolve receipt</div></div>
+      <div class="ar">↓</div>
+      <div class="n infra"><span class="tag">Infra</span><div class="t">Reads legacy shared folder</div></div>
+      <div class="ar">↓</div>
+      <div class="n blocked"><span class="tag">Blocked</span><div class="t">Blesses the wrong leftover</div></div>
+    </div>
+    <div class="panel verified">
+      <div class="head">Fail closed</div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">Agent in checkout A</div></div>
+      <div class="ar">↓</div>
+      <div class="n review"><span class="tag">Review</span><div class="t">Review path binding</div></div>
+      <div class="ar">↓</div>
+      <div class="n verified"><span class="tag">Verified</span><div class="t">Receipt names checkout A</div></div>
+      <div class="ar">↓</div>
+      <div class="n verified"><span class="tag">Verified</span><div class="t">Proceed, or block if unbound</div></div>
+    </div>
+  </div>
+</div>
+</body></html>
