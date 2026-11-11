@@ -33,9 +33,9 @@ A quick orientation for anyone (human or agent) new to this checkout: what each 
 | [`AGENTS.md`](../AGENTS.md) | Thin router for coding agents. | First file to open in a new session. |
 | [`docs/post-pipeline.md`](post-pipeline.md) | Who does what: Dave, agent, site. Diagram: [`docs/diagrams/post-pipeline.html`](diagrams/post-pipeline.html). | "How do we make a post?" |
 | [`docs/claim-safe-facts.md`](claim-safe-facts.md) | Allowed metrics, banned claims, constellation node ids. | Any post/About copy with numbers or product claims. |
-| [`docs/authoring-guide.md`](authoring-guide.md) | Write → preview → publish a post (includes voice do/don't). | Every new post. |
+| [`docs/authoring-guide.md`](authoring-guide.md) | Write → preview → publish a post (includes the writing standard). | Every new post. |
 | [`docs/idea-playbook.md`](idea-playbook.md) | Propose titles + one-line angles from Chat-Agents, then stop. | Idea-generating agent — not a drafting session. |
-| [`docs/image-playbook.md`](image-playbook.md) | Propose 4–5 covers/body images from the post text, then stop. | Image pick-list — do not wire `[cover]` until Dave picks. |
+| [`docs/image-playbook.md`](image-playbook.md) | The dark figure kit, the cover rule and who makes and picks post images. | Any figure or cover — three variants, Engineer and Roberto pick, wire only the winner. |
 | [`docs/series/README.md`](series/README.md) | Series operator card (auto-publish, scaffold). | Agent production series. |
 | [`docs/platform-guide.md`](platform-guide.md) | Human-facing platform explainer. | "Can I do X on this site?" |
 | [`docs/learnings.md`](learnings.md) | Session gotchas. | Before non-trivial work. |

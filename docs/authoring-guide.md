@@ -14,7 +14,7 @@ GitHub Actions rebuild ships them automatically (see
 `draft = true`. Ship early by setting `date` to now and pushing `main`.
 
 **Claim-safe facts** (metrics, bans, node ids): [`claim-safe-facts.md`](claim-safe-facts.md).  
-**Voice (do/don't):** [Writing standard](#writing-standard-2026-11-10) below.  
+**Writing standard:** [Writing standard](#writing-standard-2026-11-10) below.  
 **Propose ideas, don't draft:** [`idea-playbook.md`](idea-playbook.md).  
 **Covers / mechanism images:** 3 variants in Engineering → Engineer+Roberto pick → wire winner ([`image-playbook.md`](image-playbook.md)).  
 **Visual cadence (2026-09-14):** about every **3 paragraphs** of body prose, include an image, diagram, or table that earns the scroll — no long walls of text. Cover counts for the top; body still needs beats.
