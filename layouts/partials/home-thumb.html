@@ -1,0 +1,21 @@
+{{- /*
+  Home thumbnail (plan 0008 / D7). 16 by 9 centre crop, WebP 480 by 270.
+  Source: front matter `thumb` (optional override image, used when a cover crops
+  badly), else `cover.image`. Posts with neither, or whose file is missing, get a
+  token-coloured tile. Static images are mounted read-only at assets/thumbsrc
+  (see [module] mounts in hugo.toml) so Hugo can resize them without moving them.
+  Context: dict "page" . "eager" bool
+*/ -}}
+{{- $page := .page }}
+{{- $src := $page.Params.thumb | default $page.Params.cover.image | default "" }}
+{{- $img := "" }}
+{{- if $src }}{{ $img = resources.Get (printf "thumbsrc/%s" (path.Base $src)) }}{{ end }}
+<a class="ledger-thumb{{ if not $img }} ledger-thumb--tile{{ end }}" href="{{ $page.RelPermalink }}" tabindex="-1" aria-hidden="true">
+  {{- if $img }}
+  {{- $t := $img.Fill "480x270 webp q80 Center" }}
+  <img src="{{ $t.RelPermalink }}" width="{{ $t.Width }}" height="{{ $t.Height }}" alt="" decoding="async"
+    {{- if .eager }} fetchpriority="high"{{ else }} loading="lazy"{{ end }}>
+  {{- else }}
+  <span class="ledger-tile-mark">{{ substr $page.Title 0 1 }}</span>
+  {{- end }}
+</a>

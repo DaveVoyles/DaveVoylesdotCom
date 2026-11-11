@@ -6,7 +6,7 @@ author = "Dave Voyles"
 description = "An agent writes code in a chat. A pull request is a proposed change. Merge means accepting it. A GitHub App is a robot that can click GitHub buttons for you. You can still require checks and click yourself."
 categories = ["Programming", "AI"]
 tags = ["AI agents", "GitHub", "code review", "automation", "TPM"]
-topics = ["Tech"]
+topics = ["Tech", "AI and Agents"]
 series = ["Agent production system"]
 series_weight = 8
 [cover]

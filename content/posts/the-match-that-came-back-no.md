@@ -7,6 +7,7 @@ description = 'A safety check found exactly what it was looking for, and the she
 categories = ['Programming', 'AI']
 tags = ['Build-log', 'bash', 'shell', 'guards', 'ops', 'AI agents']
 topics = ['Tech', 'AI and Agents']
+thumb = '/images/posts/the-match-that-came-back-no-thumb.png'
 [cover]
 image = '/images/posts/the-match-that-came-back-no-cover.png'
 alt = 'Found it. Said no. A green path labeled Search list, Match found, and Block merge. A side branch marked Printer cut off pulls the path down to Reported no, which ends at a red Merge passes.'

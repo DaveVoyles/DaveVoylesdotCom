@@ -6,7 +6,7 @@ author = "Dave Voyles"
 description = "Builder-first TPM craft transfers: critical path, multi-team programs, and SLA pressure map cleanly onto eval gates, orchestration, and human approval."
 categories = ["Career", "AI"]
 tags = ["Xbox", "TPM", "AI agents", "SLA", "platform"]
-topics = ["Tech", "Career and Students"]
+topics = ["Tech", "Career and Students", "AI and Agents"]
 series = ["Agent production system"]
 series_weight = 4
 [cover]

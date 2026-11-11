@@ -6,7 +6,7 @@ author = "Dave Voyles"
 description = "A Dockerized homelab is not a toy rack — it is the host layer for an agent production system: runtimes, runners, dashboards, and hardened defaults."
 categories = ["Programming", "AI"]
 tags = ["Docker", "homelab", "AI agents", "ops", "Azure"]
-topics = ["Tech"]
+topics = ["Tech", "AI and Agents"]
 series = ["Agent production system"]
 series_weight = 3
 [cover]

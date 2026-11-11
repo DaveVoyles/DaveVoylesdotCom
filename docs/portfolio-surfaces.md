@@ -67,10 +67,13 @@ layout dir is `_partials/` on current PaperMod).
 
 Home **does not paginate the full post archive**. It shows:
 
-1. **Hero** — name + bio over one quiet motion look (shader-loop contour field; paused off-screen, one still frame under reduced motion)  
-2. **Writing** — newest `featured_count` post with summary, then `recent_count` posts as a dated index, then a link to `/archives/`  
-3. **Currently building** — `[[params.home.building]]`  
-4. **Topics** — chips from the `topics` taxonomy  
+1. **Hero** — name, the avatar from `[params.homeInfoParams]` and one line (`params.home.hero_line`) over one quiet motion look (shader-loop contour field; paused off-screen, one still frame under reduced motion)  
+2. **Start here** — three posts from `[[params.home.start_here]]` (`page` is the file name under `content/posts/`); not counted in the caps  
+3. **Writing** — newest `featured_count` post with summary, then `recent_count` posts as a dated index, then a link to `/archives/`. Each row has a 16 by 9 WebP thumbnail (480 by 270, centre crop of the cover). A post can set `thumb = "/images/posts/<file>"` in front matter to override a cover that crops badly; a post with no image gets a token-coloured tile (`layouts/partials/home-thumb.html`)  
+4. **Currently building** — `[[params.home.building]]`  
+5. **Topics** — chips from the `topics` taxonomy  
+
+Post shortcodes: `{{< summary >}}…{{< /summary >}}` (callout of three lines at most, for posts over 1,200 words) and `{{< define term="x" >}}meaning{{< /define >}}` (a term defined inline where first used).
 
 Config: `[params.home]` in `hugo.toml`.
 

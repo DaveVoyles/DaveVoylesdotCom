@@ -1,187 +1,136 @@
-# Image-generating playbook
+# Image playbook
 
-Short workflow for **new covers and mechanism diagrams** on
-davevoyles.com. Minutes. **Do not wire `[cover]` or commit artwork
-until a winner is named.**
+How to make a figure or a cover for davevoyles.com. Figures are
+dark, built from HTML and SVG on the site's own `--ds-*` colour
+tokens. Covers are one object and no words. Voice and claim rules
+live in [`authoring-guide.md`](authoring-guide.md) and
+[`claim-safe-facts.md`](claim-safe-facts.md). Plan:
+[`design/0008-blog-voice-and-visuals.md`](design/0008-blog-voice-and-visuals.md)
+(card D6).
 
-The post (or draft) must already exist. Images come from its text,
-not a mood board. Voice and claim rules:
-[`authoring-guide.md`](authoring-guide.md),
-[`claim-safe-facts.md`](claim-safe-facts.md).
+The post must already exist. Images come from its text, not a mood
+board.
 
----
+## The kit
 
-## IMAGE OFFLOAD lock (2026-09-20)
+Everything lives in [`figure-kit/`](figure-kit/).
 
-Blog FYI. This path wins over the 2026-09-14 "Blog generates 3
-variants" step unless Dave overrides.
+| File | What it is |
+|---|---|
+| `figure-kit/kit.css` | The figure styles. Colours are `var(--ds-*)` only, no raw values. |
+| `figure-kit/figure-template.html` | The starting file. Copy it, change the text. |
+| `figure-kit/render.mjs` | Renders a figure or cover to PNG at 2x with Playwright and Chrome. |
+| `figure-kit/posts/` | The sources of the figures that ship, one HTML file per image. |
 
-- **Blog writes 3 briefs only.** No generation. No Imagine. No
-  session image tool.
-- **Engineer runs on Mini/Pro** with a local image CLI (`gemini`,
-  `agy`, or another installed image CLI). Not Grok Bot Imagine.
-- **Labeled diagrams** are HTML, SVG, or Archify export to PNG. Not
-  image-gen.
-- **Pick packet goes to CoS.** Engineer and Roberto pick in-room.
-  Dave can override.
-- Wire **only the named winner**. Unique cover. Never reuse the cover
-  as a body image. Rejects stay out of git.
+Rules the kit enforces:
 
+- **Dark canvas, mint ink.** The canvas is `--ds-canvas`, text is
+  `--ds-ink`, and panels sit on `--ds-surface`. No white or pastel
+  cards. The site is dark-only, so a light figure looks pasted on.
+- **Six role colours, each with a label.** Human is blue, verified
+  is teal, review is amber, blocked is coral, infra is gray, agent is
+  purple (`--ds-human`, `--ds-verified`, `--ds-review`,
+  `--ds-blocked`, `--ds-infra`, `--ds-agent`). Every box carries a
+  `.tag` label with the role name, so colour is never the only
+  signal. Use only the roles the figure needs.
+- **One type family.** The body sans stack from `kit.css`. No second
+  font, no web font.
+- **Designed at 800 CSS pixels wide, exported at twice that**
+  (1600 px). The size check in `make check` (1 MB per file) still
+  applies; run a heavy PNG through `sips` or `process_images.py`.
+- **Smallest label 14 CSS pixels** (the role `.tag`). Box titles are
+  18 to 22, detail lines 16. If a label will not fit at 14, cut
+  words, do not shrink type.
+- **Few words, one claim.** The figure title states the claim flat.
+  Boxes hold two or three words each. Prose belongs in the post.
 
-## Default path (Dave lock 2026-09-14)
+Render a figure:
 
-Every **new** cover or mechanism image:
+```
+PW_DIR=<dir whose node_modules has playwright> \
+  node docs/figure-kit/render.mjs docs/figure-kit/posts/<slug>-<role>.html static/images/posts/<slug>-<role>.png
+```
 
-1. **Blog** writes **3 briefs only**. Engineer generates on Mini/Pro
-   (HTML→PNG / Archify / local image CLI). Not Imagine.
-2. Blog posts the three options in the **Engineering** room (link + what each variant is + what Dave gets).
-3. **Engineer + Roberto** pick the best in-room (keep / fix / redo energy on the pick).
-4. **Blog** lands the winner on the draft PR (or asks Engineer to swap the file). Dave can override any pick.
+## The cover rule
 
-Desktop pick-lists (`~/Desktop/<slug>-image-picks/`) are **optional scratch** only — not the default review surface. Dave reviews real theme via MacBook `make preview` on the draft PR when content is in flight.
+A cover is **one object, no words, 16 by 9**.
 
-**Unique cover:** never reuse the cover file as a body image in the same post.
+- One object that stands in for the post's rule (a tray, a bar, a
+  button). Not a diagram, not a collage.
+- No text, no numbers, no logos, no faces. If the beat needs labels
+  it is a figure and goes in the body.
+- 16 by 9, designed at 800 by 450 and exported at 1600 by 900, as
+  `static/images/posts/<slug>-cover.png`. Wire it with `[cover]`.
+- Also export the **1200 by 630 social crop** as
+  `static/images/posts/<slug>-cover-social.png`: crop the 16 by 9
+  design to 800 by 420 around the object (`render.mjs --crop
+  800x420`), then resize to 1200 by 630. Keep the object inside the
+  middle 800 by 420 so the crop never cuts it.
+- Alt text describes the object and says what it stands for. The
+  caption is the rule in Dave's voice.
+- A cover never also appears in the body.
 
-**Visual cadence:** roughly one image/diagram/table per **~3 paragraphs** of body prose so the post does not read as a wall of text. Cover does not replace body beats.
+## One real artifact per post
 
----
+Every post carries at least one real artifact: a code snippet, a log
+line, a redacted screenshot or a measured number. A figure of boxes
+and arrows does not count. The artifact goes in the body where the
+claim needs it; a figure can sit beside it but not replace it. If a
+post has nothing real to show, the post is not ready.
 
-## Do this, in order
+## Who does what
 
-1. **Read the post.** Pull the visual beats already on the page (thesis,
-   mechanism, comparison). Do not invent a sixth theme.
+This section carries forward Dave's image rules of 2026-09-14 and
+2026-09-20. Plan 0008 changed how figures look, not who makes or
+picks them.
 
-2. **Generate three distinct variants** — not three near-copies.
-   Prefer lighter, brighter palettes unless the beat is ops /
-   fail-closed (night-console still valid then). Not purple SaaS.
+- **Blog writes three briefs only.** It does not generate images:
+  no Imagine, no session image tool.
+- **Engineer builds on the Mini or the Pro.** Figures and drawn
+  covers come from the kit. A generated cover, when the post calls
+  for one, comes from a local image CLI on that machine, never from
+  Grok Bot Imagine.
+- **The pick happens in the Engineering room.** The pick packet goes
+  to the Chief of Staff; Engineer and Roberto choose. Dave can
+  override.
+- **Blog lands only the named winner.**
 
-   | # | Job (examples) |
-   |---|-----|
-   | A | Clearest ELI10 / teaching layout |
-   | B | Editorial / magazine feel (e.g. big-number poster) |
-   | C | Minimal / reusable house-standard candidate |
+## Process: three variants, one winner
 
-   For photoreal covers, three metaphors from the post beat five
-   near-copies. For labeled architecture, use HTML/Archify/SVG exports
-   — not image-gen with fake readable type.
+1. **Read the post.** Pull the visual beats already on the page.
+   Ground each candidate in a sentence that is in the post.
+2. **Make three distinct variants** from the kit, not three
+   near-copies. For a cover that means three different objects or
+   compositions. Keep them outside the repo (scratch folder) or in
+   the pull request description as a table.
+3. **Engineer and Roberto pick one and say why.** Name the winner
+   in the pull request in one line. Dave can override.
+4. **Wire only the winner.** Commit the winner's PNG and its HTML
+   source. Rejects stay out of git. Set `[cover]` or inline
+   `![]()` with honest alt text.
+5. **Put a figure under the H2 it illustrates**, after the paragraph
+   that states the beat. Roughly one image, table or code block per
+   three paragraphs so the post is not a wall of text.
 
-3. **Post the three in Engineering.** Each row: file (or preview) +
-   one line what beat it is + which sentence it comes from. Tag
-   Engineer and Roberto for the pick.
+Naming: `static/images/posts/<slug>-<role>.png`.
 
-4. **Stop wiring until a winner.** Do not set `[cover]`, do not add
-   `![]()`, do not commit all three candidates to `static/`. Rejects
-   stay out of git. After the room (or Dave) names a winner, wire
-   only that file.
+Do not change `date` or `draft` when wiring art unless the publish
+pass says so. `make check` fails if a file is missing or over 1 MB.
 
----
+## Proof before the pull request
 
-## Mechanism diagram styles (approved examples)
-
-Use these as starting points, not a closed set:
-
-- **V2 poster** — big numbers, magazine / editorial (locked for the
-  Second Brain “three failures” diagram).
-- **Hub-A vertical spine** — SoT spelled out as “source of truth” on
-  the figure; light canvas; one cool spine, not a rainbow of boxes.
-- Timeline / before-after / hub+satellites remain useful critique
-  axes when proposing the next three.
-
-Crop empty whitespace before shipping. Prefer light `#f7f9fc`-family
-backgrounds for adoption posts.
-
----
-
-## Visual grammar (Post Standard v1.1)
-
-Canonical role colors for mechanism diagrams. Vault:
-[Blog Post Standard](https://github.com/DaveVoyles/MainVault/blob/main/20-Areas/Personal/blog-post-standard-v1.md)
-(`ef4d637`). Pipeline locks in [`authoring-guide.md`](authoring-guide.md)
-still win. **Labels + patterns, not color alone.**
-
-| Color | Means |
-|-------|--------|
-| Blue | Human |
-| Teal | Verified |
-| Amber | Review |
-| Coral | Blocked |
-| Gray | Infra |
-| Purple | Agent |
-
-Site tokens: `--ds-human` / `--ds-verified` / `--ds-review` / `--ds-blocked` / `--ds-infra` / `--ds-agent` in `assets/css/extended/00-tokens.css`; labels + patterns in `10-visual-grammar.css`. Do not rely on color alone.
-
----
-
-## How to prompt (photoreal covers)
-
-When the beat is a photoreal cover (not a labeled diagram), Engineer
-runs a **local image CLI on Mini/Pro** (`gemini`, `agy`, or another
-installed image CLI). Not Grok Bot Imagine. Not a session generator.
-One call per option. Distinct prompts. Do not fire a whole post's
-worth in one burst. Rate limits bite. Two or three at a time.
-
-Write 2–5 sentences, **subject first**, then setting, then style:
-
-- One physical object that stands in for the rule.
-- Photoreal. Ground the picture in a sentence from the post.
-- **Palette follows the post.** Prefer lighter when the piece is
-  exec adoption / optimism; keep night-console for ops floor /
-  fail-closed.
-- Almost **no readable type**. If the beat needs labels, that beat
-  is an export (Archify / HTML / SVG).
-- No people faces unless Dave gave a photo. No fake Dave face.
-- No “AI command center,” purple SaaS, HUD overlays, or logos.
-
-Deliver the three options via **Engineering**, not a Desktop folder
-as the primary path.
-
----
-
-## Where to put the winner (after the pick)
-
-Typical shape: **one cover** + body mechanism images. Cover file must
-not also appear inline.
-
-| Pick | Placement |
-|------|-----------|
-| Cover | `[cover]` in front matter. Do **not** also inline the same file. |
-| Body / mechanism | Inline `![]()` **immediately under the H2 they illustrate**, after the paragraph that states the beat. |
-| Rejects | Leave out of `static/`. Do not commit. |
-
-Naming: `static/images/posts/<slug>-<role>.png` (or `.jpg`). Alt text
-describes the object; caption is the rule in Dave’s voice.
-
-Do **not** change `date` or `draft` when wiring art unless the publish
-pass explicitly says so. `make check` fails if a file is missing or
-over 1MB.
-
----
+Open the rendered post at 390 and 1440 pixels (the **ui-proof**
+skill, with real device emulation for the narrow shot, not a
+narrow headless window). Every label must be legible. At 390 pixels a
+figure scales to about 45 percent, so tapping the image opens the
+full-size lightbox; keep titles and boxes large enough that the
+claim reads without it.
 
 ## Hard rules
 
-- Ground every candidate in a sentence that is actually in the post.
-- Three briefs from Blog. Engineer generates on Mini/Pro. Pick packet
-  to CoS. Engineer+Roberto pick. Blog wires only the named winner.
-  Dave can override. No Imagine.
-- Unique cover (never also a body image).
-- Photoreal covers: almost no readable type. No fake Dave face.
-- Labeled architecture / permission lists / exact numbers are
-  export jobs, not image-gen.
-- No invented metrics or “N agents” baked into pixels.
-- Missing local image CLI is not a prompt-engineering problem. Say so
-  and wait for a file, or use HTML/Archify. Do not fall back to Imagine.
-
----
-
-## After the winner is named (wiring pass)
-
-1. Copy only the named file to `static/images/posts/<slug>-<role>…`.
-2. Compress if needed (`sips` / `process_images.py`) under 1MB.
-3. Set `[cover]` and/or inline `![]()` with honest alt + caption.
-4. Branch, `make check`, PR (or push onto the existing draft PR).
-   Do not change `date` / `draft` unless this is the publish pass.
-
-
-## IMAGE OFFLOAD note — `two-brains-bender-maya` (2026-09-21)
-
-Engineer local CLI path for this slug: D1–D4 = HTML/SVG → PNG (Archify-style). Cover = C-house **photoreal** via Pro `agy` `generate_image` (not Grok Bot Imagine). Unique cover only.
+- Dark only, on `--ds-*` tokens. No raw colour values.
+- Labelled architecture, permission lists and exact numbers are
+  HTML or SVG exports, never image-gen with fake readable type.
+- No invented metrics, no "N agents" baked into pixels.
+- No fake Dave face. No purple SaaS, HUD overlays or logos.
+- Unique cover. Rejects never enter git.

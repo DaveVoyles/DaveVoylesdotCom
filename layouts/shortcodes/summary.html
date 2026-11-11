@@ -1,0 +1,9 @@
+{{- /*
+  Summary callout (plan 0008 / D7). Three lines at most, for posts over 1,200 words.
+  Usage: {{< summary >}}Markdown, kept short.{{< /summary >}}
+  Optional: {{< summary title="The short version" >}}
+*/ -}}
+<aside class="callout-summary" aria-label="{{ .Get "title" | default "Summary" }}">
+  <p class="callout-summary-label">{{ .Get "title" | default "Summary" }}</p>
+  <div class="callout-summary-body">{{ .Inner | markdownify }}</div>
+</aside>

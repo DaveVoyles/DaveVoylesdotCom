@@ -6,7 +6,7 @@ author = "Dave Voyles"
 description = "A policy slide is not a control. Before you trust the guard that sits in front of an AI agent, make it prove it works — or leave the last good one in place."
 categories = ["Programming", "AI"]
 tags = ["AI agents", "evals", "security", "ops", "TPM"]
-topics = ["Tech"]
+topics = ["Tech", "AI and Agents"]
 [cover]
 image = "/images/posts/prove-hook-before-floor-sticky-vs-lock.jpg"
 alt = "Crumpled sticky note beside a real keyed lock on a steel panel"
