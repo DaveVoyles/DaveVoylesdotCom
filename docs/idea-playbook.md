@@ -49,7 +49,12 @@ Voice and claim rules for when Dave later asks you to draft:
    number is not in [`claim-safe-facts.md`](claim-safe-facts.md), leave it
    out of the angle. Prefer “extended and operates” over authorship claims.
 
-5. **Stop.** Do not draft markdown posts, do not add rows to the series
+5. **Check the topic mix.** No more than two posts in a row on the same
+   theme, and at least one post in four draws on coaching, Xbox program
+   work, games or a side project. If the last two posts share a theme, the
+   pick-list leads with something else.
+
+6. **Stop.** Do not draft markdown posts, do not add rows to the series
    schedule, and do not create a second ideas tracker / board / backlog
    file. The series table in
    [`series/agent-production-system.md`](series/agent-production-system.md)

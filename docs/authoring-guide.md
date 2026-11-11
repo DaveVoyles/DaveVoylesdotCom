@@ -14,10 +14,10 @@ GitHub Actions rebuild ships them automatically (see
 `draft = true`. Ship early by setting `date` to now and pushing `main`.
 
 **Claim-safe facts** (metrics, bans, node ids): [`claim-safe-facts.md`](claim-safe-facts.md).  
-**Voice (do/don't):** [Writing standard](#writing-standard-2026-07-28) below.  
+**Voice (do/don't):** [Writing standard](#writing-standard-2026-11-10) below.  
 **Propose ideas, don't draft:** [`idea-playbook.md`](idea-playbook.md).  
 **Covers / mechanism images:** 3 variants in Engineering → Engineer+Roberto pick → wire winner ([`image-playbook.md`](image-playbook.md)).  
-**Visual cadence (2026-09-14):** about every **3 paragraphs** of body prose, include an image, diagram, or table that earns the scroll — no long walls of text. Cover counts for the top; body still needs beats. Glossary/`Words I use` bullets are fine condensed lists.
+**Visual cadence (2026-09-14):** about every **3 paragraphs** of body prose, include an image, diagram, or table that earns the scroll — no long walls of text. Cover counts for the top; body still needs beats.
 **Post Standard v1.1 (2026-09-14):** vault [Blog Post Standard](https://github.com/DaveVoyles/MainVault/blob/main/20-Areas/Personal/blog-post-standard-v1.md) (`ef4d637`). Delta vs v1 (`e442376`): series-tax order (thesis → stakes → primary visual/decision → *then* Part N nav); subtitle = concrete problem → business/engineering consequence; **visual grammar** in [`image-playbook.md`](image-playbook.md); artifact menu when earned (claim ledger · action-risk worksheet · receipt schema · permission checklist · agent SLO starter); optional post-type tags (Pattern · Build-log · Template · Brief). Pipeline locks in this guide still win. Pilot = next *new* unused post / P0-3 only (not retrofits / not #165).
   
 **Agent router:** [`../AGENTS.md`](../AGENTS.md).  
@@ -58,102 +58,91 @@ the post:
 > Rough tags: [a few words]. Keep it in my usual voice — [short/long,
 > casual/technical, whatever fits].
 
-### Writing standard (2026-07-28)
+### Writing standard (2026-11-10)
 
-Left to a short prompt, an agent-drafted post trends too brief and too
-bullet-point-terse — thin enough that the post-to-video pipeline
-([`video-guide.md`](video-guide.md)) has little narration material to draw
-from. Unless the post genuinely earns a short treatment, aim for:
+This is the one place the voice and shape rules live. It replaces four older
+sections (the 2026-07-28 standard, "What already sounds like Dave", "Where
+agent drafts drift" and "Voice do / don't"). Plan:
+[`design/0008-blog-voice-and-visuals.md`](design/0008-blog-voice-and-visuals.md).
 
-- **ELI10.** Write for a smart 10-year-old. Short sentences. Name the thing in plain words before any jargon. If a 10-year-old can’t follow the thesis, the post isn’t done.
-- **Define every noun before you use it.** Pull request, merge, GitHub App, lock, stamp — if the sentence needs the word, the word already has a one-line meaning above it. Never open with a thesis that only works if the reader already lives in GitHub.
-- **~800-1300 words**, not 400-600. **Teaching posts** (a primer of definitions, then the argument) may go to **1800**. Count: strip the TOML between the first two `+++` fences, then `str.split()`. Do not pad. Compare against the series' own posts
-  (`git grep -c '' content/posts/*.md` gives a rough per-file word count via
-  `wc -w`) rather than a fixed number — the goal is enough real detail to
-  support a full explanation, not padding to hit a target.
-- **Conversational, not deck-bullet.** Bullets are fine for scannable lists,
-  but the connective prose around them should read like explaining it to a
-  colleague — short anecdotes, a concrete example, a "picture this" beat —
-  not a compressed slide restated in sentence case.
-- **A visual about every 3 paragraphs** — image, Archify/HTML diagram, or table. Prefer mechanism diagrams for how-it-works beats. Cover alone is not enough for a long post.
-- **A markdown table wherever there's a real comparison** (before/after,
-  theater-vs-real, states/outcomes). Beyond readability, a table is also
-  what [`video-guide.md`](video-guide.md)'s pipeline renders as an actual
-  chart graphic if the post gets a video — prose comparisons get discarded
-  by that pipeline, tables become visuals.
-- **Only claim-safe numbers** ([`claim-safe-facts.md`](claim-safe-facts.md))
-  — more detail is not license to invent metrics. Ground concrete examples
-  in the allowed-metrics table there (Xbox SLA, homelab container count,
-  tenure, revenue) instead of a plausible-sounding made-up figure.
+**Voice exemplars.** Read both before drafting:
+`content/posts/advisory-pr-triage.md` and
+`content/posts/per-checkout-isolation.md`. Dave approved them as the sound
+he wants. Do not copy the 2011-2014 Wayback-recovered gaming posts; they are
+a different era. Do not mine posts that are scheduled but not yet live.
 
-### What already sounds like Dave
+#### How it should sound
 
-Reviewed the 2026-07-28 → 2026-08-18 series posts
-(`eval-gates-not-theater`, `human-approval-merge-button`,
-`docker-homelab-agent-ops`, `xbox-slas-to-agent-fleets`,
-`claim-safety-evidence-before-metrics`, `what-i-will-not-automate`,
-`github-tokens-for-agent-fleets`). Read
-`landing-floor-without-a-github-app` only so the series stays continuous.
-It is scheduled for 2026-08-21 — do not mine it as published voice, and
-do not change its date.
+- A smart colleague explaining what went wrong, in first person, with
+  contractions, longer sentences, commas and dry humor. Not clipped, not a
+  deck, not a whitepaper.
+- Write for a smart 10-year-old. Name the thing in plain words, then use
+  the jargon.
+- Claim-safe: numbers and titles only from
+  [`claim-safe-facts.md`](claim-safe-facts.md). **Former** Xbox TPM, and
+  "extended and operates" for stacks Dave did not build. No invented
+  metrics, agent counts or board columns.
+- Public links only: no links from a post to private GitHub, and describe
+  ADRs and repo files in prose.
 
-Do **not** copy the 2011–2014 Wayback-recovered gaming / Unity / GDC posts
-as “how Dave writes now.” Those are a different era.
+#### Shapes to rotate
 
-The posts that already sound like him:
+A post picks one shape. The same shape does not run three times in a row.
 
-- **Plain and short at the top.** Two sentences land the thesis
-  (“Agents are fluent. Fluency is not the same as **true**.”) before any
-  heading stack.
-- **Contractions and first person.** “I don’t,” “it’s,” “that’s the job.”
-  Colleague in the room, not a whitepaper.
-- **One real beat, not a résumé dump.** A test harness that deleted local
-  work; Plex as the household reason the homelab exists; a Thursday-night
-  coaching conversation the model does not own.
-- **Tables only when two sides actually compare** (theater vs real gate,
-  Xbox TPM habit vs agent-system habit, automate vs keep-human).
-- **Claim-safe and past-tense where true.** **Former** Xbox TPM; **10+**
-  years / **~$50M** / **12h → 30m** / **20+** containers only from the
-  allowlist; “**extended and operates**,” not “I built OpenClaw.”
-- **A bottom line.** One sentence that could be the whole post.
+| Shape | Opens with | Good for |
+|---|---|---|
+| Build log | The moment something went wrong, in one scene | A single bug or outage with evidence |
+| Field note | Something Dave saw or was asked, away from the terminal | Coaching, Xbox, conversations with developers |
+| Opinion | The claim, stated flat, then the best argument against it | A stance on how teams adopt agents |
+| How-to | What the reader will have at the end | A recipe someone can follow tonight |
 
-### Where agent drafts drift
+The Post Standard checklist in the vault lists things a post should cover.
+It is not an outline. Never use its items as headings.
 
-The 2026-07-28 note above still holds: left to a short prompt, drafts trend
-**too brief** and **too bullet-point-terse**. That already happened on this
-series — first passes sat around 400–600 words (outline with sentence-case
-bullets) and had to be expanded to ~800–1300 so the video pipeline had
-narration to draw from.
+#### Rules a script can count
 
-Typical drift, in practice:
+- One incident and one rule, stated near the top and once more at the end
+  in different words.
+- At least one real artifact: a code snippet, a log line, a redacted
+  screenshot or a measured number.
+- Bold for the post's single rule and for a term at its first definition,
+  at most one span per 120 words.
+- No em dashes in prose.
+- A summary of at most three lines, as a callout, and only when the post
+  runs over 1,200 words.
+- Terms defined inside the sentence that first needs them. A teaching post
+  with five or more new terms may keep a glossary, placed after the story
+  has started, and declares the exemption in its front matter.
+- Titles a stranger would click: plain words, some curiosity, no jargon
+  nouns.
+- Tags from the existing vocabulary (`make list-tags`), and the
+  "AI and Agents" topic on posts about agents.
+- About 800-1300 words; a teaching post may go to 1800. Count the body
+  after the closing `+++`. Do not pad.
+- A visual about every 3 paragraphs: image, diagram or a table where two
+  things really compare.
 
-- **Outline-as-a-post** — H2s and bullets, no connective “picture this”
-  or why the rule exists.
-- **Corporate filler** — “unlock value,” “best-in-class,” “leverage the
-  platform,” “executives will delight.” Dave will say “busy is not the
-  same as on the critical path.” He will not say “synergy.”
-- **Invented precision** — fake agent counts, dollar figures, latency,
-  or board column names that are not in
-  [`claim-safe-facts.md`](claim-safe-facts.md) or a source you can open.
-- **Authorship inflation** — “I built / created” for stacks he extends
-  and operates.
-- **Wrong corpus** — matching the recovered 2011–2014 newsletter / GDC
-  voice instead of the 2026 factory-floor posts.
+#### Moves to retire
 
-### Voice do / don't
+"That was the annoying part." "So here is the rule I took away."
+"Executives hear X, implementers hear Y." "You do not need my setup to
+steal the shape." "Theater" and "folklore" more than once a post. The
+"X is not Y. It is Z." flip more than twice a post. Headings copied from
+the checklist. Outline-as-a-post, corporate filler ("unlock value",
+"leverage the platform") and authorship inflation ("I built" for stacks Dave
+extends and operates).
 
-| Do | Don't |
-|----|--------|
-| Contractions, short sentences, first person | Formal “one must,” brochure tone, no-I corporate we |
-| Explain it so a smart 10-year-old can follow | Assume the reader already lives in GitHub jargon |
-| Define every noun before you use it | Open with “lock merge” or “GitHub App” before saying what those are |
-| Explain it like a colleague — anecdote, then the rule | Ship a bullet outline and call it a post |
-| Use a markdown table for a real comparison | Turn the whole post into a slide deck in Markdown |
-| Numbers and titles only from [`claim-safe-facts.md`](claim-safe-facts.md) | Invent metrics, headcount, “N agents in production,” or board columns |
-| “Extended and operates” / “integrated and operates” | “I built / authored” OpenClaw, Hermes, or firstmate |
-| **Former** Xbox / Microsoft TPM (past tense) | Present-tense “Senior TPM at Xbox” |
-| Azure, Docker, GitHub, evals, MCP as ops familiarity | Terraform / K8s as confidence / logo-soup claims |
-| ~800–1300 words; teaching posts may go to 1800 | 400–600 words of terse bullets, or padding to hit a number |
+#### Before and after
+
+Both lines come from the two exemplar posts. The before text is the
+version before D1 (`git show 0152bf1^:content/posts/<slug>.md`).
+
+| Before | After |
+|---|---|
+| "Under the hood, every shaped answer the classifier had already produced — the kind with a real type, a score, a choice — had been thrown away by a **confidence floor**, so the public surface collapsed to **unknown**. The bot was busy. The triage was empty." | "The first time my triage bot ran for real, it did everything except the triage. It left its comment. It set its label." |
+| "...because executives read “the bot reviewed it” and implementers inherit folklore." | "People read 'the bot reviewed it' and trusted it." |
+| Title: "Advisory PR triage that never owns the merge" | Title: "My triage bot was busy and said nothing" |
+| Title: "Per-checkout isolation so parallel agents stop sharing one /tmp" | Title: "Two agents, one /tmp, and a receipt that lied" |
 
 Need a list of *topics* rather than a draft? Follow
 [`idea-playbook.md`](idea-playbook.md) — title + one-line angle, then stop.
