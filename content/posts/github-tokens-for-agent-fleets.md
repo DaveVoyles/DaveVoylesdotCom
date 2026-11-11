@@ -6,7 +6,7 @@ author = "Dave Voyles"
 description = "An agent writes code in a chat. A pull request is a proposed change. A GitHub App is a robot that clicks as itself. Give it a short-lived key. Do not paste a long-lived key in the chat."
 categories = ["Programming", "AI"]
 tags = ["AI agents", "GitHub", "security", "automation", "TPM"]
-topics = ["Tech"]
+topics = ["Tech", "AI and Agents"]
 series = ["Agent production system"]
 series_weight = 7
 [cover]

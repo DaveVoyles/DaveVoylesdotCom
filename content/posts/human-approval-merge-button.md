@@ -6,7 +6,7 @@ author = "Dave Voyles"
 description = "Autonomy is earned per action class. Where I keep a human on the critical path — and why that is a feature of agent production systems, not a failure of them."
 categories = ["Programming", "AI"]
 tags = ["AI agents", "governance", "TPM", "risk"]
-topics = ["Tech"]
+topics = ["Tech", "AI and Agents"]
 series = ["Agent production system"]
 series_weight = 2
 [cover]

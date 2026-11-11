@@ -22,9 +22,27 @@
     <div class="ledger-look" data-webgl-src="{{ $heroJS.RelPermalink }}" aria-hidden="true"></div>
     <div class="ledger-hero-in">
       <h1 class="ledger-title">{{ site.Title }}</h1>
-      <p class="ledger-lede">{{ site.Params.homeInfoParams.Content }}</p>
+      <div class="ledger-intro">
+        {{- with site.Params.homeInfoParams.Avatar }}
+        <img class="ledger-avatar" width="64" height="64" src="{{ . | absURL }}" alt="{{ site.Params.homeInfoParams.AvatarAlt | default site.Title }}" decoding="async">
+        {{- end }}
+        <p class="ledger-lede">{{ $home.hero_line | default site.Params.homeInfoParams.Content }}</p>
+      </div>
     </div>
   </header>
+
+  {{- with $home.start_here }}
+  <section class="ledger-section ledger-start" aria-labelledby="ledger-start">
+    <h2 class="ledger-kicker" id="ledger-start">Start here</h2>
+    <ol class="ledger-start-list">
+      {{- range . }}
+      {{- with site.GetPage (printf "/posts/%s" .page) }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{- end }}
+      {{- end }}
+    </ol>
+  </section>
+  {{- end }}
 
   <section class="ledger-section" aria-labelledby="ledger-writing">
     <h2 class="sr-only" id="ledger-writing">Writing</h2>
@@ -33,10 +51,13 @@
       <li class="ledger-row ledger-row--lead">
         <time class="ledger-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
         <div class="ledger-main">
-          <h3 class="ledger-post"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-          {{- if (ne (.Param "hideSummary") true) }}
-          <p class="ledger-sum">{{ .Summary | plainify | htmlUnescape | truncate 200 }}</p>
-          {{- end }}
+          {{ partial "home-thumb.html" (dict "page" . "eager" true) }}
+          <div class="ledger-text">
+            <h3 class="ledger-post"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+            {{- if (ne (.Param "hideSummary") true) }}
+            <p class="ledger-sum">{{ .Summary | plainify | htmlUnescape | truncate 200 }}</p>
+            {{- end }}
+          </div>
         </div>
       </li>
       {{- end }}
@@ -44,7 +65,10 @@
       <li class="ledger-row">
         <time class="ledger-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
         <div class="ledger-main">
-          <h3 class="ledger-post"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          {{ partial "home-thumb.html" (dict "page" . "eager" false) }}
+          <div class="ledger-text">
+            <h3 class="ledger-post"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          </div>
         </div>
       </li>
       {{- end }}

@@ -6,7 +6,7 @@ author = "Dave Voyles"
 description = "Automated checks before merge — tests, policy, claim safety — are the product, not a checkbox. How eval gates fit an agent production system."
 categories = ["Programming", "AI"]
 tags = ["AI agents", "evals", "CI", "claim safety", "TPM"]
-topics = ["Tech"]
+topics = ["Tech", "AI and Agents"]
 series = ["Agent production system"]
 series_weight = 1
 [cover]

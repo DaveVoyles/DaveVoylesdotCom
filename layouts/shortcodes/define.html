@@ -1,0 +1,6 @@
+{{- /*
+  Inline definition (plan 0008 / D7): a term defined where it is first used, with
+  the definition visible in the text (no hover needed). Bold is the term's one span.
+  Usage: {{< define term="fail-open" >}}a check that lets the merge through when it cannot decide{{< /define >}}
+*/ -}}
+<dfn class="inline-def">{{ .Get "term" }}</dfn> <span class="inline-def-text">({{ .Inner | markdownify }})</span>
