@@ -1,29 +1,22 @@
 # Handoff
 
-**2026-11-10 — Plan 0008 is in build; seven of eight deliverables are on main.** [`docs/design/0008-blog-voice-and-visuals.md`](docs/design/0008-blog-voice-and-visuals.md) makes posts read like Dave wrote them, gives figures one dark house style and puts pictures on the home page. Cards carry the `plan:0008` label. One orchestrator drives them; do not start a second.
+**2026-11-10 — Plan 0008 is done; all eight deliverables are on main.** [`docs/design/0008-blog-voice-and-visuals.md`](docs/design/0008-blog-voice-and-visuals.md) ends with an Outcome table that says where each one landed. No pull request or `plan:0008` issue is open.
 
-Build tracker: progress page slug `2026-11-10-blog-voice-visuals` on the fleet page server. The link is private, so it is not written in this public repo.
+## What is different now
 
-## Where each deliverable stands
+- **Writing:** the story-first standard is in [`docs/authoring-guide.md`](docs/authoring-guide.md). `advisory-pr-triage` and `per-checkout-isolation` are the approved examples of the voice.
+- **Voice check:** a pull request that touches a post dated 2026-11-01 or later fails on a finding (`make check-voice` locally). A post opts out with `voice_exempt` plus `voice_exempt_reason`. It is not part of `make check` and cannot stop the daily publish.
+- **Site build check:** every pull request builds the site, so invalid front matter fails before merge.
+- **Figures and covers:** dark, from [`docs/figure-kit/`](docs/figure-kit/); covers are one object, no words, 16 by 9. Rules and who does what are in [`docs/image-playbook.md`](docs/image-playbook.md).
+- **Home page:** one-line hero with avatar, a Start here row and a thumbnail on each recent post.
 
-| Deliverable | State |
-|---|---|
-| D1 rewrite `advisory-pr-triage` and `per-checkout-isolation` | On main (PR 216). |
-| D2 trim the 2026-11-13 post | On main (PRs 214, 218). |
-| D3 variety pass on the 11-18, 11-23 and 12-03 posts | On main (PR 217). |
-| D4 story-first writing standard | On main (PR 222), reviewer verdict at the head. |
-| D5 voice check on pull requests, warning mode | On main (PR 215), reviewer verdict at the head. Zero findings on the six posts it covers. |
-| D6 dark figure kit and cover rule | On main (PRs 221, 224, 227). |
-| D7 home and post-page refresh | On main (PR 223). |
-| D8 blocking gate and Grok Bot brief | Open (issue 213). Guarded. |
+## Open items (none blocks anything)
 
-## Open items
-
-- Issue 219: add a pull-request job that builds the site. Guarded.
-- Reviewer nits to fold into the next Guarded pull request: `AGENTS.md` rule 7 should say figures are dark and point at the image playbook; `voice-check.yml` should pin `actions/checkout` by SHA like `setup-node`.
-- The two rewritten posts have no real artifact yet (a redacted terminal line, the bot's own comment or a screenshot). Dave supplies these if he wants them; nothing is invented.
-- The home hero line and the three Start here picks are proposals Dave has not yet confirmed.
-- Dispatch reviewers from the top-level session; a sub-agent's reviewer dispatch stalled here (see `docs/learnings.md`).
+- The home hero line and the three Start here picks shipped as proposals; Dave has not confirmed them.
+- The two rewritten posts have no real artifact yet (a redacted terminal line, the bot's own comment or a screenshot). Dave supplies these; nothing is invented.
+- The `summary` and `define` shortcodes are unused so far.
+- One success signal is still unmeasured: Grok Bot's first draft passing the voice check without a human rewrite.
+- `tests-that-never-ran` was not rewritten (it was outside the plan) and predates the voice check's cutoff.
 
 ## Live
 
@@ -35,4 +28,4 @@ https://davevoyles.com/
 - Do not put private hosts / Tailscale / creds in the post.
 - Do not reuse cover as a body image.
 - Do not add the voice check to `make check`: the daily publish build runs it.
-- Do not call a post branch ready without `make build`; pull-request checks do not build the site.
+- Dispatch reviewers for Guarded pull requests from the top-level session (see `docs/learnings.md`).

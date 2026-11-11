@@ -1,6 +1,6 @@
 # 0008 - Blog voice, visuals and a fun front door
 
-Status: approved 2026-11-10 by Dave
+Status: done 2026-11-10 (approved 2026-11-10 by Dave)
 Supersedes: none   Superseded by: none
 Model roster (approved 2026-11-10): cheap=haiku, standard=sonnet, deep=sonnet at high effort; credits=ok; caps: builders<=3 concurrent, deep=orchestrator+critic only
 Sources: audit of the nine newest posts on 2026-11-10 (five live, four scheduled); [`docs/authoring-guide.md`](../authoring-guide.md); [`docs/image-playbook.md`](../image-playbook.md); [`docs/post-pipeline.md`](../post-pipeline.md); [`DESIGN.md`](../../DESIGN.md); MainVault `20-Areas/Personal/blog-post-standard-v1.md` and `docs-blog-image-standard.md`; the `humanize` and `voice` skills in the Dvoyles-Skills repo; a cold read and a critic premortem of this draft on 2026-11-10.
@@ -274,3 +274,24 @@ D2 starts the moment the plan is approved, because its post publishes on 2026-11
 - Blockers are registered natively: 209 waits on 206; 211 waits on 206; 212 waits on 211; 213 waits on 208, 209, 210 and 211.
 - Board: none. This repo has no `.harness/board.json`, so the export ran without a project board and the label is the tracker.
 - One orchestrator drives the plan. A second one would race it for the same cards.
+
+### Outcome (2026-11-10)
+
+All eight cards are closed and on main.
+
+| Deliverable | Landed in | Note |
+|---|---|---|
+| D1 | PR 216 | Dave read old against new and approved the voice. Tells scores 12 and 15. |
+| D2 | PRs 214, 218 | Merged ahead of the 2026-11-13 publish. |
+| D3 | PR 217 | |
+| D4 | PR 222, nits in PR 228 | Reviewer verdict at the head. Grok Bot applied the matching wording to its own notes. |
+| D5 | PR 215 | Reviewer verdict at the head. |
+| D6 | PRs 221, 224, 227 | PR 224 restored the who-makes-and-picks rules the rewrite dropped. Figures were made once from the kit; only the covers went through the three-variant pick. |
+| D7 | PR 223 | The hero line and Start here picks shipped as proposals. The `summary` and `define` shortcodes exist but the two D1 posts do not use them, because that would change approved text. |
+| D8 | PR 230 | Grok Bot's machine can run the scripts, so no fallback was needed. Brief sent and acknowledged. |
+| Found on the way | PR 229 (issue 219), PR 226 | Pull requests now build the site; the Hugo image cache is ignored. |
+
+Success criteria still open:
+
+- **Grok Bot's first draft passes the voice check without a human rewrite.** Not yet measurable; it is checked on the first Grok Bot post pull request after 2026-11-10.
+- **Real artifact per post.** Neither D1 post has one yet. Dave supplies it; nothing is invented.
