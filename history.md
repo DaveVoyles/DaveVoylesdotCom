@@ -75,3 +75,5 @@
 - 2026-11-10: Audited the nine newest posts, the live site and the post images, then drafted plan 0008 (docs/design/0008-blog-voice-and-visuals.md): rewrite the two weakest live posts, a story-first writing standard, a pull-request-only voice check, a dark figure kit, a home refresh and a Grok Bot skills brief. Status draft; nothing is built until Dave approves.
 
 - 2026-11-10: Plan 0008 approved and in build. Landed D2 (trim of the 2026-11-13 post, PRs 214 and 218), D3 (variety pass on three scheduled posts, PR 217) and D1 (rewrite of advisory-pr-triage and per-checkout-isolation, PR 216, after Dave read old against new). Caught a front-matter quote that broke the site build while every pull-request check stayed green; filed issue 219 for a build job.
+
+- 2026-11-10: Plan 0008 D4: wrote the story-first writing standard into docs/authoring-guide.md (replacing four older voice sections), dropped "prefer lighter palettes" from AGENTS.md rule 7, aligned the pipeline and idea docs, folded in the public-links rule from draft PR 153, and sent the two locked vault-note wordings to the Chief of Staff persona (receipt 20261111003412-70dc1567).

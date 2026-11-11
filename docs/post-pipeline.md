@@ -32,7 +32,7 @@ flowchart LR
 ```
 
 **The rule:** every playbook that proposes (ideas, images, video preview)
-**stops**. Dave names the pick. Then the agent implements.
+**stops**. The named pick (Dave, or Engineer + Roberto for images) comes next. Then the agent implements.
 
 ---
 
@@ -40,10 +40,10 @@ flowchart LR
 
 | Step | Dave | Agent | Together |
 |------|------|-------|----------|
-| 1. Ask | Say what you want in plain language (“propose ideas”, “draft X”, “4–5 covers”, “ship it”) | Read [`AGENTS.md`](../AGENTS.md), then **only** the matching doc | — |
+| 1. Ask | Say what you want in plain language (“propose ideas”, “draft X”, “propose covers”, “ship it”) | Read [`AGENTS.md`](../AGENTS.md), then **only** the matching doc | — |
 | 2. Ideas | — | [`idea-playbook.md`](idea-playbook.md): Chat-Agents mission → recent docs → existing slugs. 8–12 titles + angles. **Stop.** | Dave picks a title |
 | 3. Draft | Voice notes if you have them | [`authoring-guide.md`](authoring-guide.md) + [`claim-safe-facts.md`](claim-safe-facts.md). Series: [`series/README.md`](series/README.md) + `./scripts/new-series-post.sh`. Unique cover path. `make series-schedule` | Dave edits voice in the PR |
-| 4. Images | Look at `~/Desktop/<slug>-image-picks/` (terminal cannot show Imagine links) | [`image-playbook.md`](image-playbook.md): 4–5 options from the post, one object per frame, then **stop** | Dave names cover + any body shots |
+| 4. Images | Review the pick packet in the Engineering room only if the Engineer and Roberto cannot settle it; Dave can override | [`image-playbook.md`](image-playbook.md): Blog writes **3 briefs**, Engineer generates, three options are posted in the Engineering room, then **stop** | Engineer + Roberto name cover + any body shots |
 | 5. Wire art | — | Thesis → `[cover]`. Other picks under the matching H2. Never inline the cover. `make check` | — |
 | 6. Review | Read the PR / `make preview` | `make check`, branch, open PR. Do not change `date`/`draft` unless asked | Merge is Dave’s (or “land it” in chat) |
 | 7. Live | Hard-refresh after Pages (~1 min) | — | Daily cron (≈10:00 ET) ships `draft=false` + future `date`. Status on the series overview is computed at build time |
@@ -60,7 +60,7 @@ First file in a new session. It does three jobs:
 3. **Hard rules** — claim-safe language, About front matter, no PaperMod
    edits, home caps, topics/tags, auto-publish, image pick-list.
 
-It does **not** contain the idea recipe, the voice do/don’t, or the
+It does **not** contain the idea recipe, the writing standard, or the
 image prompts. Those live in the linked docs so they stay short.
 
 Close-out (every session that changes the repo): one line on
@@ -74,7 +74,7 @@ Close-out (every session that changes the repo): one line on
 |---------|------------|------------|
 | “Propose some blog ideas” | Idea playbook | A pick-list is in chat |
 | “Draft a post about X, angle Y” | Authoring guide, new branch, PR | You can read the draft |
-| “Propose 4–5 covers” | Image playbook, Desktop folder + `open` | You can see the files |
+| “Propose covers” | Image playbook: 3 briefs, options posted in the Engineering room | The three options are in the room |
 | “Use 1 as cover, 3 in that section” | Wires files, `make check`, PR | PR is open |
 | “Land it” / “push to remote” | Merge to `main` (or push the branch you named) | Pages rebuild has started |
 | “Make a video” | Preview render only | You have watched the MP4 |
