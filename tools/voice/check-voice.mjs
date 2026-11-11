@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Voice check for posts dated on or after a cutoff (default 2026-11-01).
 // Usage: check-voice.mjs [--dir content/posts] [--since 2026-11-01] [--phrases FILE]
-// Prints one "WARN <file>: <rule>: <detail>" line per finding. Exit 0 always, unless
-// VOICE_STRICT=1, which exits 1 when there is any finding (D8 turns this on).
+// Prints one "WARN <file>: <rule>: <detail>" line per finding. Exits 1 when there is
+// any finding (blocking, D8). VOICE_WARN_ONLY=1 reports without failing.
 // Rule names: score, bold, em-dash, retired-phrase, checklist-headings,
 // first-sentence, final-heading, shared-headings.
 // A post opts out with front matter: voice_exempt = ["bold"] plus voice_exempt_reason = "why".
@@ -157,10 +157,11 @@ posts.forEach((p, idx) => {
     if (skip.has(f.rule)) continue;
     findings++;
     console.log(`WARN ${p.file}: ${f.rule}: ${f.detail}`);
-    if (process.env.GITHUB_ACTIONS) console.log(`::warning file=${p.file}::voice check ${f.rule}: ${f.detail}`);
+    if (process.env.GITHUB_ACTIONS) console.log(`::error file=${p.file}::voice check ${f.rule}: ${f.detail}`);
   }
 });
 
+const warnOnly = process.env.VOICE_WARN_ONLY === '1';
 const checked = posts.filter((p) => p.date.day >= SINCE).length;
-console.log(`voice check: ${checked} post(s) dated ${SINCE} or later, ${findings} finding(s)${process.env.VOICE_STRICT === '1' ? '' : ' (warning mode, exit 0)'}`);
-process.exit(process.env.VOICE_STRICT === '1' && findings ? 1 : 0);
+console.log(`voice check: ${checked} post(s) dated ${SINCE} or later, ${findings} finding(s)${warnOnly ? ' (warn-only, exit 0)' : ''}`);
+process.exit(findings && !warnOnly ? 1 : 0);

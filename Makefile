@@ -6,7 +6,7 @@ help:
 	@echo "make preview         - hugo server -D -F (drafts + future)"
 	@echo "make build           - production hugo --minify"
 	@echo "make check           - content gates + --ds-* token checker"
-	@echo "make check-voice     - voice check on posts dated 2026-11-01+ (warning mode; PR job only)"
+	@echo "make check-voice     - voice check on posts dated 2026-11-01+ (exits 1 on a finding; PR job only)"
 	@echo "make series-schedule - regenerate data/series/*.yaml from post front matter"
 	@echo "make test            - regression suites for check-content.sh, topics_mapping.py, triage_stale_content.py"
 	@echo "make list-future     - posts waiting on publish date"
