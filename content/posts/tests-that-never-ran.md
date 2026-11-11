@@ -9,7 +9,7 @@ tags = ['Build-log', 'CI', 'testing', 'film', 'ops', 'AI agents']
 topics = ['Tech', 'AI and Agents']
 [cover]
 image = '/images/posts/tests-that-never-ran-cover.png'
-alt = 'A three-step green path labeled Write test, Schedule it, and CI can fail. A dashed branch drops off after step one into a circle marked Never scheduled, which leads to a faint circle marked Invisible red.'
+alt = 'A tray of four round lamps: three lit green with check marks, and one dark with a dashed outline. It stands for green checks that say nothing about the test nobody scheduled.'
 caption = 'Green means the checks you scheduled passed. It does not mean every test you wrote ran.'
 +++
 
