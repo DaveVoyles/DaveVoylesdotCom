@@ -374,13 +374,18 @@
 }
 
 /* Desktop: bio rail + content. Mobile-first default above is stacked
-   (ADR 0006). Canonical cut is 1024 — no overlapping max-width query. */
+   (ADR 0006), content first and bio after it, which is the DOM order.
+   Canonical cut is 1024 — no overlapping max-width query. */
 @media (min-width: 1024px) {
   .page-shell {
     grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
   }
 
+  /* The bio follows the content in the DOM; pin it to the left column and
+     the content auto-places into the column beside it. */
   .site-sidebar {
+    grid-column: 1;
+    grid-row: 1;
     position: sticky;
     top: var(--gap);
   }
@@ -388,13 +393,13 @@
 
 /* Post-page TOC rail (plan 0004 / D2–D3): article + reserved right rail.
    DOM order is article then TOC. grid-template-areas keeps them on ONE row
-   (title top-aligned with TOC) so the TOC never stacks above the post. */
+   (title top-aligned with TOC) so the TOC never stacks above the post.
+   Below 1024 the rail is not shown: stacked, it landed after the tags as a
+   closed box that looked empty. */
 .post-shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-areas:
-    "article"
-    "toc";
+  grid-template-areas: "article";
   column-gap: calc(var(--gap) * 1.5);
   row-gap: var(--gap);
   align-items: start;
@@ -413,6 +418,7 @@
 }
 
 .post-toc-rail {
+  display: none;
   grid-area: toc;
   position: static;
   top: var(--gap);
@@ -497,6 +503,7 @@
   }
 
   .post-toc-rail {
+    display: block;
     position: sticky;
     max-height: calc(100vh - var(--gap) * 2);
     overflow-y: auto;
