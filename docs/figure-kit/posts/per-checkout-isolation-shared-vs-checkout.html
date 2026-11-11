@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../assets/css/extended/00-tokens.css">
+<link rel="stylesheet" href="../kit.css"></head>
+<body>
+<div class="fig">
+  <h1>Shared fixed /tmp vs per-checkout isolation</h1>
+  <div class="cols">
+    <div class="panel blocked">
+      <div class="head">Shared fixed /tmp</div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">Agent A</div></div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">Agent B</div></div>
+      <div class="ar">both write fixed names ↓</div>
+      <div class="n infra"><span class="tag">Infra</span><div class="t">One shared /tmp</div></div>
+      <div class="ar">↓</div>
+      <div class="n blocked"><span class="tag">Blocked</span><div class="t">Clobbered receipts, flaky tests</div></div>
+    </div>
+    <div class="panel verified">
+      <div class="head">Per-checkout isolation</div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">Agent A in checkout 1</div></div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">Agent B in checkout 2</div></div>
+      <div class="ar">each scheme owns its artifacts ↓</div>
+      <div class="n infra"><span class="tag">Infra</span><div class="t">Checkout 1 scratch</div><div class="d">Checkout 2 scratch</div></div>
+      <div class="ar">↓</div>
+      <div class="n verified"><span class="tag">Verified</span><div class="t">Gates read attributable receipts</div></div>
+    </div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../assets/css/extended/00-tokens.css">
+<link rel="stylesheet" href="../kit.css"></head>
+<body>
+<div class="fig">
+  <h1>A comment on a PR is not merge authority</h1>
+  <div class="cols">
+    <div class="panel verified">
+      <div class="head">Advisory surface</div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">Marker comment</div></div>
+      <div class="ar">↓</div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">triage/* label</div></div>
+      <div class="ar">↓</div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">Feed note</div></div>
+      <div class="n ghost infra"><span class="tag">Infra</span><div class="t">No arrow, on purpose</div></div>
+      <div class="n human"><span class="tag">Human</span><div class="t">Merge button</div></div>
+    </div>
+    <div class="panel blocked">
+      <div class="head">False path</div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">Marker comment</div></div>
+      <div class="ar">↓</div>
+      <div class="n agent"><span class="tag">Agent</span><div class="t">triage/* label</div></div>
+      <div class="ar">↓</div>
+      <div class="n blocked"><span class="tag">Blocked</span><div class="t">Auto-merge job</div></div>
+      <div class="ar">↓</div>
+      <div class="n blocked"><span class="tag">Blocked</span><div class="t">Change lands</div><div class="d">Signals own the merge</div></div>
+    </div>
+  </div>
+  <p class="note">The bot advises. A human merges.</p>
+</div>
+</body></html>
