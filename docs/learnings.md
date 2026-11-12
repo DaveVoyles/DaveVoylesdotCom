@@ -167,3 +167,8 @@
 - **To move a rail below the content on a phone, change the DOM order and pin the rail's grid cell on desktop.** CSS `order` alone leaves keyboard focus visiting the rail first while it is drawn last.
 - **`sips --cropOffset` does not tile a tall screenshot reliably.** `ffmpeg -vf crop=W:H:0:Y` does.
 - **Setting `reviews.auto_review.enabled: false` in `.coderabbit.yaml` stops CodeRabbit's skip notice.** The notice used to land within seconds of a pull request opening. The pull request that carried the setting got none, and neither did the next one, so CodeRabbit reads the setting from the pull request's own branch. A skipped CodeRabbit status check still shows.
+
+## 2026-11-12 — rewriting a post the voice check skips
+
+- **The voice check skips a post dated before its cutoff, so a rewrite of one is invisible to CI.** `tools/voice/check-voice.mjs` only reads posts dated on or after 2026-11-01, and the pull-request job runs the same cutoff. Run the checker by hand with an earlier `--since` on the branch, because a green voice job proves nothing about a post it never opened.
+- **`fact-diff.mjs` counts curly and straight quotes as different strings.** A rewrite that straightens a quotation shows up as a disappeared quote and an appeared quote even though the words are identical. Read the two strings before treating it as a lost fact.
