@@ -1,5 +1,6 @@
 +++
-draft = true
+date = '2026-11-17T08:00:00-05:00'
+draft = false
 title = 'Landing one pull request closed the next'
 author = 'Dave Voyles'
 description = "A merge succeeded, but the next pull request in the stack closed during branch cleanup. Here is what happened, why we now move dependent pull requests before merging, and the status-print caveat we kept separate from that fix."
