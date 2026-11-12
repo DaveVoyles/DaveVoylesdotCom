@@ -29,7 +29,13 @@
     {{- end }}
 
     {{- /* Site override: optional cover.mobile swaps in a portrait cover on phones. Posts without it render exactly as the theme does. */}}
-    {{- with .Params.cover.mobile }}<picture><source media="(max-width: 600px)" srcset="{{ . | absURL }}">{{- end }}
+    {{- /* Optional cover.still / cover.mobile_still: static fallbacks served when the reader asks for reduced motion (for animated covers). */}}
+    {{- $animated := or .Params.cover.mobile .Params.cover.still }}
+    {{- if $animated }}<picture>
+    {{- with .Params.cover.mobile_still }}<source media="(max-width: 600px) and (prefers-reduced-motion: reduce)" srcset="{{ . | absURL }}">{{- end }}
+    {{- with .Params.cover.still }}<source media="(prefers-reduced-motion: reduce)" srcset="{{ . | absURL }}">{{- end }}
+    {{- with .Params.cover.mobile }}<source media="(max-width: 600px)" srcset="{{ . | absURL }}">{{- end }}
+    {{- end }}
     {{- if $cover -}}
         {{/* i.e it is present in page bundle */}}
         {{- if (and (in $processableFormats $cover.MediaType.SubType) ($responsiveImages) (eq $prod true)) }}
@@ -51,7 +57,7 @@
         {{- /* For absolute urls and external links, no img processing here */}}
         <img loading="{{ $loading }}" src="{{ $imgdl }}" alt="{{ $alt }}">
     {{- end }}
-    {{- if .Params.cover.mobile }}</picture>{{- end }}
+    {{- if $animated }}</picture>{{- end }}
 
     {{- if $addLink }}
         </a>
