@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../assets/css/extended/00-tokens.css">
+<link rel="stylesheet" href="../../../docs/figure-kit/kit.css">
+</head>
+<body>
+<svg class="cover" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A closed lock with a small blank name tag hanging from its shackle">
+  <rect width="800" height="450" style="fill:var(--ds-canvas)"/>
+
+  <!-- spotlight and ground, still inside the 800x420 crop -->
+  <ellipse cx="390" cy="230" rx="210" ry="140" style="fill:var(--ds-accent);fill-opacity:.08"/>
+  <ellipse cx="386" cy="392" rx="188" ry="12" style="fill:var(--ds-ink);fill-opacity:.08"/>
+  <ellipse cx="360" cy="368" rx="108" ry="14" style="fill:var(--ds-ink);fill-opacity:.14"/>
+  <ellipse cx="548" cy="356" rx="42" ry="8" style="fill:var(--ds-ink);fill-opacity:.12"/>
+
+  <!-- closed shackle, seated in the body -->
+  <path d="M318 198 V154 C318 96 430 96 430 154 V198" fill="none" style="stroke:var(--ds-ink)" stroke-width="26" stroke-linecap="round"/>
+  <path d="M328 188 V156 C328 114 420 114 420 156 V188" fill="none" style="stroke:var(--ds-accent);stroke-opacity:.7" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- string from the shackle to the tag hole -->
+  <path d="M424 128 C458 132 478 168 508 198" fill="none" style="stroke:var(--ds-ink);stroke-opacity:.8" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- metal body -->
+  <rect x="270" y="178" width="184" height="172" rx="28" style="fill:var(--ds-infra)"/>
+  <rect x="270" y="178" width="184" height="172" rx="28" fill="none" style="stroke:var(--ds-ink);stroke-opacity:.55" stroke-width="3"/>
+  <rect x="286" y="194" width="152" height="140" rx="18" fill="none" style="stroke:var(--ds-canvas);stroke-opacity:.35" stroke-width="2"/>
+  <path d="M298 208 H424" style="stroke:var(--ds-ink);stroke-opacity:.45" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- keyhole -->
+  <circle cx="362" cy="252" r="16" style="fill:var(--ds-canvas)"/>
+  <path d="M354 264 h16 l-3 32 h-10 z" style="fill:var(--ds-canvas)"/>
+
+  <!-- blank paper tag. No letters, no inner writing lines. -->
+  <g transform="rotate(-11 546 250)">
+    <rect x="508" y="196" width="76" height="104" rx="6" style="fill:var(--ds-ink)"/>
+    <circle cx="546" cy="212" r="5" style="fill:var(--ds-canvas)"/>
+    <path d="M508 226 H584" style="stroke:var(--ds-canvas);stroke-opacity:.28" stroke-width="1.5"/>
+  </g>
+</svg>
+</body>
+</html>
