@@ -22,7 +22,7 @@
 - The two rewritten posts have no real artifact yet (a redacted terminal line, the bot's own comment or a screenshot). Dave supplies these; nothing is invented.
 - The `summary` and `define` shortcodes are unused so far.
 - One success signal is still unmeasured: Grok Bot's first draft passing the voice check without a human rewrite.
-- `tests-that-never-ran` was not rewritten (it was outside the plan) and predates the voice check's cutoff.
+- `tests-that-never-ran` was rewritten to the story-first standard after the plan closed (pull request 236, issue 235). It predates the voice check's cutoff, so the pull-request voice job does not cover it.
 
 ## Live
 
