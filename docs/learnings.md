@@ -1,5 +1,10 @@
 # Learnings
 
+## 2026-11-12 — draft posts are still parsed
+
+- **A draft is not invisible to `hugo --renderToMemory`.** The PR site build parses every content file, draft or not, then skips rendering drafts. A broken front-matter quote fails that build even though the post is unpublished.
+- **Single-quoted TOML cannot hold an apostrophe.** `caption = '…can't…'` fails the parse. Use double quotes and escape the inner quotes. The displayed sentence stays the same.
+
 ## 2026-08-18 — post image pick-lists
 
 - **Imagine rate-limits a parallel burst.** Eight `image_gen` calls at once 429’d. Generate two or three, then the rest.
