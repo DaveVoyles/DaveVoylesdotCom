@@ -77,8 +77,6 @@ This is the comparison I want a reviewer of the automation to be able to follow:
 | Merge and cleanup | Merge and delete the head | Merge and delete the head only after the earlier checks and retargets succeed |
 | Next pull request | Closed in our observed incident | Retargeted onto the default branch so it can remain open for review |
 
-*[Figure planned: show mergeability checked first, dependent pull requests retargeted next, then merge and head deletion. Conflict, unresolved UNKNOWN after a short retry, or a failed retarget stops the process.]*
-
 ## The decision
 
 I wanted the land step to answer two questions before it changed anything that the next pull request depended on. Can the current change merge cleanly? And have the open pull requests based on its branch been moved to the default branch?
@@ -116,8 +114,6 @@ Another is treating green checks as a substitute for mergeability. A pull reques
 There was also a separate logging caveat when this change was reviewed. After a merge that succeeded, the land step could still print UNKNOWN. A follow-up to re-read the pull request state before printing was still outstanding at that review. That status-print fix is separate from the retargeting work described here, and I haven't rechecked its later status for this revision.
 
 If you see an UNKNOWN message after an apparent success, read the pull request's state on GitHub before concluding that the merge failed. The point is to distinguish an uncertain status print from the result of the merge, rather than teaching an operator or agent to treat them as the same thing.
-
-*[Optional figure: contrast an UNKNOWN status print with a merged pull request. Label this as the caveat known at review, not a newly checked current state.]*
 
 ## Put it into practice
 
