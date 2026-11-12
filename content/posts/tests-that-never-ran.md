@@ -66,10 +66,10 @@ None of that wiring covered this file. The board said "we meant to look someday"
 
 ## When the next file is missing
 
-The pass is the same in any repo that trusts "CI is green": list the test files, diff that list against every job and step in the workflow. Anything missing is not covered by green. You flag mixed files in that pass. If one file needs a browser and also holds pure cases, the pure cases are one name-pattern away from CI, and you do not wait for a perfect browser job. When you mark a skip as "skip for now," you write down what you skipped. A comment in the workflow keeps the skip after the memory of it expires in a week. We ran the newly scheduled case first and watched it fail for the reason we expected, and only then did the expectation fix land. Orphan suites should run when their folder changes, not on every push, and not never.
+The pass is the same in a repo that trusts "CI is green": list the test files, diff that list against every job and step in the workflow. Anything missing is not covered by green. You flag mixed files in that pass. If one file needs a browser and also holds pure cases, the pure cases are one name-pattern away from CI, and you do not wait for a perfect browser job. When you mark a skip as "skip for now," you write down what you skipped. A comment in the workflow keeps the skip after the memory of it expires in a week. The step matters: run the newly scheduled case and confirm it fails for the reason you think, then land the expectation fix. Otherwise you have only scheduled a green that still means nothing. Orphan suites should run when their folder changes, not on every push, and not never.
 
 ## What green is willing to miss
 
 Not every Playwright file belongs on the cheapest CI runner. Omission is a decision, and for a long time our decision was "leave the mixed file off the board," which quietly included a pure case that nobody was watching when it broke.
 
-Green on that branch reported the cases on the schedule. If that is to mean "this branch is safe to ship," the schedule has to include the cases that would have stopped you. A case left off the schedule is a case nobody will see fail.
+Green on that branch reported the cases on the schedule. If that is to mean "this branch is safe to ship," the schedule has to include the cases that would have stopped you, or you have to admit which failures you are willing not to see.
