@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../assets/css/extended/00-tokens.css">
+<link rel="stylesheet" href="../kit.css">
+<style>
+  .fig { padding: 28px 28px 32px; }
+  .fig h1 { max-width: 740px; }
+  .shared { display: flex; justify-content: center; margin-top: 22px; }
+  .shared .n { min-width: 220px; text-align: center; }
+  .fork {
+    height: 36px;
+    margin: 0 48px;
+    border-left: 2px solid var(--ds-border);
+    border-right: 2px solid var(--ds-border);
+    border-bottom: 2px solid var(--ds-border);
+    border-radius: 0 0 12px 12px;
+    position: relative;
+  }
+  .fork::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -18px;
+    height: 18px;
+    border-left: 2px solid var(--ds-border);
+  }
+  .cols { margin-top: 8px; align-items: start; }
+  .panel { gap: 10px; min-height: 100%; }
+  .panel > .head { font-size: 22px; line-height: 1.25; }
+  .n .t { font-size: 18px; line-height: 1.25; }
+  .glyph { height: 72px; width: 100%; }
+  .glyph .ink { fill: none; stroke: var(--ds-ink); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+  .nametag {
+    margin-top: 2px;
+    border: 2px dashed var(--c, var(--ds-border));
+    border-radius: 6px;
+    padding: 8px 12px;
+    background: var(--ds-canvas);
+  }
+  .nametag .t { font-size: 18px; }
+  .nametag .d { font-size: 16px; color: var(--ds-content); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="fig">
+  <h1>Plain lock vs a lock with a name tag</h1>
+
+  <div class="shared">
+    <div class="n review">
+      <span class="tag">Review</span>
+      <div class="t">Holder dies</div>
+    </div>
+  </div>
+  <div class="fork" aria-hidden="true"></div>
+
+  <div class="cols">
+    <div class="panel blocked">
+      <div class="head">Plain lock</div>
+      <svg class="glyph" viewBox="0 0 280 72" aria-hidden="true">
+        <path class="ink" d="M28 28 h70 l10 8 v28 h-80 z"/>
+        <path class="ink" d="M28 28 v-8 h36 v8"/>
+        <path class="ink" d="M150 22 h92 v36 h-92 z"/>
+        <path class="ink" d="M168 40 h56"/>
+      </svg>
+      <div class="n infra">
+        <span class="tag">Infra</span>
+        <div class="t">Directory stays</div>
+      </div>
+      <div class="ar">↓</div>
+      <div class="n blocked">
+        <span class="tag">Blocked</span>
+        <div class="t">Later run refused</div>
+      </div>
+    </div>
+
+    <div class="panel verified">
+      <div class="head">Lock with a name tag</div>
+      <svg class="glyph" viewBox="0 0 280 72" aria-hidden="true">
+        <path class="ink" d="M36 40 V30 C36 16 78 16 78 30 V40"/>
+        <rect class="ink" x="24" y="36" width="66" height="28" rx="6"/>
+        <path class="ink" d="M78 22 C104 22 112 40 128 48"/>
+        <rect class="ink" x="126" y="40" width="36" height="26" rx="3" transform="rotate(-8 144 53)"/>
+        <rect class="ink" x="186" y="18" width="72" height="44" rx="6"/>
+        <path class="ink" d="M200 36 h44 M200 48 h28"/>
+      </svg>
+      <div class="n agent">
+        <span class="tag">Agent</span>
+        <div class="t">Next run reads the pid</div>
+        <div class="nametag">
+          <div class="d">pid 1421</div>
+        </div>
+      </div>
+      <div class="ar">↓</div>
+      <div class="n review">
+        <span class="tag">Review</span>
+        <div class="t">kill -0</div>
+      </div>
+      <div class="ar">↓</div>
+      <div class="n infra">
+        <span class="tag">Infra</span>
+        <div class="t">Nobody home</div>
+      </div>
+      <div class="ar">↓</div>
+      <div class="n verified">
+        <span class="tag">Verified</span>
+        <div class="t">Clears the lock and carries on</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

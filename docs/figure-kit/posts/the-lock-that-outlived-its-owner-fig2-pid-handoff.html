@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../assets/css/extended/00-tokens.css">
+<link rel="stylesheet" href="../kit.css">
+<style>
+  .fig { padding: 28px 28px 32px; }
+  .fig h1 { max-width: 740px; }
+  .spine {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    margin-top: 20px;
+  }
+  .spine .n { flex: 1; }
+  .spine .ar { align-self: center; }
+  .n .t, .pid .t { font-size: 18px; line-height: 1.25; }
+  .n .d, .pid .d { font-size: 16px; line-height: 1.25; }
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+    align-items: start;
+  }
+  .lane {
+    border: 2px solid var(--c, var(--ds-border));
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--c, var(--ds-border)) 7%, var(--ds-surface));
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 280px;
+  }
+  .lane > .head { font-size: 20px; font-weight: 700; line-height: 1.25; color: var(--c, var(--ds-ink)); }
+  .pid {
+    border: 2px dashed var(--ds-border);
+    border-radius: 8px;
+    background: var(--ds-code-bg);
+    padding: 10px 12px;
+  }
+  .pid .k { font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ds-text-muted); }
+  .hidden { visibility: hidden; }
+  .waiting { opacity: 0.55; }
+</style>
+</head>
+<body data-beat="5">
+<div class="fig">
+  <h1>Hand the lock to the worker</h1>
+
+  <div class="spine">
+    <div class="n agent" data-show="0 1 2 3 4 5">
+      <span class="tag">Agent</span>
+      <div class="t">Launcher takes the lock</div>
+    </div>
+    <div class="ar" data-show="1 2 3 4 5">→</div>
+    <div class="n agent" data-show="1 2 3 4 5">
+      <span class="tag">Agent</span>
+      <div class="t">Spawns worker</div>
+    </div>
+  </div>
+
+  <div class="split" data-show="2 3 4 5">
+    <div class="lane blocked">
+      <div class="head">Without the hand-off</div>
+      <div class="pid">
+        <div class="t">Launcher pid</div>
+        <div class="d">1421</div>
+      </div>
+      <div class="n infra" data-show="3 4 5">
+        <span class="tag">Infra</span>
+        <div class="t">Launcher exits</div>
+      </div>
+      <div class="n blocked" data-show="3 4 5">
+        <span class="tag">Blocked</span>
+        <div class="t">Dead pid</div>
+      </div>
+      <div class="n review" data-show="3 4 5">
+        <span class="tag">Review</span>
+        <div class="t">Second run</div>
+      </div>
+      <div class="n blocked" data-show="3 4 5">
+        <span class="tag">Blocked</span>
+        <div class="t">Barges in</div>
+      </div>
+      <div class="n agent" data-show="3 4 5">
+        <span class="tag">Agent</span>
+        <div class="t">Worker still busy</div>
+      </div>
+    </div>
+
+    <div class="lane verified">
+      <div class="head">With the hand-off</div>
+
+      <div class="pid" data-show="2 3">
+        <div class="t">Launcher pid</div>
+        <div class="d">1421</div>
+      </div>
+
+      <div class="pid" data-show="4 5">
+        <div class="t">Worker's pid</div>
+        <div class="d">1488</div>
+      </div>
+      <div class="n verified" data-show="4 5">
+        <span class="tag">Verified</span>
+        <div class="t">Pid file points at the worker</div>
+      </div>
+      <div class="n infra" data-show="4 5">
+        <span class="tag">Infra</span>
+        <div class="t">Launcher exits</div>
+      </div>
+      <div class="n verified" data-show="4 5">
+        <span class="tag">Verified</span>
+        <div class="t">Second run backs off</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // Discrete beats. No morph. Capture script sets data-beat; this only applies it.
+  function applyBeat(beat) {
+    document.body.dataset.beat = String(beat);
+    document.querySelectorAll("[data-show]").forEach((el) => {
+      const show = el.dataset.show.split(/\s+/);
+      el.classList.toggle("hidden", !show.includes(String(beat)));
+    });
+  }
+  applyBeat(document.body.dataset.beat || "5");
+  window.applyBeat = applyBeat;
+</script>
+</body>
+</html>
