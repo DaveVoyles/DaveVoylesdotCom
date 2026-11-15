@@ -1,5 +1,6 @@
 +++
-draft = true
+date = "2026-12-07T08:00:00-05:00"
+draft = false
 title = 'My merge lock outlived the process that took it'
 author = 'Dave Voyles'
 description = "A background merge took a plain directory lock, and a reboot at the wrong moment would have left that lock behind forever. Here's how to write a lock that remembers who's holding it, so it can clean up after a crash."
