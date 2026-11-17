@@ -1,6 +1,6 @@
 +++
 date = "2026-12-11T08:00:00-05:00"
-draft = true
+draft = false
 title = 'My cheap tokens ran out my whole week in one night'
 author = 'Dave Voyles'
 description = "I moved my coding agents' helpers onto a cheap model with a weekly token allowance, and one night of work emptied it. Almost all of it was cached re-reads, which barely cost anything but still counted in full. Here's what I measure now."
