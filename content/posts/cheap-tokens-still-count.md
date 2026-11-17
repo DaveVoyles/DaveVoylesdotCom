@@ -1,4 +1,5 @@
 +++
+date = "2026-12-11T08:00:00-05:00"
 draft = true
 title = 'My cheap tokens ran out my whole week in one night'
 author = 'Dave Voyles'
@@ -62,8 +63,6 @@ My usage report counts in the cap's unit. A small read-only script prints calls,
 That command can push a notification to my phone at 50 percent and 80 percent of any cap, once per level, and re-arms when usage drops. The caps live in one table in the docs, not in the code, so changing plans means changing one row.
 
 I moved to the relay's next tier, which has five times the weekly input. I also told subagents to compress their conversation sooner, at about 35 percent of the context window, with a target of under 85,000 tokens of input per call on average. I didn't cap how many turns an agent gets. Cutting turns would save tokens by making agents quit halfway through a job, and then I'd pay again to redo it.
-
-*[Figure 3, animated: the subagent call path. Request goes to the cheap model, a 429 bounces back, the request moves to the second model and succeeds. Underneath, a usage meter fills and pings at the 50 and 80 marks.]*
 
 ## What I check before trusting a budget
 
