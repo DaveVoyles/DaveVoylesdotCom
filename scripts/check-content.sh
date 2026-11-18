@@ -127,6 +127,15 @@ done < <(find "$IMAGES_POSTS_DIR" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -
 
 ok "image size regression check"
 
+# --- no figure sources under static/images/ ---
+# Hugo publishes everything in static/, so an .html figure source here goes live
+# at its direct URL. Sources belong in docs/figure-kit/posts/.
+while IFS= read -r -d '' file; do
+  err "figure source published from static/: $file (move it to docs/figure-kit/posts/)"
+done < <(find "${IMAGES_POSTS_DIR%/posts}" -type f -iname '*.html' -print0)
+
+ok "no .html figure sources under static/images/"
+
 # --- series posts need weight ---
 while IFS= read -r -d '' file; do
   if rg -q '^series\s*=' "$file"; then
