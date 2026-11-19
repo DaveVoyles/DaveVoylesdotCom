@@ -8,7 +8,7 @@ tags = ['automation', 'ops', 'macOS', 'How-to']
 topics = ['Tech', 'AI and Agents']
 [cover]
 image = "/images/posts/the-watcher-that-read-zero-cover.png"
-alt = "A laptop on a desk with an empty chair, and a small monitor beside it that reads idle: 0 seconds"
+alt = "A single dark monitor alone on a desk edge, its readout a flat bar with no fill, standing for a watcher that measured nothing"
 caption = "Nobody at the desk. The watcher said I had never left."
 +++
 
