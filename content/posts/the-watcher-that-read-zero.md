@@ -1,5 +1,6 @@
 +++
-draft = true
+draft = false
+date = "2026-12-15T08:00:00-05:00"
 title = 'My idle watcher exited clean and never saw me leave'
 author = 'Dave Voyles'
 description = "A small script that was supposed to hand my laptop to CI when I walked away failed three times in one afternoon under launchd. The third time it didn't crash at all. It just read zero, forever. Here's the check I run on every launchd job now."
