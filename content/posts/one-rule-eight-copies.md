@@ -1,5 +1,6 @@
 +++
-draft = true
+draft = false
+date = 2026-12-19T08:00:00-05:00
 title = 'My merge tools had eight copies of one rule, and they disagreed eleven ways'
 author = 'Dave Voyles'
 description = "Every tool that could merge a pull request in my agent setup had its own idea of whose review counted. I replaced the copies with one small command that answers the question, then watched real pull requests find four more holes in it the same day."
