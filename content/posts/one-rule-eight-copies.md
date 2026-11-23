@@ -8,7 +8,7 @@ tags = ['automation', 'ops', 'code review', 'Build log']
 topics = ['Tech', 'AI and Agents']
 [cover]
 image = "/images/posts/one-rule-eight-copies-cover.png"
-alt = "Eight rubber-stamp marks on one sheet of paper, meant to match, each slightly different."
+alt = "Eight gold check badges in two columns on a dark background, meant to be identical, each slightly different: one thinner, one offset, one faded, one doubled."
 caption = "Same question, eight answers."
 +++
 
@@ -55,7 +55,7 @@ The first version of the decider merged on a Saturday morning, and a second revi
 
 The follow-up landed about an hour and a half after the first one, with the test count going from 133 to 137. None of these are parser bugs in the usual sense. Each one is a case where the code answered a slightly different question than the one being asked: approved at some point, rather than approved at this commit, as it stood, by a review that's still in force.
 
-![A pull request timeline. A counted SHIP lands at commit A. Four events follow in order: the comment is edited, the change turns out to be docs-only, the review is dismissed, and a new commit B is pushed. Each one turns the answer to unsure, no, no and unsure.](/images/posts/one-rule-eight-copies-fig3.png)
+![A pull request timeline. A counted SHIP lands at commit A. Four separate cases follow, each checked on its own: the comment is edited later, a docs-only change passes with no review, the review is dismissed, and a new commit B is pushed. The answers are unsure, no, no and unsure.](/images/posts/one-rule-eight-copies-fig3.png)
 
 *Approved at this commit, as it stood, by a review that's still in force. Each event breaks one of those three.*
 
