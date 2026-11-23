@@ -1433,3 +1433,14 @@
   background: var(--ds-accent);
   color: var(--ds-accent-fg);
 }
+
+/* one-rule-eight-copies: the decider output line is one long unbroken command.
+   Wrap it so the full line shows at 390px and 1440px instead of clipping. */
+.post-content[data-post="one-rule-eight-copies"] pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.post-content[data-post="one-rule-eight-copies"] pre code {
+  white-space: inherit;
+  overflow-wrap: inherit;
+}
