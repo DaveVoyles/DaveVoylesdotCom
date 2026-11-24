@@ -14,7 +14,7 @@ on:
 # Least-privilege default: only the deploy job actually needs pages/id-token
 # write access. A job-level `permissions:` block fully replaces (not merges
 # with) this default for that job, so `deploy` declares its own below —
-# review-lenses `security` flagged the build job's unpinned `apt-get install`
+# review-lenses `security` flagged the build job's unpinned package-install
 # step running with deploy-capable tokens it never uses (issue: PR fixing
 # check-content.sh CI portability).
 permissions:
@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macOS, ARM64, pr-ci, "tier:pro"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,16 +40,9 @@ jobs:
           extended: true
 
       - name: Install ripgrep
-        # Unpinned: an exact-version pin (13.0.0-2ubuntu0.1, confirmed present
-        # in Canonical's own amd64 archive) still failed with "Version ... was
-        # not found" on the real runner — this repo's CI apparently resolves
-        # apt through a mirror (e.g. Azure's regional mirror for GH-hosted
-        # runners) that can lag or diverge from the primary archive, and that
-        # can't be fully verified from outside the runner. Unpinned trades a
-        # small amount of version-drift risk for actually working; if this
-        # regresses again, verify the exact mirror/version in a real Actions
-        # run (not a local container) before re-attempting a pin.
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ripgrep
+        # Self-hosted macOS runner: ripgrep is preinstalled under
+        # /opt/homebrew/bin; brew is only a fallback if it is ever missing.
+        run: command -v rg >/dev/null || brew install ripgrep
 
       - name: Check content
         run: make check
@@ -72,7 +65,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macOS, ARM64, pr-ci, "tier:pro"]
     needs: build
     steps:
       - name: Deploy to GitHub Pages
