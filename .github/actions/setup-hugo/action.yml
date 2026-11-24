@@ -1,0 +1,27 @@
+name: Setup Hugo (macOS, pinned)
+description: >
+  Installs the pinned Hugo extended build from the official release .pkg into
+  the job's RUNNER_TEMP. Replaces peaceiris/actions-hugo on the self-hosted
+  macOS runners: that action expands the pkg into a shared ~/actions_hugo/_temp
+  that is never cleaned, so every run after the first fails ("File exists"),
+  and two runners on one Mac would race on it.
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        HUGO_VERSION: "0.164.0"
+        HUGO_PKG_SHA256: "618491f40cbb36a9f55d4da761c55d89f79312130f926ff7f3e1dfa83ca15eb0"
+      run: |
+        set -euo pipefail
+        pkg="hugo_extended_${HUGO_VERSION}_darwin-universal.pkg"
+        # RUNNER_TEMP is private to this runner and wiped between jobs.
+        dir="$(mktemp -d "${RUNNER_TEMP}/hugo.XXXXXX")"
+        curl -fsSL -o "$dir/$pkg" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${pkg}"
+        echo "${HUGO_PKG_SHA256}  $dir/$pkg" | shasum -a 256 -c -
+        pkgutil --expand-full "$dir/$pkg" "$dir/pkg"
+        mkdir -p "$dir/bin"
+        cp "$dir/pkg/Payload/hugo" "$dir/bin/hugo"
+        chmod +x "$dir/bin/hugo"
+        echo "$dir/bin" >> "$GITHUB_PATH"
+        "$dir/bin/hugo" version
