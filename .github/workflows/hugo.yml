@@ -53,6 +53,10 @@ jobs:
       - name: Build
         run: hugo --minify
 
+      - name: Ensure GNU tar
+        # upload-pages-artifact uses gtar (--hard-dereference) on macOS runners.
+        run: command -v gtar >/dev/null || brew install gnu-tar
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
