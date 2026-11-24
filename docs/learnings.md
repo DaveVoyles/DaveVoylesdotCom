@@ -177,3 +177,7 @@
 
 - **The voice check skips a post dated before its cutoff, so a rewrite of one is invisible to CI.** `tools/voice/check-voice.mjs` only reads posts dated on or after 2026-11-01, and the pull-request job runs the same cutoff. Run the checker by hand with an earlier `--since` on the branch, because a green voice job proves nothing about a post it never opened.
 - **`fact-diff.mjs` counts curly and straight quotes as different strings.** A rewrite that straightens a quotation shows up as a disappeared quote and an appeared quote even though the words are identical. Read the two strings before treating it as a lost fact.
+
+## 2026-11-24 — gitleaks on the self-hosted Macs
+
+- **gitleaks-action breaks on a runner whose TMPDIR outlives the job.** It downloads to `os.tmpdir()/gitleaks.tmp` and refuses a file that is already there, so after the move to the Macs every main run failed with "gitleaks.tmp already exists". The scan step now sets `TMPDIR` to `runner.temp`, which the runner empties per job. Any other action that downloads into `os.tmpdir()` with a fixed name will hit the same wall.
