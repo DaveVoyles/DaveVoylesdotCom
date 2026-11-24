@@ -5,8 +5,8 @@ name: Gitleaks Secret Scan
 # which fails open if gitleaks isn't installed and is skipped entirely by
 # --no-verify or a fresh clone that never ran the scaffold script. This
 # workflow runs regardless of which machine or agent pushed the commit.
-# Mirrors Chat-Agents' .github/workflows/gitleaks.yml, adapted for a
-# GitHub-hosted runner (no self-hosted runner is registered for this repo).
+# Mirrors Chat-Agents' .github/workflows/gitleaks.yml, adapted for this
+# repo's self-hosted macOS runners (labels: self-hosted, macOS, ARM64, pr-ci, tier:pro).
 # Note: nothing here makes this a REQUIRED check yet -- main has no branch
 # protection rule wiring this in, so a red run is a visible signal, not an
 # enforced block, until that's configured separately.
@@ -28,7 +28,7 @@ permissions:
 
 jobs:
   gitleaks:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macOS, ARM64, pr-ci, "tier:pro"]
     steps:
       - uses: actions/checkout@v6
         with:

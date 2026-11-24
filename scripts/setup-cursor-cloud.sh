@@ -3,7 +3,7 @@
 #   1. No Mini secrets, App tokens, board PATs, MainVault, or .env copies.
 #   2. Fail closed if a required prove tool is missing.
 #   3. Prove is the repo's secret-free core — not a Mini-only path.
-#   4. GitHub Actions job cursor-cloud-setup on ubuntu-latest must stay green.
+#   4. GitHub Actions job cursor-cloud-setup on the self-hosted macOS runners must stay green.
 # Portable Cloud prove: content/regression tests. Hugo preview stays optional.
 set -euo pipefail
 

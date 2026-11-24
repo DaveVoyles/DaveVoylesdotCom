@@ -6,4 +6,4 @@ Mini / local: `git submodule update --init --recursive`, `make preview` / `make 
 
 Do not put site secrets or a local MainVault path into the Cloud environment.
 
-GitHub Actions: `.github/workflows/cursor-cloud-setup.yml` runs the same script on `ubuntu-latest` (Node 22 when the prove needs npm/pnpm).
+GitHub Actions: `.github/workflows/cursor-cloud-setup.yml` runs the same script on the self-hosted `pr-ci` macOS runners (Node 22 when the prove needs npm/pnpm).
