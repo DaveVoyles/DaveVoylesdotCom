@@ -77,7 +77,7 @@
   {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
 
   {{- if .Content }}
-  <div class="post-content md-content">
+  <div class="post-content md-content" data-post="{{ .File.ContentBaseName }}">
     {{- partial "render-wikilink-content.html" . -}}
   </div>
   {{- end }}
