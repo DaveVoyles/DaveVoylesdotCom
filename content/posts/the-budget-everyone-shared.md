@@ -1,6 +1,7 @@
 +++
 title = "Every agent I run was spending the same 5,000 points"
-draft = true
+date = "2026-12-23T08:00:00-05:00"
+draft = false
 author = "Dave Voyles"
 description = "If you run more than a couple of automations against one GitHub account, they likely share one hourly budget. On the Tuesday before Thanksgiving, none of my coding agents could merge anything. The tests were fine. My GitHub account had spent its hourly GraphQL budget, and every agent was spending from it. Here is what I moved off that budget, and the rule that keeps it off."
 categories = ["Programming", "AI"]
@@ -18,14 +19,6 @@ caption = "Every agent was spending from it."
 On Tuesday, November 24, none of my coding agents could merge a pull request. Not because the tests were red, and not because a reviewer had said no. They were stuck because my GitHub account had used up its GraphQL budget for the hour, and my agents talk to GitHub with tokens that count against my account. So when one job spent the budget, every agent was out of luck at the same time, and some of them reported it in a way that looked like broken code. That was a fun one to untangle.
 
 If you run more than a couple of automations against one GitHub account, I think you have the same shared budget, whether or not you've noticed it yet. I'll cover what that budget is, what was spending it, the fix I wanted that didn't work, and the five changes that did.
-
-## In brief
-
-- GitHub gives each user 5,000 GraphQL points an hour, and every token acting as that user draws from the same pool.
-- Full scans of my project board drained that pool, and merges stalled for every agent.
-- I couldn't move the board reads to a GitHub App with its own budget, because the board lives on my personal account and the App route didn't work for it.
-- So I moved the busy, repetitive calls to the REST API, which has its own separate limit, put a floor in front of the expensive scans, and added a CI check that refuses new scripts that go back to GraphQL.
-- The most useful change was small: a rate limit now exits with its own code, instead of showing up as failing checks.
 
 ## Two front doors, two budgets
 
