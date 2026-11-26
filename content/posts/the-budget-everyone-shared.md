@@ -93,7 +93,7 @@ Second, if GitHub says "rate limited," or the API errors in some other way, the 
 
 Third, the merge itself is one REST call, pinned to the exact commit the checks ran on, the newest commit on the pull request's branch. Pinning matters because if someone pushed a new commit while the checks ran, the merge refuses instead of shipping a commit that nobody checked. And the merge is the one call that must not fail when the budget is tight, so it's now a single call that spends from the other budget.
 
-There's one more small thing I like. My agents' status line now shows how much GitHub budget is left and warns when it drops below 800 points. That way an agent can check before it starts something expensive.
+There's one more small thing I like. The status command my agents run now prints one line showing how much of the GitHub budget is left, and it adds a warning when that drops below 800 points. It gets that number from the plain rate-limit endpoint, not from another board query. That way an agent can check before it starts something expensive.
 
 ## What went wrong along the way
 
