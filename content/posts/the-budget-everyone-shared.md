@@ -8,6 +8,7 @@ tags = ["AI agents", "GitHub", "rate limits", "automation", "Pattern"]
 topics = ["Tech", "AI and Agents"]
 [cover]
 image = "/images/posts/the-budget-everyone-shared-cover.png"
+social = "/images/posts/the-budget-everyone-shared-cover-social.png"
 alt = "Rows of small agent tiles, each with a thin line running into one shared gauge that is almost empty, with a greyed-out merge button beside it, standing for every agent spending from the same budget."
 caption = "Every agent was spending from it."
 +++
